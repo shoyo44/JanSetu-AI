@@ -1,19 +1,23 @@
 """
-Vertical-specific LLM response generators.
+Vertical-specific LLM response generators — India AI Fellowship Platform.
 
-Each implements BaseGenerator[T] and returns a validated Pydantic output model.
-Wired to verticals in factory.py:
-    law, startup  → RiskGenerator      → RiskOutput
-    compliance    → ComplianceGenerator → ComplianceOutput
-    hr            → FriendlyGenerator  → FriendlyOutput
-    university    → AcademicGenerator  → AcademicOutput
+Primary fellowship generators:
+    - GovernanceGenerator : Public policy, welfare schemes, Jan Suvidha summaries.
+    - JudgmentGenerator   : Court orders, binding ratio decidendi, bail jurisprudence.
+    - RiskGenerator       : Statutory law, criminal code concordance, deed covenants.
 """
+from app.generators.governance import GovernanceGenerator
+from app.generators.judgment   import JudgmentGenerator
 from app.generators.risk       import RiskGenerator
-from app.generators.compliance import ComplianceGenerator
-from app.generators.friendly   import FriendlyGenerator
-from app.generators.academic   import AcademicGenerator
+
+# Backward-compatibility aliases for legacy verticals
+ComplianceGenerator = RiskGenerator
+FriendlyGenerator   = GovernanceGenerator
+AcademicGenerator   = GovernanceGenerator
 
 __all__ = [
+    "GovernanceGenerator",
+    "JudgmentGenerator",
     "RiskGenerator",
     "ComplianceGenerator",
     "FriendlyGenerator",

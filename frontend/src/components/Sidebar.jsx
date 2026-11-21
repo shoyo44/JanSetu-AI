@@ -3,7 +3,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { MessageSquare, Files, Settings, Activity, Loader, CheckCircle2, XCircle, Clock, Sun, Moon, Menu, X, Keyboard, LogOut, ChevronUp } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { useToast } from './Toast';
-import logoUrl from '../assets/logo.png';
+import logoUrl from '../assets/jansetu-logo.svg';
 import './Sidebar.css';
 
 const Sidebar = () => {
@@ -72,8 +72,11 @@ const Sidebar = () => {
 
       <aside className={`sidebar glass-panel ${collapsed ? 'sidebar-open-mobile' : ''}`}>
         <div className="sidebar-header">
-          <img src={logoUrl} alt="DocsAI Logo" className="sidebar-logo-icon" />
-          <h2>DocsAI</h2>
+          <img src={logoUrl} alt="JanSetu AI Logo" className="sidebar-logo-icon" />
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <h2 style={{ margin: 0, fontSize: '1.2rem', lineHeight: 1.2 }}>JanSetu AI</h2>
+            <span style={{ fontSize: '0.65rem', color: '#0ea5e9', fontWeight: 700, letterSpacing: '0.5px' }}>जनसेतु · INDIAAI</span>
+          </div>
         </div>
         
         <nav className="sidebar-nav" ref={navRef}>

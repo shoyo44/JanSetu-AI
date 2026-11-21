@@ -28,9 +28,21 @@ backend/data/
 # Local sample documents and private notes
 *.pdf
 !DOCS_PROJECT_REPORT.pdf
+!sample_pdfs/*.pdf
 AI_DocQA_Implementation_Plan.md
 backend/scratch_test_auto.py
 test_upload.py
+
+# LaTeX intermediate build artifacts
+*.aux
+*.lof
+*.log
+*.lot
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
 
 # Node / frontend
 node_modules/

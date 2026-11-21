@@ -61,7 +61,7 @@ def _extract_page_tables_as_markdown(file_path: str, page_num: int) -> str:
 
 def extract_pages_native(doc: fitz.Document, file_path: str) -> List[Dict[str, Any]]:
     """
-    Extract text and layout tables from each page.
+    Extract text, layout tables, and block-level bounding boxes from each page.
     Fast and accurate for digital (non-scanned) PDFs.
     Returns pages where text extraction yielded at least 50 characters.
     """
@@ -74,15 +74,34 @@ def extract_pages_native(doc: fitz.Document, file_path: str) -> List[Dict[str, A
         if tables_md:
             text += "\n" + tables_md
 
+        # Extract text blocks with exact bounding boxes for deep-linking in UI
+        blocks = []
+        try:
+            for b in doc[i].get_text("blocks"):
+                if len(b) >= 5 and b[4].strip():
+                    blocks.append({
+                        "bbox": [round(b[0], 2), round(b[1], 2), round(b[2], 2), round(b[3], 2)],
+                        "text": b[4].strip(),
+                    })
+        except Exception:
+            pass
+
         if len(text) >= 50:
-            pages.append({"page": i + 1, "text": text, "ocr_used": False})
+            pages.append({
+                "page":     i + 1,
+                "text":     text,
+                "ocr_used": False,
+                "blocks":   blocks,
+                "width":    round(doc[i].rect.width, 2) if hasattr(doc[i], "rect") else 612.0,
+                "height":   round(doc[i].rect.height, 2) if hasattr(doc[i], "rect") else 792.0,
+            })
     return pages
 
 
 # ─── Tier 2: PyTesseract (local OCR) ─────────────────────────────────────────
 
 def _ocr_page_tesseract(page: fitz.Page) -> Optional[str]:
-    """OCR a single page with PyTesseract. Returns text or None on failure."""
+    """OCR a single page with PyTesseract (with automatic Indic language support)."""
     try:
         import pytesseract
         from PIL import Image
@@ -90,7 +109,18 @@ def _ocr_page_tesseract(page: fitz.Page) -> Optional[str]:
         mat  = fitz.Matrix(300 / 72, 300 / 72)
         pix  = page.get_pixmap(matrix=mat)
         img  = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
-        text = pytesseract.image_to_string(img, lang="eng")
+
+        # Detect installed Indic language packs dynamically (hin, tam, etc.)
+        lang_str = "eng"
+        try:
+            avail = pytesseract.get_languages()
+            extra_langs = [l for l in ("hin", "tam", "tel", "mar", "ben") if l in avail]
+            if extra_langs:
+                lang_str = "+".join(["eng"] + extra_langs)
+        except Exception:
+            pass
+
+        text = pytesseract.image_to_string(img, lang=lang_str)
         return text.strip() if len(text.strip()) >= 30 else None
     except Exception as exc:
         logger.debug("Tesseract failed page %d: %s", page.number + 1, exc)

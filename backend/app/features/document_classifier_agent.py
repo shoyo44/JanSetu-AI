@@ -36,6 +36,8 @@ logger = logging.getLogger("docqa.classifier_agent")
 
 # ── Supported verticals ───────────────────────────────────────────────────────
 VERTICALS: Dict[str, str] = {
+    "judgment":   "Indian Supreme Court / High Court judgments, case laws, bail orders, statutory rulings",
+    "governance": "Government Gazettes, welfare schemes (Yojanas), Ministry guidelines, public policies, citizen benefits",
     "law":        "Legal contracts, NDAs, terms of service, court orders, clauses",
     "university": "Academic research papers, journal articles, theses, studies",
     "startup":    "Pitch decks, venture capital docs, term sheets, investment agreements",
@@ -241,6 +243,14 @@ def _parse_llm_json(raw: str, label: str) -> dict:
 # ─────────────────────────────────────────────────────────────────────────────
 
 _KW_RULES: List[tuple] = [
+    ("judgment",   ["supreme court", "high court", "appeal", "appellant", "respondent",
+                    "petitioner", "ratio decidendi", "obiter dicta", "bail", "conviction",
+                    "judgment", "order", "insc", "scc", "air", "ipc", "bns", "crpc",
+                    "constitution of india", "article 21", "article 226", "article 32"]),
+    ("governance", ["gazette", "notification", "ministry of", "yojana", "scheme", "pradhan mantri",
+                    "pm-kisan", "ayushman bharat", "pmay", "mgnrega", "beneficiary",
+                    "eligibility criteria", "direct benefit transfer", "dbt", "ration card",
+                    "aadhaar", "gram panchayat", "government order", "nodal officer", "welfare"]),
     ("compliance", ["gdpr", "iso", "audit", "regulation", "regulatory", "compliance",
                     "sox", "hipaa", "pci", "nist", "standard", "framework", "policy",
                     "data protection", "certif"]),

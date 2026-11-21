@@ -79,6 +79,14 @@ def parse_json_response(raw: Any) -> Dict[str, Any]:
         except json.JSONDecodeError:
             pass
 
+    # Resilient fallback for truncated JSON: extract "answer" field directly if available
+    ans_match = re.search(r'"answer"\s*:\s*"([^"\\]*(?:\\.[^"\\]*)*)', text)
+    if ans_match:
+        ans_text = ans_match.group(1).replace("\\n", "\n").replace('\\"', '"').strip()
+        if ans_text:
+            logger.info("parse_json_response: successfully recovered partial answer from truncated JSON")
+            return {"answer": ans_text, "confidence": "MEDIUM"}
+
     logger.warning("parse_json_response: could not parse LLM output as JSON. Raw: %s", raw[:200])
     raise ValueError(f"Invalid JSON from LLM: {raw[:100]}")
 

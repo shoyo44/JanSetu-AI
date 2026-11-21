@@ -16,6 +16,7 @@ import uuid
 from typing import Any, Dict, List, Optional
 
 import asyncio
+from app.core.doc_injection_scanner import scan_document_chunks
 
 logger    = logging.getLogger("docqa.ingestion")
 
@@ -151,44 +152,68 @@ async def ingest_document(
     doc_id     = doc_id or str(uuid.uuid4())
     display_name = doc_name_full or doc_name
 
-    # ── 1. Batch embed all chunk texts ────────────────────────────────────────
-    texts      = [c["text"] for c in chunks]
-    embeddings = await embed_texts(texts, cf_client)
+    # ── 1. Security Scan: Document-Level Indirect Prompt Injection Check ─────
+    safe_chunks, quarantined_chunks, scan_summary = scan_document_chunks(chunks)
 
-    # ── 2. Build chunk records (assign IDs, inject embeddings + doc_name) ─────
+    # ── 2. Batch embed only verified safe chunks (quarantined are isolated) ──
+    safe_texts = [c["text"] for c in safe_chunks]
+    embeddings = await embed_texts(safe_texts, cf_client)
+
+    # ── 3. Build chunk records (assign IDs, inject embeddings + doc_name) ─────
     chunk_records: List[Dict[str, Any]] = []
     all_entity_rows: List[Dict[str, str]] = []
 
-    for i, (chunk, embedding) in enumerate(zip(chunks, embeddings)):
+    # Safe chunks: embedded and indexed
+    for i, (chunk, embedding) in enumerate(zip(safe_chunks, embeddings)):
         chunk_id = str(uuid.uuid4())
         record   = {
             **chunk,
-            "id":        chunk_id,
-            "doc_id":    doc_id,
-            "doc_name":  display_name,
-            "tenant_id": tenant_id,
-            "order":     i,
-            "embedding": embedding,
+            "id":          chunk_id,
+            "doc_id":      doc_id,
+            "doc_name":    display_name,
+            "tenant_id":   tenant_id,
+            "order":       i,
+            "embedding":   embedding,
+            "quarantined": False,
         }
         chunk_records.append(record)
 
-    # ── 3. NER — run spaCy in thread pool (CPU-heavy, must not block event loop) ──
-    logger.info("Running NER on %d chunks...", len(chunk_records))
+    # Quarantined chunks: stored for security audit trail, NOT embedded in FAISS
+    safe_count = len(chunk_records)
+    for j, q_chunk in enumerate(quarantined_chunks):
+        chunk_id = str(uuid.uuid4())
+        record   = {
+            **q_chunk,
+            "id":          chunk_id,
+            "doc_id":      doc_id,
+            "doc_name":    display_name,
+            "tenant_id":   tenant_id,
+            "order":       safe_count + j,
+            "embedding":   None,
+            "quarantined": True,
+            "injected":    True,
+        }
+        chunk_records.append(record)
+
+    # ── 4. NER — run spaCy only on safe chunks (CPU-heavy, must not block event loop) ──
+    logger.info("Running NER on %d safe chunks...", len(safe_chunks))
 
     async def _ner_chunk(record: Dict[str, Any]) -> List[Dict[str, str]]:
+        if record.get("quarantined"):
+            return []
         ents = await asyncio.to_thread(_extract_entities, record["text"])
         return [{"chunk_id": record["id"], **e} for e in ents]
 
-    ner_results = await asyncio.gather(*[_ner_chunk(r) for r in chunk_records])
+    ner_results = await asyncio.gather(*[_ner_chunk(r) for r in chunk_records if not r.get("quarantined")])
     for ents in ner_results:
         all_entity_rows.extend(ents)
 
-    # ── 4. Write to GraphStore ────────────────────────────────────────────────
+    # ── 5. Write to GraphStore ────────────────────────────────────────────────
 
-    # 4a. Upsert tenant
+    # 5a. Upsert tenant
     store.upsert_tenant(tenant_id, vertical)
 
-    # 4b. Create document node
+    # 5b. Create document node with security metadata
     store.create_document(
         tenant_id=tenant_id,
         doc_id=doc_id,
@@ -197,18 +222,19 @@ async def ingest_document(
         vertical=vertical,
     )
 
-    # 4c. Create all chunks in batch
+    # 5c. Create all chunks in batch (quarantined chunks stored with quarantined=True)
     store.create_chunks_batch(chunk_records)
 
-    # 4d. NEXT_CHUNK chain
-    if len(chunk_records) > 1:
+    # 5d. NEXT_CHUNK chain (link only safe sequential chunks)
+    safe_records = [r for r in chunk_records if not r.get("quarantined")]
+    if len(safe_records) > 1:
         pairs = [
-            {"a": chunk_records[i]["id"], "b": chunk_records[i + 1]["id"]}
-            for i in range(len(chunk_records) - 1)
+            {"a": safe_records[i]["id"], "b": safe_records[i + 1]["id"]}
+            for i in range(len(safe_records) - 1)
         ]
         store.create_next_chunk_chain(pairs)
 
-    # 4e. Entity MENTIONS in batch
+    # 5e. Entity MENTIONS in batch
     if all_entity_rows:
         entity_params = [
             {
@@ -222,13 +248,16 @@ async def ingest_document(
 
     unique_entities = len({e["canonical_name"] for e in all_entity_rows})
     logger.info(
-        "Ingested '%s' → doc_id=%s | %d chunks | %d entities",
-        doc_name, doc_id, len(chunk_records), unique_entities,
+        "Ingested '%s' → doc_id=%s | %d safe chunks | %d quarantined | %d entities",
+        doc_name, doc_id, len(safe_chunks), len(quarantined_chunks), unique_entities,
     )
     return {
-        "doc_id":             doc_id,
-        "chunks_created":     len(chunk_records),
-        "entities_extracted": unique_entities,
+        "doc_id":              doc_id,
+        "chunks_created":      len(chunk_records),
+        "safe_chunks":         len(safe_chunks),
+        "quarantined_chunks":  len(quarantined_chunks),
+        "security_scan":       scan_summary,
+        "entities_extracted":  unique_entities,
     }
 
 

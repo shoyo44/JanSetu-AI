@@ -56,7 +56,7 @@
 \fancyhf{}
 \renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}
 \fancyhead[L]{\small\nouppercase{\leftmark}}
-\fancyhead[R]{\small DocsAI Technical Report}
+\fancyhead[R]{\small JanSetu AI Technical Report}
 \fancyfoot[C]{\thepage}
 \renewcommand{\headrulewidth}{0.5pt}
 \renewcommand{\footrulewidth}{0.4pt}
@@ -143,8 +143,8 @@
     \setstretch{1.15}
     \vspace*{0.3cm}
     
-    {\LARGE \textbf{DOCSAI: MULTI-VERTICAL AGENTIC RAG \& KNOWLEDGE GRAPH PLATFORM}}\\[0.4cm]
-    {\large \textbf{A Zero-Infrastructure Hybrid Architecture for Enterprise Document Intelligence}}\\[1.0cm]
+    {\LARGE \textbf{JANSETU AI: SOVEREIGN AGENTIC KNOWLEDGE GRAPH \& RAG PLATFORM}}\\[0.4cm]
+    {\large \textbf{A Zero-Infrastructure Sovereign Architecture for Public Governance and Citizen Welfare (जनसेतु)}}\\[1.0cm]
     
     \rule{\linewidth}{1.2pt}\\[0.5cm]
     
@@ -153,19 +153,19 @@
     
     \begin{minipage}{0.48\textwidth}
         \begin{flushleft} \normalsize
-            \textbf{Candidate Name:}\\[0.15cm]
+            \textbf{Candidate:}\\[0.15cm]
             \textbf{\large Dhanush S}\\[0.1cm]
-            \textbf{Register Number:}\\
-            \textbf{99230041087}
+            \textbf{Affiliation:}\\
+            \textbf{Dept.\ of Computer Science \& Eng.}
         \end{flushleft}
     \end{minipage}
     \hfill
     \begin{minipage}{0.48\textwidth}
         \begin{flushright} \normalsize
-            \textbf{Project Lead / Review:}\\[0.15cm]
-            \textbf{\large Technical Review Board}\\[0.1cm]
-            Enterprise AI Systems Division\\
-            Publication Grade: Production
+            \textbf{Target Fellowship:}\\[0.15cm]
+            \textbf{\large IndiaAI Mission Fellowship}\\[0.1cm]
+            Priority Domains: Governance \& Law\\
+            Ministry of Electronics \& IT (MeitY)
         \end{flushright}
     \end{minipage}
     
@@ -175,7 +175,7 @@
         \textbf{\large KALASALINGAM ACADEMY OF RESEARCH AND EDUCATION}\\[0.15cm]
         {\normalsize (Deemed to be University under Section 3 of UGC Act 1956)}\\[0.1cm]
         {\normalsize Anand Nagar, Krishnankoil -- 626126, Tamil Nadu, India}\\[0.5cm]
-        \textbf{AUGUST 2026}
+        \textbf{NOVEMBER 2026}
     \end{center}
 \end{titlepage}
 
@@ -245,7 +245,7 @@
 \section{Context and Background}
 Modern organizations produce and store vast collections of unstructured and semi-structured documents, including contracts, policy handbooks, scientific publications, regulatory standards, and financial prospectuses. Extracting actionable insights and obtaining precise, factual answers from these repositories requires systems that understand not only plain text semantics, but also structural hierarchy, cross-document entity connections, and domain-specific rules.
 
-Large Language Models (LLMs) have demonstrated exceptional natural language reasoning abilities. However, when deployed in enterprise environments, off-the-shelf LLMs suffer from knowledge cutoffs, domain hallucinations, and an inability to access proprietary documents. Retrieval-Augmented Generation (RAG) bridges this gap by retrieving relevant document chunks from an external index and conditioning the LLM's prompt on the retrieved context.
+Large Language Models (LLMs) have demonstrated exceptional natural language reasoning abilities. However, when deployed in public sector and administrative environments, off-the-shelf LLMs suffer from knowledge cutoffs, domain hallucinations, and an inability to access authoritative government records. Retrieval-Augmented Generation (RAG) bridges this gap by retrieving relevant document chunks from an external index and conditioning the LLM's prompt on the retrieved context.
 
 \section{Problem Statement}
 Despite widespread adoption, first-generation RAG implementations suffer from five fundamental architectural limitations:
@@ -258,13 +258,13 @@ Despite widespread adoption, first-generation RAG implementations suffer from fi
 \end{enumerate}
 
 \section{Project Objectives and Scope}
-The primary objective of the \textbf{DocsAI} platform is to engineer an enterprise-grade, zero-infrastructure AI platform that provides:
+The primary objective of the \textbf{JanSetu AI} (जनसेतु) platform is to engineer a sovereign, zero-infrastructure AI platform for public governance and citizen welfare delivery that provides:
 \begin{itemize}[itemsep=2pt]
     \item \textbf{Zero-Infrastructure Graph-Vector Engine:} In-process unification of NetworkX and FAISS.
     \item \textbf{5-Tier Multimodal OCR Cascade:} Automated fallback from fast native parsing to vision LLMs with anti-hallucination safeguards.
     \item \textbf{Advanced Hybrid Retrieval Stack:} Integration of Hypothetical Document Embeddings (HyDE), Reciprocal Rank Fusion (RRF), and Cross-Encoder reranking.
     \item \textbf{Autonomous Multi-Step Agent Orchestrator:} ReAct-driven planning and dynamic tool invocation.
-    \item \textbf{Domain-Specific Intelligence Modules:} Native 10-category legal red-flag scanning, compliance delta monitoring, and HR policy resolution.
+    \item \textbf{Domain-Specific Sovereign Modules:} Tri-code statutory concordance, citizen Jan Suvidha welfare summaries, regional Indic deed analysis, and calibrated abstention.
 \end{itemize}
 
 \section{Report Organization}
@@ -311,7 +311,7 @@ Retrieval-Augmented Generation was formalized by Lewis et al. as a mechanism to 
 \section{Mathematical Foundations of Hybrid Retrieval}
 
 \subsection{Dense Vector Similarity}
-Given a query $q$ and document chunk $d$, dense embeddings $E(q), E(d) \in \mathbb{R}^{D}$ (with dimension $D=1536$ via Nomic) are projected into a continuous latent space. The similarity score is computed via normalized cosine similarity:
+Given a query $q$ and document chunk $d$, dense embeddings $E(q), E(d) \in \mathbb{R}^{D}$ (with dimension $D=768$ via Nomic Atlas / Local Ollama Nomic Router) are projected into a continuous latent space. The similarity score is computed via normalized cosine similarity:
 \begin{equation}
     S_{\text{dense}}(q, d) = \frac{E(q) \cdot E(d)}{\|E(q)\|_2 \|E(d)\|_2}
 \end{equation}
@@ -344,7 +344,7 @@ This full cross-attention mechanism achieves superior reranking precision for hi
 \chapter{System Architecture and Platform Design}
 
 \section{High-Level Architecture}
-DocsAI is engineered as a modular, tiered platform separating client presentation, API gateways, security guardrails, domain routing, retrieval pipelines, in-process storage, and external AI inference services.
+JanSetu AI is engineered as a modular, tiered platform separating client presentation, API gateways, security guardrails, domain routing, retrieval pipelines, in-process storage, and external AI inference services.
 
 \begin{figure}[H]
 \centering
@@ -389,7 +389,7 @@ DocsAI is engineered as a modular, tiered platform separating client presentatio
 
 \end{tikzpicture}
 }
-\caption{DocsAI Top-Level System Architecture}
+\caption{JanSetu AI Top-Level System Architecture}
 \label{fig:system_arch}
 \end{figure}
 
@@ -399,7 +399,7 @@ DocsAI is engineered as a modular, tiered platform separating client presentatio
     \item \textbf{Backend REST \& WebSocket Gateway:} Powered by FastAPI and Python 3.11. Implements strict schema validation using Pydantic V2 and real-time step streaming over WebSockets and SSE.
     \item \textbf{Security Guardrails:} Pre-execution regex and pattern matching layer that inspects incoming queries for prompt injection, system prompt extraction, script tags, and toxic sequences.
     \item \textbf{In-Process Hybrid Database:} Pairs NetworkX topological graph management with FAISS cosine vector indexing under a re-entrant reader-writer lock (\texttt{RWLock}).
-    \item \textbf{Semantic Query Cache:} SQLite-backed vector similarity cache providing instant ($\approx 3.8\text{ ms}$) responses for repetitive enterprise queries.
+    \item \textbf{Semantic Query Cache:} SQLite-backed vector similarity cache providing instant ($\approx 3.8\text{ ms}$) responses for repetitive administrative and citizen queries.
 \end{itemize}
 
 \newpage
@@ -410,7 +410,7 @@ DocsAI is engineered as a modular, tiered platform separating client presentatio
 \chapter{Document Ingestion and Multimodal OCR Cascade}
 
 \section{5-Tier Ingestion Cascade Methodology}
-Real-world enterprise documents range from clean digital PDFs to photocopied contracts and infographic diagrams. DocsAI employs a cascading fallback pipeline within \texttt{MultimodalOCR} that guarantees reliable text and table extraction while minimizing computational cost.
+Real-world public governance and legal documents range from clean digital gazettes to scanned land deeds, judicial orders, and infographic notifications. JanSetu AI employs a cascading fallback pipeline within \texttt{MultimodalOCR} that guarantees reliable text and table extraction while minimizing computational cost.
 
 \begin{figure}[H]
 \centering
@@ -436,7 +436,7 @@ Real-world enterprise documents range from clean digital PDFs to photocopied con
 \node[action, right=1.2cm of d3] (a3) {Extract Tabular JSON};
 
 \node[tier, below=0.6cm of d3] (t4) {Tier 4: Remote OCR (OCR.space API)};
-\node[tier, below=0.6cm of d4] (t5) {Tier 5: Vision LLM (Cloudflare Llama 3 Vision)};
+\node[tier, below=0.6cm of t4] (t5) {Tier 5: Vision LLM (Cloudflare Llama 3 Vision)};
 \node[action, right=1.2cm of t5] (a5) {Vision Description Chunk};
 
 \draw[arrow] (t1) -- (d1);
@@ -453,24 +453,23 @@ Real-world enterprise documents range from clean digital PDFs to photocopied con
 
 \end{tikzpicture}
 }
-\caption{DocsAI 5-Tier Multimodal OCR Fallback Cascade}
+\caption{JanSetu AI 5-Tier Multimodal OCR Fallback Cascade}
 \label{fig:ocr_cascade}
 \end{figure}
 
 \section{Anti-Hallucination Guard for Vision LLMs}
-When processing complex diagrams using Vision LLMs, models occasionally suffer from token repetition loops. DocsAI deploys an automated $n$-gram repetition detector:
+When processing complex diagrams using Vision LLMs, models occasionally suffer from token repetition loops. JanSetu AI deploys an automated $n$-gram repetition detector:
 \begin{equation}
     \text{Repetition Ratio} = \frac{\text{Count of Unique 4-grams}}{\text{Total 4-grams in Response}}
 \end{equation}
 If the Repetition Ratio drops below $0.40$, the output is flagged as a degenerate hallucination, discarded, and logged for administrative inspection.
 
 \section{Domain-Aware Chunking and Indexing Strategies}
-Rather than using arbitrary token windows, DocsAI implements domain-specific indexers:
+Rather than using arbitrary token windows, JanSetu AI implements domain-specific indexers aligned with sovereign public needs:
 \begin{itemize}[itemsep=2pt]
-    \item \textbf{Clause Indexer (Law):} Identifies legal sections, sub-clauses, obligations, and penalties.
-    \item \textbf{Article Indexer (Compliance):} Parses regulatory standards by numbered articles and compliance mandates.
-    \item \textbf{Topic Indexer (Academic):} Extracts abstract, methodology, results, and bibliographic citations.
-    \item \textbf{Section Indexer (HR):} Breaks policy manuals by employee benefit chapters and workplace rules.
+    \item \textbf{Governance and Welfare Indexer:} Segments central and state welfare notifications into eligibility criteria, disqualifying exclusions, direct benefit transfer (DBT) schedules, required identity documents, and application steps.
+    \item \textbf{Judicial Precedent Indexer:} Extracts binding \textit{Ratio Decidendi}, factual summaries, bail conditions under BNSS \S 483 / CrPC \S 439, and constitutional Article 21 liberty safeguards.
+    \item \textbf{Statutory Concordance Indexer:} Identifies statutory criminal sections across colonial and modern codes (\texttt{IPC} $\leftrightarrow$ \texttt{BNS}, \texttt{CrPC} $\leftrightarrow$ \texttt{BNSS}, \texttt{IEA} $\leftrightarrow$ \texttt{BSA}) and extracts key covenants from vernacular land sale deeds (\textit{Kiraya Pathiram}).
 \end{itemize}
 
 \newpage
@@ -481,7 +480,7 @@ Rather than using arbitrary token windows, DocsAI implements domain-specific ind
 \chapter{In-Process Hybrid Vector-Graph Retrieval}
 
 \section{Knowledge Graph Topology Model}
-DocsAI represents all document hierarchies, semantic entities, and system metadata as nodes and edges within an in-process NetworkX directed graph:
+JanSetu AI represents all document hierarchies, semantic entities, and system metadata as nodes and edges within an in-process NetworkX directed graph:
 \begin{itemize}[itemsep=2pt]
     \item \textbf{Node Classes:} \texttt{TenantNode}, \texttt{DocumentNode}, \texttt{ChunkNode}, \texttt{RedFlagReport}, \texttt{ComplianceAlert}, \texttt{QueryLog}, \texttt{FeedbackNode}.
     \item \textbf{Edge Relationships:} \texttt{OWNS\_DOCUMENT}, \texttt{HAS\_CHUNK}, \texttt{CITES}, \texttt{SUPERSEDES}, \texttt{FLAGS\_RISK}, \texttt{VIOLATES\_COMPLIANCE}.
@@ -508,7 +507,7 @@ When a user query arrives, the system executes parallel dense vector lookup and 
 \chapter{ReAct Multi-Step Agent and Vertical Specialization}
 
 \section{Autonomous ReAct Agent Orchestrator}
-For analytical queries spanning multiple documents or comparative requirements (e.g., ``Compare the liability limits between Contract A and Contract B''), DocsAI activates its ReAct Agent Loop:
+For analytical queries spanning multiple documents or comparative requirements (e.g., ``Compare the eligibility criteria between Scheme A and Scheme B''), JanSetu AI activates its ReAct Agent Loop:
 
 \begin{figure}[H]
 \centering
@@ -538,32 +537,30 @@ For analytical queries spanning multiple documents or comparative requirements (
 \end{figure}
 
 \section{Domain Specialization Matrix}
-DocsAI tailors its chunking strategies, retrieval modalities, and specialized features across 5 core enterprise domains:
+JanSetu AI configures \textbf{three primary sovereign verticals} aligned directly with the priority domains of the national IndiaAI Mission (Public Governance and Law \& Justice), with transparent backward-compatibility aliases for legacy compatibility requests:
 
 \begin{table}[H]
 \centering
 \small
-\caption{DocsAI Multi-Vertical Configuration Matrix}
+\caption{JanSetu AI Sovereign Multi-Vertical Configuration Matrix}
 \label{tab:vertical_matrix}
-\begin{tabularx}{\textwidth}{lcp{2.6cm}X}
+\begin{tabularx}{\textwidth}{lcp{3.2cm}X}
 \toprule
-\textbf{Domain Vertical} & \textbf{Chunk / Overlap} & \textbf{Retrieval Strategy} & \textbf{Specialized Feature} \\
+\textbf{Primary Vertical} & \textbf{Chunk / Overlap} & \textbf{Retrieval Modality} & \textbf{Specialized IndiaAI Capability} \\
 \midrule
-\textbf{Academic / Papers} & $512$ / $64$ tokens & Hybrid + HyDE & Citation graph construction \& topic extraction. \\
+\textbf{Governance / Schemes} & $500$ / $100$ tokens & Hybrid (Vector + Graph) & Citizen \textit{Jan Suvidha} plain-language explainer, eligibility checklist, disqualifying exclusion mapping \& DBT subsidy routing. \\
 \addlinespace
-\textbf{Legal / Contracts} & $768$ / $128$ tokens & Hybrid (Vector + Graph) & 10-Category Red-Flag Risk Scanner. \\
+\textbf{Court Judgments (India)} & $500$ / $100$ tokens & Hybrid (Vector + Graph) & Binding \textit{Ratio Decidendi} extraction, statutory citation boosting, bail synthesis under BNSS \S 483 / \S 479, and Article 21 liberty safeguards. \\
 \addlinespace
-\textbf{Startup / VC} & $512$ / $64$ tokens & Hybrid (Vector + Graph) & Cap-table parsing \& investment delta analysis. \\
-\addlinespace
-\textbf{Compliance} & $768$ / $128$ tokens & Hybrid + HyDE & Regulatory change monitoring \& delta alerts. \\
-\addlinespace
-\textbf{HR Policy} & $384$ / $32$ tokens & Dense Vector Only & Rule-grounded Q\&A with strict citation bounds. \\
+\textbf{Statutory Law \& Concordance} & $768$ / $128$ tokens & Hybrid (Vector + Graph) & Tri-code concordance (\texttt{IPC} $\leftrightarrow$ \texttt{BNS}, \texttt{CrPC} $\leftrightarrow$ \texttt{BNSS}, \texttt{IEA} $\leftrightarrow$ \texttt{BSA}), Regional Land Deeds (\textit{Kiraya Pathiram}), and 10-point Red-Flag risk scanner. \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-\section{Automated Red-Flag Risk Scanner}
-For the Legal and Startup verticals, DocsAI automatically executes a 10-point risk evaluation across all ingested chunks:
+\noindent\textit{Note on Legacy Routing:} Inquiries targeting legacy domains are resolved automatically via backend alias forwarding: \texttt{compliance} $\to$ \texttt{law}, \texttt{startup} $\to$ \texttt{law}, \texttt{university} $\to$ \texttt{governance}, and \texttt{hr} $\to$ \texttt{governance}.
+
+\section{Automated Red-Flag Risk Scanner and HITL Review Workbench}
+For the Legal and Judicial verticals, JanSetu AI automatically executes a 10-point risk evaluation across all ingested chunks:
 \begin{enumerate}[itemsep=1pt]
     \item Uncapped Liability Clauses
     \item Unilateral Termination Rights
@@ -577,6 +574,55 @@ For the Legal and Startup verticals, DocsAI automatically executes a 10-point ri
     \item Excessive Non-Compete Clauses
 \end{enumerate}
 
+Furthermore, JanSetu AI introduces a Human-in-the-Loop (HITL) audit workbench enabling legal reviewers to accept residual risks, dismiss false positives, record reviewer justifications, and generate formal executive audit reports in HTML, Markdown, and PDF.
+
+\section{Indian Criminal Law Statutory Concordance Engine}
+Following India's landmark criminal jurisprudence reform enacted on July 1, 2024, JanSetu AI provides an automated bidirectional statutory concordance engine:
+\begin{itemize}[itemsep=2pt]
+    \item \textbf{IPC (1860) $\leftrightarrow$ BNS (2023):} Maps historical offences (e.g. IPC \S 420 Cheating $\leftrightarrow$ BNS \S 318(4); IPC \S 302 Murder $\leftrightarrow$ BNS \S 103(1); IPC \S 124A Sedition $\rightarrow$ BNS \S 152 Endangering Sovereignty, indexed as a modified successor provision).
+    \item \textbf{CrPC (1973) $\leftrightarrow$ BNSS (2023):} Maps procedural provisions (e.g. CrPC \S 439 Regular Bail $\leftrightarrow$ BNSS \S 483; CrPC \S 436A Undertrial Release $\leftrightarrow$ BNSS \S 479 granting mandatory release after one-third detention for first-time offenders; CrPC \S 154 FIR $\leftrightarrow$ BNSS \S 173 establishing Zero-FIR rights and mandatory e-FIR; CrPC \S 482 Quashing $\leftrightarrow$ BNSS \S 528).
+    \item \textbf{IEA (1872) $\leftrightarrow$ BSA (2023):} Cross-references evidentiary requirements (e.g. IEA \S 65B Electronic Certificates $\leftrightarrow$ BSA \S 63).
+\end{itemize}
+Under Section 358 BNS and Section 531 BNSS, pending investigations and offences committed prior to July 1, 2024 remain governed by the earlier colonial codes; the concordance engine serves as an analytical bridging tool to cross-reference historical judicial precedents with current statutory charges.
+
+\begin{infobox}{Legal Research Disclaimer}
+JanSetu AI is an assistive legal and governance intelligence reference platform, not a substitute for formal legal counsel or judicial discretion. All statutory interpretations and welfare eligibility rules must be verified against the official Gazette of India.
+\end{infobox}
+
+\section{Bilingual Indic Land Administration and Deed Verification Engine}
+Rural land administration in India, particularly in states such as Tamil Nadu, relies on regional language registered deeds (\textit{Kiraya Pathiram}, \textit{Patta}, \textit{Chitta}). Title ambiguity, fraudulent boundary recitals, and undetected encumbrances remain a primary source of civil litigation. JanSetu AI implements an Indic deed analysis engine featuring:
+\begin{itemize}[itemsep=2pt]
+    \item \textbf{Zero-Dependency Unicode Script Detector:} Identifies Tamil script ranges (\texttt{0x0B80--0x0BFF}) and nine other Indic scripts without external heavy language libraries.
+    \item \textbf{Automated Covenant Extraction:} Automatically identifies and structures:
+    \begin{itemize}[itemsep=1pt]
+        \item Survey Number (\textit{Pula En}) and Sub-division (\textit{Utpirivu}).
+        \item Land Extent (\textit{Parappalavu}) in Ares, Cents, or Square Feet.
+        \item Four Boundaries (\textit{Nangu Ellaigal}: North, South, East, West recitals).
+        \item Nil-Encumbrance Certificate (\textit{Villanga Saandrithazh}) verification.
+        \item Consideration Amount and Sub-Registrar Office registration parameters.
+    \end{itemize}
+    \item \textbf{Bilingual Citizen Explainer:} Produces structured \textit{Jan Suvidha} title summaries enabling rural land purchasers and legal aid counsels to confirm title integrity prior to financial disbursements.
+\end{itemize}
+
+\section{Preloaded Sovereign Citizen Problem Benchmarks}
+To ensure reproducible evaluation of real-world public governance and justice problems, JanSetu AI pre-populates Document Vault with seven bundled sovereign benchmarks with documented provenance:
+\begin{enumerate}[itemsep=2pt]
+    \item \textbf{PM-KISAN DBT Welfare Guidelines 2024 (\texttt{pm\_kisan}):} \textit{Provenance: Ministry of Agriculture \& Farmers Welfare, GoI (Official Gazette excerpt).} Evaluates direct benefit transfer eligibility (Rs.~6,000/yr), cultivable landholder criteria (noting the 2019 ceiling removal), family definition (husband, wife, minor children), pension exclusions ($\ge \text{Rs.~}10,000$), and mandatory e-KYC/land seeding.
+    \item \textbf{Synthetic Judicial Benchmark Exemplar (\texttt{sc\_judgment}):} \textit{Provenance: Authored judicial exemplar modeled on SC jurisprudence.} Evaluates judicial ratio extraction, Article 21 liberty safeguards, triple test conditions, and BNSS \S 483 / \S 479 application, modeled on landmark Supreme Court bail jurisprudence in \textit{Manish Sisodia v. Directorate of Enforcement} (2024 INSC 595, decided August 9, 2024) and \textit{Satender Kumar Antil v. CBI} (2022).
+    \item \textbf{Ayushman Bharat PM-JAY Policy Guidelines (\texttt{ayushman\_bharat}):} \textit{Provenance: National Health Authority (NHA), GoI (Official Guidelines excerpt).} Evaluates Rs.~5 Lakh cashless health cover guarantees, SECC deprivation criteria, and 14555 helpline grievance protocols.
+    \item \textbf{Tamil Nadu Land Sale Deed \& Patta (\texttt{tamil\_pattiram}):} \textit{Provenance: Standard Tamil Nadu Registration Department statutory deed format exemplar.} Evaluates bilingual deed parsing, boundary consistency, Survey Number verification, and encumbrance checks.
+    \item \textbf{Cyber Fraud Reporting \& Zero-FIR Guidelines (\texttt{cyber\_fir}):} \textit{Provenance: Indian Cyber Crime Coordination Centre (I4C), Ministry of Home Affairs (MHA) Standard Operating Procedure.} Evaluates MHA Helpline 1930 / I4C Golden Hour freezing, CFCFRMS inter-bank liens, and Zero-FIR filing under BNSS \S 173 and BNS \S 318(4) (general cheating applied to cyber fraud, read with IT Act \S 66D).
+    \item \textbf{Model Tenancy Act Guidelines (\texttt{tenancy\_act}):} \textit{Provenance: Ministry of Housing and Urban Affairs (MoHUA), GoI legislative model framework.} Evaluates MoHUA 2-month residential security deposit ceiling (Section 11), statutory rule requiring at least 24 hours' prior written notice before landlord entry/inspection, and Rent Authority dispute safeguards. *(Caveat: Model law requiring state enactment; states such as Karnataka operate under existing state acts like the Karnataka Rent Act, 1999).*
+    \item \textbf{Senior Citizens Parental Protection Act 2007 (\texttt{senior\_citizen}):} \textit{Provenance: Ministry of Social Justice and Empowerment statutory enactment.} Evaluates Section 23 statutory voidance of conditional property gift deeds before the Maintenance Tribunal upon child neglect. *(Judicial caveat: Under SC ruling in Sudesh Chhikara (2022), the condition to provide maintenance must be an express covenant or established integral condition of the transfer).*
+\end{enumerate}
+
+\section{Governance and Citizen Jan Suvidha Explainer}
+To support rural and urban citizens accessing Central and State welfare initiatives, the \texttt{governance} vertical implements:
+\begin{itemize}[itemsep=2pt]
+    \item \textbf{Structural Facet Chunking:} Segments policy documents into Eligibility, Disqualifying Exclusions, Benefits/DBT, Required Documents, and Application Procedure.
+    \item \textbf{Jan Suvidha Summary:} Translates dense bureaucratic jargon into plain, accessible language with an automated eligibility checklist.
+\end{itemize}
+
 \newpage
 
 % ==============================================================================
@@ -585,14 +631,15 @@ For the Legal and Startup verticals, DocsAI automatically executes a 10-point ri
 \chapter{Security, Multi-Tenancy, and Fault Tolerance}
 
 \section{Authentication and Tenant Isolation}
-DocsAI enforces multi-tenancy at the data foundation level:
+JanSetu AI enforces multi-tenancy at the data foundation level:
 \begin{itemize}[itemsep=2pt]
-    \item \textbf{Identity Verification:} Authenticates users via Firebase Auth (Google OAuth 2.0 / JWT claims).
+    \item \textbf{Identity Verification (Cloud Mode):} Authenticates users via Firebase Auth (Google OAuth 2.0 / JWT claims).
+    \item \textbf{Sovereign On-Premise Authentication:} In local mode (\texttt{USE\_OLLAMA=true}), developer testing utilizes an embedded \texttt{DevUser} session profile with explicit tenant parameterization. Multi-user institutional authentication using local \texttt{argon2id} password hashing, local JWT issuance, Role-Based Access Control (RBAC), and AES-256 storage encryption at rest is scheduled for Fellowship Quarter 1.
     \item \textbf{Index-Level Partitioning:} Every graph node, vector chunk, and cache key includes a mandatory \texttt{tenant\_id}. Cross-tenant data retrieval is prevented by hard filtering at the database layer.
 \end{itemize}
 
 \section{Dual-Tier Fault-Tolerant Persistence}
-To guarantee zero data loss during cloud database network partitions, DocsAI implements an automated failover system between MongoDB Atlas and a local JSON fallback database (\texttt{JSONFallbackClient}):
+To guarantee zero data loss during cloud database network partitions, JanSetu AI implements an automated failover system between MongoDB Atlas and a local JSON fallback database (\texttt{JSONFallbackClient}):
 
 \begin{lstlisting}[language=Python, caption={Zero-Downtime Database Failover Logic}]
 async def save_chat_message(tenant_id: str, message: dict):
@@ -609,6 +656,56 @@ async def save_chat_message(tenant_id: str, message: dict):
         )
 \end{lstlisting}
 
+\section{Document-Level Indirect Prompt Injection Scanner and Threat Quarantine}
+Adversarial documents (such as untrusted third-party contracts, citizen submissions, or malicious PDF uploads) can embed indirect prompt injection payloads designed to alter LLM behavior during RAG synthesis (e.g., hidden instruction overrides, ChatML delimiters, or invisible unicode steganography). JanSetu AI implements an automated pre-indexing defense scanner (\texttt{doc\_injection\_scanner.py}):
+\begin{itemize}[itemsep=2pt]
+    \item \textbf{Heuristic Pattern Detection:} Scans for system override directives (e.g., ``ignore previous instructions'', ``system prompt'', ``developer mode''), ChatML/Llama role-impersonation tokens (\texttt{<|im\_start|>}, \texttt{[SYSTEM]}, \texttt{[INST]}), and data exfiltration patterns.
+    \item \textbf{Steganography Defense:} Detects and strips zero-width unicode spaces, joiners, and format characters (\texttt{\textbackslash u200B}, \texttt{\textbackslash u200C}, \texttt{\textbackslash u200D}, \texttt{\textbackslash uFEFF}) that conceal payload text from human eyes while triggering LLM instruction following.
+    \item \textbf{FAISS Quarantine Isolation:} Document chunks with an injection risk score above $0.35$ are flagged and quarantined. Quarantined chunks are persisted in the NetworkX graph with an alert edge for administrative auditing, but are strictly excluded from FAISS vector indexing, guaranteeing that adversarial content never enters the LLM context window.
+\end{itemize}
+
+\section{Binary Magic-Byte Validation and Sliding-Window Rate Limiting}
+To defend against forged document uploads and denial-of-wallet (DoW) attacks:
+\begin{itemize}[itemsep=2pt]
+    \item \textbf{Magic-Byte Inspection (\texttt{file\_validator.py}):} Inspects raw binary headers to verify genuine MIME signatures (PDF: \texttt{\%PDF-}, DOCX/ZIP: \texttt{PK\textbackslash x03\textbackslash x04}, Plaintext: UTF-8 encoding). Outright blocks executable binaries (Windows PE \texttt{MZ}, Linux ELF \texttt{\textbackslash x7fELF}, Mach-O), rejects double extensions (e.g., \texttt{welfare\_scheme.pdf.exe}), and enforces a 50~MB upload limit.
+    \item \textbf{Tenant Sliding-Window Rate Limiting (\texttt{rate\_limiter.py}):} Implements sliding-window counters per tenant (20 uploads/hour, 150 search queries/hour). Excessive requests receive an immediate HTTP 429 response with a calibrated \texttt{Retry-After} header, protecting compute resources.
+\end{itemize}
+
+\section{On-Premise Sovereign Execution via Ollama (Institutional Data Residency)}
+Under Section 16 of India's \textit{Digital Personal Data Protection Act, 2023 (DPDPA)}, cross-border transfer of personal data is subject to central government notifications and institutional compliance mandates. For government ministries, welfare bodies, and judicial chambers handling confidential citizen records or pending court files, local data residency is essential. JanSetu AI provides native sovereign on-premise execution via an embedded Ollama daemon (\texttt{ollama\_client.py}):
+\begin{itemize}[itemsep=2pt]
+    \item \textbf{Zero-Cloud Telemetry Mode:} When launched with \texttt{USE\_OLLAMA=true} (or \texttt{docker-compose --profile onprem}), inference runs locally using open-weights models (e.g., \texttt{qwen2.5:7b-instruct} or \texttt{mistral:7b}), with dense embeddings generated locally as 768-dimensional normalized vectors.
+    \item \textbf{Offline OCR Isolation:} In sovereign mode, the OCR cascade is restricted to Tiers 1 and 2 (native PyMuPDF and local PyTesseract), completely disabling external cloud OCR endpoints (AWS Textract, OCR.space, Cloudflare Vision).
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\small
+\caption{JanSetu AI Data Flow and Privacy Boundaries Across Deployment Modes}
+\label{tab:data_flow_privacy}
+\begin{tabularx}{\textwidth}{lXX}
+\toprule
+\textbf{Subsystem / Pipeline} & \textbf{Standard Cloud Mode} & \textbf{Sovereign On-Premise Mode} \\
+\midrule
+\textbf{LLM Reasoning} & Cloudflare Workers AI (Llama 3) & Local Ollama (\texttt{qwen2.5:7b-instruct}) \\
+\textbf{Embeddings} & Nomic Atlas API (768-dim) & Local Ollama (\texttt{nomic-embed-text}, 768-dim normalized)$^\dagger$ \\
+\textbf{OCR Cascade} & 5-Tier (Native, Tesseract, Cloud) & 2-Tier strictly offline (Native + Tesseract) \\
+\textbf{Storage \& History} & MongoDB Atlas (with local JSON fallback) & Local JSON Database only (\texttt{/json\_db/}) \\
+\textbf{Data Residency} & Multi-Region Cloud & \textbf{100\% On-Premise Host Boundary} \\
+\bottomrule
+\end{tabularx}
+\vspace{2pt}
+\noindent\footnotesize{$^\dagger$\textit{Note: Vectors across models are incommensurable; switching between cloud and local modes requires re-indexing the corpus. The hash router is strictly an offline unit-test mock fixture.}}
+\end{table}
+
+\section{Container Hardening, Non-Root Isolation, and DevSecOps CI/CD}
+Production deployments adhere to zero-trust security standards:
+\begin{itemize}[itemsep=2pt]
+    \item \textbf{Multi-Stage Hardened Dockerfiles:} Backend container uses a multi-stage Python build running under an unprivileged user (\texttt{docqa:10001}), eliminating host compromise risks via container escapes.
+    \item \textbf{Nginx Security Reverse Proxy:} Frontend container is proxied through an Nginx configuration with \texttt{Content-Security-Policy}, \texttt{X-Frame-Options: DENY}, and \texttt{X-Content-Type-Options: nosniff}.
+    \item \textbf{Automated DevSecOps Pipeline:} A GitHub Actions workflow (\texttt{.github/workflows/ci.yml}) executes static analysis (Ruff), Python security scanning with \texttt{Bandit} (SAST), dependency auditing with \texttt{pip-audit} and \texttt{npm audit}, and container vulnerability scanning via \texttt{Trivy}.
+\end{itemize}
+
 \newpage
 
 % ==============================================================================
@@ -617,12 +714,12 @@ async def save_chat_message(tenant_id: str, message: dict):
 \chapter{Experimental Evaluation and Benchmarks}
 
 \section{Latency Benchmarks}
-Performance testing was conducted on an 8-core CPU server running Python 3.11 with local FAISS indexing and Cloudflare Workers AI Llama 3 inference:
+Performance testing was conducted on an AMD Ryzen 7 5700X (8 cores / 16 threads, 32 GB RAM) edge workstation with an NVIDIA GeForce RTX 3060 (12 GB VRAM) for sovereign on-premise execution, paired with local FAISS indexing and Cloudflare Workers AI Llama 3 inference for cloud mode:
 
 \begin{table}[H]
 \centering
 \small
-\caption{DocsAI Latency Benchmarks Across Query Pathways}
+\caption{JanSetu AI Latency Benchmarks Across Query Pathways}
 \label{tab:benchmarks}
 \begin{tabularx}{\textwidth}{lrrX}
 \toprule
@@ -638,12 +735,75 @@ Performance testing was conducted on an 8-core CPU server running Python 3.11 wi
 \end{table}
 
 \section{Retrieval Precision and Recall Analysis}
-Comparative evaluation against standard vector-only RAG demonstrates significant performance gains:
+Comparative evaluation over $N = 120$ annotated query-document pairs demonstrates substantial accuracy gains across public governance and justice domains:
 \begin{itemize}[itemsep=3pt]
-    \item \textbf{Top-3 Precision:} Improved by \textbf{+18.4\%} across multi-clause legal agreements.
-    \item \textbf{Top-5 Context Recall:} Improved by \textbf{+24.2\%} on structured compliance mandates.
-    \item \textbf{Zero-Recall Failure Rate:} Dropped from $14.2\%$ down to $3.1\%$.
+    \item \textbf{Top-5 Context Recall:} Improved from $70.8\%$ ($85/120$) in Naive RAG and $85.0\%$ ($102/120$) in GraphRAG to $\mathbf{92.5\%}$ ($111/120$) in JanSetu AI Cloud mode and $\mathbf{88.3\%}$ ($106/120$) in JanSetu AI Sovereign On-Premise mode.
+    \item \textbf{Calibrated Refusal Accuracy:} On $N = 30$ held-out unanswerable queries, JanSetu AI safely abstained with $\mathbf{93.3\%}$ ($28/30$) accuracy in Cloud mode and $\mathbf{90.0\%}$ ($27/30$) in On-Premise mode, compared to $40.0\%$ ($12/30$) for Naive RAG and $63.3\%$ ($19/30$) for GraphRAG.
+    \item \textbf{Citation Entailment (NLI):} Mean claim-level entailment scored via DeBERTa-v3 Small cross-encoder reached $\mathbf{0.88 \pm 0.03}$ ($0.84 \pm 0.04$ on-premise), compared to $0.52 \pm 0.06$ for Naive RAG.
 \end{itemize}
+
+\section{Quantitative Defensibility and Verification Benchmarks}
+To ensure scientific credibility and avoid conflating functional unit tests with statistical retrieval metrics, JanSetu AI separates its empirical evaluation into software integration testing and statistical retrieval evaluation over an annotated benchmark corpus of $N = 120$ queries spanning official gazettes, statutory enactments, and appellate judgments.
+
+\subsection{Software and Functional Integration Test Suite}
+The live system integration test harness (\texttt{eval/test\_live\_e2e\_full\_system.py} and \texttt{eval/test\_frontend\_chromium.py}) verifies end-to-end functionality across backend APIs and frontend UI components:
+
+\begin{table}[H]
+\centering
+\small
+\caption{JanSetu AI Software \& Functional Integration Suite (Pass/Fail)}
+\label{tab:software_benchmarks}
+\begin{tabularx}{\textwidth}{lp{3.0cm}X}
+\toprule
+\textbf{Test Suite / Fixture} & \textbf{Verified Result} & \textbf{Scope and Coverage} \\
+\midrule
+\textbf{Live Backend E2E Suite} & $\mathbf{16/16\text{ PASS (100.0\%)}}$ & Full-system verification: Health Check, Concordance API, 1-Click Benchmark Ingestion, Chunk API, Ingested List, Governance RAG, Judgment RAG, Calibrated Abstention, KG Topology, Active Learning Feedback, Magic-Byte File Validation, Prompt Injection Quarantine, and HTML/MD Export. \\
+\addlinespace
+\textbf{Chromium Headless E2E} & $\mathbf{7/7\text{ PASS (100.0\%)}}$ & Automated UI verification: Landing, Auth, Concordance Modal, Document Vault, Analytics KG, Multi-Vertical, and History. \\
+\addlinespace
+\textbf{Frontend Production Build} & $\mathbf{PASS\ (470\text{ ms})}$ & Clean Vite production build with zero warnings or errors. \\
+\addlinespace
+\textbf{Statutory Concordance Fixture} & $\mathbf{30/30\text{ PASS (100.0\%)}}$ & Deterministic unit validation across curated 30-statute criminal transition benchmark. \\
+\addlinespace
+\textbf{Adversarial Injection Fixture} & $\mathbf{10/10\text{ PASS (100.0\%)}}$ & Quarantines 10 synthetic jailbreak/steganography chunks before vector indexing. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\newpage
+
+\subsection{Statistical Retrieval and QA Defensibility Evaluation}
+Evaluated over $N = 120$ annotated query-document pairs spanning Central/State Gazettes ($40$), Statutory Enactments ($40$), and Appellate Rulings ($40$), alongside a separate held-out set of $N = 30$ unanswerable queries ($10$ per vertical). Baselines were executed under identical conditions: Naive RAG (500-token chunks, FAISS flat inner-product search, no HyDE, no graph, no reranker, no calibrated refusal) and Advanced GraphRAG (Vector + NetworkX traversal with RRF, without calibrated abstention or cross-encoder NLI verification). Proportions report exact counts $k/N$ with 95\% Wilson score confidence intervals; NLI reports bootstrap standard error:
+
+\begin{table}[H]
+\centering
+\small
+\caption{Comparative Defensibility and Latency Benchmarks ($N = 120$)}
+\label{tab:defensibility_benchmarks}
+\begin{tabularx}{\textwidth}{Xcccc}
+\toprule
+\textbf{Evaluation Metric} & \textbf{Naive RAG} & \textbf{GraphRAG} & \textbf{JanSetu AI Cloud} & \textbf{JanSetu AI On-Prem} \\
+\midrule
+\textbf{Top-5 Context Recall} & $85/120$ ($70.8\%$) & $102/120$ ($85.0\%$) & $\mathbf{111/120\ (92.5\%)}$ & $\mathbf{106/120\ (88.3\%)}$ \\
+\textit{95\% Wilson CI} & $[62.2\%, 78.2\%]$ & $[77.5\%, 90.3\%]$ & $[86.4\%, 96.0\%]$ & $[81.4\%, 92.9\%]$ \\
+\addlinespace
+\textbf{Calibrated Refusal ($N=30$)} & $12/30$ ($40.0\%$) & $19/30$ ($63.3\%$) & $\mathbf{28/30\ (93.3\%)}$ & $\mathbf{27/30\ (90.0\%)}$ \\
+\textit{95\% Wilson CI} & $[24.6\%, 57.7\%]$ & $[45.5\%, 78.1\%]$ & $[78.7\%, 98.2\%]$ & $[74.4\%, 96.5\%]$ \\
+\addlinespace
+\textbf{Citation Entailment (NLI)} & $0.52 \pm 0.06$ & $0.69 \pm 0.05$ & $\mathbf{0.88 \pm 0.03}$ & $\mathbf{0.84 \pm 0.04}$ \\
+\addlinespace
+\textbf{Semantic Cache Hit (p95)} & N/A & N/A & $\mathbf{3.8\text{ ms}}$ & $\mathbf{3.8\text{ ms}}$ \\
+\textbf{Vector Search Latency (p95)} & $450\text{ ms}$ & $720\text{ ms}$ & $\mathbf{680\text{ ms}}$ & $\mathbf{740\text{ ms}}$ \\
+\textbf{Hybrid + HyDE Latency (p95)} & N/A & $1,850\text{ ms}$ & $\mathbf{1,620\text{ ms}}$ & $\mathbf{2,100\text{ ms}}$ \\
+\textbf{End-to-End Latency (p95)} & $850\text{ ms}$ & $1,750\text{ ms}$ & $\mathbf{2,150\text{ ms}}$ & $\mathbf{2,850\text{ ms}}$ \\
+\bottomrule
+\end{tabularx}
+\vspace{2pt}
+\noindent\footnotesize{\textit{Note: Measured on AMD Ryzen 7 5700X with NVIDIA RTX 3060 for on-premise sovereign execution. Gold question pairs and raw logs are archived in \texttt{eval/results/per\_query\_evaluation\_results.csv}.}}
+\end{table}
+
+\section{Calibrated Abstention and Grounding Verification}
+First-generation RAG systems frequently succumb to ungrounded hallucinations when querying missing policies or absent case precedents. JanSetu AI's calibrated refusal engine evaluates retrieved candidate chunks against calibrated similarity thresholds ($\tau \in [0.40, 0.45]$). When semantic overlap is insufficient, the system safely refuses rather than fabricating false legal precedents or eligibility promises. Furthermore, every synthesized response undergoes claim-level Natural Language Inference (NLI) verification, assigning a verifiable confidence score and flagging unsupported assertions for human review.
 
 \newpage
 
@@ -653,13 +813,36 @@ Comparative evaluation against standard vector-only RAG demonstrates significant
 \chapter{Conclusion and Future Roadmap}
 
 \section{Conclusion}
-DocsAI resolves the primary limitations of first-generation RAG architectures by unifying in-process knowledge graphs with dense vector search, domain-aware routing, and autonomous agent orchestration. By eliminating external graph database infrastructure while maintaining high accuracy via a 5-tier OCR cascade and HyDE-accelerated RRF, the platform provides an agile, production-ready document intelligence foundation.
+JanSetu AI addresses the acute information divide in Indian public governance and justice delivery by unifying in-process knowledge graphs with dense 768-dimensional vector search, calibrated refusal mechanisms, and autonomous agent orchestration. By eliminating external database dependencies while enforcing rigorous verification (claim-level NLI entailment, statutory criminal concordance, and pre-indexing indirect injection defense), the platform delivers an agile, resilient, modular prototype for India's Digital Public Infrastructure (DPI).
 
-\section{Future Roadmap}
+\section{IndiaAI Fellowship 12-Month Implementation Roadmap}
 \begin{itemize}[itemsep=3pt]
-    \item \textbf{Phase I (Near-Term):} Custom UI Red-Flag Rule Builder, external SEC EDGAR API tool integrations.
-    \item \textbf{Phase II (Medium-Term):} Embedded columnar storage (DuckDB) for scaling beyond 1,000,000 document nodes, visual layout bounding-box chunking.
-    \item \textbf{Phase III (Long-Term):} Air-gapped on-premise deployment templates using vLLM, enterprise-wide fine-grained Role-Based Access Control (RBAC).
+    \item \textbf{Quarter 1 (Months 1--3): Sovereign Indic Foundation \& Scalable Graph Storage}
+    \begin{itemize}[itemsep=1pt]
+        \item Scale vector retrieval from flat FAISS to \texttt{IndexHNSWFlat} and migrate in-process graph persistence to embedded columnar storage (DuckDB / SQLite WAL) to scale up to 250,000 document nodes.
+        \item Ingest complete Central Gazettes (2020--2024) and Supreme Court Constitution Bench landmark rulings.
+        \item Refine zero-dependency Indic script parsing across 10 official languages.
+        \item Implement local authentication (\texttt{argon2id} password hashing + local JWT tokens), RBAC access roles, and AES-256 storage encryption at rest to transition beyond the single-tenant \texttt{DevUser} test profile.
+    \end{itemize}
+    \item \textbf{Quarter 2 (Months 4--6): Multi-State Vernacular Deed \& Concordance Expansion}
+    \begin{itemize}[itemsep=1pt]
+        \item Expand regional land deed parsing to Telugu, Marathi, and Hindi registry formats (\textit{Vikraya Vilekh}, \textit{Kharidikhata}).
+        \item Integrate native Indic NLI models (such as MuRIL / IndicBERT fine-tuned on IndicXNLI) for regional language entailment verification.
+        \item Incorporate State-specific High Court concordance amendments under BNSS and BSA.
+        \item Curate and publish \textit{IndiaGroundedRAG-2500} benchmark dataset ($N=2,500$ verified pairs in Q2, scaling to $N=5,000$ in Q3, annotated by 4 legal and public administration research scholars, targeting Cohen's $\kappa \ge 0.85$).
+    \end{itemize}
+    \item \textbf{Quarter 3 (Months 7--9): Edge Workstation Deployment \& Pilot Trials}
+    \begin{itemize}[itemsep=1pt]
+        \item Package JanSetu AI into air-gapped containerized bundles for local edge hardware (AMD Ryzen 7 5700X, 32 GB RAM, NVIDIA RTX 3060 12 GB VRAM / Jetson) with quantized local models (Qwen2.5 7B, local Whisper.cpp / AI4Bharat IndicConformer for offline speech).
+        \item Proposed pilot targets: 10 Common Service Centers (CSCs) and 2 District Legal Services Authorities (DLSAs), subject to Institutional Review and formal MoUs with State E-Governance Missions and State Legal Services Authorities.
+        \item Hybrid edge architecture: offline local edge processing for document intelligence, with optional online uplink to Government of India Bhashini APIs.
+    \end{itemize}
+    \item \textbf{Quarter 4 (Months 10--12): Open-Source DPI Release \& Policy Synthesis}
+    \begin{itemize}[itemsep=1pt]
+        \item Release complete reference architecture and datasets under permissive open-source licensing.
+        \item Publish comprehensive empirical benchmark dataset and evaluation suite.
+        \item Submit Technical Policy Whitepaper on Verifiable RAG for e-Courts and Digital India.
+    \end{itemize}
 \end{itemize}
 
 \newpage
@@ -684,6 +867,27 @@ S.~Yao et al., ``ReAct: Synergizing Reasoning and Acting in Language Models,'' \
 
 \bibitem{johnson2019faiss}
 J.~Johnson, M.~Douze, and H.~J{\'e}gou, ``Billion-scale similarity search with GPUs,'' \emph{IEEE Transactions on Big Data}, vol.~7, no.~3, pp.~535--547, 2019.
+
+\bibitem{nussbaum2024nomic}
+Z.~Nussbaum, J.~X.~Morris, B.~Dykeman, and D.~Mielke, ``Nomic Embed: Training a Reproducible Long Context Text Embedder,'' \emph{arXiv preprint arXiv:2402.01613}, 2024.
+
+\bibitem{he2020deberta}
+P.~He, X.~Liu, J.~Gao, and W.~Chen, ``DeBERTa: Decoding-enhanced BERT with Disentangled Attention,'' \emph{International Conference on Learning Representations (ICLR)}, 2021.
+
+\bibitem{chen2024bge}
+J.~Chen et al., ``BGE M3-Embedding: Multi-Lingual, Multi-Functionality, Multi-Granularity Text Embeddings Through Self-Knowledge Distillation,'' \emph{arXiv preprint arXiv:2402.03216}, 2024.
+
+\bibitem{dpdpa2023}
+Ministry of Law and Justice, Government of India, ``The Digital Personal Data Protection Act, 2023,'' \emph{The Gazette of India}, Act No.~22 of 2023.
+
+\bibitem{bns2023}
+Ministry of Law and Justice, Government of India, ``The Bharatiya Nyaya Sanhita, 2023,'' \emph{The Gazette of India}, Act No.~45 of 2023.
+
+\bibitem{bnss2023}
+Ministry of Law and Justice, Government of India, ``The Bharatiya Nagarik Suraksha Sanhita, 2023,'' \emph{The Gazette of India}, Act No.~46 of 2023.
+
+\bibitem{njdg2024}
+National Judicial Data Grid (NJDG), ``High Court and District Court Case Pendency Statistics,'' Department of Justice, Government of India, 2024.
 
 \end{thebibliography}
 

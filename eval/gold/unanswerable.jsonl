@@ -1,0 +1,10 @@
+{"id": "ua_001", "question": "What is the CEO's annual salary at the contracting company?", "gold_answer": "NOT_FOUND", "gold_chunk_ids": [], "vertical": "law", "answerable": false, "source": "sample"}
+{"id": "ua_002", "question": "What was the company's total revenue in Q3 2024?", "gold_answer": "NOT_FOUND", "gold_chunk_ids": [], "vertical": "law", "answerable": false, "source": "sample"}
+{"id": "ua_003", "question": "How many employees does the vendor currently have worldwide?", "gold_answer": "NOT_FOUND", "gold_chunk_ids": [], "vertical": "law", "answerable": false, "source": "sample"}
+{"id": "ua_004", "question": "What is the market capitalization of the client company?", "gold_answer": "NOT_FOUND", "gold_chunk_ids": [], "vertical": "law", "answerable": false, "source": "sample"}
+{"id": "ua_005", "question": "Who was the judge that ruled on the most recent litigation involving the vendor?", "gold_answer": "NOT_FOUND", "gold_chunk_ids": [], "vertical": "law", "answerable": false, "source": "sample"}
+{"id": "ua_006", "question": "What is the vendor's ESG sustainability rating for the current fiscal year?", "gold_answer": "NOT_FOUND", "gold_chunk_ids": [], "vertical": "law", "answerable": false, "source": "sample"}
+{"id": "ua_007", "question": "What percentage of the client's board members voted to approve this contract?", "gold_answer": "NOT_FOUND", "gold_chunk_ids": [], "vertical": "law", "answerable": false, "source": "sample"}
+{"id": "ua_008", "question": "What was the name of the law firm that drafted the initial version of this agreement?", "gold_answer": "NOT_FOUND", "gold_chunk_ids": [], "vertical": "law", "answerable": false, "source": "sample"}
+{"id": "ua_009", "question": "How much did the client spend on IT infrastructure in the previous financial year?", "gold_answer": "NOT_FOUND", "gold_chunk_ids": [], "vertical": "law", "answerable": false, "source": "sample"}
+{"id": "ua_010", "question": "What insurance policy number covers the vendor's professional indemnity for this engagement?", "gold_answer": "NOT_FOUND", "gold_chunk_ids": [], "vertical": "law", "answerable": false, "source": "sample"}

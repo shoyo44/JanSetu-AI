@@ -24,6 +24,7 @@ from app.core.interfaces import BaseGenerator
 from app.core.schemas import (
     ChunkResult, RiskOutput, RiskLevel, ConfidenceLevel, Citation
 )
+from app.core.embedding_router import detect_language
 from app.generators._base import (
     build_user_message, parse_json_response, not_found_output, stream_from_client
 )
@@ -79,6 +80,13 @@ class RiskGenerator(BaseGenerator[RiskOutput]):
             return not_found_output(RiskOutput)
 
         system_prompt = _build_system_prompt(config)
+        query_lang = detect_language(query)
+        if query_lang.get("is_indic"):
+            system_prompt += (
+                f"\n\nIMPORTANT: The user asked in {query_lang['script_name']}. "
+                f"Please formulate the 'answer' and 'plain_english' in {query_lang['script_name']}."
+            )
+
         user_msg      = build_user_message(query, config)
 
         try:

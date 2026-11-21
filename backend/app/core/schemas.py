@@ -14,7 +14,7 @@ Hierarchy:
 from __future__ import annotations
 
 from enum import Enum
-from typing import Any, List, Optional
+from typing import Any, Dict, List, Optional
 from pydantic import BaseModel, Field, field_validator
 
 
@@ -89,6 +89,13 @@ class VerticalOutput(BaseModel):
     confidence:  ConfidenceLevel = ConfidenceLevel.LOW
     chunks_used: List[str]       = Field(default_factory=list)
     not_found:   bool            = False
+    abstained:              bool            = False
+    abstention_reason:      Optional[str]   = None
+    abstention_diagnostics: Optional[Dict[str, Any]] = None
+    nearest_topics:         List[str]       = Field(default_factory=list)
+    grounding_score:        Optional[float] = None
+    unverified_claims:      List[str]       = Field(default_factory=list)
+    citation_verified:      Optional[bool]  = None
 
     model_config = {"use_enum_values": True}
 
@@ -142,6 +149,60 @@ class AcademicOutput(VerticalOutput):
     @classmethod
     def coerce_null_to_list(cls, v: Any) -> List[str]:
         """If the LLM returns the string 'null' or None, return an empty list."""
+        if v is None or v == "null" or v == "None":
+            return []
+        if isinstance(v, list):
+            return v
+        return []
+
+
+# ─── Judgment Vertical (India AI / Law & Justice) ────────────────────────────
+
+class JudgmentOutput(VerticalOutput):
+    """Output schema for the Indian Court Judgment / Case Law vertical."""
+    case_title:        Optional[str]   = None
+    court_name:        Optional[str]   = None
+    neutral_citation:  Optional[str]   = None
+    bench:             List[str]       = Field(default_factory=list)
+    acts_cited:        List[str]       = Field(default_factory=list)
+    ratio_decidendi:   Optional[str]   = None
+    obiter_dicta:      Optional[str]   = None
+    disposition:       Optional[str]   = None
+    citations:         List[Citation]  = Field(default_factory=list)
+    language:          str             = "en"
+
+    @field_validator("bench", "acts_cited", mode="before")
+    @classmethod
+    def coerce_null_lists(cls, v: Any) -> List[str]:
+        if v is None or v == "null" or v == "None":
+            return []
+        if isinstance(v, list):
+            return v
+        return []
+
+
+# ─── Governance Vertical (India AI / Public Policy & Schemes) ─────────────────
+
+class GovernanceOutput(VerticalOutput):
+    """Output schema for the Indian Governance, Public Policy & Welfare Schemes vertical."""
+    scheme_name:                  Optional[str]   = None
+    nodal_ministry:               Optional[str]   = None
+    gazette_reference:            Optional[str]   = None
+    jan_suvidha_summary:          Optional[str]   = None   # Plain language explanation for common citizens
+    eligibility_criteria:         List[str]       = Field(default_factory=list)
+    exclusion_criteria:           List[str]       = Field(default_factory=list)
+    benefits:                     List[str]       = Field(default_factory=list)
+    required_documents:           List[str]       = Field(default_factory=list)
+    application_steps:            List[str]       = Field(default_factory=list)
+    official_portal_or_helpline:  Optional[str]   = None
+    citations:                    List[Citation]  = Field(default_factory=list)
+
+    @field_validator(
+        "eligibility_criteria", "exclusion_criteria", "benefits",
+        "required_documents", "application_steps", mode="before"
+    )
+    @classmethod
+    def coerce_null_gov_lists(cls, v: Any) -> List[str]:
         if v is None or v == "null" or v == "None":
             return []
         if isinstance(v, list):

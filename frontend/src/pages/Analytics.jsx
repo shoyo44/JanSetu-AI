@@ -117,7 +117,7 @@ const Analytics = () => {
     <div className="analytics-container animate-fade-in">
       <div className="analytics-header">
         <h1>Graph Intelligence</h1>
-        <p className="subtitle">Real-time Entity-Relationship Mapping · DocsAI GraphStore</p>
+        <p className="subtitle">Real-time Entity-Relationship Mapping · JanSetu AI GraphStore</p>
       </div>
 
 
@@ -285,28 +285,24 @@ const Analytics = () => {
 
         <div className="graph-legend">
           <div className="legend-item">
-            <span className="dot" style={{backgroundColor: '#4dabf7'}}></span>
-            <span>HR Document</span>
+            <span className="dot" style={{backgroundColor: '#0ea5e9'}}></span>
+            <span>Public Governance & Welfare Schemes</span>
           </div>
           <div className="legend-item">
-            <span className="dot" style={{backgroundColor: '#f06595'}}></span>
-            <span>Law Document</span>
+            <span className="dot" style={{backgroundColor: '#8b5cf6'}}></span>
+            <span>Court Judgments & Case Precedents</span>
           </div>
           <div className="legend-item">
-            <span className="dot" style={{backgroundColor: '#63e6be'}}></span>
-            <span>Compliance</span>
+            <span className="dot" style={{backgroundColor: '#f59e0b'}}></span>
+            <span>Statutory Law & Decrees</span>
           </div>
           <div className="legend-item">
-            <span className="dot" style={{backgroundColor: '#ffd43b'}}></span>
-            <span>Startup</span>
-          </div>
-          <div className="legend-item">
-            <span className="dot" style={{backgroundColor: '#da77f2'}}></span>
-            <span>University</span>
+            <span className="dot" style={{backgroundColor: '#10b981'}}></span>
+            <span>IPC ⇄ BNS Concordance Link</span>
           </div>
           <div className="legend-item">
             <span className="dot" style={{backgroundColor: '#ff922b'}}></span>
-            <span>Named Entity</span>
+            <span>Named Legal & Sovereign Entity</span>
           </div>
         </div>
       </div>

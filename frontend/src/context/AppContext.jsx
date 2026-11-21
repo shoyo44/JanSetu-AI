@@ -4,7 +4,7 @@ import { API_BASE, TENANT_ID, WS_BASE } from '../config';
 const AppContext = createContext(null);
 
 export const AppContextProvider = ({ children }) => {
-  const [vertical, setVertical] = useState('university');
+  const [vertical, setVertical] = useState('governance');
   const [documents, setDocuments] = useState([]);
   const [loadingDocs, setLoadingDocs] = useState(true);
   const [activeJobs, setActiveJobs] = useState([]);

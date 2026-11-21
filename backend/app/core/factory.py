@@ -31,12 +31,11 @@ from typing import Any
 from app.core.pipeline import RAGPipeline
 from app.config.verticals import VERTICAL_CONFIGS, SUPPORTED_VERTICALS
 
-from app.indexers   import ClauseIndexer, ArticleIndexer, TopicIndexer, TermIndexer, SectionIndexer
-from app.retrievers import GraphRetriever, HybridRetriever, VectorRetriever
-from app.rerankers.vertical     import VerticalReranker
-from app.rerankers.noop         import NoReranker
+from app.indexers   import ClauseIndexer, JudgmentIndexer, GovernanceIndexer
+from app.retrievers import GraphRetriever, HybridRetriever
+from app.rerankers.vertical      import VerticalReranker
 from app.rerankers.cross_encoder import CrossEncoderReranker
-from app.generators import RiskGenerator, ComplianceGenerator, FriendlyGenerator, AcademicGenerator
+from app.generators import RiskGenerator, JudgmentGenerator, GovernanceGenerator
 
 logger = logging.getLogger("docqa.factory")
 
@@ -67,47 +66,36 @@ def build_pipeline(
             f"Unsupported vertical: '{vertical}'. Supported: {SUPPORTED_VERTICALS}"
         )
 
-    config = {**VERTICAL_CONFIGS[vertical], "vertical": vertical}
+    # Resolve any legacy aliases to core fellowship verticals
+    resolved_vertical = "law" if vertical in ("compliance", "startup") else ("governance" if vertical in ("university", "hr") else vertical)
+    config = {**VERTICAL_CONFIGS[resolved_vertical], "vertical": resolved_vertical}
 
     chunk_size    = config["chunk_size"]
     chunk_overlap = config["chunk_overlap"]
     token_budget  = config.get("token_budget", 4096)
 
-    # ── Vertical wiring ───────────────────────────────────────────────────────
+    # ── India AI Fellowship Vertical Wiring ───────────────────────────────────
 
-    if vertical == "law":
+    if resolved_vertical == "governance":
+        indexer   = GovernanceIndexer(chunk_size, chunk_overlap)
+        retriever = HybridRetriever()
+        _reranker = reranker if reranker is not None else CrossEncoderReranker()
+        generator = GovernanceGenerator(llm_client)
+
+    elif resolved_vertical == "judgment":
+        indexer   = JudgmentIndexer(chunk_size, chunk_overlap)
+        retriever = HybridRetriever()
+        _reranker = reranker if reranker is not None else CrossEncoderReranker()
+        generator = JudgmentGenerator(llm_client)
+
+    elif resolved_vertical == "law":
         indexer   = ClauseIndexer(chunk_size, chunk_overlap)
         retriever = GraphRetriever()
         _reranker = VerticalReranker(vertical="law")
         generator = RiskGenerator(llm_client)
 
-    elif vertical == "compliance":
-        indexer   = ArticleIndexer(chunk_size, chunk_overlap)
-        retriever = HybridRetriever()
-        _reranker = reranker if reranker is not None else CrossEncoderReranker()
-        generator = ComplianceGenerator(llm_client)
-
-    elif vertical == "hr":
-        indexer   = TopicIndexer(chunk_size, chunk_overlap)
-        retriever = VectorRetriever()
-        _reranker = NoReranker()          # no reranking needed for HR
-        generator = FriendlyGenerator(llm_client)
-
-    elif vertical == "startup":
-        indexer   = TermIndexer(chunk_size, chunk_overlap)
-        retriever = GraphRetriever()
-        _reranker = VerticalReranker(vertical="startup")
-        generator = RiskGenerator(llm_client)
-
-    elif vertical == "university":
-        indexer   = SectionIndexer(chunk_size, chunk_overlap)
-        retriever = HybridRetriever()
-        _reranker = reranker if reranker is not None else CrossEncoderReranker()
-        generator = AcademicGenerator(llm_client)
-
     else:
-        # Unreachable (guarded above) — for type-checker satisfaction
-        raise ValueError(f"No pipeline config for: '{vertical}'")
+        raise ValueError(f"No pipeline config for: '{resolved_vertical}'")
 
     logger.info("Built pipeline: vertical=%s token_budget=%d", vertical, token_budget)
 

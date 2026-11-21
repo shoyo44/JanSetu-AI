@@ -1,0 +1,30 @@
+MINISTRY OF HOME AFFAIRS (MHA) & INDIAN CYBER CRIME COORDINATION CENTRE (I4C)
+OFFICIAL CITIZEN ADVISORY & STATUTORY STANDARD OPERATING PROCEDURE (SOP)
+Subject: Cyber Fraud Reporting, Account Freezing, and Zero-FIR Protocol
+
+1. NATIONAL CYBER CRIME HELPLINE & CITIZEN REPORTING PORTAL:
+- National Toll-Free Helpline: 1930 (Citizen Financial Cyber Fraud Reporting and Management System - CFCFRMS).
+- Official Citizen Portal: https://cybercrime.gov.in.
+- Golden Hour Protocol: Financial cyber fraud reported within 2 to 4 hours of debit enables automated API communication between state police cyber cells and 260+ banks, payment gateways (Razorpay, Paytm, PhonePe, Google Pay), and NBFCs to freeze the victim's siphoned funds in intermediary mule accounts before withdrawal.
+
+2. STATUTORY CHARGES UNDER BHARATIYA NYAYA SANHITA (BNS) & INFORMATION TECHNOLOGY (IT) ACT:
+- BNS Section 318(4) (formerly IPC Section 420): Cheating and dishonestly inducing delivery of property via electronic deception. Imprisonment up to 7 years and fine.
+- Information Technology Act, 2000 Section 66D: Cheating by personation by using computer resource (fake caller ID, phishing portals, digital arrest impersonating CBI/ED/Police). Imprisonment up to 3 years and fine up to ₹1,00,000.
+- Information Technology Act Section 66C: Identity theft and unauthorized use of password, OTP, or digital signature. Imprisonment up to 3 years and fine up to ₹1,00,000.
+- Information Technology Act Section 43: Unauthorized access, downloading malware APKs, and data extraction. Civil damages and compensation.
+- BNS Section 316(2) (formerly IPC Section 406): Criminal breach of trust by unauthorized transfer of entrusted financial funds.
+
+3. MANDATORY CITIZEN RIGHTS UNDER BHARATIYA NAGARIK SURAKSHA SANHITA (BNSS, 2023):
+- Section 173(1) BNSS (formerly CrPC Section 154): Information in cognizable cases.
+  a. Zero-FIR Provision: A victim of cyber fraud or extortion can lodge an FIR at ANY police station in India, irrespective of territorial jurisdiction. The station must register the Zero-FIR, assign a serial number, and transfer the case diary to the cyber crime police station.
+  b. e-FIR Provision: Every police station is legally mandated to accept electronic complaint submission (e-FIR). The informant must sign the complaint within 3 days.
+  c. Free Copy of FIR: Section 173(2) BNSS guarantees an immediate free certified copy of the registered FIR to the complainant.
+
+4. MANDATORY EVIDENCE CHECKLIST FOR CITIZEN COMPLAINANTS:
+- Bank Account Statement highlighting the fraudulent debit transaction with exact 12-digit UTR (Unique Transaction Reference) or IMPS/UPI transaction ID.
+- Screenshots of fraudulent WhatsApp/Telegram chat logs, SMS notifications, and deceptive APK links or fraudulent UPI QR codes.
+- Beneficiary account number, UPI VPA (Virtual Payment Address), and mobile number used by the fraudsters.
+- 1930 CFCFRMS complaint acknowledgement number.
+
+5. GRIEVANCE REDRESSAL & BANK LIABILITY:
+- RBI Master Circular DBR.No.Leg.BC.78/09.07.005/2017-18: Zero liability for customer where fraud occurs due to contributory negligence/deficiency of the bank, or third-party breach reported within 3 working days.

@@ -32,7 +32,7 @@ const History = () => {
   const fetchChats = useCallback(async () => {
     // If selecting 'all', we will loop through each vertical to collect them, or show current workspace
     const verticalsToFetch = selectedVertical === 'all' 
-      ? ['university', 'law', 'startup', 'compliance', 'hr'] 
+      ? ['governance', 'judgment', 'law'] 
       : [selectedVertical];
     
     try {
@@ -72,7 +72,7 @@ const History = () => {
   }, [loadData]);
 
   const handleClearChats = async () => {
-    const targetVert = selectedVertical === 'all' ? 'university' : selectedVertical;
+    const targetVert = selectedVertical === 'all' ? 'governance' : selectedVertical;
     const confirmMsg = selectedVertical === 'all' 
       ? "Clear chat history for all verticals? (This will clear the current vertical's history)"
       : `Clear chat history for the ${selectedVertical} vertical?`;
@@ -82,7 +82,7 @@ const History = () => {
     setClearing(true);
     try {
       const verticalsToClear = selectedVertical === 'all' 
-        ? ['university', 'law', 'startup', 'compliance', 'hr'] 
+        ? ['governance', 'judgment', 'law'] 
         : [selectedVertical];
 
       for (const vert of verticalsToClear) {
@@ -102,22 +102,18 @@ const History = () => {
 
   const getVerticalLabel = (v) => {
     const labels = {
-      university: 'Academic',
-      law: 'Legal',
-      startup: 'Startup & VC',
-      compliance: 'Compliance',
-      hr: 'HR Policy',
+      governance: '🏛️ Public Governance & Welfare',
+      judgment: '⚖️ Court Judgments & Case Precedents',
+      law: '📜 Statutory Law & Concordance',
     };
     return labels[v] || v;
   };
 
   const getVerticalColor = (v) => {
     const colors = {
-      university: '#da77f2',
-      law: '#f06595',
-      startup: '#ffd43b',
-      compliance: '#63e6be',
-      hr: '#4dabf7',
+      governance: '#0ea5e9',
+      judgment: '#8b5cf6',
+      law: '#f59e0b',
     };
     return colors[v] || '#8c8c8c';
   };
@@ -167,12 +163,10 @@ const History = () => {
               onChange={(e) => setSelectedVertical(e.target.value)}
               className="vertical-select"
             >
-              <option value="all">All Verticals</option>
-              <option value="university">Academic Research</option>
-              <option value="law">Legal Contracts</option>
-              <option value="startup">Startup & VC</option>
-              <option value="compliance">Compliance</option>
-              <option value="hr">HR Policies</option>
+              <option value="all">All IndiaAI Verticals</option>
+              <option value="governance">🏛️ Public Governance & Welfare Schemes</option>
+              <option value="judgment">⚖️ Court Judgments & Case Precedents</option>
+              <option value="law">📜 Statutory Law & Criminal Concordance</option>
             </select>
           </div>
 

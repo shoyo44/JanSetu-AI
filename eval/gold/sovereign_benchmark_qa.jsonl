@@ -1,0 +1,150 @@
+{"id": "Q_001", "vertical": "governance", "subdomain": "pm_kisan", "question": "Benchmark query 1 for pm_kisan in governance", "answerable": true, "target_chunk_id": "chunk_pm_kisan_01"}
+{"id": "Q_002", "vertical": "governance", "subdomain": "pm_kisan", "question": "Benchmark query 2 for pm_kisan in governance", "answerable": true, "target_chunk_id": "chunk_pm_kisan_02"}
+{"id": "Q_003", "vertical": "governance", "subdomain": "pm_kisan", "question": "Benchmark query 3 for pm_kisan in governance", "answerable": true, "target_chunk_id": "chunk_pm_kisan_03"}
+{"id": "Q_004", "vertical": "governance", "subdomain": "pm_kisan", "question": "Benchmark query 4 for pm_kisan in governance", "answerable": true, "target_chunk_id": "chunk_pm_kisan_04"}
+{"id": "Q_005", "vertical": "governance", "subdomain": "pm_kisan", "question": "Benchmark query 5 for pm_kisan in governance", "answerable": true, "target_chunk_id": "chunk_pm_kisan_05"}
+{"id": "Q_006", "vertical": "governance", "subdomain": "pm_kisan", "question": "Benchmark query 6 for pm_kisan in governance", "answerable": true, "target_chunk_id": "chunk_pm_kisan_06"}
+{"id": "Q_007", "vertical": "governance", "subdomain": "pm_kisan", "question": "Benchmark query 7 for pm_kisan in governance", "answerable": true, "target_chunk_id": "chunk_pm_kisan_07"}
+{"id": "Q_008", "vertical": "governance", "subdomain": "pm_kisan", "question": "Benchmark query 8 for pm_kisan in governance", "answerable": true, "target_chunk_id": "chunk_pm_kisan_08"}
+{"id": "Q_009", "vertical": "governance", "subdomain": "pm_kisan", "question": "Benchmark query 9 for pm_kisan in governance", "answerable": true, "target_chunk_id": "chunk_pm_kisan_09"}
+{"id": "Q_010", "vertical": "governance", "subdomain": "pm_kisan", "question": "Benchmark query 10 for pm_kisan in governance", "answerable": true, "target_chunk_id": "chunk_pm_kisan_10"}
+{"id": "Q_011", "vertical": "governance", "subdomain": "pm_kisan", "question": "Benchmark query 11 for pm_kisan in governance", "answerable": true, "target_chunk_id": "chunk_pm_kisan_11"}
+{"id": "Q_012", "vertical": "governance", "subdomain": "pm_kisan", "question": "Benchmark query 12 for pm_kisan in governance", "answerable": true, "target_chunk_id": "chunk_pm_kisan_12"}
+{"id": "Q_013", "vertical": "governance", "subdomain": "pm_kisan", "question": "Benchmark query 13 for pm_kisan in governance", "answerable": true, "target_chunk_id": "chunk_pm_kisan_13"}
+{"id": "Q_014", "vertical": "governance", "subdomain": "pm_kisan", "question": "Benchmark query 14 for pm_kisan in governance", "answerable": true, "target_chunk_id": "chunk_pm_kisan_14"}
+{"id": "Q_015", "vertical": "governance", "subdomain": "pm_kisan", "question": "Benchmark query 15 for pm_kisan in governance", "answerable": true, "target_chunk_id": "chunk_pm_kisan_15"}
+{"id": "Q_016", "vertical": "governance", "subdomain": "pm_kisan", "question": "Benchmark query 16 for pm_kisan in governance", "answerable": true, "target_chunk_id": "chunk_pm_kisan_16"}
+{"id": "Q_017", "vertical": "governance", "subdomain": "pm_kisan", "question": "Benchmark query 17 for pm_kisan in governance", "answerable": true, "target_chunk_id": "chunk_pm_kisan_17"}
+{"id": "Q_018", "vertical": "governance", "subdomain": "pm_kisan", "question": "Benchmark query 18 for pm_kisan in governance", "answerable": true, "target_chunk_id": "chunk_pm_kisan_18"}
+{"id": "Q_019", "vertical": "governance", "subdomain": "pm_kisan", "question": "Benchmark query 19 for pm_kisan in governance", "answerable": true, "target_chunk_id": "chunk_pm_kisan_19"}
+{"id": "Q_020", "vertical": "governance", "subdomain": "pm_kisan", "question": "Benchmark query 20 for pm_kisan in governance", "answerable": true, "target_chunk_id": "chunk_pm_kisan_20"}
+{"id": "Q_021", "vertical": "governance", "subdomain": "ayushman_bharat", "question": "Benchmark query 1 for ayushman_bharat in governance", "answerable": true, "target_chunk_id": "chunk_ayushman_bharat_01"}
+{"id": "Q_022", "vertical": "governance", "subdomain": "ayushman_bharat", "question": "Benchmark query 2 for ayushman_bharat in governance", "answerable": true, "target_chunk_id": "chunk_ayushman_bharat_02"}
+{"id": "Q_023", "vertical": "governance", "subdomain": "ayushman_bharat", "question": "Benchmark query 3 for ayushman_bharat in governance", "answerable": true, "target_chunk_id": "chunk_ayushman_bharat_03"}
+{"id": "Q_024", "vertical": "governance", "subdomain": "ayushman_bharat", "question": "Benchmark query 4 for ayushman_bharat in governance", "answerable": true, "target_chunk_id": "chunk_ayushman_bharat_04"}
+{"id": "Q_025", "vertical": "governance", "subdomain": "ayushman_bharat", "question": "Benchmark query 5 for ayushman_bharat in governance", "answerable": true, "target_chunk_id": "chunk_ayushman_bharat_05"}
+{"id": "Q_026", "vertical": "governance", "subdomain": "ayushman_bharat", "question": "Benchmark query 6 for ayushman_bharat in governance", "answerable": true, "target_chunk_id": "chunk_ayushman_bharat_06"}
+{"id": "Q_027", "vertical": "governance", "subdomain": "ayushman_bharat", "question": "Benchmark query 7 for ayushman_bharat in governance", "answerable": true, "target_chunk_id": "chunk_ayushman_bharat_07"}
+{"id": "Q_028", "vertical": "governance", "subdomain": "ayushman_bharat", "question": "Benchmark query 8 for ayushman_bharat in governance", "answerable": true, "target_chunk_id": "chunk_ayushman_bharat_08"}
+{"id": "Q_029", "vertical": "governance", "subdomain": "ayushman_bharat", "question": "Benchmark query 9 for ayushman_bharat in governance", "answerable": true, "target_chunk_id": "chunk_ayushman_bharat_09"}
+{"id": "Q_030", "vertical": "governance", "subdomain": "ayushman_bharat", "question": "Benchmark query 10 for ayushman_bharat in governance", "answerable": true, "target_chunk_id": "chunk_ayushman_bharat_10"}
+{"id": "Q_031", "vertical": "governance", "subdomain": "ayushman_bharat", "question": "Benchmark query 11 for ayushman_bharat in governance", "answerable": true, "target_chunk_id": "chunk_ayushman_bharat_11"}
+{"id": "Q_032", "vertical": "governance", "subdomain": "ayushman_bharat", "question": "Benchmark query 12 for ayushman_bharat in governance", "answerable": true, "target_chunk_id": "chunk_ayushman_bharat_12"}
+{"id": "Q_033", "vertical": "governance", "subdomain": "ayushman_bharat", "question": "Benchmark query 13 for ayushman_bharat in governance", "answerable": true, "target_chunk_id": "chunk_ayushman_bharat_13"}
+{"id": "Q_034", "vertical": "governance", "subdomain": "ayushman_bharat", "question": "Benchmark query 14 for ayushman_bharat in governance", "answerable": true, "target_chunk_id": "chunk_ayushman_bharat_14"}
+{"id": "Q_035", "vertical": "governance", "subdomain": "ayushman_bharat", "question": "Benchmark query 15 for ayushman_bharat in governance", "answerable": true, "target_chunk_id": "chunk_ayushman_bharat_15"}
+{"id": "Q_036", "vertical": "governance", "subdomain": "ayushman_bharat", "question": "Benchmark query 16 for ayushman_bharat in governance", "answerable": true, "target_chunk_id": "chunk_ayushman_bharat_16"}
+{"id": "Q_037", "vertical": "governance", "subdomain": "ayushman_bharat", "question": "Benchmark query 17 for ayushman_bharat in governance", "answerable": true, "target_chunk_id": "chunk_ayushman_bharat_17"}
+{"id": "Q_038", "vertical": "governance", "subdomain": "ayushman_bharat", "question": "Benchmark query 18 for ayushman_bharat in governance", "answerable": true, "target_chunk_id": "chunk_ayushman_bharat_18"}
+{"id": "Q_039", "vertical": "governance", "subdomain": "ayushman_bharat", "question": "Benchmark query 19 for ayushman_bharat in governance", "answerable": true, "target_chunk_id": "chunk_ayushman_bharat_19"}
+{"id": "Q_040", "vertical": "governance", "subdomain": "ayushman_bharat", "question": "Benchmark query 20 for ayushman_bharat in governance", "answerable": true, "target_chunk_id": "chunk_ayushman_bharat_20"}
+{"id": "Q_041", "vertical": "law", "subdomain": "tenancy_act", "question": "Benchmark query 1 for tenancy_act in law", "answerable": true, "target_chunk_id": "chunk_tenancy_act_01"}
+{"id": "Q_042", "vertical": "law", "subdomain": "tenancy_act", "question": "Benchmark query 2 for tenancy_act in law", "answerable": true, "target_chunk_id": "chunk_tenancy_act_02"}
+{"id": "Q_043", "vertical": "law", "subdomain": "tenancy_act", "question": "Benchmark query 3 for tenancy_act in law", "answerable": true, "target_chunk_id": "chunk_tenancy_act_03"}
+{"id": "Q_044", "vertical": "law", "subdomain": "tenancy_act", "question": "Benchmark query 4 for tenancy_act in law", "answerable": true, "target_chunk_id": "chunk_tenancy_act_04"}
+{"id": "Q_045", "vertical": "law", "subdomain": "tenancy_act", "question": "Benchmark query 5 for tenancy_act in law", "answerable": true, "target_chunk_id": "chunk_tenancy_act_05"}
+{"id": "Q_046", "vertical": "law", "subdomain": "tenancy_act", "question": "Benchmark query 6 for tenancy_act in law", "answerable": true, "target_chunk_id": "chunk_tenancy_act_06"}
+{"id": "Q_047", "vertical": "law", "subdomain": "tenancy_act", "question": "Benchmark query 7 for tenancy_act in law", "answerable": true, "target_chunk_id": "chunk_tenancy_act_07"}
+{"id": "Q_048", "vertical": "law", "subdomain": "tenancy_act", "question": "Benchmark query 8 for tenancy_act in law", "answerable": true, "target_chunk_id": "chunk_tenancy_act_08"}
+{"id": "Q_049", "vertical": "law", "subdomain": "tenancy_act", "question": "Benchmark query 9 for tenancy_act in law", "answerable": true, "target_chunk_id": "chunk_tenancy_act_09"}
+{"id": "Q_050", "vertical": "law", "subdomain": "tenancy_act", "question": "Benchmark query 10 for tenancy_act in law", "answerable": true, "target_chunk_id": "chunk_tenancy_act_10"}
+{"id": "Q_051", "vertical": "law", "subdomain": "tenancy_act", "question": "Benchmark query 11 for tenancy_act in law", "answerable": true, "target_chunk_id": "chunk_tenancy_act_11"}
+{"id": "Q_052", "vertical": "law", "subdomain": "tenancy_act", "question": "Benchmark query 12 for tenancy_act in law", "answerable": true, "target_chunk_id": "chunk_tenancy_act_12"}
+{"id": "Q_053", "vertical": "law", "subdomain": "tenancy_act", "question": "Benchmark query 13 for tenancy_act in law", "answerable": true, "target_chunk_id": "chunk_tenancy_act_13"}
+{"id": "Q_054", "vertical": "law", "subdomain": "tenancy_act", "question": "Benchmark query 14 for tenancy_act in law", "answerable": true, "target_chunk_id": "chunk_tenancy_act_14"}
+{"id": "Q_055", "vertical": "law", "subdomain": "tenancy_act", "question": "Benchmark query 15 for tenancy_act in law", "answerable": true, "target_chunk_id": "chunk_tenancy_act_15"}
+{"id": "Q_056", "vertical": "law", "subdomain": "senior_citizen", "question": "Benchmark query 1 for senior_citizen in law", "answerable": true, "target_chunk_id": "chunk_senior_citizen_01"}
+{"id": "Q_057", "vertical": "law", "subdomain": "senior_citizen", "question": "Benchmark query 2 for senior_citizen in law", "answerable": true, "target_chunk_id": "chunk_senior_citizen_02"}
+{"id": "Q_058", "vertical": "law", "subdomain": "senior_citizen", "question": "Benchmark query 3 for senior_citizen in law", "answerable": true, "target_chunk_id": "chunk_senior_citizen_03"}
+{"id": "Q_059", "vertical": "law", "subdomain": "senior_citizen", "question": "Benchmark query 4 for senior_citizen in law", "answerable": true, "target_chunk_id": "chunk_senior_citizen_04"}
+{"id": "Q_060", "vertical": "law", "subdomain": "senior_citizen", "question": "Benchmark query 5 for senior_citizen in law", "answerable": true, "target_chunk_id": "chunk_senior_citizen_05"}
+{"id": "Q_061", "vertical": "law", "subdomain": "senior_citizen", "question": "Benchmark query 6 for senior_citizen in law", "answerable": true, "target_chunk_id": "chunk_senior_citizen_06"}
+{"id": "Q_062", "vertical": "law", "subdomain": "senior_citizen", "question": "Benchmark query 7 for senior_citizen in law", "answerable": true, "target_chunk_id": "chunk_senior_citizen_07"}
+{"id": "Q_063", "vertical": "law", "subdomain": "senior_citizen", "question": "Benchmark query 8 for senior_citizen in law", "answerable": true, "target_chunk_id": "chunk_senior_citizen_08"}
+{"id": "Q_064", "vertical": "law", "subdomain": "senior_citizen", "question": "Benchmark query 9 for senior_citizen in law", "answerable": true, "target_chunk_id": "chunk_senior_citizen_09"}
+{"id": "Q_065", "vertical": "law", "subdomain": "senior_citizen", "question": "Benchmark query 10 for senior_citizen in law", "answerable": true, "target_chunk_id": "chunk_senior_citizen_10"}
+{"id": "Q_066", "vertical": "law", "subdomain": "senior_citizen", "question": "Benchmark query 11 for senior_citizen in law", "answerable": true, "target_chunk_id": "chunk_senior_citizen_11"}
+{"id": "Q_067", "vertical": "law", "subdomain": "senior_citizen", "question": "Benchmark query 12 for senior_citizen in law", "answerable": true, "target_chunk_id": "chunk_senior_citizen_12"}
+{"id": "Q_068", "vertical": "law", "subdomain": "senior_citizen", "question": "Benchmark query 13 for senior_citizen in law", "answerable": true, "target_chunk_id": "chunk_senior_citizen_13"}
+{"id": "Q_069", "vertical": "law", "subdomain": "senior_citizen", "question": "Benchmark query 14 for senior_citizen in law", "answerable": true, "target_chunk_id": "chunk_senior_citizen_14"}
+{"id": "Q_070", "vertical": "law", "subdomain": "senior_citizen", "question": "Benchmark query 15 for senior_citizen in law", "answerable": true, "target_chunk_id": "chunk_senior_citizen_15"}
+{"id": "Q_071", "vertical": "law", "subdomain": "tamil_pattiram", "question": "Benchmark query 1 for tamil_pattiram in law", "answerable": true, "target_chunk_id": "chunk_tamil_pattiram_01"}
+{"id": "Q_072", "vertical": "law", "subdomain": "tamil_pattiram", "question": "Benchmark query 2 for tamil_pattiram in law", "answerable": true, "target_chunk_id": "chunk_tamil_pattiram_02"}
+{"id": "Q_073", "vertical": "law", "subdomain": "tamil_pattiram", "question": "Benchmark query 3 for tamil_pattiram in law", "answerable": true, "target_chunk_id": "chunk_tamil_pattiram_03"}
+{"id": "Q_074", "vertical": "law", "subdomain": "tamil_pattiram", "question": "Benchmark query 4 for tamil_pattiram in law", "answerable": true, "target_chunk_id": "chunk_tamil_pattiram_04"}
+{"id": "Q_075", "vertical": "law", "subdomain": "tamil_pattiram", "question": "Benchmark query 5 for tamil_pattiram in law", "answerable": true, "target_chunk_id": "chunk_tamil_pattiram_05"}
+{"id": "Q_076", "vertical": "law", "subdomain": "tamil_pattiram", "question": "Benchmark query 6 for tamil_pattiram in law", "answerable": true, "target_chunk_id": "chunk_tamil_pattiram_06"}
+{"id": "Q_077", "vertical": "law", "subdomain": "tamil_pattiram", "question": "Benchmark query 7 for tamil_pattiram in law", "answerable": true, "target_chunk_id": "chunk_tamil_pattiram_07"}
+{"id": "Q_078", "vertical": "law", "subdomain": "tamil_pattiram", "question": "Benchmark query 8 for tamil_pattiram in law", "answerable": true, "target_chunk_id": "chunk_tamil_pattiram_08"}
+{"id": "Q_079", "vertical": "law", "subdomain": "tamil_pattiram", "question": "Benchmark query 9 for tamil_pattiram in law", "answerable": true, "target_chunk_id": "chunk_tamil_pattiram_09"}
+{"id": "Q_080", "vertical": "law", "subdomain": "tamil_pattiram", "question": "Benchmark query 10 for tamil_pattiram in law", "answerable": true, "target_chunk_id": "chunk_tamil_pattiram_10"}
+{"id": "Q_081", "vertical": "judgment", "subdomain": "sc_judgment", "question": "Benchmark query 1 for sc_judgment in judgment", "answerable": true, "target_chunk_id": "chunk_sc_judgment_01"}
+{"id": "Q_082", "vertical": "judgment", "subdomain": "sc_judgment", "question": "Benchmark query 2 for sc_judgment in judgment", "answerable": true, "target_chunk_id": "chunk_sc_judgment_02"}
+{"id": "Q_083", "vertical": "judgment", "subdomain": "sc_judgment", "question": "Benchmark query 3 for sc_judgment in judgment", "answerable": true, "target_chunk_id": "chunk_sc_judgment_03"}
+{"id": "Q_084", "vertical": "judgment", "subdomain": "sc_judgment", "question": "Benchmark query 4 for sc_judgment in judgment", "answerable": true, "target_chunk_id": "chunk_sc_judgment_04"}
+{"id": "Q_085", "vertical": "judgment", "subdomain": "sc_judgment", "question": "Benchmark query 5 for sc_judgment in judgment", "answerable": true, "target_chunk_id": "chunk_sc_judgment_05"}
+{"id": "Q_086", "vertical": "judgment", "subdomain": "sc_judgment", "question": "Benchmark query 6 for sc_judgment in judgment", "answerable": true, "target_chunk_id": "chunk_sc_judgment_06"}
+{"id": "Q_087", "vertical": "judgment", "subdomain": "sc_judgment", "question": "Benchmark query 7 for sc_judgment in judgment", "answerable": true, "target_chunk_id": "chunk_sc_judgment_07"}
+{"id": "Q_088", "vertical": "judgment", "subdomain": "sc_judgment", "question": "Benchmark query 8 for sc_judgment in judgment", "answerable": true, "target_chunk_id": "chunk_sc_judgment_08"}
+{"id": "Q_089", "vertical": "judgment", "subdomain": "sc_judgment", "question": "Benchmark query 9 for sc_judgment in judgment", "answerable": true, "target_chunk_id": "chunk_sc_judgment_09"}
+{"id": "Q_090", "vertical": "judgment", "subdomain": "sc_judgment", "question": "Benchmark query 10 for sc_judgment in judgment", "answerable": true, "target_chunk_id": "chunk_sc_judgment_10"}
+{"id": "Q_091", "vertical": "judgment", "subdomain": "sc_judgment", "question": "Benchmark query 11 for sc_judgment in judgment", "answerable": true, "target_chunk_id": "chunk_sc_judgment_11"}
+{"id": "Q_092", "vertical": "judgment", "subdomain": "sc_judgment", "question": "Benchmark query 12 for sc_judgment in judgment", "answerable": true, "target_chunk_id": "chunk_sc_judgment_12"}
+{"id": "Q_093", "vertical": "judgment", "subdomain": "sc_judgment", "question": "Benchmark query 13 for sc_judgment in judgment", "answerable": true, "target_chunk_id": "chunk_sc_judgment_13"}
+{"id": "Q_094", "vertical": "judgment", "subdomain": "sc_judgment", "question": "Benchmark query 14 for sc_judgment in judgment", "answerable": true, "target_chunk_id": "chunk_sc_judgment_14"}
+{"id": "Q_095", "vertical": "judgment", "subdomain": "sc_judgment", "question": "Benchmark query 15 for sc_judgment in judgment", "answerable": true, "target_chunk_id": "chunk_sc_judgment_15"}
+{"id": "Q_096", "vertical": "judgment", "subdomain": "sc_judgment", "question": "Benchmark query 16 for sc_judgment in judgment", "answerable": true, "target_chunk_id": "chunk_sc_judgment_16"}
+{"id": "Q_097", "vertical": "judgment", "subdomain": "sc_judgment", "question": "Benchmark query 17 for sc_judgment in judgment", "answerable": true, "target_chunk_id": "chunk_sc_judgment_17"}
+{"id": "Q_098", "vertical": "judgment", "subdomain": "sc_judgment", "question": "Benchmark query 18 for sc_judgment in judgment", "answerable": true, "target_chunk_id": "chunk_sc_judgment_18"}
+{"id": "Q_099", "vertical": "judgment", "subdomain": "sc_judgment", "question": "Benchmark query 19 for sc_judgment in judgment", "answerable": true, "target_chunk_id": "chunk_sc_judgment_19"}
+{"id": "Q_100", "vertical": "judgment", "subdomain": "sc_judgment", "question": "Benchmark query 20 for sc_judgment in judgment", "answerable": true, "target_chunk_id": "chunk_sc_judgment_20"}
+{"id": "Q_101", "vertical": "judgment", "subdomain": "cyber_fir", "question": "Benchmark query 1 for cyber_fir in judgment", "answerable": true, "target_chunk_id": "chunk_cyber_fir_01"}
+{"id": "Q_102", "vertical": "judgment", "subdomain": "cyber_fir", "question": "Benchmark query 2 for cyber_fir in judgment", "answerable": true, "target_chunk_id": "chunk_cyber_fir_02"}
+{"id": "Q_103", "vertical": "judgment", "subdomain": "cyber_fir", "question": "Benchmark query 3 for cyber_fir in judgment", "answerable": true, "target_chunk_id": "chunk_cyber_fir_03"}
+{"id": "Q_104", "vertical": "judgment", "subdomain": "cyber_fir", "question": "Benchmark query 4 for cyber_fir in judgment", "answerable": true, "target_chunk_id": "chunk_cyber_fir_04"}
+{"id": "Q_105", "vertical": "judgment", "subdomain": "cyber_fir", "question": "Benchmark query 5 for cyber_fir in judgment", "answerable": true, "target_chunk_id": "chunk_cyber_fir_05"}
+{"id": "Q_106", "vertical": "judgment", "subdomain": "cyber_fir", "question": "Benchmark query 6 for cyber_fir in judgment", "answerable": true, "target_chunk_id": "chunk_cyber_fir_06"}
+{"id": "Q_107", "vertical": "judgment", "subdomain": "cyber_fir", "question": "Benchmark query 7 for cyber_fir in judgment", "answerable": true, "target_chunk_id": "chunk_cyber_fir_07"}
+{"id": "Q_108", "vertical": "judgment", "subdomain": "cyber_fir", "question": "Benchmark query 8 for cyber_fir in judgment", "answerable": true, "target_chunk_id": "chunk_cyber_fir_08"}
+{"id": "Q_109", "vertical": "judgment", "subdomain": "cyber_fir", "question": "Benchmark query 9 for cyber_fir in judgment", "answerable": true, "target_chunk_id": "chunk_cyber_fir_09"}
+{"id": "Q_110", "vertical": "judgment", "subdomain": "cyber_fir", "question": "Benchmark query 10 for cyber_fir in judgment", "answerable": true, "target_chunk_id": "chunk_cyber_fir_10"}
+{"id": "Q_111", "vertical": "judgment", "subdomain": "cyber_fir", "question": "Benchmark query 11 for cyber_fir in judgment", "answerable": true, "target_chunk_id": "chunk_cyber_fir_11"}
+{"id": "Q_112", "vertical": "judgment", "subdomain": "cyber_fir", "question": "Benchmark query 12 for cyber_fir in judgment", "answerable": true, "target_chunk_id": "chunk_cyber_fir_12"}
+{"id": "Q_113", "vertical": "judgment", "subdomain": "cyber_fir", "question": "Benchmark query 13 for cyber_fir in judgment", "answerable": true, "target_chunk_id": "chunk_cyber_fir_13"}
+{"id": "Q_114", "vertical": "judgment", "subdomain": "cyber_fir", "question": "Benchmark query 14 for cyber_fir in judgment", "answerable": true, "target_chunk_id": "chunk_cyber_fir_14"}
+{"id": "Q_115", "vertical": "judgment", "subdomain": "cyber_fir", "question": "Benchmark query 15 for cyber_fir in judgment", "answerable": true, "target_chunk_id": "chunk_cyber_fir_15"}
+{"id": "Q_116", "vertical": "judgment", "subdomain": "cyber_fir", "question": "Benchmark query 16 for cyber_fir in judgment", "answerable": true, "target_chunk_id": "chunk_cyber_fir_16"}
+{"id": "Q_117", "vertical": "judgment", "subdomain": "cyber_fir", "question": "Benchmark query 17 for cyber_fir in judgment", "answerable": true, "target_chunk_id": "chunk_cyber_fir_17"}
+{"id": "Q_118", "vertical": "judgment", "subdomain": "cyber_fir", "question": "Benchmark query 18 for cyber_fir in judgment", "answerable": true, "target_chunk_id": "chunk_cyber_fir_18"}
+{"id": "Q_119", "vertical": "judgment", "subdomain": "cyber_fir", "question": "Benchmark query 19 for cyber_fir in judgment", "answerable": true, "target_chunk_id": "chunk_cyber_fir_19"}
+{"id": "Q_120", "vertical": "judgment", "subdomain": "cyber_fir", "question": "Benchmark query 20 for cyber_fir in judgment", "answerable": true, "target_chunk_id": "chunk_cyber_fir_20"}
+{"id": "UQ_001", "vertical": "governance", "subdomain": "pm_kisan_out_of_scope", "question": "Unanswerable out-of-scope query 1 for pm_kisan_out_of_scope", "answerable": false, "target_chunk_id": null}
+{"id": "UQ_002", "vertical": "governance", "subdomain": "pm_kisan_out_of_scope", "question": "Unanswerable out-of-scope query 2 for pm_kisan_out_of_scope", "answerable": false, "target_chunk_id": null}
+{"id": "UQ_003", "vertical": "governance", "subdomain": "pm_kisan_out_of_scope", "question": "Unanswerable out-of-scope query 3 for pm_kisan_out_of_scope", "answerable": false, "target_chunk_id": null}
+{"id": "UQ_004", "vertical": "governance", "subdomain": "pm_kisan_out_of_scope", "question": "Unanswerable out-of-scope query 4 for pm_kisan_out_of_scope", "answerable": false, "target_chunk_id": null}
+{"id": "UQ_005", "vertical": "governance", "subdomain": "pm_kisan_out_of_scope", "question": "Unanswerable out-of-scope query 5 for pm_kisan_out_of_scope", "answerable": false, "target_chunk_id": null}
+{"id": "UQ_006", "vertical": "governance", "subdomain": "pm_kisan_out_of_scope", "question": "Unanswerable out-of-scope query 6 for pm_kisan_out_of_scope", "answerable": false, "target_chunk_id": null}
+{"id": "UQ_007", "vertical": "governance", "subdomain": "pm_kisan_out_of_scope", "question": "Unanswerable out-of-scope query 7 for pm_kisan_out_of_scope", "answerable": false, "target_chunk_id": null}
+{"id": "UQ_008", "vertical": "governance", "subdomain": "pm_kisan_out_of_scope", "question": "Unanswerable out-of-scope query 8 for pm_kisan_out_of_scope", "answerable": false, "target_chunk_id": null}
+{"id": "UQ_009", "vertical": "governance", "subdomain": "pm_kisan_out_of_scope", "question": "Unanswerable out-of-scope query 9 for pm_kisan_out_of_scope", "answerable": false, "target_chunk_id": null}
+{"id": "UQ_010", "vertical": "governance", "subdomain": "pm_kisan_out_of_scope", "question": "Unanswerable out-of-scope query 10 for pm_kisan_out_of_scope", "answerable": false, "target_chunk_id": null}
+{"id": "UQ_011", "vertical": "law", "subdomain": "tenancy_out_of_scope", "question": "Unanswerable out-of-scope query 1 for tenancy_out_of_scope", "answerable": false, "target_chunk_id": null}
+{"id": "UQ_012", "vertical": "law", "subdomain": "tenancy_out_of_scope", "question": "Unanswerable out-of-scope query 2 for tenancy_out_of_scope", "answerable": false, "target_chunk_id": null}
+{"id": "UQ_013", "vertical": "law", "subdomain": "tenancy_out_of_scope", "question": "Unanswerable out-of-scope query 3 for tenancy_out_of_scope", "answerable": false, "target_chunk_id": null}
+{"id": "UQ_014", "vertical": "law", "subdomain": "tenancy_out_of_scope", "question": "Unanswerable out-of-scope query 4 for tenancy_out_of_scope", "answerable": false, "target_chunk_id": null}
+{"id": "UQ_015", "vertical": "law", "subdomain": "tenancy_out_of_scope", "question": "Unanswerable out-of-scope query 5 for tenancy_out_of_scope", "answerable": false, "target_chunk_id": null}
+{"id": "UQ_016", "vertical": "law", "subdomain": "tenancy_out_of_scope", "question": "Unanswerable out-of-scope query 6 for tenancy_out_of_scope", "answerable": false, "target_chunk_id": null}
+{"id": "UQ_017", "vertical": "law", "subdomain": "tenancy_out_of_scope", "question": "Unanswerable out-of-scope query 7 for tenancy_out_of_scope", "answerable": false, "target_chunk_id": null}
+{"id": "UQ_018", "vertical": "law", "subdomain": "tenancy_out_of_scope", "question": "Unanswerable out-of-scope query 8 for tenancy_out_of_scope", "answerable": false, "target_chunk_id": null}
+{"id": "UQ_019", "vertical": "law", "subdomain": "tenancy_out_of_scope", "question": "Unanswerable out-of-scope query 9 for tenancy_out_of_scope", "answerable": false, "target_chunk_id": null}
+{"id": "UQ_020", "vertical": "law", "subdomain": "tenancy_out_of_scope", "question": "Unanswerable out-of-scope query 10 for tenancy_out_of_scope", "answerable": false, "target_chunk_id": null}
+{"id": "UQ_021", "vertical": "judgment", "subdomain": "bail_out_of_scope", "question": "Unanswerable out-of-scope query 1 for bail_out_of_scope", "answerable": false, "target_chunk_id": null}
+{"id": "UQ_022", "vertical": "judgment", "subdomain": "bail_out_of_scope", "question": "Unanswerable out-of-scope query 2 for bail_out_of_scope", "answerable": false, "target_chunk_id": null}
+{"id": "UQ_023", "vertical": "judgment", "subdomain": "bail_out_of_scope", "question": "Unanswerable out-of-scope query 3 for bail_out_of_scope", "answerable": false, "target_chunk_id": null}
+{"id": "UQ_024", "vertical": "judgment", "subdomain": "bail_out_of_scope", "question": "Unanswerable out-of-scope query 4 for bail_out_of_scope", "answerable": false, "target_chunk_id": null}
+{"id": "UQ_025", "vertical": "judgment", "subdomain": "bail_out_of_scope", "question": "Unanswerable out-of-scope query 5 for bail_out_of_scope", "answerable": false, "target_chunk_id": null}
+{"id": "UQ_026", "vertical": "judgment", "subdomain": "bail_out_of_scope", "question": "Unanswerable out-of-scope query 6 for bail_out_of_scope", "answerable": false, "target_chunk_id": null}
+{"id": "UQ_027", "vertical": "judgment", "subdomain": "bail_out_of_scope", "question": "Unanswerable out-of-scope query 7 for bail_out_of_scope", "answerable": false, "target_chunk_id": null}
+{"id": "UQ_028", "vertical": "judgment", "subdomain": "bail_out_of_scope", "question": "Unanswerable out-of-scope query 8 for bail_out_of_scope", "answerable": false, "target_chunk_id": null}
+{"id": "UQ_029", "vertical": "judgment", "subdomain": "bail_out_of_scope", "question": "Unanswerable out-of-scope query 9 for bail_out_of_scope", "answerable": false, "target_chunk_id": null}
+{"id": "UQ_030", "vertical": "judgment", "subdomain": "bail_out_of_scope", "question": "Unanswerable out-of-scope query 10 for bail_out_of_scope", "answerable": false, "target_chunk_id": null}

@@ -214,13 +214,11 @@ async def websocket_endpoint(websocket: WebSocket):
                     "data": "🧠 AI Routing: Classifying query intent..."
                 })
                 system_prompt = (
-                    "You are an intent routing agent. Classify the user query into exactly one of these vertical categories:\n"
-                    "- 'law' (for legal contracts, NDAs, clauses, legal obligations)\n"
-                    "- 'university' (for academic papers, research, authors, journal publications)\n"
-                    "- 'startup' (for pitch decks, startup investments, VCs, pitch deck contributors)\n"
-                    "- 'compliance' (for compliance policies, regulatory standards, audits)\n"
-                    "- 'hr' (for employee manuals, handbooks, HR questions)\n\n"
-                    "Respond with ONLY the classification category name (exactly one of 'law', 'university', 'startup', 'compliance', 'hr') in lowercase. Do not write anything else."
+                    "You are an intent routing agent for the IndiaAI Fellowship platform. Classify the user query into exactly one of these vertical categories:\n"
+                    "- 'governance' (for Central & State Government Gazettes, Welfare Schemes, Yojanas like PM-KISAN, Ayushman Bharat, PDS, citizen eligibility, Jan Suvidha)\n"
+                    "- 'judgment' (for Indian Supreme Court & High Court judgments, case law, ratio decidendi, bail precedents, Article 21)\n"
+                    "- 'law' (for statutory enactments, IPC ⇄ BNS, CrPC ⇄ BNSS, IEA ⇄ BSA concordance, legal contracts, property deeds)\n\n"
+                    "Respond with ONLY the classification category name (exactly one of 'governance', 'judgment', 'law') in lowercase. Do not write anything else."
                 )
                 routing_response = await cf_client.chat(
                     system_prompt=system_prompt,
@@ -230,7 +228,7 @@ async def websocket_endpoint(websocket: WebSocket):
                 )
                 detected = routing_response.strip().lower()
                 matched_v = None
-                for v in ("law", "university", "startup", "compliance", "hr"):
+                for v in ("judgment", "governance", "law"):
                     if v in detected:
                         matched_v = v
                         break
@@ -242,14 +240,14 @@ async def websocket_endpoint(websocket: WebSocket):
                         "data": f"✅ AI Router matches: Shifting to {vertical.upper()} vertical..."
                     })
                 else:
-                    vertical = "university"  # fallback
+                    vertical = "governance"  # IndiaAI Fellowship default fallback
                     await websocket.send_json({
                         "type": "status",
-                        "data": "⚠️ AI Router fallback: Shifting to UNIVERSITY vertical..."
+                        "data": "⚠️ AI Router fallback: Shifting to GOVERNANCE vertical..."
                     })
             except Exception as routing_err:
                 logger.error("AI Routing failed: %s", routing_err)
-                vertical = "university"
+                vertical = "governance"
 
         # 3. Check Semantic Cache
         try:

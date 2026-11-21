@@ -91,11 +91,9 @@ const Settings = () => {
             <div className="setting-row">
               <label>Active Workspace Vertical</label>
               <select value={vertical} onChange={(e) => setVertical(e.target.value)}>
-                <option value="university">University Papers</option>
-                <option value="law">Legal Contracts</option>
-                <option value="startup">Startup & VC</option>
-                <option value="compliance">Compliance Regulations</option>
-                <option value="hr">HR Policies</option>
+                <option value="governance">🏛️ Public Governance & Welfare Schemes</option>
+                <option value="judgment">⚖️ Court Judgments & Case Precedents</option>
+                <option value="law">📜 Statutory Law & Concordance</option>
               </select>
             </div>
 

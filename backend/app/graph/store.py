@@ -421,10 +421,12 @@ class GraphStore:
                     employee_type=c.get("employee_type"),
                     defined_term=c.get("defined_term"),
                     superseded=False,
+                    quarantined=c.get("quarantined", False),
+                    injected=c.get("injected", False),
                 )
 
-                # Cache embedding for vector search
-                if embedding:
+                # Cache embedding for vector search (strictly exclude quarantined chunks)
+                if embedding and not c.get("quarantined", False):
                     self._embedding_cache[c["id"]] = np.array(embedding, dtype=np.float32)
 
                 # Link to document
@@ -465,6 +467,8 @@ class GraphStore:
                             "article_ref": cdata.get("article_ref"),
                             "section": cdata.get("section"),
                             "order": cdata.get("order", 0),
+                            "quarantined": cdata.get("quarantined", False),
+                            "injected": cdata.get("injected", False),
                         })
 
             chunks.sort(key=lambda c: c.get("order", 0))
@@ -522,7 +526,7 @@ class GraphStore:
                 if not self._graph.has_node(chunk_nid):
                     continue
                 cdata = self._graph.nodes[chunk_nid]
-                if cdata.get("superseded", False):
+                if cdata.get("superseded", False) or cdata.get("quarantined", False):
                     continue
 
                 results.append({
@@ -576,6 +580,7 @@ class GraphStore:
                         if (other_id not in seed_set
                                 and other_data.get("tenant_id") == tenant_id
                                 and not other_data.get("superseded", False)
+                                and not other_data.get("quarantined", False)
                                 and other_id not in neighbors):
                             neighbors[other_id] = {
                                 **self._chunk_to_dict(other_data),
@@ -607,6 +612,7 @@ class GraphStore:
         if (cid not in seed_set
                 and data.get("tenant_id") == tenant_id
                 and not data.get("superseded", False)
+                and not data.get("quarantined", False)
                 and cid not in neighbors):
             neighbors[cid] = {
                 **self._chunk_to_dict(data),
@@ -910,6 +916,7 @@ class GraphStore:
     # ─── Knowledge Graph Visualization ────────────────────────────────────────
 
     _COLOR_MAP = {
+        "judgment":   "#8b5cf6",
         "hr":         "#4dabf7",
         "law":        "#f06595",
         "compliance": "#63e6be",

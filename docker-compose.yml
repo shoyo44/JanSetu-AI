@@ -1,11 +1,51 @@
 version: "3.9"
 
 services:
+  # ── Backend: DocsAI Core RAG Engine ───────────────────────────────────────
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: docsai_backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      - GRAPH_STORE_DIR=/app/backend/data
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    volumes:
+      - graph_data:/app/backend/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    depends_on:
+      redis:
+        condition: service_healthy
 
+  # ── Frontend: React / Vite SPA via Hardened Nginx ─────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: docsai_frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      backend:
+        condition: service_healthy
 
+  # ── Caching & Ephemeral Store (Redis) ─────────────────────────────────────
   redis:
     image: redis:7-alpine
-    container_name: docqa_redis
+    container_name: docsai_redis
+    restart: unless-stopped
     ports:
       - "6379:6379"
     volumes:
@@ -13,25 +53,29 @@ services:
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 5s
+      timeout: 3s
       retries: 5
 
-  api:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: docqa_api
+  # ── On-Premise Ollama Daemon (Data Sovereignty Profile) ───────────────────
+  ollama:
+    image: ollama/ollama:latest
+    container_name: docsai_ollama
+    profiles: ["onprem"]
+    restart: unless-stopped
     ports:
-      - "8000:8000"
-    env_file:
-      - .env
-    environment:
-      REDIS_HOST: redis
-    depends_on:
-      redis:
-        condition: service_healthy
+      - "11434:11434"
     volumes:
-      - .:/app
-    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+      - ollama_data:/root/.ollama
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
 
 volumes:
+  graph_data:
+    name: docsai_graph_data
   redis_data:
+    name: docsai_redis_data
+  ollama_data:
+    name: docsai_ollama_data

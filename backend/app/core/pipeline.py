@@ -63,8 +63,8 @@ class RAGPipeline:
         generator:            BaseGenerator,
         config:               Dict[str, Any],
         token_budget:         int   = 4096,
-        retrieval_timeout_s:  float = 10.0,
-        generation_timeout_s: float = 30.0,
+        retrieval_timeout_s:  float = 15.0,
+        generation_timeout_s: float = 90.0,
     ):
         self.indexer    = indexer
         self.retriever  = retriever
@@ -130,12 +130,25 @@ class RAGPipeline:
         reranked: List[ChunkResult] = await self.reranker.rerank(query_text, raw_chunks)
         trace.record("rerank_ms", (loop.time() - t1) * 1000)
 
-        # ── 3. Score gate ─────────────────────────────────────────────────────
-        floor     = self.config.get("score_floor", 0.40)
+        # ── 3. Abstention gate (replaces simple score floor) ──────────────────
+        from app.core.abstention import should_abstain, build_abstention_response
+
+        abstain, reason, diagnostics = should_abstain(reranked, self.vertical)
+        trace.add_meta("abstention_check", diagnostics)
+
+        if abstain:
+            logger.info("[%s] Abstaining: %s", query_hash, reason)
+            trace.add_meta("abstained", True)
+            result = build_abstention_response(reason, diagnostics, reranked, self.vertical)
+            result["_trace"] = trace.to_dict()
+            return result
+
+        # Still apply score floor for context quality (but pipeline continues)
+        floor = self.config.get("score_floor", 0.40)
         qualified = [c for c in reranked if c.best_score >= floor]
         if not qualified:
-            logger.info("[%s] All chunks below floor %.2f.", query_hash, floor)
-            return self._not_found(trace)
+            # Fallback: take top 3 chunks even if below floor (abstention already passed)
+            qualified = reranked[:3]
 
         # ── 4. Context packing ────────────────────────────────────────────────
         context_str, used_ids, truncated = self.ctx_mgr.build_context(
@@ -163,6 +176,11 @@ class RAGPipeline:
         trace.log_summary()
 
         result        = output.model_dump()
+
+        # ── 6. Citation verification (entailment check) ───────────────────────
+        from app.core.verification_integration import verify_and_annotate
+        result = await verify_and_annotate(result, qualified, trace)
+
         result["_trace"] = trace.to_dict()
         return result
 
@@ -191,7 +209,16 @@ class RAGPipeline:
 
         reranked    = await self.reranker.rerank(query_text, raw_chunks)
         floor       = self.config.get("score_floor", 0.40)
-        qualified   = [c for c in reranked if c.best_score >= floor] or reranked[:5]
+        from app.core.abstention import should_abstain
+
+        abstain, reason, _ = should_abstain(reranked, self.vertical)
+        if abstain:
+            yield "I could not find sufficiently relevant information in the provided documents to answer this question reliably."
+            return
+
+        qualified = [c for c in reranked if c.best_score >= floor]
+        if not qualified:
+            qualified = reranked[:3]
         context_str, used_ids, _ = self.ctx_mgr.build_context(qualified, self.vertical)
 
         async for token in self.generator.stream(
@@ -205,9 +232,16 @@ class RAGPipeline:
 
     def _not_found(self, trace: PipelineTrace) -> Dict[str, Any]:
         return {
-            "answer":      "The information you requested was not found in the provided documents.",
-            "confidence":  "LOW",
-            "not_found":   True,
-            "chunks_used": [],
-            "_trace":      trace.to_dict(),
+            "answer":                 "The information you requested was not found in the provided documents.",
+            "confidence":             "LOW",
+            "not_found":              True,
+            "abstained":              False,
+            "abstention_reason":      None,
+            "abstention_diagnostics": None,
+            "nearest_topics":         [],
+            "grounding_score":        None,
+            "unverified_claims":      [],
+            "citation_verified":      None,
+            "chunks_used":            [],
+            "_trace":                 trace.to_dict(),
         }

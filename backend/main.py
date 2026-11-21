@@ -1,5 +1,5 @@
 """
-DocsAI Backend Application Entry Point.
+JanSetu AI Backend Application Entry Point.
 """
 from __future__ import annotations
 
@@ -43,7 +43,7 @@ logging.getLogger("huggingface_hub").setLevel(logging.WARNING)
 async def run_startup_connectivity_check(app: FastAPI) -> None:
     """Run verification tests against connected external API services."""
     print("\n" + "=" * 60)
-    print("           DocsAI API CONNECTIVITY DIAGNOSTICS")
+    print("           JanSetu AI API CONNECTIVITY DIAGNOSTICS")
     print("=" * 60)
 
     # 1. GraphStore connectivity (always OK — in-process)
@@ -71,16 +71,20 @@ async def run_startup_connectivity_check(app: FastAPI) -> None:
     except Exception as exc:
         print(f"  [FAIL] Nomic Embeddings API:  CONNECTION FAILED: {exc}")
 
-    # 4. Cloudflare Workers AI connectivity (LLM / Vision)
+    # 4. LLM Backend Connectivity (Cloudflare Workers AI or Ollama On-Premise)
     try:
+        from app.core.ollama_client import OllamaClient
+        is_ollama = isinstance(app.state.cf_client, OllamaClient)
+        backend_name = f"Ollama On-Premise ({app.state.cf_client.llm_model})" if is_ollama else "Cloudflare Workers AI"
         await app.state.cf_client.chat(
             system_prompt="You are a connection test agent. Respond with one word: OK.",
             user_message="test connection",
             max_tokens=10,
         )
-        print("  [OK] Cloudflare Workers AI: CONNECTED (OK)")
+        print(f"  [OK] LLM Backend:           CONNECTED ({backend_name})")
     except Exception as exc:
-        print(f"  [FAIL] Cloudflare Workers AI: CONNECTION FAILED: {exc}")
+        backend_name = "Ollama" if getattr(app.state, "cf_client", None) and hasattr(app.state.cf_client, "llm_model") else "Cloudflare Workers AI"
+        print(f"  [FAIL] LLM Backend:         CONNECTION FAILED ({backend_name}): {exc}")
 
     # 5. MongoDB History DB connectivity
     if getattr(app.state, "mongodb_client", None):
@@ -108,7 +112,7 @@ async def lifespan(app: FastAPI):
     Lifespan events: Initialize GraphStore, Redis, Cloudflare AI client,
     job queue, and clean up on shutdown.
     """
-    logger.info("Initializing DocsAI backend components...")
+    logger.info("Initializing JanSetu AI backend components...")
 
     # 1. In-Process Graph Store (replaces Neo4j)
     data_dir = os.getenv("GRAPH_STORE_DIR", os.path.join(os.path.dirname(__file__), "data"))
@@ -121,10 +125,24 @@ async def lifespan(app: FastAPI):
     # 3. Ingestion Job Queue
     app.state.job_queue = create_job_queue(app.state.redis)
 
-    app.state.cf_client = CloudflareAI(
-        account_id=os.environ["CF_ACCOUNT_ID"],
-        api_token=os.environ["CF_API_TOKEN"],
-    )
+    llm_backend = os.getenv("LLM_BACKEND", "cloudflare").lower()
+    if llm_backend == "ollama":
+        from app.core.ollama_client import OllamaClient
+        app.state.cf_client = OllamaClient()
+        logger.info("Initialized On-Premise OllamaClient as primary LLM backend.")
+    else:
+        cf_account = os.getenv("CF_ACCOUNT_ID")
+        cf_token = os.getenv("CF_API_TOKEN")
+        if cf_account and cf_token:
+            app.state.cf_client = CloudflareAI(
+                account_id=cf_account,
+                api_token=cf_token,
+            )
+            logger.info("Initialized CloudflareAI as primary LLM backend.")
+        else:
+            logger.warning("Cloudflare credentials not found. Falling back to on-premise OllamaClient.")
+            from app.core.ollama_client import OllamaClient
+            app.state.cf_client = OllamaClient()
     from app.rerankers.cross_encoder import CrossEncoderReranker
     try:
         app.state.reranker = CrossEncoderReranker()
@@ -204,19 +222,23 @@ async def lifespan(app: FastAPI):
 # ─── FastAPI Bootstrap ────────────────────────────────────────────────────────
 
 app = FastAPI(
-    title="DocsAI Core Backend API",
-    description="Multi-vertical enterprise RAG knowledge graph engine.",
+    title="JanSetu AI Core Backend API",
+    description="Sovereign multi-vertical agentic knowledge graph & RAG engine for public governance and citizen welfare.",
     version="1.0.0",
     lifespan=lifespan,
 )
 
 # CORS configurations
-cors_origins_raw = os.getenv("CORS_ORIGINS", "http://localhost:5173,http://localhost:3000,https://docs-ai-ashen.vercel.app")
+cors_origins_raw = os.getenv(
+    "CORS_ORIGINS",
+    "http://localhost:5173,http://127.0.0.1:5173,http://localhost:3000,http://127.0.0.1:3000,http://localhost:8000,http://127.0.0.1:8000,https://docs-ai-ashen.vercel.app"
+)
 allowed_origins = [orig.strip() for orig in cors_origins_raw.split(",") if orig.strip()]
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=allowed_origins,
+    allow_origin_regex=r"https?://(localhost|127\.0\.0\.1)(:\d+)?",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

@@ -1,0 +1,44 @@
+GOVERNMENT OF INDIA
+MINISTRY OF HEALTH AND FAMILY WELFARE
+NATIONAL HEALTH AUTHORITY (NHA)
+Notification Ref: NHA/AB-PMJAY/2024/CIRCULAR-12
+
+OPERATIONAL GUIDELINES: AYUSHMAN BHARAT PRADHAN MANTRI JAN AROGYA YOJANA (AB-PMJAY)
+
+1. OBJECTIVES AND OVERVIEW
+Ayushman Bharat PM-JAY is the world's largest government-funded health assurance scheme. The scheme is designed to provide financial protection against catastrophic health expenditures and to reduce out-of-pocket expenditure for secondary and tertiary care hospitalization across India.
+
+2. ELIGIBILITY CRITERIA
+(a) Deprivation Criteria (Rural): Families identified under the Socio-Economic Caste Census (SECC 2011) database belonging to D1, D2, D3, D4, D5, and D7 categories (families with only one room, kuccha walls/roof, female-headed households with no adult male member, SC/ST households, landless manual casual labor households).
+(b) Occupational Criteria (Urban): 11 occupational categories including street vendors, domestic workers, sanitation workers, transport workers, and construction workers.
+(c) Universal Senior Citizen Extension (2024 Amendment): All senior citizens aged 70 years and above, irrespective of family income or economic status, are eligible for a dedicated top-up health cover under the Ayushman Vaya Vandana Card.
+
+3. EXCLUSION CRITERIA
+(a) Families owning motorized 2/3/4-wheelers or motorized fishing boats.
+(b) Families owning mechanized 3/4-wheeler agricultural equipment.
+(c) Government employees or families with members employed in government service.
+(d) Families paying professional tax or owning enterprise registered with the government.
+(e) Families paying income tax.
+
+4. HEALTH ASSURANCE BENEFITS
+(a) Comprehensive cashless and paperless health insurance cover of Rs. 5,00,000/- per family per year for secondary and tertiary care hospitalization.
+(b) No restriction on family size, age, or gender.
+(c) Pre-existing conditions are covered from day one of scheme enrollment.
+(d) Covers up to 3 days of pre-hospitalization and 15 days of post-hospitalization expenses, including diagnostic tests and medications.
+(e) Over 1,949 treatment procedures across 27 specialties (cardiology, oncology, neurosurgery, orthopedics) are covered under Standard Health Benefit Packages (HBP).
+
+5. MANDATORY DOCUMENTS REQUIRED FOR AYUSHMAN CARD
+(a) Aadhaar Card of the beneficiary (mandatory for biometric identity verification).
+(b) Ration Card or Family Identification Document (Samagra ID, Parivar Pehchan Patra, etc.).
+(c) Active Mobile number for OTP validation and Ayushman Bharat Health Account (ABHA) creation.
+
+6. HOW TO ACCESS TREATMENT AND APPLY
+(a) Ayushman Mitras: Stationed at helpdesks in all empanelled public and private hospitals (EHCPs) to assist patients with card generation and admission.
+(b) Beneficiary Identification System (BIS) Portal: https://beneficiary.nha.gov.in
+(c) Portability: Beneficiaries can avail cashless treatment at any empanelled hospital across any State or Union Territory in India.
+
+7. GRIEVANCE REDRESSAL AND HELPLINES
+(a) 24x7 National Toll-Free Helpline: 14555
+(b) WhatsApp Chatbot: +91 99999 14555
+(c) Grievance Portal: https://grievance.pmjay.gov.in
+(d) Central Anti-Fraud Unit (NAFU) for reporting private hospital billing discrepancies.

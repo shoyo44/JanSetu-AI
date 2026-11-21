@@ -1,0 +1,27 @@
+THE MAINTENANCE AND WELFARE OF PARENTS AND SENIOR CITIZENS ACT, 2007
+(ACT NO. 56 OF 2007 - PARLIAMENT OF INDIA)
+Subject: Statutory Protection of Elderly Parents, Monthly Maintenance, and Revocation of Gift Deeds
+
+1. SUMMARY STATUTORY PURPOSE:
+An Act to provide for more effective provisions for the maintenance and welfare of parents and senior citizens (citizens of India aged 60 years or above) guaranteed and recognized under the Constitution of India.
+
+2. SUMMARY CANCELLATION OF PROPERTY TRANSFERS / GIFT DEEDS (SECTION 23):
+- Section 23(1): Transfer of property to be void in certain circumstances:
+  "Where any senior citizen who, after the commencement of this Act, has transferred by way of gift or otherwise (Gift Deed / தானப் பத்திரம் / Settlement Deed), his property, subject to the condition that the transferee shall provide the basic amenities and basic physical needs to the transferor and such transferee refuses or fails to provide such amenities and physical needs, the said transfer of property shall be deemed to have been made by FRAUD OR COERCION OR UNDER UNDUE INFLUENCE and shall at the option of the transferor be DECLARED VOID by the Maintenance Tribunal."
+- Legal Effect: The Revenue Divisional Officer (RDO / Sub-Divisional Magistrate) presiding over the Tribunal has full statutory authority to cancel the registered gift deed and restore full absolute title and physical possession of the property back to the senior citizen parent.
+- Judicial Precedents & Legal Caveat:
+  a. In Sudesh Chhikara v. Ramti Devi (2022 SC), the Supreme Court clarified that Section 23 applies when the transfer document contains an express or integral condition of maintenance; an unconditional gift deed cannot be revoked under Section 23 merely on subsequent neglect.
+  b. In S. Vanitha v. Deputy Commissioner (2021) 15 SCC 730, the Supreme Court confirmed that the MWPSC Act overrides conflicting rights under personal law or tenancy laws to protect an elderly parent's right to live peacefully in their home.
+
+3. MANDATORY MONTHLY MAINTENANCE ALLOWANCE (SECTION 4, 5, & 9):
+- Eligibility: Senior citizens or parents (father or mother whether biological, adoptive, or step-father/step-mother) who are unable to maintain themselves from their own earning or property.
+- Responsibility: Adult children (sons, daughters) or legal heirs who are in possession of or would inherit the parent's estate are legally bound to maintain them.
+- Maximum Monthly Maintenance: The Maintenance Tribunal can order monthly maintenance allowance payable directly to the senior citizen's bank account.
+- Time Limit: Section 5(6) requires the Tribunal to decide the maintenance application within NINETY (90) DAYS of serving notice to the children.
+
+4. CRIMINAL PENALTY FOR ABANDONMENT OF SENIOR CITIZENS (SECTION 24):
+- Whoever, having the care or protection of a senior citizen, leaves or abandons such senior citizen in any place with the intention of wholly abandoning them, shall be punishable with IMPRISONMENT FOR UP TO THREE (3) MONTHS or fine up to ₹5,000, or both. Offence is cognizable and bailable.
+
+5. JURISDICTION & FILING PROCEDURE:
+- The senior citizen can file a plain-paper application directly before the Maintenance Tribunal / Revenue Divisional Office (RDO) in the district where they reside.
+- Section 17 expressly bars representation by legal practitioners (advocates) without permission, ensuring the forum is free, accessible, and not intimidating for the elderly.

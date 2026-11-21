@@ -54,8 +54,12 @@ OUTPUT FORMAT:
 }"""
 
 
-def _parse_redflag_json(raw: str) -> Dict[str, Any]:
+def _parse_redflag_json(raw: Any) -> Dict[str, Any]:
     """Robustly parse the LLM red-flag JSON response."""
+    if isinstance(raw, dict):
+        return raw
+    if not isinstance(raw, str):
+        raw = str(raw)
     text = re.sub(r"^```(?:json)?\s*", "", raw.strip(), flags=re.IGNORECASE)
     text = re.sub(r"\s*```$", "", text).strip()
 
@@ -65,7 +69,7 @@ def _parse_redflag_json(raw: str) -> Dict[str, Any]:
         match = re.search(r"(\{.*\})", text, re.DOTALL)
         if match:
             return json.loads(match.group(1))
-        raise ValueError(f"Cannot parse red-flag JSON: {raw[:100]}")
+        raise ValueError(f"Cannot parse red-flag JSON: {str(raw)[:100]}")
 
 
 def _merge_batch_results(batch_results: List[Dict[str, Any]]) -> Dict[str, Any]:
@@ -79,20 +83,27 @@ def _merge_batch_results(batch_results: List[Dict[str, Any]]) -> Dict[str, Any]:
         lvl = risk_levels.get(result.get("document_risk_level", "LOW"), 1)
         max_risk = max(max_risk, lvl)
 
-    # Deduplicate flags by type+clause_ref
+    # Deduplicate flags by type+clause_ref and assign review metadata
     seen = set()
     unique_flags = []
     for flag in all_flags:
         key = (flag.get("type"), flag.get("clause_ref"))
         if key not in seen:
             seen.add(key)
-            unique_flags.append(flag)
+            flag_entry = dict(flag)
+            flag_entry["id"] = f"flag_{len(unique_flags) + 1}"
+            flag_entry.setdefault("review_status", "PENDING")  # PENDING / ACCEPTED / DISMISSED / NEEDS_REMEDIATION
+            flag_entry.setdefault("review_note", "")
+            flag_entry.setdefault("reviewed_by", None)
+            flag_entry.setdefault("reviewed_at", None)
+            unique_flags.append(flag_entry)
 
     risk_label = {3: "HIGH", 2: "MEDIUM", 1: "LOW"}.get(max_risk, "LOW")
     return {
         "document_risk_level": risk_label,
         "red_flags":           unique_flags,
         "summary":             f"{len(unique_flags)} red flags found. Overall risk: {risk_label}.",
+        "audit_trail":         [],
     }
 
 
@@ -176,4 +187,121 @@ async def run_redflag_scan(
 
 def get_stored_report(store: Any, doc_id: str, tenant_id: str) -> Dict | None:
     """Retrieve a previously computed red-flag report from the graph store."""
-    return store.get_redflag_report(doc_id, tenant_id)
+    report = store.get_redflag_report(doc_id, tenant_id)
+    if report and "red_flags" in report:
+        # Guarantee every flag has an id and review status
+        for idx, f in enumerate(report["red_flags"]):
+            if "id" not in f:
+                f["id"] = f"flag_{idx + 1}"
+            f.setdefault("review_status", "PENDING")
+            f.setdefault("review_note", "")
+    return report
+
+
+def apply_review_action(
+    store: Any,
+    doc_id: str,
+    tenant_id: str,
+    flag_id: str,
+    action: str,
+    note: str = "",
+    reviewer: str = "Legal Counsel",
+) -> Dict[str, Any]:
+    """
+    Apply a human-in-the-loop review action to a specific red flag.
+
+    Actions:
+        - "accept_risk"       → Mark as ACCEPTED
+        - "dismiss"           → Mark as DISMISSED (false positive)
+        - "needs_remediation" → Mark as NEEDS_REMEDIATION
+
+    Updates the stored JSON and recalculates residual document risk level.
+    """
+    from datetime import datetime, timezone
+
+    report = get_stored_report(store, doc_id, tenant_id)
+    if not report:
+        raise ValueError(f"No red-flag report found for doc {doc_id}")
+
+    action_map = {
+        "accept_risk":       "ACCEPTED",
+        "dismiss":           "DISMISSED",
+        "needs_remediation": "NEEDS_REMEDIATION",
+    }
+    status = action_map.get(action.lower().strip(), action.upper())
+
+    target_flag = None
+    for f in report.get("red_flags", []):
+        if f.get("id") == flag_id or f.get("type") == flag_id:
+            target_flag = f
+            break
+
+    if not target_flag:
+        raise ValueError(f"Flag ID '{flag_id}' not found in report.")
+
+    now_iso = datetime.now(timezone.utc).isoformat()
+    target_flag["review_status"] = status
+    target_flag["review_note"] = note
+    target_flag["reviewed_by"] = reviewer
+    target_flag["reviewed_at"] = now_iso
+
+    # Append to audit trail
+    report.setdefault("audit_trail", [])
+    report["audit_trail"].append({
+        "flag_id":   flag_id,
+        "flag_type": target_flag.get("type"),
+        "action":    status,
+        "note":      note,
+        "reviewer":  reviewer,
+        "timestamp": now_iso,
+    })
+
+    # Recalculate residual risk level based on non-dismissed flags
+    active_flags = [f for f in report["red_flags"] if f.get("review_status") != "DISMISSED"]
+    risk_weights = {"HIGH": 3, "MEDIUM": 2, "LOW": 1}
+    max_active_risk = max([risk_weights.get(f.get("severity", "LOW"), 1) for f in active_flags], default=1)
+    new_risk_label = {3: "HIGH", 2: "MEDIUM", 1: "LOW"}.get(max_active_risk, "LOW")
+
+    report["document_risk_level"] = new_risk_label
+    report["summary"] = (
+        f"{len(report['red_flags'])} total flags ({len(active_flags)} active). "
+        f"Residual Risk: {new_risk_label}."
+    )
+
+    # Persist updated report back to graph store
+    store.upsert_redflag_report(
+        doc_id=doc_id,
+        tenant_id=tenant_id,
+        risk_level=new_risk_label,
+        flag_count=len(report["red_flags"]),
+        summary=report["summary"],
+        report_json=json.dumps(report),
+    )
+
+    return report
+
+
+def get_review_status(store: Any, doc_id: str, tenant_id: str) -> Dict[str, Any]:
+    """Return summary review progress and audit statistics."""
+    report = get_stored_report(store, doc_id, tenant_id)
+    if not report:
+        return {"exists": False, "doc_id": doc_id}
+
+    flags = report.get("red_flags", [])
+    counts = {
+        "total":             len(flags),
+        "pending":           sum(1 for f in flags if f.get("review_status") == "PENDING"),
+        "accepted":          sum(1 for f in flags if f.get("review_status") == "ACCEPTED"),
+        "dismissed":         sum(1 for f in flags if f.get("review_status") == "DISMISSED"),
+        "needs_remediation": sum(1 for f in flags if f.get("review_status") == "NEEDS_REMEDIATION"),
+    }
+
+    return {
+        "exists":              True,
+        "doc_id":              doc_id,
+        "risk_level":          report.get("document_risk_level", "LOW"),
+        "counts":              counts,
+        "is_review_completed": counts["pending"] == 0 and counts["total"] > 0,
+        "audit_trail":         report.get("audit_trail", []),
+        "red_flags":           flags,
+    }

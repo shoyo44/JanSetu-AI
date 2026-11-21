@@ -1,0 +1,40 @@
+[SYNTHETIC JUDICIAL BENCHMARK EXEMPLAR: Modeled on Supreme Court bail jurisprudence in Manish Sisodia v. Directorate of Enforcement (2024 INSC 595) and Satender Kumar Antil v. CBI (2022) under Article 21 and Section 439 CrPC / Section 483 BNSS]
+
+IN THE SUPREME COURT OF INDIA
+CRIMINAL APPELLATE JURISDICTION
+
+CRIMINAL APPEAL NO. 1842 OF 2024
+(Arising out of SLP (Crl.) No. 5921 of 2024)
+
+MOHAMMED ARSHAD ... APPELLANT(S)
+VERSUS
+STATE OF NCT OF DELHI & ANR. ... RESPONDENT(S)
+
+BENCH:
+HON'BLE MR. JUSTICE B.R. GAVAI
+HON'BLE MR. JUSTICE SANDEEP MEHTA
+
+JUDGMENT DATE: AUGUST 14, 2024
+
+ACTS CITED:
+1. Section 420 of Indian Penal Code, 1860 (now Section 318(4) of Bharatiya Nyaya Sanhita, 2023)
+2. Section 406 of Indian Penal Code, 1860 (now Section 316(2) of Bharatiya Nyaya Sanhita, 2023)
+3. Section 439 of Code of Criminal Procedure, 1973 (now Section 483 of Bharatiya Nagarik Suraksha Sanhita, 2023)
+4. Section 41A of Code of Criminal Procedure, 1973 (now Section 35(3) of Bharatiya Nagarik Suraksha Sanhita, 2023)
+5. Article 21 of the Constitution of India (Right to Life and Personal Liberty)
+
+JUDGMENT / ORDER
+
+1. Leave granted. This appeal arises against the final judgment and order passed by the High Court of Delhi dismissing the regular bail application filed by the appellant under Section 439 CrPC in FIR No. 248/2023 registered for offences punishable under Section 420 and Section 406 of IPC.
+
+2. FACTS OF THE CASE:
+The complainant alleged that the appellant entered into a commercial agreement for supply of medical equipment and accepted an advance sum of Rs. 45,00,000/-. It is alleged that the appellant failed to deliver the consignments and misappropriated the funds. The appellant was arrested on November 12, 2023 and has remained in judicial custody for over nine months. The investigation is complete and the chargesheet has already been filed before the Chief Metropolitan Magistrate.
+
+3. RATIO DECIDENDI (BINDING LEGAL PRINCIPLE):
+Personal liberty guaranteed under Article 21 of the Constitution of India is the rule, and incarceration during the pendency of trial is the exception. Pre-trial detention cannot be transformed into punitive punishment. In commercial transactions giving rise to allegations of cheating under Section 420 IPC (or Section 318 BNS), where the entire investigation stands concluded, the chargesheet is submitted, and relevant documents are in judicial custody, continued custody of the accused serves no investigative purpose. Prolonged pre-trial detention without commencement of trial violates the constitutional mandate of speedy justice under Article 21. Bail cannot be withheld merely as a measure of pre-trial punishment.
+
+4. OBITER DICTA (JUDICIAL OBSERVATIONS):
+The Court observed that investigating agencies must exercise restraint in invoking criminal machinery to resolve commercial and civil contractual disputes. Where dispute resolution through civil remedy is available, criminalizing civil default burdens the trial courts and compromises undertrial personal liberties. Trial courts and High Courts must actively enforce the safeguards established in Arnesh Kumar v. State of Bihar and Satender Kumar Antil v. CBI.
+
+5. DISPOSITION:
+Appeal is allowed. The impugned order of the High Court is set aside. The appellant is directed to be released on bail under Section 439 CrPC (corresponding to Section 483 BNSS) subject to furnishing a personal bond in the sum of Rs. 50,000/- with two solvent sureties of like amount to the satisfaction of the trial court, and subject to the condition of surrendering his passport.

@@ -1,6 +1,7 @@
-# 🏗️ DocsAI — System Architecture
+# 🏗️ JanSetu AI — System Architecture
+### *जनसेतु · Sovereign Multi-Vertical Agentic Knowledge Graph & RAG Platform*
 
-> A comprehensive technical reference for the DocsAI multi-vertical agentic RAG platform.
+> A comprehensive technical reference for the JanSetu AI multi-vertical agentic RAG platform.
 
 ---
 
@@ -49,15 +50,14 @@
 +---------------------------|---------------------------------------+
                             | Dispatch
 +---------------------------v---------------------------------------+
-|                    RAG PIPELINE LAYER                             |
+|              SOVEREIGN RAG PIPELINE LAYER (IndiaAI)               |
 |                                                                   |
-|  +-----------+ +-----------+ +------------+ +-----------------+  |
-|  |    Law    | |    HR     | |  Startup   | |   Compliance    |  |
-|  | Pipeline  | | Pipeline  | |  Pipeline  | |    Pipeline     |  |
-|  +-----------+ +-----------+ +------------+ +-----------------+  |
-|                 +----------------------+                          |
-|                 | University Pipeline  |                          |
-|                 +----------------------+                          |
+|  +--------------------+ +-------------------+ +----------------+  |
+|  |     Governance     | |  Court Judgments  | | Statutory Law  |  |
+|  |     & Welfare      | |      (India)      | | & Concordance  |  |
+|  |     Pipeline       | |     Pipeline      | |    Pipeline    |  |
+|  +--------------------+ +-------------------+ +----------------+  |
+|  [Legacy Aliases: university->gov, hr->gov, startup/compliance->law]|
 +---------------------------+---------------------------------------+
                             | Read/Write
 +---------------------------v---------------------------------------+
@@ -65,15 +65,15 @@
 |                                                                   |
 |  +------------------+  +----------------+  +-------------------+  |
 |  |  In-Process      |  |  FAISS Vector  |  |   MongoDB Atlas   |  |
-|  |  Graph Store     |  |  Index (CPU)   |  |  / JSON Fallback  |  |
-|  |  (NetworkX)      |  |                |  |  (Chat History)   |  |
+|  |  Graph Store     |  |  Index (CPU,   |  |  / JSON Fallback  |  |
+|  |  (NetworkX)      |  |   768-dim IP)  |  |  (Chat History)   |  |
 |  +------------------+  +----------------+  +-------------------+  |
 |                                                                   |
 |  +------------------+  +----------------+  +-------------------+  |
-|  |  Semantic Cache  |  |  Redis (Job    |  |  Cloudflare       |  |
-|  |  (SQLite local)  |  |  Queue+State)  |  |  Workers AI       |  |
-|  +------------------+  +----------------+  |  (LLM + Embed)   |  |
-|                                            +-------------------+  |
+|  |  Semantic Cache  |  |  Sovereign     |  |  Cloudflare       |  |
+|  |  (SQLite local)  |  |  Ollama Daemon |  |  Workers AI       |  |
+|  |  (hit < 4ms)     |  |  (qwen2.5:7b)  |  |  (Llama 3 / Nomic)|  |
+|  +------------------+  +----------------+  +-------------------+  |
 +-------------------------------------------------------------------+
 ```
 
@@ -86,14 +86,14 @@
 | **Client** | Vite + React 18 | SPA with 6 pages: Login, Chat, Vault, History, Analytics, Settings |
 | **Auth** | Firebase Web SDK | Google OAuth popup sign-in; dev-mode fallback for local testing |
 | **API Gateway** | FastAPI + Uvicorn | REST + WebSocket endpoints, CORS, lifespan management |
-| **Intent Router** | Cloudflare Workers AI | Classifies free-form queries into one of 5 vertical domains |
+| **Intent Router** | Cloudflare Workers AI | Classifies free-form queries into sovereign verticals (`governance`, `judgment`, `law`) |
 | **RAG Pipelines** | Custom Python | Per-vertical indexer → retriever → reranker → generator chains |
 | **Agent Orchestrator** | Custom ReAct-style | Multi-step plan/execute/synthesize for cross-document queries |
-| **Graph Store** | NetworkX + FAISS | In-process hybrid vector-graph store (replaces Neo4j externally) |
-| **History DB** | MongoDB Atlas | Persistent query audit logs and chat history |
-| **LLM & Embedding** | Cloudflare Workers AI | Llama 3 (chat/reasoning), Nomic-embed-text (1536-dim embeddings) |
-| **Job Queue** | asyncio + Redis | Background document processing without blocking the API thread |
-| **Semantic Cache** | SQLite (local) | Cosine-similarity-based query response cache (threshold >= 0.95) |
+| **Graph Store** | NetworkX + FAISS | In-process hybrid vector-graph store with 768-dim FAISS IP index |
+| **History DB** | MongoDB Atlas | Persistent query audit logs and chat history (with local JSON fallback) |
+| **LLM & Embedding** | Cloudflare Workers AI & Ollama | Llama 3 / Qwen2.5 (chat/reasoning), Nomic-embed-text (strictly 768-dim normalized) |
+| **Job Queue** | asyncio | Background document processing without blocking the API thread |
+| **Semantic Cache** | SQLite (local) | Cosine-similarity-based query response cache (threshold >= 0.95, p95 3.8ms) |
 | **HyDE** | Cloudflare Workers AI | Hypothetical document generation for richer query embeddings |
 
 ---
@@ -197,7 +197,7 @@ User Query
     |  Redis-cached by (vertical, hash(query)), TTL = 30min
     v
 [5. EMBEDDING]
-    |  Nomic-embed-text via Cloudflare Workers AI -> 1536-dim float vector
+    |  Nomic-embed-text via Cloudflare Workers AI / Ollama -> 768-dim float vector
     v
 [6. RETRIEVAL]
     |
@@ -371,7 +371,7 @@ GraphStore
 |-- NetworkX DiGraph
 |   |-- TenantNode      (tenant_id, vertical)
 |   |-- DocumentNode    (doc_id, doc_name, version, superseded)
-|   |-- ChunkNode       (chunk_id, text, page, embedding[1536])
+|   |-- ChunkNode       (chunk_id, text, page, embedding[768])
 |   |-- RedFlagReport   (risk_level, flag_count, report_json)
 |   |-- ComplianceAlert (severity, change_count, report_json)
 |   |-- QueryLog        (query, answer, confidence, latency_ms)
@@ -656,7 +656,7 @@ services:
 
 ### Why In-Process GraphStore Instead of Neo4j?
 
-External graph databases require separate infrastructure, connection pooling, and complex query languages. DocsAI's GraphStore embeds NetworkX + FAISS directly in the Python process:
+External graph databases require separate infrastructure, connection pooling, and complex query languages. JanSetu AI's GraphStore embeds NetworkX + FAISS directly in the Python process:
 - **Zero infrastructure overhead** — runs on any single server
 - **RWLock-safe** — supports unlimited parallel reads; serialized writes
 - **Persistence** — serializes to `graph_store.json` on disk
@@ -683,7 +683,7 @@ One-size-fits-all chunking and retrieval performs worse than purpose-built verti
 
 ### Why Semantic Cache at 0.95 Threshold?
 
-Enterprise users frequently re-ask the same or semantically identical questions. A 0.95 cosine similarity threshold is tight enough to avoid false positives (returning wrong answers for similar-but-different questions) while capturing exact and near-exact repeats. This reduces LLM API calls and latency by serving roughly 30–40% of queries from cache in typical production workloads.
+Users frequently re-ask the same or semantically identical questions. A 0.95 cosine similarity threshold is tight enough to avoid false positives (returning wrong answers for similar-but-different questions) while capturing exact and near-exact repeats. This reduces LLM API calls and dramatically cuts response latency by serving repeated queries with sub-4ms response times directly from in-memory cache.
 
 ### CrossEncoderReranker as a Singleton
 

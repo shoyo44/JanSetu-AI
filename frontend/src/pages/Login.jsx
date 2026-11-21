@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { ShieldAlert, LogIn, Mail, ArrowRight, Sparkles } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { useToast } from '../components/Toast';
-import logoUrl from '../assets/logo.png';
+import logoUrl from '../assets/jansetu-logo.svg';
 import './Starter.css';
 import './Login.css';
 
@@ -38,9 +38,15 @@ const Login = () => {
     } catch (err) {
       console.error("Firebase Auth Sign-In failed/skipped:", err);
       
-      // Fallback to simulated developer mode if auth keys are empty or popup is closed
-      if (err.code === "auth/invalid-api-key" || err.code === "auth/configuration-not-found" || !import.meta.env.VITE_FIREBASE_API_KEY) {
-        toast.warning("Developer Mode", "Firebase variables not configured. Logging in with mock user.");
+      // Fallback to simulated developer mode if auth keys are empty, popup is closed, or unauthorized local domain
+      if (
+        err.code === "auth/invalid-api-key" || 
+        err.code === "auth/configuration-not-found" || 
+        err.code === "auth/unauthorized-domain" ||
+        err.code === "auth/popup-closed-by-user" ||
+        !import.meta.env.VITE_FIREBASE_API_KEY
+      ) {
+        toast.warning("Local Demo Mode", "Firebase unauthorized for 127.0.0.1. Logging in with Developer Workspace.");
       } else {
         toast.error("Authentication Error", err.message || "Failed to sign in with Google.");
         setLoading(false);
@@ -49,7 +55,7 @@ const Login = () => {
       
       const mockUser = {
         name: "Dev User",
-        email: "developer.docsai@gmail.com",
+        email: "developer.jansetu@gov.in",
         avatar: "https://lh3.googleusercontent.com/a/default-user=s96-c",
         role: "Workspace Owner",
         joinedAt: new Date().toLocaleDateString()
@@ -62,14 +68,27 @@ const Login = () => {
     }
   };
 
+  const handleDevBypass = () => {
+    const mockUser = {
+      name: "Demo / India AI Reviewer",
+      email: "reviewer.indiaai@gov.in",
+      avatar: "https://lh3.googleusercontent.com/a/default-user=s96-c",
+      role: "Fellowship Evaluator",
+      joinedAt: new Date().toLocaleDateString()
+    };
+    loginWithGoogle(mockUser);
+    toast.success("Welcome!", "Logged in as Fellowship Evaluator.");
+    navigate(from, { replace: true });
+  };
+
   return (
     <div className="login-page-container animate-fade-in">
       <div className="login-bg-grid"></div>
 
       <header className="starter-nav-header">
         <div className="starter-nav-logo" onClick={() => navigate('/')} style={{cursor: 'pointer'}}>
-          <img src={logoUrl} alt="DocsAI Logo" className="starter-logo-img" />
-          <h2>DocsAI</h2>
+          <img src={logoUrl} alt="JanSetu AI Logo" className="starter-logo-img" />
+          <h2>JanSetu AI</h2>
         </div>
         <button className="starter-nav-cta hover-lift" onClick={() => navigate('/')}>
           Back to Home
@@ -82,10 +101,10 @@ const Login = () => {
             
             <div className="login-card-header">
               <div className="login-logo-container">
-                <img src={logoUrl} alt="DocsAI Logo" className="login-logo" />
+                <img src={logoUrl} alt="JanSetu AI Logo" className="login-logo" />
               </div>
-              <h2>DocsAI Workspace</h2>
-              <p className="login-subtitle">Agentic Multi-Vertical RAG Platform</p>
+              <h2>JanSetu AI Workspace</h2>
+              <p className="login-subtitle">Sovereign Governance & Citizen Intelligence Platform</p>
             </div>
 
             <div className="login-card-body">
@@ -115,6 +134,33 @@ const Login = () => {
                 )}
               </button>
 
+              <button 
+                type="button"
+                className="hover-lift"
+                onClick={handleDevBypass}
+                style={{
+                  marginTop: '12px',
+                  width: '100%',
+                  padding: '11px 16px',
+                  background: 'rgba(56, 189, 248, 0.08)',
+                  border: '1px solid rgba(56, 189, 248, 0.3)',
+                  borderRadius: '10px',
+                  color: '#e2e8f0',
+                  fontSize: '0.85rem',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
+                  transition: 'all 0.2s ease',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.2)'
+                }}
+              >
+                <Sparkles size={15} color="#38bdf8" />
+                <span>Instant Demo Access (Fellowship Evaluator)</span>
+              </button>
+
               <div className="login-divider">
                 <span>SECURITY VERIFIED</span>
               </div>
@@ -132,7 +178,7 @@ const Login = () => {
             </div>
 
             <div className="login-card-footer">
-              <span>By signing in, you agree to DocsAI workspace policies.</span>
+              <span>By signing in, you agree to JanSetu AI workspace policies and research terms.</span>
             </div>
           </div>
         </div>

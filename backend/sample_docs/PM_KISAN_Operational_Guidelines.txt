@@ -1,0 +1,48 @@
+GOVERNMENT OF INDIA
+MINISTRY OF AGRICULTURE & FARMERS WELFARE
+DEPARTMENT OF AGRICULTURE AND FARMERS WELFARE
+KRISHI BHAWAN, NEW DELHI
+Notification Ref: G.S.R. 412(E) / PM-KISAN-2024/08
+
+OPERATIONAL GUIDELINES: PRADHAN MANTRI KISAN SAMMAN NIDHI (PM-KISAN)
+
+1. OBJECTIVES AND OVERVIEW
+The Pradhan Mantri Kisan Samman Nidhi (PM-KISAN) is a Central Sector Scheme with 100% funding from the Government of India. The scheme aims to augment the income of all landholding farmer families across the country to enable them to take care of expenses related to agriculture and allied activities as well as domestic needs.
+
+2. ELIGIBILITY CRITERIA
+(a) All landholder farmer families, who have cultivable landholding in their names as per the land records of the respective State/UT, are eligible for benefits under the scheme.
+(b) As per the Union Cabinet decision dated 31st May 2019 (effective 1st June 2019), the scheme coverage was extended to all landholding farmer families across the country irrespective of the size of their landholdings, subject to prevailing exclusion criteria.
+(c) The farmer family must have an active bank account duly seeded with their Aadhaar number. Mandatory e-KYC authentication via biometric or OTP on the PM-KISAN portal is required.
+
+3. EXCLUSION CRITERIA (WHO IS NOT ELIGIBLE)
+The following categories of beneficiaries of higher economic status shall not be eligible for benefit under the scheme:
+(a) All Institutional Landholders.
+(b) Former and present holders of constitutional posts.
+(c) Former and present Ministers/State Ministers, MPs, MLAs, MLCs, and Mayors of Municipal Corporations.
+(d) All serving or retired officers and employees of Central/State Government Ministries, Offices, Departments, and Public Sector Undertakings.
+(e) All superannuated/retired pensioners whose monthly pension is Rs. 10,000/- or more.
+(f) All persons who paid Income Tax in the last assessment year.
+(g) Professionals like Doctors, Engineers, Lawyers, Chartered Accountants, and Architects registered with professional bodies.
+
+4. SCHEME BENEFITS AND QUANTUM OF ASSISTANCE
+Under the PM-KISAN scheme, an income support of Rs. 6,000/- per year is provided to all eligible farmer families across the country in three equal four-monthly installments of Rs. 2,000/- each. The fund is transferred directly into the bank accounts of the beneficiaries through Direct Benefit Transfer (DBT) mode via the National Automated Clearing House (NACH) / PFMS platform.
+
+5. MANDATORY DOCUMENTS REQUIRED
+To register and receive benefits under PM-KISAN, the applicant must furnish:
+(a) Aadhaar Card (mandatory for identity verification and e-KYC).
+(b) Proof of Citizenship and Domicile Certificate of the respective State/UT.
+(c) Land Ownership Document / Record of Rights (RoR) such as Khatauni, Patta, or 7/12 Extract clearly proving cultivable land ownership.
+(d) Active Bank Account Passbook copy showing IFSC Code and Account Number.
+(e) Mobile number linked to Aadhaar for OTP verification.
+
+6. APPLICATION PROCEDURE AND REGISTRATION
+(a) Self-Registration: Farmers can register online through the PM-KISAN portal (https://pmkisan.gov.in) using the 'Farmer Corner' module.
+(b) Common Service Centres (CSCs): Farmers may visit nearest CSCs with required documents for biometric e-KYC and form submission.
+(c) Physical Verification: Applications are verified by Village Level Revenue Officers (Patwari / Talathi) and approved by the District Nodal Officer.
+
+7. GRIEVANCE REDRESSAL AND HELPLINES
+In case of non-credit of installments or data correction:
+(a) PM-KISAN Helpdesk Portal: https://pmkisan.gov.in/Grievance.aspx
+(b) Central Toll-Free Helpline: 155261 / 1800-115-526
+(c) Kisan Call Centre: 1800-180-1551
+(d) Escalation to Central Public Grievance Redress and Monitoring System (CPGRAMS).

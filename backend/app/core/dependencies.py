@@ -53,46 +53,52 @@ async def get_embedding(
     task_type: str = "search_query"
 ) -> list[float]:
     """
-    Embed text using Nomic Atlas API (nomic-embed-text-v1.5) with exponential backoff retries.
+    Embed text using Nomic Atlas, Cloudflare AI, or MultilingualRouter with automatic fallback.
+    Guarantees 768-dim normalized embedding vectors across English and Indic languages.
     """
     nomic_key = os.getenv("NOMIC_API_KEY")
-    if not nomic_key:
-        raise EnvironmentError(
-            "No embedding provider available. Set NOMIC_API_KEY in your .env file."
-        )
+    if nomic_key:
+        import httpx
+        import asyncio
 
-    import httpx
-    import asyncio
+        retries = 3
+        for attempt in range(retries):
+            try:
+                async with httpx.AsyncClient(timeout=10.0) as client:
+                    resp = await client.post(
+                        "https://api-atlas.nomic.ai/v1/embedding/text",
+                        headers={
+                            "Authorization": f"Bearer {nomic_key}",
+                            "Content-Type": "application/json"
+                        },
+                        json={
+                            "model": "nomic-embed-text-v1.5",
+                            "texts": [text],
+                            "task_type": task_type
+                        }
+                    )
+                    resp.raise_for_status()
+                    return resp.json()["embeddings"][0]
 
-    retries = 3
-    for attempt in range(retries):
-        try:
-            async with httpx.AsyncClient(timeout=10.0) as client:
-                resp = await client.post(
-                    "https://api-atlas.nomic.ai/v1/embedding/text",
-                    headers={
-                        "Authorization": f"Bearer {nomic_key}",
-                        "Content-Type": "application/json"
-                    },
-                    json={
-                        "model": "nomic-embed-text-v1.5",
-                        "texts": [text],
-                        "task_type": task_type
-                    }
-                )
-                resp.raise_for_status()
-                return resp.json()["embeddings"][0]
+            except (httpx.HTTPError, httpx.TimeoutException) as exc:
+                if attempt == retries - 1:
+                    logger.warning("Nomic embedding API call permanently failed: %s, falling back", exc)
+                    break
+                wait = 0.5 * (2 ** attempt)
+                logger.warning("Nomic embedding retry %d/%d after %.1fs due to: %s", attempt + 1, retries, wait, exc)
+                await asyncio.sleep(wait)
+            except Exception as exc:
+                logger.warning("Unexpected error in Nomic get_embedding: %s, falling back", exc)
+                break
 
-        except (httpx.HTTPError, httpx.TimeoutException) as exc:
-            if attempt == retries - 1:
-                logger.error("Nomic embedding API call permanently failed: %s", exc)
-                raise exc
-            wait = 0.5 * (2 ** attempt)
-            logger.warning("Nomic embedding retry %d/%d after %.1fs due to: %s", attempt + 1, retries, wait, exc)
-            await asyncio.sleep(wait)
-        except Exception as exc:
-            logger.error("Unexpected error in get_embedding: %s", exc)
-            raise exc
+    # ── Multilingual & Indic Fallback via Cloudflare / MultilingualRouter ──
+    from app.core.embedding_router import MultilingualRouter
+    cf_client = None
+    if request is not None and hasattr(request, "app") and hasattr(request.app.state, "cf_client"):
+        cf_client = request.app.state.cf_client
+
+    router = MultilingualRouter(primary_client=cf_client)
+    return await router.get_embedding(text)
 
 
 # ─── Redis ────────────────────────────────────────────────────────────────────
