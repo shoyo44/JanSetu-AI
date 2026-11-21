@@ -173,6 +173,8 @@ All proportions report exact counts $k/N$ with 95% Wilson score confidence inter
 
 ## 9. Deployment Economics & Edge Hardware Cost Profile
 
+> **Currency & Exchange Rate Baseline:** Conversions assume a baseline exchange rate of **1 USD ≈ Rs. 84.00**. CapEx ~Rs. 72,000 ≈ $857; Cloud OpEx ~$0.0011/query ≈ Rs. 0.092/query; 10,000 queries/mo ~$11.00 ≈ Rs. 924 (~Rs. 925/mo); On-prem edge electricity ~Rs. 325/mo ≈ $3.87 (~$4.00/mo).
+
 > **Data Residency First:** On-premise edge deployment is engineered primarily as an **institutional data-residency and confidentiality necessity** (DPDPA 2023 Section 16, air-gapped courtrooms, sensitive citizen welfare dossiers), where cross-border cloud processing is procedurally or legally prohibited, rather than as a quick cost-payback mechanism.
 
 | Economic Dimension | Standard Cloud Serverless Profile | Sovereign On-Premise Edge Rig Profile |

@@ -15,7 +15,9 @@ Built with an async **FastAPI** backend, a zero-infrastructure in-process **Hybr
 > 🏛️ **Fellowship Proposal:** [INDIA_AI_FELLOWSHIP_PROPOSAL.md](./INDIA_AI_FELLOWSHIP_PROPOSAL.md)  
 > 📄 **Academic Project Report:** [DOCS_PROJECT_REPORT.pdf](./DOCS_PROJECT_REPORT.pdf)  
 > 📐 **System Architecture:** [ARCHITECTURE.md](./ARCHITECTURE.md)  
-> 🛡️ **DevSecOps & Security Guide:** [DEVOPS_DEVSECOPS_GUIDE.md](./DEVOPS_DEVSECOPS_GUIDE.md)
+> 🛡️ **DevSecOps & Security Guide:** [DEVOPS_DEVSECOPS_GUIDE.md](./DEVOPS_DEVSECOPS_GUIDE.md)  
+> 📋 **Annotation & Evaluation Protocol:** [eval/annotation_protocol.md](./eval/annotation_protocol.md)  
+> 📊 **Per-Query Evaluation Results:** [eval/results/per_query_evaluation_results.csv](./eval/results/per_query_evaluation_results.csv)
 
 ---
 
@@ -37,7 +39,7 @@ JanSetu AI directly addresses the **Governance** and **Law and Justice** priorit
 
 ## 🔍 Prior Art & Comparative Landscape
 
-> **Disambiguation Note:** JanSetu AI (जनसेतु) developed under this fellowship is an independent academic research platform focusing on neuro-symbolic Knowledge Graph verification, calibrated abstention, and edge data sovereignty across Governance and Law & Justice. It is distinct from and unrelated to prior work bearing similar titles, including the web portal concept described by Shaikh et al. (IJRPR, 2024: *"JanSetu AI: An AI-Assisted Web Platform for Personalised Discovery of Indian Government Welfare Schemes"*) and the student hackathon project *"JanSetu — India's Civic AI Assistant"* (2024). JanSetu AI's technical differentiators lie in its unified vector-graph retrieval topology, claim-level DeBERTa-v3 NLI entailment, DPDPA 2023 air-gapped on-premise execution, and deterministic statutory rule engines.
+> **Disambiguation Note:** JanSetu AI (जनसेतु) developed under this fellowship is an independent academic research platform focusing on claim-level verification, calibrated abstention, deterministic statutory rule engines, and edge data sovereignty across Governance and Law & Justice. It is distinct from and unrelated to prior work bearing similar titles, including the web portal concept described by Vaishnavi et al. (International Journal of Research Publication and Reviews, Vol. 7, Issue 10, October 2026: *"JanSetu AI: An AI-Assisted Web Platform for Personalised Discovery of Indian Government Welfare Schemes"*) and the lablab.ai hackathon project *"JanSetu — India's Civic AI Assistant"* (submitted May 30, 2026). JanSetu AI's core technical differentiators lie in its unified vector-graph retrieval topology, claim-level DeBERTa-v3 NLI entailment, DPDPA 2023 air-gapped on-premise execution, and deterministic statutory rule engines.
 
 Prior systems address isolated parts of Indian legal informatics and welfare access. JanSetu AI unifies these dimensions under a single sovereign verification layer:
 
