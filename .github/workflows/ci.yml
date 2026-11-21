@@ -109,9 +109,9 @@ jobs:
           npm ci
           npm run build
 
-  # ── 4. Docker Build & Container Vulnerability Scan (Trivy) ─────────────────
-  docker-scan:
-    name: Container Hardening & Trivy Image Scan
+  # ── 4. DevSecOps: Trivy Filesystem & Container Security Scan ───────────────
+  security-trivy:
+    name: Trivy DevSecOps Vulnerability Scan
     runs-on: ubuntu-latest
     needs: [backend-test, frontend-build]
     steps:
@@ -121,14 +121,38 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      - name: Run Trivy Filesystem, Secret & Config Scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: "fs"
+          scan-ref: "."
+          format: "table"
+          exit-code: "0"
+          ignore-unfixed: true
+          severity: "CRITICAL,HIGH"
+
       - name: Build Backend Docker Image
         run: |
           docker build -t docsai-backend:ci -f Dockerfile .
 
-      - name: Trivy Container Vulnerability Scan
+      - name: Trivy Backend Container Scan
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: docsai-backend:ci
+          format: "table"
+          exit-code: "0"
+          ignore-unfixed: true
+          vuln-type: "os,library"
+          severity: "CRITICAL,HIGH"
+
+      - name: Build Frontend Docker Image
+        run: |
+          docker build -t docsai-frontend:ci -f frontend/Dockerfile frontend
+
+      - name: Trivy Frontend Container Scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: docsai-frontend:ci
           format: "table"
           exit-code: "0"
           ignore-unfixed: true

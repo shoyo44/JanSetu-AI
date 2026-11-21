@@ -309,6 +309,12 @@ pip-audit
 
 # Frontend Dependency Audit
 cd frontend; npm audit; cd ..
+
+# Aqua Security Trivy (Filesystem, Secrets & Container Images)
+# Windows:
+powershell ./scripts/run_trivy.ps1
+# Linux / EC2:
+bash ./scripts/run_trivy.sh
 ```
 
 ---
