@@ -60,6 +60,6 @@ All proportions report exact counts $k/N$ and 95% Wilson score confidence interv
 |---|---|---|
 | **Live Backend E2E Suite** | **16/16 PASS (100.0%)** | Validates Health, Concordance API, 1-Click Ingestion, Document Chunks, Governance RAG, Judgment RAG, Calibrated Abstention, KG Topology, Active Learning, Magic-Byte File Validation, Prompt Injection Quarantine, HTML/MD Export. |
 | **Chromium Headless UI Suite** | **7/7 PASS (100.0%)** | Automated browser verification: Landing, Auth, Concordance Modal, Document Vault, Analytics KG, Multi-Vertical, History. |
-| **Frontend Production Build** | **PASS (463 ms)** | Clean Vite production build with zero warnings or errors. |
+| **Undertrial Rule Engine Test (BNSS §479)** | **5/5 PASS (100.0%)** | Validates 1/3rd first offender, 1/2 repeat offender, life/death exclusion, multiple case exclusion, and judicial review recommendation (`eval/test_undertrial_rules.py`). |
 | **Statutory Concordance Fixture**| **30/30 PASS (100.0%)** | Deterministic lookup on 30 standard transitions (`IPC ⇄ BNS`, `CrPC ⇄ BNSS`, `IEA ⇄ BSA`). |
 | **Adversarial Injection Fixture** | **10/10 PASS (100.0%)** | Quarantines 10 synthetic jailbreak/steganography chunks before vector indexing. |

@@ -37,32 +37,36 @@ With the enforcement of the *Bharatiya Nyaya Sanhita (BNS)*, *Bharatiya Nagarik 
 Rather than presenting disjointed prototypes, JanSetu AI concentrates evaluation on two measurable flagship operational pipelines:
 1. **Undertrial Detention Relief Screener (BNSS §479 / CrPC §436A):**
    - *Problem:* 75.8%–77.1% of India's prison population consists of undertrials (NCRB PSI 2021/2022). Legal aid advocates must manually scour hundreds of docket pages to determine if an inmate has served one-third (first-time offender) or one-half of the maximum statutory sentence.
-   - *Measurable Outcome:* Reduces pre-screening review time from **~45 minutes per case file to < 2.5 minutes**, identifying mandatory release eligibility under BNSS §479 with statutory section mapping, while maintaining a strict human-in-the-loop review safeguard.
+   - *Measurable Outcome:* We hypothesize and target a reduction in pre-screening review time from an estimated manual legal-aid docket intake baseline of ~45 minutes to < 2.5 minutes of automated pre-screening, to be empirically evaluated during the Q3 pilot. The screener applies verified statutory rule logic evaluating eligibility for judicial review under Section 479 of the Bharatiya Nagarik Suraksha Sanhita (BNSS), incorporating the 1/3rd detention threshold for first-time offenders, the 1/2 threshold for repeat offenders, and explicit statutory disqualification checks (second proviso excluding offences punishable by death or life imprisonment, and third proviso excluding persons with multiple pending investigations/trials), outputting an advisory recommendation for judicial review rather than mandatory release, with a strict human-in-the-loop legal aid safeguard.
 2. **Citizen Welfare Disqualification & Exclusion Filter (PM-KISAN / Ayushman Bharat):**
    - *Problem:* Rural applicants face benefit rejection without understanding disqualification clauses (institutional land, pension $\ge ₹10,000$, non-updated e-KYC).
-   - *Measurable Outcome:* Measures the **reduction in eligibility false-negatives and citizen application cycle times**, providing a structured 5-point *Jan Suvidha* checklist that highlights prerequisite gaps prior to formal submission.
+   - *Measurable Outcome:* We hypothesize and target a reduction in eligibility false-negatives and citizen application cycle times, providing a structured 5-point *Jan Suvidha* checklist that highlights prerequisite gaps prior to formal submission, with empirical error reduction to be measured during Q3 CSC pilot trials.
 
 ### E. Prior Art, Related Work & Comparative Landscape
+
+> **Disambiguation Note:** JanSetu AI (जनसेतु) developed under this fellowship is an independent academic research platform focusing on neuro-symbolic Knowledge Graph verification, calibrated abstention, and edge data sovereignty across Governance and Law & Justice. It is distinct from and unrelated to prior work bearing similar titles, including the web portal concept described by Shaikh et al. (IJRPR, 2024: *"JanSetu AI: An AI-Assisted Web Platform for Personalised Discovery of Indian Government Welfare Schemes"*) and the student hackathon project *"JanSetu — India's Civic AI Assistant"* (2024). JanSetu AI's core technical differentiators lie in its unified vector-graph retrieval topology, claim-level DeBERTa-v3 NLI entailment, DPDPA 2023 air-gapped on-premise execution, and deterministic statutory rule engines.
+
 Prior efforts address isolated dimensions of public governance and Indian legal informatics:
-* **Jugalbandi (OpenNyAI, AI4Bharat, Microsoft):** Pioneers multilingual voice and text queries for welfare schemes over WhatsApp, later integrated with Bhashini. However, it does not provide legal concordance, court judgment ratio extraction, or air-gapped on-premise execution.
-* **NyayaReasoner:** Applies hybrid BM25 and dense retrieval with claim verification for Supreme Court judgment prediction, focusing specifically on judicial outcomes rather than citizen welfare or regional land administration.
+* **Jugalbandi (OpenNyAI, AI4Bharat, Microsoft):** Pioneers multilingual voice and text queries for welfare schemes over WhatsApp, later integrated with Bhashini. To our knowledge, public technical descriptions do not state provision of criminal statutory concordance, appellate judgment ratio extraction, or air-gapped on-premise deployment.
+* **Nyaya Setu (Department of Justice / Bhashini, GoI):** A voice-first, multilingual conversational citizen legal literacy bot launched under the national Digital India initiative. JanSetu AI is an independent academic research project with no institutional connection to Nyaya Setu. While Nyaya Setu emphasizes conversational legal information delivery over public APIs, JanSetu AI contributes a document-level verification layer: multi-tier NLI citation entailment, calibrated empirical abstention (τ = 0.40), statutory criminal concordance rule engines (BNSS §479 undertrial review), and an air-gapped on-premise deployment profile ensuring institutional data residency under Section 16 of DPDPA 2023.
+* **NyayaReasoner:** Combines hybrid BM25 and dense retrieval with claim verification for Supreme Court judgment prediction, focusing specifically on judicial outcomes rather than citizen welfare or regional land administration.
 * **Falkor-IRAC / RAG–KG Architectures:** Utilize knowledge graphs for statutory grounding and legal research.
-* **LandLens & Commercial Tools:** Target isolated private verticals (such as Tamil Nadu land due diligence or IPC $\leftrightarrow$ BNS lookup) behind proprietary subscription paywalls without verifiable evaluation protocols.
+* **LandLens & Commercial Tools:** Target isolated private verticals (such as Tamil Nadu land due diligence or IPC ↔ BNS lookup) behind proprietary subscription paywalls. To our knowledge, public descriptions do not disclose evaluation datasets or calibrated abstention metrics.
 
 JanSetu AI does not claim to supersede these specialized systems; rather, it contributes:
-1. A **unified open platform** applying the same multi-layered verification stack (calibrated abstention $\tau = 0.40$, claim-level NLI entailment, pre-indexing injection defense) across public governance, criminal law transition, and vernacular land deeds.
+1. A **unified open platform** applying the same multi-layered verification stack (calibrated abstention τ = 0.40, claim-level NLI entailment, pre-indexing injection defense) across public governance, criminal law transition, and vernacular land deeds.
 2. A **documented sovereign on-premise profile** with explicit data-flow boundaries complying with Section 16 of DPDPA 2023.
 3. A **reproducible open gold benchmark corpus** ($N = 120 + 30$ pairs) with committed exact binary counts, Wilson score confidence intervals, and inter-annotator agreement metrics.
 
-| Dimension | Jugalbandi (OpenNyAI / AI4Bharat) | NyayaReasoner | Falkor-IRAC / RAG–KG | LandLens / Commercial | JanSetu AI (Ours) |
-|---|---|---|---|---|---|
-| **Primary Target Users** | Citizens (Welfare schemes) | Legal advocates | Legal researchers | Land buyers (Tamil Nadu) | **Citizens, CSC operators, legal-aid counsels** |
-| **Domain Scope** | Welfare schemes | SC judgment prediction | Case law, statutes | Land title due diligence | **Welfare + criminal transition + regional land deeds** |
-| **Retrieval Modality** | Dense embeddings + FAISS | BM25 + dense + RRF | Graph / hybrid traversal | OCR + AI extraction | **Hybrid (Vector + Graph) + RRF + HyDE** |
-| **Claim-Level Entailment** | *Not stated* | Yes (NLI) | Citation verifier (Falkor-IRAC) | *Not stated* | **Yes (DeBERTa-v3 cross-encoder NLI, English-primary)** |
-| **Empirical Abstention** | *Not stated* | Yes | *Not stated* | *Not stated* | **Yes (Calibrated per-vertical threshold $\tau = 0.40$)** |
-| **On-Prem / Sovereign Profile**| *Not stated* | *Not stated* | *Not stated* | *Not stated* | **Yes (Documented air-gapped data boundary via Ollama)** |
-| **Open Evaluation Corpus** | *Not stated* | *Not stated* | Dataset released (Falkor-IRAC) | No (Proprietary) | **Committed in repo ($N=150$ gold pairs, raw CSV)** |
+| Dimension | Jugalbandi (AI4Bharat) | Nyaya Setu (GoI/DoJ) | NyayaReasoner | Falkor-IRAC / RAG–KG | LandLens / Commercial | JanSetu AI (Ours) |
+|---|---|---|---|---|---|---|
+| **Primary Target Users** | Citizens (Welfare) | Citizens (Legal Literacy) | Legal advocates | Legal researchers | Land buyers (TN) | **Citizens, CSCs, legal-aid counsels** |
+| **Domain Scope** | Welfare schemes | Legal awareness | SC prediction | Case law, statutes | Land title due diligence | **Welfare + criminal transition + land deeds** |
+| **Retrieval Modality** | Dense + FAISS | Conversational API | BM25 + dense + RRF | Graph / hybrid | OCR + AI extraction | **Hybrid (Vector + Graph) + RRF + HyDE** |
+| **Claim-Level Entailment** | *Not stated* | *Not stated* | Yes (NLI) | Citation verifier | *Not stated* | **Yes (DeBERTa-v3 cross-encoder NLI)** |
+| **Empirical Abstention** | *Not stated* | *Not stated* | Yes | *Not stated* | *Not stated* | **Yes (Calibrated per-vertical τ = 0.40)** |
+| **On-Prem / Sovereign Profile**| *Not stated* | *Not stated* | *Not stated* | *Not stated* | *Not stated* | **Yes (Air-gapped data boundary via Ollama)** |
+| **Open Evaluation Corpus** | *Not stated* | *Not stated* | *Not stated* | Dataset released | No (Proprietary) | **Committed in repo ($N=150$ gold pairs)** |
 
 ### F. Theory of Change Framework
 ```
@@ -161,7 +165,7 @@ Evaluated on our automated live test harness (`eval/test_live_e2e_full_system.py
 |---|---|---|
 | **Live Backend E2E Test Suite** | **16/16 PASS (100.0%)** | Full-system validation: Health check, Concordance API, 1-Click Benchmark Ingestion, Ingested Document List, Chunk API, Governance RAG, Judgment RAG, Calibrated Abstention, Knowledge Graph Topology, Active Learning Feedback, Magic-Byte File Validation, Prompt Injection Quarantine, HTML/MD Audit Export. |
 | **Playwright Chromium E2E Suite**| **7/7 PASS (100.0%)** | Automated headless Chrome testing: Landing, Auth, Concordance Modal, Document Vault, Analytics KG, Multi-Vertical Selection, and History. |
-| **Frontend Production Build** | **PASS (470 ms)** | Clean Vite production build with zero warnings or errors. |
+| **Undertrial Rule Engine Test (BNSS §479)** | **5/5 PASS (100.0%)** | Validates 1/3rd first offender, 1/2 repeat offender, life/death exclusion, multiple case exclusion, and judicial review recommendation (`eval/test_undertrial_rules.py`). |
 | **Statutory Concordance Fixture**| **30/30 PASS (100.0%)** | Deterministic unit verification on curated benchmark set of statutory transitions. |
 | **Adversarial Injection Fixture** | **10/10 PASS (100.0%)** | Quarantines 10 synthetic jailbreak/steganography chunks before vector indexing. |
 
@@ -188,6 +192,7 @@ Evaluated over $N = 120$ annotated query-document pairs spanning Central/State G
 JanSetu AI bundles 7 preloaded sovereign benchmarks directly accessible in 1 click from Document Vault:
 
 1. **PM-KISAN DBT Welfare Guidelines 2024 (`pm_kisan`):**
+   - *Provenance:* Operational Guidelines (Revised 2024), Department of Agriculture & Farmers Welfare, Ministry of Agriculture & Farmers Welfare, GoI (source: `pmkisan.gov.in`, retrieved August 2024; authored benchmark excerpt).
    - *Citizen Query:* *"I own agricultural land. Can I receive ₹6,000 annually if my father was a retired government servant?"*
    - *System Output:* Confirms cultivable landholder eligibility (2019 ceiling removal), verifies "family" definition (husband, wife, minor children; adult child with separate land title is eligible independently), verifies pension exclusion ($\ge ₹10,000$), and outputs a structured **Jan Suvidha Card** detailing mandatory prerequisites (Aadhaar-seeded bank account via NPCI, e-KYC via PM-KISAN app, state land seeding).
 
@@ -219,7 +224,11 @@ JanSetu AI bundles 7 preloaded sovereign benchmarks directly accessible in 1 cli
 
 ## 6A. Deployment Economics: Cloud Serverless vs. On-Premise Edge TCO
 
-To establish financial feasibility for public sector deployment, JanSetu AI benchmarks two cost profiles:
+> **Data Residency First:** On-premise edge deployment is engineered primarily as an **institutional data-residency and confidentiality necessity** (DPDPA 2023 Section 16, air-gapped courtrooms, sensitive citizen welfare dossiers), where cross-border cloud processing is procedurally or legally prohibited, rather than as a quick cost-payback mechanism.
+
+To establish operational feasibility for public sector deployment, JanSetu AI benchmarks two profiles:
+- **Cloud Serverless:** Rs. 920/mo ($11.00) at ~Rs. 0.09/query.
+- **On-Premise Edge Rig:** Rs. 72,000 CapEx. Electricity formula: ~180W duty × 9 hrs/day × 25 working days = **~40.5 kWh/month × Rs. 8.00/kWh ≈ Rs. 325/month (~$4.00)**.
 
 | Economic Dimension | Cloud Serverless (Pay-per-Token) | Sovereign On-Premise Edge Rig |
 |---|---|---|
@@ -238,7 +247,7 @@ JanSetu AI strictly enforces responsible AI standards for citizen protection:
 3. **Adversarial Red-Teaming Results:** Evaluated against 10 synthetic injection payloads (system prompt extraction, Unicode zero-width steganography, ChatML role hijacking), achieving **100% quarantine isolation (10/10 PASS)** prior to vector indexing.
 
 ## 6C. Structured Real-World Pilot Protocol (Q3 Milestone)
-The Q3 edge deployment milestone follows a pre-registered, human-subject-compliant evaluation protocol:
+The Q3 edge deployment milestone follows a structured, human-subject-compliant evaluation protocol:
 - **Participant Cohort:** $N = 15$ operators across 5 Common Service Centers (CSCs) and 2 legal aid desks, subject to Institutional Review Board (IRB) exemption and formal institutional MoUs.
 - **Evaluation Design:** Within-subject comparative study ($N = 60$ live queries) comparing manual administrative search against JanSetu AI assisted lookup.
 - **Key Empirical Metrics:**
@@ -255,7 +264,7 @@ The Q3 edge deployment milestone follows a pre-registered, human-subject-complia
 | **Q1 (Months 1–3)** | **Sovereign Foundation & Corpus Expansion** | • Scale vector retrieval from flat FAISS to `IndexHNSWFlat` and migrate graph persistence to embedded columnar storage (DuckDB / SQLite WAL) for scaling to 250,000 document nodes.<br>• Ingest complete Central Gazettes (2020–2024) and Supreme Court Constitution Bench rulings.<br>• Refine zero-dependency Indic script parsing across 10 official languages.<br>• Implement local authentication (argon2id password hashing + local JWT tokens), RBAC roles, and AES-256 storage encryption to transition beyond single-tenant DevUser test profiles. | High-fidelity retrieval across national welfare and legal statutes with scalable vector-graph search and hardened local security. |
 | **Q2 (Months 4–6)** | **Multi-State Land Deed & Concordance Hardening** | • Expand deed extraction to Telugu, Marathi, and Hindi registry formats (*विक्रय विलेख, खरेदीखत*).<br>• Integrate native Indic NLI models (MuRIL / IndicBERT fine-tuned on IndicXNLI) for vernacular entailment verification.<br>• Incorporate State-specific High Court concordance amendments under BNSS.<br>• Curate and contribute `IndiaGroundedRAG-2500` benchmark dataset ($N=2,500$ verified pairs in Q2, scaling to $N=5,000$ in Q3, annotated by 4 legal and public administration research scholars, targeting Cohen's $\kappa \ge 0.85$). | Rural citizen protection against fraudulent land registrations, boundary manipulation, and verified open datasets for the IndiaAI platform. |
 | **Q3 (Months 7–9)** | **Edge Hardware Deployment & CSC Pilot Trials** | • Containerize JanSetu AI for lightweight edge devices (AMD Ryzen 7 5700X, 32 GB RAM, NVIDIA RTX 3060 12 GB VRAM / Jetson) with quantized local models (Qwen2.5 7B, local Whisper.cpp / AI4Bharat IndicConformer for offline speech).<br>• Proposed pilot trials: 10 Common Service Centers (CSCs) and 2 District Legal Services Authorities (DLSAs), subject to Institutional Review and formal MoUs with State E-Governance Missions and State Legal Services Authorities.<br>• Hybrid architecture: offline local edge processing for document intelligence, with optional online uplink to Government of India Bhashini APIs. | Grassroots citizen assistance at panchayats and legal aid kiosks. |
-| **Q4 (Months 10–12)** | **Open-Source DPI Release & Policy Synthesis** | • Open-source reference implementation under MIT License on GitHub.<br>• Finalize comprehensive empirical benchmark dataset and evaluation suite.<br>• Draft and submit Technical Policy Whitepaper on Verifiable RAG for e-Courts and Digital India. | Production-ready national asset for India's Digital Public Infrastructure (DPI). |
+| **Q4 (Months 10–12)** | **Open-Source DPI Release & Policy Synthesis** | • Open-source reference implementation under MIT License on GitHub.<br>• Finalize comprehensive empirical benchmark dataset and evaluation suite.<br>• Draft and submit Technical Policy Whitepaper on Verifiable RAG for e-Courts and Digital India. | Open-source reference implementation and evaluation benchmark for Digital Public Infrastructure (DPI). |
 
 ---
 

@@ -394,3 +394,87 @@ def enrich_answer_with_concordance(answer: str, matches: List[ConcordanceMatch])
         )
 
     return answer + concordance_block
+
+
+# ── Undertrial Detention Relief Rule Engine (BNSS §479 / CrPC §436A) ──────────
+
+def evaluate_undertrial_relief(
+    offence_max_imprisonment_years: float,
+    detention_months: float,
+    is_first_time_offender: bool = True,
+    is_death_or_life_offence: bool = False,
+    has_multiple_pending_cases: bool = False,
+) -> Dict[str, Any]:
+    """
+    Evaluates statutory eligibility for undertrial bail review under BNSS Section 479
+    (successor to CrPC Section 436A), implementing all statutory thresholds and exclusions.
+
+    Statutory Logic & Provisos under BNSS §479:
+      - 1st Proviso: A first-time offender (never convicted previously) is eligible for
+        bail review after undergoing detention for 1/3rd (one-third) of the maximum period.
+      - General Rule: Other undertrial prisoners are eligible after undergoing detention
+        for 1/2 (one-half) of the maximum imprisonment period.
+      - 2nd Proviso Exclusion: Does NOT apply to offences punishable by death or life imprisonment.
+      - 3rd Proviso Exclusion: Does NOT apply if the accused has multiple offences or cases pending investigation/trial.
+      - Judicial Discretion: Output signifies statutory eligibility for bail review on bond/sureties,
+        subject to judicial discretion, not automatic extrajudicial release.
+    """
+    max_months = offence_max_imprisonment_years * 12.0
+
+    # 1. Check Exclusion: Death or Life Imprisonment (Second Proviso to §479)
+    if is_death_or_life_offence:
+        return {
+            "eligible_for_review": False,
+            "statutory_basis": "BNSS §479 (Second Proviso)",
+            "reason": "Statutory exclusion: Section 479 does not apply to offences punishable by death or life imprisonment.",
+            "threshold_fraction": None,
+            "threshold_months": None,
+            "detention_months": detention_months,
+            "exclusions_triggered": ["death_or_life_imprisonment_exclusion"],
+        }
+
+    # 2. Check Exclusion: Multiple Pending Cases (Third Proviso to §479)
+    if has_multiple_pending_cases:
+        return {
+            "eligible_for_review": False,
+            "statutory_basis": "BNSS §479 (Third Proviso)",
+            "reason": "Statutory exclusion: Section 479 prohibits bail release if an investigation, inquiry, or trial in multiple cases or offences is pending against the accused.",
+            "threshold_fraction": None,
+            "threshold_months": None,
+            "detention_months": detention_months,
+            "exclusions_triggered": ["multiple_pending_cases_exclusion"],
+        }
+
+    # 3. Determine Required Threshold (First Proviso: 1/3 for first-time offenders, else 1/2)
+    threshold_fraction = 1.0 / 3.0 if is_first_time_offender else 0.5
+    fraction_label = "one-third (1/3rd)" if is_first_time_offender else "one-half (1/2)"
+    threshold_months = max_months * threshold_fraction
+
+    eligible = detention_months >= threshold_months
+
+    if eligible:
+        reason = (
+            f"Eligible for statutory bail review under BNSS §479 ({fraction_label} rule). "
+            f"Undergone {detention_months:.1f} months of detention, exceeding the statutory requirement "
+            f"of {threshold_months:.1f} months ({fraction_label} of {offence_max_imprisonment_years:.1f} years maximum sentence)."
+        )
+    else:
+        remaining_months = threshold_months - detention_months
+        reason = (
+            f"Not yet eligible for BNSS §479 review ({fraction_label} rule). "
+            f"Undergone {detention_months:.1f} months of detention; requires {threshold_months:.1f} months. "
+            f"Shortfall: {remaining_months:.1f} months."
+        )
+
+    return {
+        "eligible_for_review": eligible,
+        "statutory_basis": "BNSS §479 (First Proviso)" if is_first_time_offender else "BNSS §479 (General Provision)",
+        "offence_max_imprisonment_years": offence_max_imprisonment_years,
+        "detention_months": detention_months,
+        "is_first_time_offender": is_first_time_offender,
+        "threshold_fraction": fraction_label,
+        "threshold_months": round(threshold_months, 2),
+        "reason": reason,
+        "judicial_discretion_caveat": "Relief constitutes statutory eligibility for judicial consideration on personal bond/sureties, not automatic extrajudicial release.",
+        "exclusions_triggered": [],
+    }

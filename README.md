@@ -11,7 +11,7 @@ JanSetu AI (जनसेतु) is a sovereign AI Document Intelligence, Q&A, an
 
 Built with an async **FastAPI** backend, a zero-infrastructure in-process **Hybrid Vector-Graph Database** (NetworkX + FAISS Flat Index), dual cloud/on-premise LLM inference (**Cloudflare Workers AI** & sovereign local **Ollama**), and a responsive **React/Vite** SPA frontend, the system provides calibrated hallucination suppression via empirical abstention, claim-level NLI citation entailment, automated statutory criminal law concordance (IPC $\longleftrightarrow$ BNS), and pre-retrieval indirect prompt injection defense.
 
-> 🚀 **Live Demo:** [docs-ai-ashen.vercel.app](https://docs-ai-ashen.vercel.app)  
+> 🚀 **Live Prototype Deployment:** [docs-ai-ashen.vercel.app](https://docs-ai-ashen.vercel.app) *(Hosted on Vercel; source repository: [github.com/shoyo44/JanSetu-AI](https://github.com/shoyo44/JanSetu-AI))*  
 > 🏛️ **Fellowship Proposal:** [INDIA_AI_FELLOWSHIP_PROPOSAL.md](./INDIA_AI_FELLOWSHIP_PROPOSAL.md)  
 > 📄 **Academic Project Report:** [DOCS_PROJECT_REPORT.pdf](./DOCS_PROJECT_REPORT.pdf)  
 > 📐 **System Architecture:** [ARCHITECTURE.md](./ARCHITECTURE.md)  
@@ -37,17 +37,24 @@ JanSetu AI directly addresses the **Governance** and **Law and Justice** priorit
 
 ## 🔍 Prior Art & Comparative Landscape
 
+> **Disambiguation Note:** JanSetu AI (जनसेतु) developed under this fellowship is an independent academic research platform focusing on neuro-symbolic Knowledge Graph verification, calibrated abstention, and edge data sovereignty across Governance and Law & Justice. It is distinct from and unrelated to prior work bearing similar titles, including the web portal concept described by Shaikh et al. (IJRPR, 2024: *"JanSetu AI: An AI-Assisted Web Platform for Personalised Discovery of Indian Government Welfare Schemes"*) and the student hackathon project *"JanSetu — India's Civic AI Assistant"* (2024). JanSetu AI's technical differentiators lie in its unified vector-graph retrieval topology, claim-level DeBERTa-v3 NLI entailment, DPDPA 2023 air-gapped on-premise execution, and deterministic statutory rule engines.
+
 Prior systems address isolated parts of Indian legal informatics and welfare access. JanSetu AI unifies these dimensions under a single sovereign verification layer:
 
-| Dimension | Jugalbandi (OpenNyAI / AI4Bharat) | NyayaReasoner | Falkor-IRAC / RAG–KG | LandLens / Commercial | JanSetu AI (Ours) |
-|---|---|---|---|---|---|
-| **Primary Target Users** | Citizens (Welfare schemes) | Legal advocates | Legal researchers | Land buyers (Tamil Nadu) | **Citizens, CSC operators, legal-aid counsels** |
-| **Domain Scope** | Welfare schemes | SC judgment prediction | Case law, statutes | Land title due diligence | **Welfare + criminal transition + regional land deeds** |
-| **Retrieval Modality** | Dense embeddings + FAISS | BM25 + dense + RRF | Graph / hybrid traversal | OCR + AI extraction | **Hybrid (Vector + Graph) + RRF + HyDE** |
-| **Claim-Level Entailment** | *Not stated* | Yes (NLI) | Citation verifier (Falkor-IRAC) | *Not stated* | **Yes (DeBERTa-v3 cross-encoder NLI, English-primary)** |
-| **Empirical Abstention** | *Not stated* | Yes | *Not stated* | *Not stated* | **Yes (Calibrated per-vertical threshold $\tau = 0.40$)** |
-| **On-Prem / Sovereign Profile**| *Not stated* | *Not stated* | *Not stated* | *Not stated* | **Yes (Documented air-gapped data boundary via Ollama)** |
-| **Open Evaluation Corpus** | *Not stated* | *Not stated* | Dataset released (Falkor-IRAC) | No (Proprietary) | **Committed in repo ($N=150$ gold pairs, raw CSV)** |
+| Dimension | Jugalbandi (AI4Bharat) | Nyaya Setu (GoI/DoJ) | NyayaReasoner | Falkor-IRAC / RAG–KG | LandLens / Commercial | JanSetu AI (Ours) |
+|---|---|---|---|---|---|---|
+| **Primary Target Users** | Citizens (Welfare) | Citizens (Legal Literacy) | Legal advocates | Legal researchers | Land buyers (TN) | **Citizens, CSCs, legal-aid counsels** |
+| **Domain Scope** | Welfare schemes | Legal awareness | SC prediction | Case law, statutes | Land title due diligence | **Welfare + criminal transition + land deeds** |
+| **Retrieval Modality** | Dense + FAISS | Conversational API | BM25 + dense + RRF | Graph / hybrid | OCR + AI extraction | **Hybrid (Vector + Graph) + RRF + HyDE** |
+| **Claim-Level Entailment** | *Not stated* | *Not stated* | Yes (NLI) | Citation verifier | *Not stated* | **Yes (DeBERTa-v3 cross-encoder NLI)** |
+| **Empirical Abstention** | *Not stated* | *Not stated* | Yes | *Not stated* | *Not stated* | **Yes (Calibrated per-vertical τ = 0.40)** |
+| **On-Prem / Sovereign Profile**| *Not stated* | *Not stated* | *Not stated* | *Not stated* | *Not stated* | **Yes (Air-gapped data boundary via Ollama)** |
+| **Open Evaluation Corpus** | *Not stated* | *Not stated* | *Not stated* | Dataset released | No (Proprietary) | **Committed in repo ($N=150$ gold pairs)** |
+
+*Comparative Notes on Prior Art:*
+- **Jugalbandi:** To our knowledge, public technical descriptions do not state provision of criminal statutory concordance, appellate judgment ratio extraction, or air-gapped on-premise deployment.
+- **Nyaya Setu (GoI / Bhashini):** National conversational initiative for legal literacy. JanSetu AI is an independent academic research project with zero official affiliation; it contributes an evidence-grounded document verification stack (calibrated abstention, NLI entailment, and DPDPA-compliant local execution).
+- **LandLens:** To our knowledge, public descriptions do not disclose evaluation datasets or calibrated abstention metrics.
 
 ---
 
@@ -71,7 +78,7 @@ JanSetu AI provides a 1-click evaluation catalog in Document Vault (`/api/v1/ben
 
 | Benchmark Key | Document Title & Provenance | Vertical | Solved Citizen / Institutional Problem & Caveats |
 |---|---|---|---|
-| `pm_kisan` | **PM-KISAN Operational Guidelines 2024**<br>*(Source: Ministry of Agriculture & Farmers Welfare, GoI)* | `governance` | Direct Benefit Transfer (DBT) ₹6,000/yr criteria. Evaluates cultivable landholder eligibility (2019 ceiling removal), "family" definition (husband, wife, minor children), pension exclusions ($\ge ₹10,000$), and mandatory e-KYC/land seeding. |
+| `pm_kisan` | **PM-KISAN Operational Guidelines (Revised 2024)**<br>*(Source: Dept. of Agriculture & Farmers Welfare, GoI; authored benchmark excerpt)* | `governance` | Direct Benefit Transfer (DBT) ₹6,000/yr criteria. Evaluates cultivable landholder eligibility (2019 ceiling removal), "family" definition (husband, wife, minor children), pension exclusions ($\ge ₹10,000$), and mandatory e-KYC/land seeding. |
 | `sc_judgment` | **Synthetic Judicial Benchmark Exemplar**<br>*(Source: Authored exemplar modeled on SC jurisprudence)* | `judgment` | Pre-trial bail jurisprudence under BNSS §483 / CrPC §439, triple test condition synthesis, and Article 21 liberty protections. Modeled on Supreme Court bail principles in *Manish Sisodia v. Directorate of Enforcement* (2024 INSC 595, Aug 9, 2024) and *Satender Kumar Antil v. CBI* (2022). |
 | `ayushman_bharat` | **Ayushman Bharat PM-JAY Policy Guidelines**<br>*(Source: National Health Authority, GoI)* | `governance` | ₹5 Lakh cashless health cover guarantee, SECC deprivation criteria, and mandatory pre-authorization grievance resolution via NHA 14555. |
 | `tamil_pattiram` | **Tamil Nadu Land Sale Deed & Patta (*கிரையப் பத்திரம்*)**<br>*(Source: TN Registration Dept deed format)* | `law` | Bilingual land record verification: Survey Number (`புல எண்`), 4 boundaries (`நான்கு எல்லைகள்`), consideration amount, and Nil-Encumbrance Certificate (`வில்லங்கச் சான்றிதழ்`). |
@@ -168,7 +175,7 @@ Tested via automated test suites (`eval/test_live_e2e_full_system.py`, `eval/tes
 |---|---|---|
 | **Live Backend E2E Test Suite** | **16/16 PASS (100.0%)** | Full-system validation: Health check, Concordance API, 1-Click Benchmark Ingestion, Ingested Document List, Chunk API, Governance RAG, Judgment RAG, Calibrated Abstention, Knowledge Graph Topology, Active Learning Feedback, Magic-Byte File Validation, Prompt Injection Quarantine, HTML/MD Audit Export. |
 | **Playwright Chromium E2E Suite**| **7/7 PASS (100.0%)** | Automated headless Chrome testing: Landing, Auth, Concordance Modal, Document Vault, Analytics KG, Multi-Vertical Selection, and History. |
-| **Frontend Production Build** | **PASS (470 ms)** | Clean Vite production build with zero warnings or errors. |
+| **Undertrial Rule Engine Test (BNSS §479)** | **5/5 PASS (100.0%)** | Validates 1/3rd first offender, 1/2 repeat offender, life/death exclusion, multiple case exclusion, and judicial review recommendation (`eval/test_undertrial_rules.py`). |
 | **Statutory Concordance Fixture**| **30/30 PASS (100.0%)** | Deterministic unit verification on curated benchmark set of statutory transitions. |
 | **Adversarial Injection Fixture** | **10/10 PASS (100.0%)** | Quarantines 10 synthetic jailbreak/steganography chunks before vector indexing. |
 

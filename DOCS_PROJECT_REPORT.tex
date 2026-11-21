@@ -336,14 +336,21 @@ Unlike bi-encoders which compute query and document representations independentl
 \end{equation}
 This full cross-attention mechanism achieves superior reranking precision for high-stakes compliance and academic domains.
 
-\section{Related Work and Comparative Landscape}
+\section{Related Work, Disambiguation, and Comparative Landscape}
 Prior research and engineering efforts have addressed isolated dimensions of Indian public administration and legal informatics:
+
+\begin{infobox}{Disambiguation Note: JanSetu AI Academic Initiative}
+JanSetu AI (\textit{JanSetu}) developed in this work is an independent academic research platform focusing on neuro-symbolic Knowledge Graph verification, calibrated empirical abstention, and edge data sovereignty across Public Governance and Law \& Justice. It is distinct from and unrelated to prior work bearing similar titles, including the web portal concept described by Shaikh et al.\ (IJRPR, 2024: ``JanSetu AI: An AI-Assisted Web Platform for Personalised Discovery of Indian Government Welfare Schemes'') and the student hackathon project ``JanSetu --- India's Civic AI Assistant'' (2024). JanSetu AI's technical contributions lie in its unified vector-graph retrieval topology, claim-level DeBERTa-v3 NLI entailment, DPDPA 2023 air-gapped on-premise execution, and deterministic statutory rule engines.
+\end{infobox}
+
 \begin{itemize}[itemsep=2pt]
-    \item \textbf{Jugalbandi (OpenNyAI, AI4Bharat, Microsoft):} Delivers multilingual conversational AI over WhatsApp for government welfare schemes, subsequently integrated with the national Bhashini platform. While groundbreaking for citizen accessibility, it does not support court judgment analysis, statutory criminal law concordance, or air-gapped on-premise execution.
+    \item \textbf{Jugalbandi (OpenNyAI, AI4Bharat, Microsoft):} Delivers multilingual conversational AI over WhatsApp for government welfare schemes, subsequently integrated with the national Bhashini platform. To our knowledge, public technical descriptions do not state provision of criminal statutory concordance, appellate judgment ratio extraction, or air-gapped on-premise deployment.
+    \item \textbf{Nyaya Setu (Department of Justice / Bhashini, GoI):} A voice-first, multilingual conversational citizen legal literacy bot launched under the national Digital India initiative. JanSetu AI is an independent academic research project with no institutional connection to Nyaya Setu. While Nyaya Setu emphasizes conversational legal information delivery over public APIs, JanSetu AI contributes a document-level verification layer: multi-tier NLI citation entailment, calibrated empirical abstention ($\tau = 0.40$), statutory criminal concordance rule engines (BNSS \S 479 undertrial review), and an air-gapped on-premise deployment profile ensuring institutional data residency under Section 16 of DPDPA 2023.
     \item \textbf{NyayaReasoner:} Combines hybrid BM25 and dense retrieval with claim-level verification and explicit abstention for Supreme Court judgment prediction, focusing primarily on judicial outcome modeling rather than public welfare administration.
     \item \textbf{Falkor-IRAC and Knowledge Graph Architectures:} Leverage graph structures to enhance legal citation grounding and statutory reasoning across appellate case law.
-    \item \textbf{Commercial Tools:} Platforms such as LandLens (Tamil Nadu land due diligence) and VakilMitraAI (statutory cross-referencing) operate within narrow commercial silos behind proprietary paywalls without open evaluation datasets.
+    \item \textbf{Commercial Tools:} Platforms such as LandLens (Tamil Nadu land due diligence) and VakilMitraAI (statutory cross-referencing) operate within narrow commercial silos behind proprietary paywalls. To our knowledge, public descriptions do not disclose evaluation datasets or calibrated abstention metrics.
 \end{itemize}
+
 JanSetu AI does not claim to supersede these specialized systems; rather, it contributes a unified, zero-infrastructure platform applying an empirical verification stack (calibrated abstention, claim-level NLI entailment, and pre-indexing prompt injection defense) across public welfare, criminal law transitions, and vernacular land deeds, backed by a fully reproducible open evaluation benchmark.
 
 \begin{table}[H]
@@ -351,23 +358,23 @@ JanSetu AI does not claim to supersede these specialized systems; rather, it con
 \scriptsize
 \caption{Comparative Landscape Analysis of Indian Governance and Legal AI Systems}
 \label{tab:comparative_landscape}
-\begin{tabularx}{\textwidth}{p{2.2cm}p{2.2cm}p{2.2cm}p{2.2cm}p{2.2cm}X}
+\begin{tabularx}{\textwidth}{p{2.0cm}p{1.9cm}p{1.9cm}p{1.9cm}p{1.9cm}p{1.7cm}X}
 \toprule
-\textbf{Dimension} & \textbf{Jugalbandi} & \textbf{NyayaReasoner} & \textbf{Falkor-IRAC} & \textbf{Commercial} & \textbf{JanSetu AI (Ours)} \\
+\textbf{Dimension} & \textbf{Jugalbandi} & \textbf{Nyaya Setu} & \textbf{NyayaReasoner} & \textbf{Falkor-IRAC} & \textbf{Commercial} & \textbf{JanSetu AI (Ours)} \\
 \midrule
-\textbf{Target Users} & Citizens (Welfare) & Advocates & Legal Researchers & Land Buyers & Citizens, CSCs, Legal Aid \\
+\textbf{Target Users} & Citizens (Welfare) & Citizens (Literacy) & Advocates & Researchers & Land Buyers & \textbf{Citizens, CSCs, Legal Aid} \\
 \addlinespace
-\textbf{Domain Scope} & Welfare Schemes & SC Prediction & Case Law \& Acts & Land Title Search & Welfare, Criminal Concordance, Deeds \\
+\textbf{Domain Scope} & Welfare Schemes & Legal Awareness & SC Prediction & Case Law & Land Titles & \textbf{Welfare, Concordance, Deeds} \\
 \addlinespace
-\textbf{Retrieval} & Dense + FAISS & BM25 + Dense + RRF & Graph / Hybrid & OCR + Extraction & Vector + Graph + RRF + HyDE \\
+\textbf{Retrieval} & Dense + FAISS & Conversational & BM25 + Dense & Graph / Hybrid & OCR + Extraction & \textbf{Vector + Graph + RRF + HyDE} \\
 \addlinespace
-\textbf{NLI Entailment} & \textit{Not stated} & Yes (NLI) & Citation Verifier & \textit{Not stated} & \textbf{Yes (DeBERTa-v3 NLI)} \\
+\textbf{NLI Entailment} & \textit{Not stated} & \textit{Not stated} & Yes (NLI) & Citation Verifier & \textit{Not stated} & \textbf{Yes (DeBERTa-v3 NLI)} \\
 \addlinespace
-\textbf{Abstention} & \textit{Not stated} & Yes & \textit{Not stated} & \textit{Not stated} & \textbf{Yes (Calibrated $\tau=0.40$)} \\
+\textbf{Abstention} & \textit{Not stated} & \textit{Not stated} & Yes & \textit{Not stated} & \textit{Not stated} & \textbf{Yes (Calibrated $\tau=0.40$)} \\
 \addlinespace
-\textbf{On-Prem Mode} & \textit{Not stated} & \textit{Not stated} & \textit{Not stated} & \textit{Not stated} & \textbf{Yes (Air-Gapped Ollama)} \\
+\textbf{On-Prem Mode} & \textit{Not stated} & \textit{Not stated} & \textit{Not stated} & \textit{Not stated} & \textit{Not stated} & \textbf{Yes (Air-Gapped Ollama)} \\
 \addlinespace
-\textbf{Open Benchmark} & \textit{Not stated} & \textit{Not stated} & Corpus Released & Proprietary & \textbf{Committed ($N=150$ QA Pairs)} \\
+\textbf{Open Benchmark} & \textit{Not stated} & \textit{Not stated} & \textit{Not stated} & Corpus Released & Proprietary & \textbf{Committed ($N=150$ QA Pairs)} \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -613,6 +620,17 @@ For the Legal and Judicial verticals, JanSetu AI automatically executes a 10-poi
 Furthermore, JanSetu AI introduces a Human-in-the-Loop (HITL) audit workbench enabling legal reviewers to accept residual risks, dismiss false positives, record reviewer justifications, and generate formal executive audit reports in HTML, Markdown, and PDF.
 
 \section{Indian Criminal Law Statutory Concordance Engine}
+\subsection{Deterministic Statutory Rule Engine (BNSS \S 479 Undertrial Relief)}
+To provide rigorous legal aid pre-screening beyond statistical text generation, JanSetu AI implements an explicit, deterministic rule engine (\texttt{evaluate\_undertrial\_relief} in \texttt{backend/app/core/statutory\_concordance.py}) codifying the statutory mandates of Section 479 BNSS:
+\begin{enumerate}[itemsep=2pt]
+    \item \textbf{First-Time Offender Proviso:} Where an undertrial is a first-time offender (never previously convicted of any offence), they qualify for consideration of release on bail if they have undergone detention extending up to \textbf{one-third} of the maximum period of imprisonment specified for that offence.
+    \item \textbf{Standard Undertrial Threshold:} For non-first-time offenders, eligibility applies upon completing \textbf{one-half} of the maximum sentence.
+    \item \textbf{Second Proviso Statutory Disqualifications:} The engine strictly enforces statutory exclusions: offences punishable by death or life imprisonment are disqualified from relief under \S 479.
+    \item \textbf{Third Proviso Statutory Disqualifications:} Accused persons with multiple pending investigations or trials in more than one offence are excluded from relief.
+    \item \textbf{Advisory Recommendation Safeguard:} The system explicitly outputs an advisory \textit{eligibility for statutory review} rather than declaring mandatory release, ensuring human judicial discretion is preserved.
+\end{enumerate}
+This symbolic logic is validated via an automated unit test suite (\texttt{eval/test\_undertrial\_rules.py}) achieving \textbf{5/5 PASS (100.0\%)} across all statutory threshold and disqualification cases.
+
 Following India's landmark criminal jurisprudence reform enacted on July 1, 2024, JanSetu AI provides an automated bidirectional statutory concordance engine:
 \begin{itemize}[itemsep=2pt]
     \item \textbf{IPC (1860) $\leftrightarrow$ BNS (2023):} Maps historical offences (e.g. IPC \S 420 Cheating $\leftrightarrow$ BNS \S 318(4); IPC \S 302 Murder $\leftrightarrow$ BNS \S 103(1); IPC \S 124A Sedition $\rightarrow$ BNS \S 152 Endangering Sovereignty, indexed as a modified successor provision).
@@ -825,7 +843,7 @@ The live system integration test harness (\texttt{eval/test\_live\_e2e\_full\_sy
 \addlinespace
 \textbf{Chromium Headless E2E} & $\mathbf{7/7\text{ PASS (100.0\%)}}$ & Automated UI verification: Landing, Auth, Concordance Modal, Document Vault, Analytics KG, Multi-Vertical, and History. \\
 \addlinespace
-\textbf{Frontend Production Build} & $\mathbf{PASS\ (470\text{ ms})}$ & Clean Vite production build with zero warnings or errors. \\
+\textbf{Undertrial Rule Engine Test (BNSS \S 479)} & $\mathbf{5/5\ PASS\ (100.0\%)}$ & Validates 1/3rd first offender, 1/2 repeat offender, life/death exclusion, multiple pending cases exclusion, and judicial review recommendation (\texttt{eval/test\_undertrial\_rules.py}). \\
 \addlinespace
 \textbf{Statutory Concordance Fixture} & $\mathbf{30/30\text{ PASS (100.0\%)}}$ & Deterministic unit validation across curated 30-statute criminal transition benchmark. \\
 \addlinespace
