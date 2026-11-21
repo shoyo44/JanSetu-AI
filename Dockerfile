@@ -14,7 +14,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 COPY backend/requirements.txt .
-RUN pip install --no-cache-dir --user -r requirements.txt
+# Install lightweight CPU-only PyTorch to fit comfortably within cloud edge disks
+RUN pip install --no-cache-dir --user torch --extra-index-url https://download.pytorch.org/whl/cpu && \
+    pip install --no-cache-dir --user -r requirements.txt
 
 # Pre-download spaCy NER model into user directory
 RUN python -m pip install --no-cache-dir --user \
