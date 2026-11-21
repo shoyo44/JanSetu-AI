@@ -35,6 +35,22 @@ JanSetu AI directly addresses the **Governance** and **Law and Justice** priorit
 
 ---
 
+## 🔍 Prior Art & Comparative Landscape
+
+Prior systems address isolated parts of Indian legal informatics and welfare access. JanSetu AI unifies these dimensions under a single sovereign verification layer:
+
+| Dimension | Jugalbandi (OpenNyAI / AI4Bharat) | NyayaReasoner | Falkor-IRAC / RAG–KG | LandLens / Commercial | JanSetu AI (Ours) |
+|---|---|---|---|---|---|
+| **Primary Target Users** | Citizens (Welfare schemes) | Legal advocates | Legal researchers | Land buyers (Tamil Nadu) | **Citizens, CSC operators, legal-aid counsels** |
+| **Domain Scope** | Welfare schemes | SC judgment prediction | Case law, statutes | Land title due diligence | **Welfare + criminal transition + regional land deeds** |
+| **Retrieval Modality** | Dense embeddings + FAISS | BM25 + dense + RRF | Graph / hybrid traversal | OCR + AI extraction | **Hybrid (Vector + Graph) + RRF + HyDE** |
+| **Claim-Level Entailment** | *Not stated* | Yes (NLI) | Citation verifier (Falkor-IRAC) | *Not stated* | **Yes (DeBERTa-v3 cross-encoder NLI, English-primary)** |
+| **Empirical Abstention** | *Not stated* | Yes | *Not stated* | *Not stated* | **Yes (Calibrated per-vertical threshold $\tau = 0.40$)** |
+| **On-Prem / Sovereign Profile**| *Not stated* | *Not stated* | *Not stated* | *Not stated* | **Yes (Documented air-gapped data boundary via Ollama)** |
+| **Open Evaluation Corpus** | *Not stated* | *Not stated* | Dataset released (Falkor-IRAC) | No (Proprietary) | **Committed in repo ($N=150$ gold pairs, raw CSV)** |
+
+---
+
 ## 🌟 Sovereign Multi-Vertical Matrix (IndiaAI Fellowship Core)
 
 JanSetu AI configures **3 primary sovereign fellowship verticals** in `backend/app/config/verticals.py` (with transparent backward-compatibility aliases for legacy compatibility requests), each featuring an isolated chunking strategy, retrieval modality, reranker, and output generator:

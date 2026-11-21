@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Send, Bot, User, Sparkles, Loader2, Trash2, File, Loader, AlertCircle, Zap, Search, FileText, Scale, ChevronDown, Landmark, Mic, MicOff, X, ArrowRightLeft, BookOpen } from 'lucide-react';
+import { Send, Bot, User, Sparkles, Loader2, Trash2, File, Loader, AlertCircle, Zap, Search, FileText, Scale, ChevronDown, Landmark, Mic, MicOff, X, ArrowRightLeft, BookOpen, ShieldAlert } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useApp } from '../context/AppContext';
@@ -70,6 +70,7 @@ const Chat = () => {
 
   // ── India AI: Statutory Concordance Quick Converter Modal State ────────────
   const [showConcordanceModal, setShowConcordanceModal] = useState(false);
+  const [showAidModal, setShowAidModal] = useState(false);
   const [concordanceQuery, setConcordanceQuery] = useState('IPC 420');
   const [concordanceResults, setConcordanceResults] = useState([]);
   const [loadingConcordance, setLoadingConcordance] = useState(false);
@@ -398,6 +399,15 @@ const Chat = () => {
               title="Indian Criminal Laws Statutory Transition (July 1, 2024)"
             >
               <Scale size={14} /> ⚖️ IPC ⇄ BNS
+            </button>
+            <button
+              type="button"
+              className="clear-chat-btn hover-lift"
+              style={{ borderColor: 'rgba(245,158,11,0.35)', color: '#fbbf24' }}
+              onClick={() => setShowAidModal(true)}
+              title="Official Citizen Helplines & NALSA Legal Aid"
+            >
+              <ShieldAlert size={14} /> 🛡️ Citizen Helplines
             </button>
             <div className="vertical-selector-chat">
               <Sparkles size={14} />
@@ -748,6 +758,9 @@ const Chat = () => {
             <Send size={20} />
           </button>
         </form>
+        <div style={{ textAlign: 'center', fontSize: '0.72rem', color: '#64748b', marginTop: '6px' }}>
+          ⚖️ Official Helplines: NALSA Legal Aid <strong style={{color: '#94a3b8'}}>15100</strong> · Cyber Fraud <strong style={{color: '#94a3b8'}}>1930</strong> · PM-JAY <strong style={{color: '#94a3b8'}}>14555</strong> | Assistive Research Tool — Not Legal Advice
+        </div>
       </div>
 
       <div className="chat-reference-panel glass-panel">
@@ -926,6 +939,68 @@ const Chat = () => {
                   </div>
                 ))
               )}
+            </div>
+          </div>
+        </div>
+      )}
+      {/* ── Official Citizen Helplines & Legal Aid Modal ── */}
+      {showAidModal && (
+        <div className="concordance-modal-overlay animate-fade-in" onClick={() => setShowAidModal(false)}>
+          <div className="concordance-modal-card glass-panel animate-scale-up" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '620px' }}>
+            <div className="modal-header-row" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: '12px', marginBottom: '14px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <ShieldAlert size={20} color="#f59e0b" />
+                <h3 style={{ margin: 0, fontSize: '1.1rem', color: '#f8fafc' }}>
+                  National Citizen Helplines & Legal Aid Routing
+                </h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowAidModal(false)}
+                style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer' }}
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <p style={{ fontSize: '0.82rem', color: '#cbd5e1', lineHeight: 1.5, marginBottom: '14px' }}>
+              JanSetu AI is an assistive document intelligence platform. If you require urgent, binding legal representation or official grievance redressal, connect directly with these certified public authorities:
+            </p>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '16px' }}>
+              <div style={{ padding: '12px', borderRadius: '8px', background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.25)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <strong style={{ color: '#fbbf24', fontSize: '0.9rem' }}>National Legal Services Authority (NALSA)</strong>
+                  <span style={{ background: '#f59e0b', color: '#000', padding: '2px 8px', borderRadius: '4px', fontWeight: 700, fontSize: '0.8rem' }}>15100 (24x7 Toll-Free)</span>
+                </div>
+                <p style={{ margin: '4px 0 0', fontSize: '0.78rem', color: '#cbd5e1' }}>
+                  Free legal representation, bail filing assistance for undertrials under BNSS §479, and legal aid clinics for women, scheduled castes, and marginal farmers under the Legal Services Authorities Act, 1987.
+                </p>
+              </div>
+
+              <div style={{ padding: '12px', borderRadius: '8px', background: 'rgba(56,189,248,0.08)', border: '1px solid rgba(56,189,248,0.25)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <strong style={{ color: '#38bdf8', fontSize: '0.9rem' }}>National Cyber Crime Helpline (I4C / MHA)</strong>
+                  <span style={{ background: '#38bdf8', color: '#000', padding: '2px 8px', borderRadius: '4px', fontWeight: 700, fontSize: '0.8rem' }}>1930 (Golden Hour)</span>
+                </div>
+                <p style={{ margin: '4px 0 0', fontSize: '0.78rem', color: '#cbd5e1' }}>
+                  Immediate bank account freezing via CFCFRMS for UPI/banking fraud, Zero-FIR registration guidance under BNSS §173, and cyber cheating reports under BNS §318(4).
+                </p>
+              </div>
+
+              <div style={{ padding: '12px', borderRadius: '8px', background: 'rgba(34,197,94,0.08)', border: '1px solid rgba(34,197,94,0.25)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <strong style={{ color: '#4ade80', fontSize: '0.9rem' }}>Ayushman Bharat PM-JAY Grievance Redressal</strong>
+                  <span style={{ background: '#22c55e', color: '#000', padding: '2px 8px', borderRadius: '4px', fontWeight: 700, fontSize: '0.8rem' }}>14555 (Toll-Free)</span>
+                </div>
+                <p style={{ margin: '4px 0 0', fontSize: '0.78rem', color: '#cbd5e1' }}>
+                  Hospital pre-authorization denial disputes, ₹5 Lakh cashless coverage verification, and empanelled hospital grievance escalation.
+                </p>
+              </div>
+            </div>
+
+            <div style={{ padding: '8px 12px', borderRadius: '6px', background: 'rgba(255,255,255,0.04)', fontSize: '0.74rem', color: '#94a3b8' }}>
+              💡 <em>Pro-tip: Common Service Centers (CSCs) also operate the Department of Justice <strong>Tele-Law</strong> video consultation kiosk for grassroots legal advice at Gram Panchayats.</em>
             </div>
           </div>
         </div>

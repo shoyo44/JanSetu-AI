@@ -146,3 +146,30 @@ All proportions report exact counts $k/N$ with 95% Wilson score confidence inter
 | **Vector Search Latency (p95)** | 450 ms | 720 ms | **680 ms** | **740 ms** | Single-pass FAISS query over 768-dim space. |
 | **Hybrid + HyDE Latency (p95)** | N/A | 1,850 ms | **1,620 ms** | **2,100 ms** | Vector + Graph retrieval + HyDE query expansion. |
 | **End-to-End Synthesis Latency (p95)**| 850 ms | 1,750 ms | **2,150 ms** | **2,850 ms** | Complete pipeline: Retrieval + Cross-Encoder + NLI verification + LLM generation (measured on RTX 3060 edge rig for on-prem). |
+
+
+---
+
+## 8. Prior Art & Comparative Landscape
+
+| Dimension | Jugalbandi (OpenNyAI / AI4Bharat) | NyayaReasoner | Falkor-IRAC / RAG–KG | LandLens / Commercial | JanSetu AI (Ours) |
+|---|---|---|---|---|---|
+| **Primary Target Users** | Citizens (Welfare schemes) | Legal advocates | Legal researchers | Land buyers (Tamil Nadu) | **Citizens, CSC operators, legal-aid counsels** |
+| **Domain Scope** | Welfare schemes | SC judgment prediction | Case law, statutes | Land title due diligence | **Welfare + criminal transition + regional land deeds** |
+| **Retrieval Modality** | Dense embeddings + FAISS | BM25 + dense + RRF | Graph / hybrid traversal | OCR + AI extraction | **Hybrid (Vector + Graph) + RRF + HyDE** |
+| **Claim-Level Entailment** | *Not stated* | Yes (NLI) | Citation verifier (Falkor-IRAC) | *Not stated* | **Yes (DeBERTa-v3 cross-encoder NLI, English-primary)** |
+| **Empirical Abstention** | *Not stated* | Yes | *Not stated* | *Not stated* | **Yes (Calibrated per-vertical threshold $\tau = 0.40$)** |
+| **On-Prem / Offline Profile**| *Not stated* | *Not stated* | *Not stated* | *Not stated* | **Yes (Documented air-gapped data boundary via Ollama)** |
+| **Open Evaluation Corpus** | *Not stated* | *Not stated* | Dataset released (Falkor-IRAC) | No (Proprietary) | **Committed in repo ($N=150$ gold pairs, raw CSV)** |
+
+---
+
+## 9. Deployment Economics & Edge Hardware Cost Profile
+
+| Cost / Operating Dimension | Standard Cloud Mode (Serverless) | Sovereign On-Premise Edge Mode (`--profile onprem`) |
+|---|---|---|
+| **Hardware Capital Expenditure (CapEx)** | **$0** (No specialized hardware required) | **~Rs. 68,000 – Rs. 75,000** ($820 – $900) for edge workstation (AMD Ryzen 7 5700X, 32 GB RAM, NVIDIA RTX 3060 12 GB VRAM) |
+| **Operational Expenditure (OpEx)** | **~$0.0011 per complex query** (Cloudflare Workers AI + Nomic Embeddings API) | **$0 API fees**; ~180W power draw under active inference (~Rs. 1.20 / hour electricity) |
+| **Monthly Operating Cost (10,000 queries)** | **~$11.00 / month (~Rs. 920)** | **~$4.00 / month (~Rs. 330)** power cost (fixed workstation asset) |
+| **Target Deployment Environment** | State E-Governance portals, cloud-hosted public web portals | Panchayat offices, Common Service Centers (CSCs), District Legal Services Authorities (DLSAs), air-gapped court complexes |
+| **Emergency Human Handoff Routing** | Direct UI links to NALSA (15100), Cyber Crime (1930), PM-JAY (14555) | Local DLSA legal aid register & offline print-ready escalation slip |

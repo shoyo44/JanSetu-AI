@@ -336,6 +336,42 @@ Unlike bi-encoders which compute query and document representations independentl
 \end{equation}
 This full cross-attention mechanism achieves superior reranking precision for high-stakes compliance and academic domains.
 
+\section{Related Work and Comparative Landscape}
+Prior research and engineering efforts have addressed isolated dimensions of Indian public administration and legal informatics:
+\begin{itemize}[itemsep=2pt]
+    \item \textbf{Jugalbandi (OpenNyAI, AI4Bharat, Microsoft):} Delivers multilingual conversational AI over WhatsApp for government welfare schemes, subsequently integrated with the national Bhashini platform. While groundbreaking for citizen accessibility, it does not support court judgment analysis, statutory criminal law concordance, or air-gapped on-premise execution.
+    \item \textbf{NyayaReasoner:} Combines hybrid BM25 and dense retrieval with claim-level verification and explicit abstention for Supreme Court judgment prediction, focusing primarily on judicial outcome modeling rather than public welfare administration.
+    \item \textbf{Falkor-IRAC and Knowledge Graph Architectures:} Leverage graph structures to enhance legal citation grounding and statutory reasoning across appellate case law.
+    \item \textbf{Commercial Tools:} Platforms such as LandLens (Tamil Nadu land due diligence) and VakilMitraAI (statutory cross-referencing) operate within narrow commercial silos behind proprietary paywalls without open evaluation datasets.
+\end{itemize}
+JanSetu AI does not claim to supersede these specialized systems; rather, it contributes a unified, zero-infrastructure platform applying an empirical verification stack (calibrated abstention, claim-level NLI entailment, and pre-indexing prompt injection defense) across public welfare, criminal law transitions, and vernacular land deeds, backed by a fully reproducible open evaluation benchmark.
+
+\begin{table}[H]
+\centering
+\scriptsize
+\caption{Comparative Landscape Analysis of Indian Governance and Legal AI Systems}
+\label{tab:comparative_landscape}
+\begin{tabularx}{\textwidth}{p{2.2cm}p{2.2cm}p{2.2cm}p{2.2cm}p{2.2cm}X}
+\toprule
+\textbf{Dimension} & \textbf{Jugalbandi} & \textbf{NyayaReasoner} & \textbf{Falkor-IRAC} & \textbf{Commercial} & \textbf{JanSetu AI (Ours)} \\
+\midrule
+\textbf{Target Users} & Citizens (Welfare) & Advocates & Legal Researchers & Land Buyers & Citizens, CSCs, Legal Aid \\
+\addlinespace
+\textbf{Domain Scope} & Welfare Schemes & SC Prediction & Case Law \& Acts & Land Title Search & Welfare, Criminal Concordance, Deeds \\
+\addlinespace
+\textbf{Retrieval} & Dense + FAISS & BM25 + Dense + RRF & Graph / Hybrid & OCR + Extraction & Vector + Graph + RRF + HyDE \\
+\addlinespace
+\textbf{NLI Entailment} & \textit{Not stated} & Yes (NLI) & Citation Verifier & \textit{Not stated} & \textbf{Yes (DeBERTa-v3 NLI)} \\
+\addlinespace
+\textbf{Abstention} & \textit{Not stated} & Yes & \textit{Not stated} & \textit{Not stated} & \textbf{Yes (Calibrated $\tau=0.40$)} \\
+\addlinespace
+\textbf{On-Prem Mode} & \textit{Not stated} & \textit{Not stated} & \textit{Not stated} & \textit{Not stated} & \textbf{Yes (Air-Gapped Ollama)} \\
+\addlinespace
+\textbf{Open Benchmark} & \textit{Not stated} & \textit{Not stated} & Corpus Released & Proprietary & \textbf{Committed ($N=150$ QA Pairs)} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
 \newpage
 
 % ==============================================================================
@@ -585,8 +621,13 @@ Following India's landmark criminal jurisprudence reform enacted on July 1, 2024
 \end{itemize}
 Under Section 358 BNS and Section 531 BNSS, pending investigations and offences committed prior to July 1, 2024 remain governed by the earlier colonial codes; the concordance engine serves as an analytical bridging tool to cross-reference historical judicial precedents with current statutory charges.
 
-\begin{infobox}{Legal Research Disclaimer}
-JanSetu AI is an assistive legal and governance intelligence reference platform, not a substitute for formal legal counsel or judicial discretion. All statutory interpretations and welfare eligibility rules must be verified against the official Gazette of India.
+\begin{infobox}{Legal Research Disclaimer \& Citizen Safety Routing}
+JanSetu AI is an assistive legal and governance intelligence reference platform, not a substitute for formal legal counsel or judicial discretion. All statutory interpretations and welfare eligibility rules must be verified against the official Gazette of India. For direct institutional assistance, JanSetu AI embeds actionable routes to certified public helplines:
+\begin{itemize}[itemsep=1pt]
+    \item \textbf{National Legal Services Authority (NALSA) 24x7 Helpline:} \texttt{15100} (Free legal aid for undertrials and marginalized citizens).
+    \item \textbf{Indian Cyber Crime Coordination Centre (I4C) Helpline:} \texttt{1930} (Golden Hour bank freeze and Zero-FIR filing).
+    \item \textbf{Ayushman Bharat PM-JAY Grievance Redressal:} \texttt{14555} (Cashless hospital pre-authorization escalation).
+\end{itemize}
 \end{infobox}
 
 \section{Bilingual Indic Land Administration and Deed Verification Engine}
@@ -696,6 +737,29 @@ Under Section 16 of India's \textit{Digital Personal Data Protection Act, 2023 (
 \end{tabularx}
 \vspace{2pt}
 \noindent\footnotesize{$^\dagger$\textit{Note: Vectors across models are incommensurable; switching between cloud and local modes requires re-indexing the corpus. The hash router is strictly an offline unit-test mock fixture.}}
+\end{table}
+
+\section{Deployment Economics and Edge Hardware Cost Profile}
+To establish the operational feasibility of deploying JanSetu AI within resource-constrained public sector environments (such as Taluk courts, District Legal Services Authorities, and Gram Panchayats), Table~\ref{tab:deployment_economics} contrasts cloud operational expenditures against edge capital outlays:
+
+\begin{table}[H]
+\centering
+\small
+\caption{Deployment Economics: Cloud Serverless vs. Sovereign On-Premise Edge Profile}
+\label{tab:deployment_economics}
+\begin{tabularx}{\textwidth}{lXX}
+\toprule
+\textbf{Economic Dimension} & \textbf{Cloud Serverless Profile} & \textbf{Sovereign Edge Profile} \\
+\midrule
+\textbf{Capital Expenditure (CapEx)} & \textbf{Rs.~0} (No upfront hardware asset) & \textbf{$\approx$ Rs.~72,000 (\$860)} (AMD Ryzen 7 5700X, 32GB RAM, RTX 3060 12GB) \\
+\addlinespace
+\textbf{Operational Cost per Query} & \textbf{$\approx$ Rs.~0.09 (\$0.0011)} (API tokens) & \textbf{Rs.~0.00 API cost}; $\approx 180\text{W}$ active power ($\approx \text{Rs.~}1.20\text{/hr}$) \\
+\addlinespace
+\textbf{Monthly OpEx (10,000 queries)} & \textbf{$\approx$ Rs.~920 (\$11.00)} & \textbf{$\approx$ Rs.~330 (\$4.00)} electricity consumption \\
+\addlinespace
+\textbf{Target Deployment Node} & State E-Governance citizen web portals & Panchayat kiosks, Common Service Centers (CSCs), DLSA desks \\
+\bottomrule
+\end{tabularx}
 \end{table}
 
 \section{Container Hardening, Non-Root Isolation, and DevSecOps CI/CD}
