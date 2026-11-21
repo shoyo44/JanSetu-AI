@@ -1,0 +1,12 @@
+apiVersion: 1
+
+providers:
+  - name: "JanSetu AI Governance Dashboards"
+    orgId: 1
+    folder: "JanSetu AI Sovereign Governance"
+    type: file
+    disableDeletion: false
+    editable: true
+    updateIntervalSeconds: 15
+    options:
+      path: /etc/grafana/provisioning/dashboards

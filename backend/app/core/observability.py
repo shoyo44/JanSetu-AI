@@ -101,3 +101,103 @@ async def with_timeout(coro: Any, timeout_s: float, stage: str) -> Any:
         raise asyncio.TimeoutError(
             f"Pipeline stage '{stage}' exceeded {timeout_s}s timeout."
         )
+
+
+# ─── Prometheus Metrics Registry & Sovereign Observability ───────────────────
+
+import threading
+from collections import defaultdict
+
+
+class PrometheusMetricsRegistry:
+    """
+    Lightweight, thread-safe, zero-dependency Prometheus exposition collector.
+    Formats live runtime telemetry in official Prometheus text format (RFC 0004).
+    """
+
+    def __init__(self):
+        self._lock = threading.Lock()
+        # Counters: (name, label_tuple) -> count
+        self.counters: Dict[str, Dict[tuple, int]] = defaultdict(lambda: defaultdict(int))
+        # Gauges: (name, label_tuple) -> float
+        self.gauges: Dict[str, Dict[tuple, float]] = defaultdict(lambda: defaultdict(float))
+        # Histograms / Summaries: (name, label_tuple) -> [sum, count]
+        self.durations: Dict[str, Dict[tuple, list]] = defaultdict(lambda: defaultdict(lambda: [0.0, 0]))
+
+    def inc_counter(self, name: str, labels: Dict[str, str] = None, amount: int = 1) -> None:
+        key = tuple(sorted((labels or {}).items()))
+        with self._lock:
+            self.counters[name][key] += amount
+
+    def set_gauge(self, name: str, value: float, labels: Dict[str, str] = None) -> None:
+        key = tuple(sorted((labels or {}).items()))
+        with self._lock:
+            self.gauges[name][key] = value
+
+    def observe_duration(self, name: str, duration_s: float, labels: Dict[str, str] = None) -> None:
+        key = tuple(sorted((labels or {}).items()))
+        with self._lock:
+            stat = self.durations[name][key]
+            stat[0] += duration_s
+            stat[1] += 1
+
+    def export_text(self) -> str:
+        """Render all metrics in standard Prometheus line-based exposition format."""
+        lines = []
+
+        # Document metric types & help text
+        descriptions = {
+            "http_requests_total": ("counter", "Total HTTP requests handled by the API."),
+            "http_request_duration_seconds": ("summary", "HTTP request processing latency in seconds."),
+            "jansetu_queries_total": ("counter", "Total sovereign RAG inquiries segmented by vertical domain."),
+            "jansetu_abstentions_total": ("counter", "Total calibrated abstentions triggered by the defensibility engine."),
+            "jansetu_cache_hits_total": ("counter", "Total semantic cache hits avoiding LLM re-synthesis."),
+            "jansetu_nli_entailment_score": ("gauge", "Most recent claim-level NLI entailment score."),
+            "jansetu_graph_nodes_total": ("gauge", "Total entities indexed in the in-process NetworkX graph."),
+            "jansetu_undertrial_reviews_total": ("counter", "Total BNSS Section 479 undertrial bail eligibility screenings."),
+        }
+
+        with self._lock:
+            # Export Counters
+            for name, items in self.counters.items():
+                mtype, help_text = descriptions.get(name, ("counter", f"Metric {name}"))
+                lines.append(f"# HELP {name} {help_text}")
+                lines.append(f"# TYPE {name} {mtype}")
+                for labels, val in items.items():
+                    lbl_str = ",".join(f'{k}="{v}"' for k, v in labels)
+                    lbl_part = f"{{{lbl_str}}}" if lbl_str else ""
+                    lines.append(f"{name}{lbl_part} {val}")
+
+            # Export Gauges
+            for name, items in self.gauges.items():
+                mtype, help_text = descriptions.get(name, ("gauge", f"Metric {name}"))
+                lines.append(f"# HELP {name} {help_text}")
+                lines.append(f"# TYPE {name} {mtype}")
+                for labels, val in items.items():
+                    lbl_str = ",".join(f'{k}="{v}"' for k, v in labels)
+                    lbl_part = f"{{{lbl_str}}}" if lbl_str else ""
+                    lines.append(f"{name}{lbl_part} {val:.4f}")
+
+            # Export Summaries (durations)
+            for name, items in self.durations.items():
+                mtype, help_text = descriptions.get(name, ("summary", f"Duration summary for {name}"))
+                lines.append(f"# HELP {name} {help_text}")
+                lines.append(f"# TYPE {name} {mtype}")
+                for labels, (total_s, count) in items.items():
+                    lbl_str = ",".join(f'{k}="{v}"' for k, v in labels)
+                    prefix = f"{lbl_str}," if lbl_str else ""
+                    lines.append(f"{name}_sum{{{prefix}}} {total_s:.4f}".replace(",}", "}"))
+                    lines.append(f"{name}_count{{{prefix}}} {count}".replace(",}", "}"))
+
+        # Default empty fallback if no queries yet
+        if not lines:
+            lines.append("# HELP jansetu_system_status Sovereign system active state.")
+            lines.append("# TYPE jansetu_system_status gauge")
+            lines.append("jansetu_system_status 1.0")
+
+        return "\n".join(lines) + "\n"
+
+
+# Global singleton metrics collector
+metrics = PrometheusMetricsRegistry()
+

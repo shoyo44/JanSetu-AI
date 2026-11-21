@@ -10,14 +10,16 @@ import time
 from contextlib import asynccontextmanager
 from typing import Any
 from dotenv import load_dotenv
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import PlainTextResponse
 
 from app.core.cloudflare_ai import CloudflareAI
 from app.core.dependencies import _create_redis_client
 from app.features.jobs import create_job_queue
 from app.graph.store import GraphStore
 import app.core.factory as pipeline_factory
+from app.core.observability import metrics
 
 from app.api import base_router, stream_router, agent_router, analytics_router
 # ─── Logging & Configuration ──────────────────────────────────────────────────
@@ -245,6 +247,30 @@ app.add_middleware(
 )
 
 
+# ─── Prometheus Telemetry Middleware ──────────────────────────────────────────
+
+@app.middleware("http")
+async def prometheus_telemetry_middleware(request: Request, call_next):
+    start_time = time.perf_counter()
+    try:
+        response = await call_next(request)
+        status_code = response.status_code
+    except Exception as exc:
+        status_code = 500
+        raise exc from None
+    finally:
+        duration = time.perf_counter() - start_time
+        path = request.url.path
+        if path != "/metrics":
+            # Sanitize path to avoid cardinality explosion on IDs
+            norm_path = path
+            if path.startswith("/api/v1/documents/") and len(path.split("/")) > 4:
+                norm_path = "/api/v1/documents/{id}"
+            metrics.inc_counter("http_requests_total", {"method": request.method, "endpoint": norm_path, "status": str(status_code)})
+            metrics.observe_duration("http_request_duration_seconds", duration, {"endpoint": norm_path})
+    return response
+
+
 # ─── Mount Routers ────────────────────────────────────────────────────────────
 
 app.include_router(base_router, prefix="/api/v1")
@@ -294,3 +320,24 @@ def health_check():
             "mongodb": mongodb_status,
         }
     }
+
+
+# ─── Prometheus Metrics Endpoint ──────────────────────────────────────────────
+
+@app.get("/metrics", response_class=PlainTextResponse, tags=["Observability"])
+def prometheus_metrics():
+    """
+    Exposes sovereign system telemetry in standard Prometheus text format.
+    Scraped periodically by Prometheus and rendered on Grafana dashboards.
+    """
+    try:
+        if hasattr(app.state, "graph_store") and app.state.graph_store:
+            metrics.set_gauge("jansetu_graph_nodes_total", float(app.state.graph_store._graph.number_of_nodes()))
+    except Exception:
+        pass
+
+    return PlainTextResponse(
+        content=metrics.export_text(),
+        media_type="text/plain; version=0.0.4; charset=utf-8"
+    )
+

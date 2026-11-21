@@ -257,12 +257,19 @@ npm run dev
 ```
 *Access the application at `http://localhost:5173/`.*
 
-### 4. Running via Docker Compose
-To run the complete production-hardened multi-container stack:
+### 4. Running via Docker Compose (With Prometheus & Grafana)
+To run the complete production-hardened multi-container stack with live observability:
 ```powershell
 docker-compose up --build
 ```
-To run with local sovereign Ollama enabled:
+This launches:
+- **JanSetu AI Web Interface:** `http://localhost:3000`
+- **FastAPI Core Engine:** `http://localhost:8000` (Swagger docs: `/docs`, Prometheus metrics: `/metrics`)
+- **Prometheus Telemetry Scraper:** `http://localhost:9090`
+- **Grafana Sovereign Dashboard:** `http://localhost:3001` *(Credentials: `admin` / `admin`; auto-provisioned with the JanSetu AI Sovereign Governance Dashboard)*
+- **Redis In-Memory Cache:** `localhost:6379`
+
+To run with the offline local sovereign Ollama daemon enabled (DPDPA 2023 Air-Gapped Mode):
 ```powershell
 docker-compose --profile onprem up --build
 ```
