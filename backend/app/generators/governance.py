@@ -154,7 +154,11 @@ class GovernanceGenerator(BaseGenerator[GovernanceOutput]):
                 chunks_used=[c.id for c in chunks],
             )
 
-    async def generate_stream(self, query: str, chunks: List[ChunkResult], config: Dict[str, Any]):
+    async def stream(self, query: str, chunks: List[ChunkResult], config: Dict[str, Any]):
         user_msg = build_user_message(query, config)
         async for token in stream_from_client(self.client, _SYSTEM_PROMPT, user_msg):
+            yield token
+
+    async def generate_stream(self, query: str, chunks: List[ChunkResult], config: Dict[str, Any]):
+        async for token in self.stream(query, chunks, config):
             yield token

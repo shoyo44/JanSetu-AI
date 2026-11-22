@@ -267,6 +267,7 @@ class CloudflareAI:
                         }
                     ) as resp:
                         if resp.status_code == 200:
+                            yielded = False
                             async for line in resp.aiter_lines():
                                 line = line.strip()
                                 if not line or line == "data: [DONE]":
@@ -277,12 +278,17 @@ class CloudflareAI:
                                         delta = chunk.get("choices", [{}])[0].get("delta", {})
                                         token = delta.get("content", "")
                                         if token:
+                                            yielded = True
                                             yield token
                                     except Exception:
                                         continue
-                            return
+                            if yielded:
+                                return
+                        else:
+                            err_body = (await resp.aread()).decode(errors='ignore')
+                            logger.warning("Groq stream HTTP %d with model %s: %s", resp.status_code, groq_m, err_body[:200])
             except Exception as e:
-                logger.warning("Groq stream failed: %s, checking Cloudflare", e)
+                logger.warning("Groq stream exception: %s, checking Cloudflare", e)
 
         # 2. Try Cloudflare streaming
         if self.account_id and "your_cf_account_id" not in self.account_id.lower():
