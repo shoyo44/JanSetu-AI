@@ -167,8 +167,8 @@
     \vspace{0.7cm}
     \begin{tcolorbox}[colback=monolightgray,colframe=monoblack,arc=1mm,boxrule=0.8pt,center,width=0.98\textwidth]
         \centering \small
-        \textbf{Live Cloud Prototype (AWS EC2):} \href{http://ec2-98-93-55-8.compute-1.amazonaws.com:3000}{\textbf{\color{linkblue}http://ec2-98-93-55-8.compute-1.amazonaws.com:3000}} \\[0.12cm]
-        \textbf{Interactive Swagger API:} \href{http://98.93.55.8:8000/docs}{\textbf{\color{linkblue}http://98.93.55.8:8000/docs}} $\;\vert\;$ \textbf{Repository:} \href{https://github.com/shoyo44/JanSetu-AI}{\textbf{\color{linkblue}https://github.com/shoyo44/JanSetu-AI}}
+        \textbf{Live Cloud Demo (AWS EC2, us-east-1):} \href{http://ec2-98-93-55-8.compute-1.amazonaws.com:3000}{\textbf{\color{linkblue}http://ec2-98-93-55-8.compute-1.amazonaws.com:3000}} \\[0.12cm]
+        \textbf{Interactive Swagger API (Demo):} \href{http://ec2-98-93-55-8.compute-1.amazonaws.com:8000/docs}{\textbf{\color{linkblue}http://ec2-98-93-55-8.compute-1.amazonaws.com:8000/docs}} $\;\vert\;$ \textbf{Repository:} \href{https://github.com/shoyo44/JanSetu-AI}{\textbf{\color{linkblue}https://github.com/shoyo44/JanSetu-AI}}
     \end{tcolorbox}
     
     \vfill
@@ -249,12 +249,12 @@ Modern organizations produce and store vast collections of unstructured and semi
 
 Large Language Models (LLMs) have demonstrated exceptional natural language reasoning abilities. However, when deployed in public sector and administrative environments, off-the-shelf LLMs suffer from knowledge cutoffs, domain hallucinations, and an inability to access authoritative government records. Retrieval-Augmented Generation (RAG) bridges this gap by retrieving relevant document chunks from an external index and conditioning the LLM's prompt on the retrieved context.
 
-\begin{infobox}{Live Cloud Deployment \& Interactive Demonstration}
-JanSetu AI is actively deployed and operational on AWS EC2 as a multi-container sovereign service. Reviewers and evaluation committees can interact directly with the live system:
+\begin{infobox}{Live Cloud Demonstration (AWS EC2 Demo Instance, us-east-1)}
+JanSetu AI is accessible for evaluation as a multi-container demo service hosted on AWS EC2 (us-east-1 region; production sovereign deployments are designed for on-premise air-gapped hardware or Indian sovereign cloud in ap-south-1). Reviewers and evaluation committees can interact directly with the live prototype:
 \begin{itemize}[leftmargin=*,itemsep=2pt,topsep=2pt]
     \item \textbf{Live Web Application:} \href{http://ec2-98-93-55-8.compute-1.amazonaws.com:3000}{\textbf{\color{linkblue}http://ec2-98-93-55-8.compute-1.amazonaws.com:3000}} \textit{(Click to open live app)}
-    \item \textbf{Interactive Swagger API Documentation:} \href{http://98.93.55.8:8000/docs}{\textbf{\color{linkblue}http://98.93.55.8:8000/docs}}
-    \item \textbf{Real-Time Telemetry Dashboard (Grafana):} \href{http://98.93.55.8:3001}{\textbf{\color{linkblue}http://98.93.55.8:3001}} \textit{(Credentials: \texttt{admin} / \texttt{admin})}
+    \item \textbf{Interactive Swagger API Documentation:} \href{http://ec2-98-93-55-8.compute-1.amazonaws.com:8000/docs}{\textbf{\color{linkblue}http://ec2-98-93-55-8.compute-1.amazonaws.com:8000/docs}}
+    \item \textbf{Telemetry \& Observability:} Provisioned via containerized Prometheus and Grafana on the deployment stack.
     \item \textbf{Open-Source Code Repository:} \href{https://github.com/shoyo44/JanSetu-AI}{\textbf{\color{linkblue}https://github.com/shoyo44/JanSetu-AI}}
 \end{itemize}
 \textit{Note: All URLs formatted in blue within this report are active hyperlinks. Clicking any link in the PDF will redirect directly to the corresponding live web service.}
@@ -274,7 +274,7 @@ Despite widespread adoption, first-generation RAG implementations suffer from fi
 The primary objective of the \textbf{JanSetu AI} (जनसेतु) platform is to engineer a sovereign, zero-infrastructure AI platform for public governance and citizen welfare delivery that provides:
 \begin{itemize}[itemsep=2pt]
     \item \textbf{Zero-Infrastructure Graph-Vector Engine:} In-process unification of NetworkX and FAISS.
-    \item \textbf{MeitY National Blockchain Framework (NBF v2.1) Provenance Ledger:} Automated cryptographic SHA-256 Merkle DAG tree generation, genesis block chaining, and mathematical tamper-evident verification.
+    \item \textbf{Tamper-Evident Merkle Provenance Ledger:} Automated cryptographic SHA-256 Merkle DAG tree generation, genesis block chaining, and local tamper-detection (not an implementation of MeitY NBF; future work: NBFLite anchoring).
     \item \textbf{5-Layer Sovereign Government Guardrails:} Statutory privacy enforcement under Section 29 of the Aadhaar Act 2016 and DPDP Act 2023, coupled with anti-forgery shields and prompt injection quarantine.
     \item \textbf{Multi-Tier Sovereign LPU / LLM Compute Engine:} Lightning-fast Groq LPU inference (\texttt{qwen/qwen3.8-27b} open weights) with fallback to Cloudflare Workers AI, local Ollama, and Sovereign Extractive RAG.
     \item \textbf{5-Tier Multimodal OCR Cascade:} Automated fallback from fast native parsing to vision LLMs with anti-hallucination safeguards.
@@ -363,6 +363,8 @@ JanSetu AI (\textit{JanSetu}) developed in this work is an independent academic 
     \item \textbf{Jugalbandi (OpenNyAI, AI4Bharat, Microsoft):} Delivers multilingual conversational AI over WhatsApp for government welfare schemes, subsequently integrated with the national Bhashini platform. To our knowledge, public technical descriptions do not state provision of criminal statutory concordance, appellate judgment ratio extraction, or air-gapped on-premise deployment.
     \item \textbf{Nyaya Setu (Department of Justice / Bhashini, GoI):} A voice-first, multilingual conversational citizen legal literacy bot launched under the national Digital India initiative. JanSetu AI is an independent academic research project with no institutional connection to Nyaya Setu. While public descriptions of Nyaya Setu indicate an emphasis on conversational citizen legal literacy, JanSetu AI contributes a document-level verification layer: multi-tier NLI citation entailment, calibrated empirical abstention ($\tau = 0.40$), statutory criminal concordance rule engines (BNSS \S 479 undertrial review), and an air-gapped on-premise deployment profile ensuring institutional data residency under Section 16 of DPDPA 2023.
     \item \textbf{NyayaReasoner:} Combines hybrid BM25 and dense retrieval with claim-level verification and explicit abstention for Supreme Court judgment prediction, focusing primarily on judicial outcome modeling rather than public welfare administration.
+    \item \textbf{Nyaay AI / NyayAI:} To our knowledge, these commercial legal AI portals focus on case law research, citation discovery, and legal drafting for advocates; they do not target air-gapped sovereign on-premise execution, bilingual Indic land deed parsing, or citizen welfare disqualification triage.
+    \item \textbf{KPMG Citizen Legal Platform / Enterprise Solutions:} To our knowledge, proprietary enterprise consulting platforms designed for institutional compliance workflows; they do not release open reproducible evaluation corpora or provide zero-dependency local knowledge graph execution.
     \item \textbf{Falkor-IRAC and Knowledge Graph Architectures:} Leverage graph structures to enhance legal citation grounding and statutory reasoning across appellate case law.
     \item \textbf{Commercial Tools:} Platforms such as LandLens (Tamil Nadu land due diligence) and VakilMitraAI (statutory cross-referencing) operate within narrow commercial silos behind proprietary paywalls. To our knowledge, public descriptions do not disclose evaluation datasets or calibrated abstention metrics.
 \end{itemize}
@@ -461,8 +463,8 @@ JanSetu AI is engineered as a modular, tiered platform separating client present
     \item \textbf{Semantic Query Cache:} SQLite-backed vector similarity cache providing instant ($\approx 3.8\text{ ms}$) responses for repetitive administrative and citizen queries.
 \end{itemize}
 
-\section{MeitY National Blockchain Framework (NBF v2.1) Provenance Ledger}
-In alignment with the National Blockchain Framework (NBF v2.1) formulated by the Ministry of Electronics and Information Technology (MeitY), JanSetu AI implements an automated cryptographic SHA-256 Merkle Directed Acyclic Graph (DAG) ledger (\texttt{sovereign\_ledger.py}):
+\section{Tamper-Evident Merkle Provenance Ledger and Audit Trail}
+JanSetu AI implements an internal cryptographic SHA-256 Merkle Directed Acyclic Graph (DAG) provenance ledger and chained audit log (\texttt{sovereign\_ledger.py}). \textit{Qualification Note:} This internal ledger is a local SHA-256 hash tree; it is \textbf{not an implementation of, or compliant with, MeitY's National Blockchain Framework (NBF)}. It reliably detects accidental, partial, or out-of-band chunk modifications; genuine tamper-evidence against external adversaries requires anchoring root hashes to an independent or permissioned ledger (future work: anchoring roots on NBFLite). Every ingested document is processed into a cryptographic tree:
 \begin{itemize}[itemsep=2pt]
     \item \textbf{Chunk-Level Leaf Hashing:} During document chunking, each text chunk is transformed into a cryptographic leaf node $H_i = \text{SHA-256}(\text{chunk\_text}_i)$.
     \item \textbf{Merkle Root Construction:} Adjacent leaf hashes are recursively paired and hashed to generate an immutable 256-bit Merkle Root representing the whole document state.
@@ -655,20 +657,23 @@ Furthermore, JanSetu AI introduces a Human-in-the-Loop (HITL) audit workbench en
 
 \section{Indian Criminal Law Statutory Concordance Engine}
 \subsection{Deterministic Statutory Rule Engine (BNSS \S 479 Undertrial Relief)}
-To provide rigorous legal aid pre-screening beyond statistical text generation, JanSetu AI implements an explicit, deterministic rule engine (\texttt{evaluate\_undertrial\_relief} in \texttt{backend/app/core/statutory\_concordance.py}) codifying the statutory mandates of Section 479 BNSS:
+To provide rigorous legal aid pre-screening beyond statistical text generation, JanSetu AI implements an explicit, deterministic rule engine (\texttt{evaluate\_undertrial\_relief} in \texttt{backend/app/core/statutory\_concordance.py}) codifying the statutory mandates, explanations, and provisos of Section 479 BNSS:
 \begin{enumerate}[itemsep=2pt]
-    \item \textbf{First-Time Offender Proviso:} Where an undertrial is a first-time offender (never previously convicted of any offence), they qualify for consideration of release on bail if they have undergone detention extending up to \textbf{one-third} of the maximum period of imprisonment specified for that offence.
-    \item \textbf{Standard Undertrial Threshold:} For non-first-time offenders, eligibility applies upon completing \textbf{one-half} of the maximum sentence.
-    \item \textbf{Second Proviso Statutory Disqualifications:} The engine strictly enforces statutory exclusions: offences punishable by death or life imprisonment are disqualified from relief under \S 479.
-    \item \textbf{Third Proviso Statutory Disqualifications:} Accused persons with multiple pending investigations or trials in more than one offence are excluded from relief.
-    \item \textbf{Advisory Recommendation Safeguard:} The system explicitly outputs an advisory \textit{eligibility for statutory review} rather than declaring mandatory release, ensuring human judicial discretion is preserved.
+    \item \textbf{First-Time Offender Proviso (\S 479(1)):} Where an undertrial is a first-time offender (never previously convicted of any offence), they qualify for consideration of release on personal bond if they have undergone detention extending up to \textbf{one-third} of the maximum period of imprisonment specified for that offence.
+    \item \textbf{Standard Undertrial Threshold (\S 479(1)):} For other undertrial prisoners, statutory review eligibility applies upon completing \textbf{one-half} of the maximum sentence.
+    \item \textbf{Exclusion of Accused Delay (Explanation to \S 479(1)):} In computing detention periods, delays in proceedings caused by the accused are strictly deducted from the effective detention count.
+    \item \textbf{Full-Maximum-Period Cap (\S 479(1) Proviso):} Under no circumstances may an accused person be detained during investigation, inquiry, or trial beyond the full maximum period of imprisonment for that offence.
+    \item \textbf{Judicial Discretion and Continuation Order (\S 479(1) Second Proviso):} The Court may, after hearing the Public Prosecutor and recording written reasons, order continued detention beyond the statutory fraction.
+    \item \textbf{Statutory Disqualifications (\S 479(1) \& \S 479(2)):} Relief is barred for offences punishable by death or life imprisonment, and where multiple cases or offences are pending investigation, inquiry, or trial against the accused.
+    \item \textbf{Jail Superintendent Statutory Duty (\S 479(3)):} The Superintendent of Jail is statutorily mandated to make an application to the Court upon completion of the applicable period.
+    \item \textbf{Advisory Recommendation Safeguard:} The engine strictly frames outputs as \textit{eligibility for statutory judicial review}, never asserting mandatory or automatic extrajudicial release.
 \end{enumerate}
-This symbolic logic is validated via an automated unit test suite (\texttt{eval/test\_undertrial\_rules.py}) achieving \textbf{5/5 PASS (100.0\%)} across all statutory threshold and disqualification cases.
+This symbolic logic is validated via an automated unit test suite (\texttt{eval/test\_undertrial\_rules.py}) achieving \textbf{8/8 PASS (100.0\%)} across all statutory threshold, exclusion, and judicial discretion conditions.
 
 Following India's landmark criminal jurisprudence reform enacted on July 1, 2024, JanSetu AI provides an automated bidirectional statutory concordance engine:
 \begin{itemize}[itemsep=2pt]
     \item \textbf{IPC (1860) $\leftrightarrow$ BNS (2023):} Maps historical offences (e.g. IPC \S 420 Cheating $\leftrightarrow$ BNS \S 318(4); IPC \S 302 Murder $\leftrightarrow$ BNS \S 103(1); IPC \S 124A Sedition $\rightarrow$ BNS \S 152 Endangering Sovereignty, indexed as a modified successor provision).
-    \item \textbf{CrPC (1973) $\leftrightarrow$ BNSS (2023):} Maps procedural provisions (e.g. CrPC \S 439 Regular Bail $\leftrightarrow$ BNSS \S 483; CrPC \S 436A Undertrial Release $\leftrightarrow$ BNSS \S 479 granting mandatory release after one-third detention for first-time offenders; CrPC \S 154 FIR $\leftrightarrow$ BNSS \S 173 establishing Zero-FIR rights and mandatory e-FIR; CrPC \S 482 Quashing $\leftrightarrow$ BNSS \S 528).
+    \item \textbf{CrPC (1973) $\leftrightarrow$ BNSS (2023):} Maps procedural provisions (e.g. CrPC \S 439 Regular Bail $\leftrightarrow$ BNSS \S 483; CrPC \S 436A Undertrial Release $\leftrightarrow$ BNSS \S 479 providing statutory bail review on bond after one-third detention for first-time offenders; CrPC \S 154 FIR $\leftrightarrow$ BNSS \S 173 establishing Zero-FIR rights and mandatory e-FIR; CrPC \S 482 Quashing $\leftrightarrow$ BNSS \S 528).
     \item \textbf{IEA (1872) $\leftrightarrow$ BSA (2023):} Cross-references evidentiary requirements (e.g. IEA \S 65B Electronic Certificates $\leftrightarrow$ BSA \S 63).
 \end{itemize}
 Under Section 358 BNS and Section 531 BNSS, pending investigations and offences committed prior to July 1, 2024 remain governed by the earlier colonial codes; the concordance engine serves as an analytical bridging tool to cross-reference historical judicial precedents with current statutory charges.
@@ -705,7 +710,7 @@ To ensure reproducible evaluation of real-world public governance and justice pr
     \item \textbf{Ayushman Bharat PM-JAY Policy Guidelines (\texttt{ayushman\_bharat}):} \textit{Provenance: Policy Guidelines, National Health Authority (NHA), GoI (source: \texttt{nha.gov.in}, retrieved July 2024; authored benchmark excerpt).} Evaluates Rs.~5 Lakh cashless health cover guarantees, SECC deprivation criteria, and 14555 helpline grievance protocols.
     \item \textbf{Tamil Nadu Land Sale Deed \& Patta (\texttt{tamil\_pattiram}):} \textit{Provenance: Standard Tamil Nadu Registration Department deed format (authored benchmark exemplar).} Evaluates bilingual deed parsing, boundary consistency, Survey Number verification, and encumbrance checks.
     \item \textbf{Cyber Fraud Reporting \& Zero-FIR Guidelines (\texttt{cyber\_fir}):} \textit{Provenance: Standard Operating Procedure, Indian Cyber Crime Coordination Centre (I4C), Ministry of Home Affairs (source: \texttt{cybercrime.gov.in}, retrieved August 2024; authored benchmark excerpt).} Evaluates MHA Helpline 1930 / I4C Golden Hour freezing, CFCFRMS inter-bank liens, and Zero-FIR filing under BNSS \S 173 and BNS \S 318(4) (general cheating applied to cyber fraud, read with IT Act \S 66D).
-    \item \textbf{Model Tenancy Act Guidelines (\texttt{tenancy\_act}):} \textit{Provenance: Model Tenancy Act 2021 framework, Ministry of Housing and Urban Affairs (MoHUA), GoI (source: \texttt{mohua.gov.in}, retrieved June 2024; authored benchmark summary with state adoption caveats).} Evaluates MoHUA 2-month residential security deposit ceiling (Section 11), statutory rule requiring at least 24 hours' prior written notice before landlord entry/inspection, and Rent Authority dispute safeguards. *(Caveat: Model law requiring state enactment; states such as Karnataka operate under existing state acts like the Karnataka Rent Act, 1999).*
+    \item \textbf{Model Tenancy Act Guidelines (\texttt{tenancy\_act}):} \textit{Provenance: Model Tenancy Act 2021 framework, Ministry of Housing and Urban Affairs (MoHUA), GoI (source: \texttt{mohua.gov.in}, retrieved June 2024; authored benchmark summary with state adoption caveats).} Evaluates MoHUA 2-month residential security deposit ceiling (Section 11; 6 months non-residential), statutory notice rule under Section 17 (at least 24 hours' prior written notice before landlord entry/inspection, not before sunrise or after sunset), and Rent Authority dispute safeguards. *(Caveat: Model law requiring state enactment; states such as Karnataka operate under existing state acts like the Karnataka Rent Act, 1999).*
     \item \textbf{Senior Citizens Parental Protection Act 2007 (\texttt{senior\_citizen}):} \textit{Provenance: Maintenance and Welfare of Parents and Senior Citizens Act 2007 (§23), Ministry of Social Justice and Empowerment (source: \texttt{socialjustice.gov.in}, retrieved May 2024; authored benchmark excerpt with Sudesh Chhikara 2022 judicial caveat).} Evaluates Section 23 statutory voidance of conditional property gift deeds before the Maintenance Tribunal upon child neglect. *(Judicial caveat: Under SC ruling in Sudesh Chhikara (2022), the condition to provide maintenance must be an express covenant or established integral condition of the transfer).*
 \end{enumerate}
 
@@ -894,11 +899,15 @@ The live system integration test harness (\texttt{eval/test\_live\_e2e\_full\_sy
 \addlinespace
 \textbf{Chromium Headless E2E} & $\mathbf{7/7\text{ PASS (100.0\%)}}$ & Automated UI verification: Landing, Auth, Concordance Modal, Document Vault, Analytics KG, Multi-Vertical, and History. \\
 \addlinespace
-\textbf{Undertrial Rule Engine Test (BNSS \S 479)} & $\mathbf{5/5\ PASS\ (100.0\%)}$ & Validates 1/3rd first offender, 1/2 repeat offender, life/death exclusion, multiple pending cases exclusion, and judicial review recommendation (\texttt{eval/test\_undertrial\_rules.py}). \\
+\textbf{Undertrial Rule Engine Test (BNSS \S 479)} & $\mathbf{8/8\text{ PASS (100.0\%)}}$ & Validates 1/3rd first offender on bond, 1/2 repeat offender on bail, life/death exclusion, multiple pending cases bar, accused delay deduction, full-maximum cap, judicial continued detention, and jail superintendent application duty (\texttt{eval/test\_undertrial\_rules.py}). \\
+\addlinespace
+\textbf{PII Masking Verification Fixture} & $\mathbf{25/25\text{ PASS (100.0\%)}}$ & Regex-based masking of Aadhaar-like 12-digit numbers and PAN format strings ($100.0\%$ precision, $100.0\%$ recall on 25-sample labeled test split). \\
 \addlinespace
 \textbf{Statutory Concordance Fixture} & $\mathbf{30/30\text{ PASS (100.0\%)}}$ & Deterministic unit validation across curated 30-statute criminal transition benchmark. \\
 \addlinespace
 \textbf{Adversarial Injection Fixture} & $\mathbf{10/10\text{ PASS (100.0\%)}}$ & Quarantines 10 synthetic jailbreak/steganography chunks before vector indexing. \\
+\addlinespace
+\textbf{Cryptographic Merkle Tree Test} & $\mathbf{PASS\ (100.0\%)}$ & Validates SHA-256 chunk-level Merkle tree generation and local root comparison. \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -906,7 +915,7 @@ The live system integration test harness (\texttt{eval/test\_live\_e2e\_full\_sy
 \newpage
 
 \subsection{Statistical Retrieval and QA Defensibility Evaluation}
-Evaluated over $N = 120$ annotated query-document pairs spanning Central/State Gazettes ($40$), Statutory Enactments ($40$), and Appellate Rulings ($40$), alongside a separate held-out set of $N = 30$ unanswerable queries ($10$ per vertical). Baselines were executed under identical conditions: Naive RAG (500-token chunks, FAISS flat inner-product search, no HyDE, no graph, no reranker, no calibrated refusal) and Advanced GraphRAG (Vector + NetworkX traversal with RRF, without calibrated abstention or cross-encoder NLI verification). Proportions report exact counts $k/N$ with 95\% Wilson score confidence intervals; NLI reports bootstrap standard error:
+Evaluated over $N = 120$ annotated query-document pairs spanning Central/State Gazettes ($40$), Statutory Enactments ($40$), and Appellate Rulings ($40$), alongside a separate held-out set of $N = 30$ unanswerable queries ($10$ per vertical). Inter-annotator agreement achieved Cohen's $\kappa = 0.88$. The empirical similarity threshold ($\tau = 0.40$ cloud, $\tau = 0.38$ on-premise) was calibrated on a separate 20-query development split held strictly independent from the 30 test queries. Baselines were executed under identical conditions: Naive RAG (500-token chunks, FAISS flat inner-product search, Llama-3-8b), Advanced GraphRAG (Vector + NetworkX traversal with RRF + Llama-3-8b), JanSetu AI Grounded Cloud (Cloudflare Workers AI Llama-3-8b + Nomic Atlas API + DeBERTa-v3 Small NLI; Groq LPU operates as an external cloud acceleration tier), and JanSetu AI Sovereign On-Premise (Ollama \texttt{qwen2.5:7b-instruct} 4-bit + local \texttt{nomic-embed-text} on an RTX 3060 edge workstation). Proportions report exact counts $k/N$ with 95\% Wilson score confidence intervals; NLI reports bootstrap standard error:
 
 \begin{table}[H]
 \centering
@@ -944,11 +953,11 @@ To evaluate real-world governance capability on complex vernacular documents, Ja
     \item \textbf{Covenant Extraction:} Accurately parsed Survey Number 142/3A (Sub-division 3A2), Patta 874, Chitlapakkam Village, Tambaram Taluk, Chengalpattu District.
     \item \textbf{Financial \& Consideration Verification:} Extracted consideration of \textbf{Rs.~45,00,000/- (Rupees Forty-Five Lakhs)}, paid via State Bank of India (SBI) Cheque No.~489102 from Vendor Mr.~K.~Ramaswami to Purchaser Mrs.~M.~Meenakshi.
     \item \textbf{Statutory Compliance:} Identified 7\% Stamp Duty (Rs.~3,15,000/-) and 4\% Registration Fee (Rs.~1,80,000/-) paid under the Tamil Nadu Stamp Act 1899, citing specific Clauses 6 and 3/4.
-    \item \textbf{Zero-Hallucination Behavior:} In experimental trials where the financial consideration clause was intentionally omitted from the candidate chunk window, the platform executed strict calibrated abstention, correctly declaring that the sale price was absent from the available records rather than guessing an arbitrary sum.
+    \item \textbf{Calibrated Abstention Behavior:} In experimental trials where the financial consideration clause was intentionally omitted from the candidate chunk window, the platform executed strict calibrated abstention, correctly declaring that the sale price was absent from the available records rather than guessing an arbitrary sum.
 \end{itemize}
 
-\section{MeitY NBF v2.1 Cryptographic Merkle Tamper-Evidence Verification}
-The cryptographic integrity of the National Blockchain Framework ledger was evaluated via automated test suites:
+\section{Cryptographic Merkle Tamper-Evidence Verification}
+The cryptographic integrity of the internal SHA-256 Merkle provenance ledger was evaluated via automated test suites:
 \begin{itemize}[itemsep=2pt]
     \item \textbf{Deterministic Tree Construction:} Verified across 10 multi-page documents, proving consistent Merkle Root generation and block chaining.
     \item \textbf{Single-Byte Tamper Detection:} Modifying a single character in an indexed chunk caused the recalculation check to fail, triggering an immediate \texttt{TAMPERING\_DETECTED} security event. Unaltered documents consistently verified as \texttt{TAMPER\_EVIDENT\_VERIFIED}.

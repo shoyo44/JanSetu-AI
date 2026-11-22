@@ -1,12 +1,21 @@
 """
-Sovereign Blockchain & Merkle Provenance Ledger.
-Complies with MeitY National Blockchain Framework (NBF) v2.1 Standards.
+Sovereign Document Provenance & Merkle Audit Ledger.
+
+Tamper-evident Merkle provenance ledger (SHA-256 hash tree and chained audit log).
+Note: This is an internal cryptographic provenance mechanism, NOT an implementation of,
+or compliant with, MeitY's National Blockchain Framework. Future work includes anchoring
+root hashes on a permissioned national ledger such as NBFLite.
+
+Tamper-Evidence Qualification:
+  Detects accidental, partial, or out-of-band modifications to document chunks.
+  Genuinely tamper-evident against Byzantine adversaries only when the root hash
+  is anchored externally or signed by an independent authority.
 
 Provides:
   - Cryptographic Merkle Tree generation for document chunks
-  - Immutable SHA-256 block creation with Proof-of-Authority (PoA) consensus headers
-  - Zero-knowledge tamper-detection verification
-  - Persistent distributed-ledger storage (MongoDB / Local Sovereign Fallback)
+  - Chained SHA-256 audit log blocks
+  - Local tamper-detection verification against anchored roots
+  - Persistent storage (MongoDB / Local Sovereign JSON Fallback)
 """
 from __future__ import annotations
 
@@ -50,8 +59,7 @@ def compute_merkle_root(leaf_hashes: List[str]) -> str:
 
 class SovereignLedger:
     """
-    Immutable Cryptographic Ledger simulating an authoritative node on the
-    National Informatics Centre (NIC) / MeitY National Blockchain Framework (NBF).
+    Local cryptographic Merkle provenance ledger and chained audit log for JanSetu AI.
     """
 
     def __init__(self, mongodb_db: Any = None):
@@ -67,15 +75,15 @@ class SovereignLedger:
                 "block_height": 0,
                 "timestamp": "2024-01-01T00:00:00.000Z",
                 "doc_id": "GENESIS",
-                "doc_name": "MeitY NBF Sovereign Genesis Block",
+                "doc_name": "JanSetu Provenance Ledger Genesis Block",
                 "tenant_id": "system_sovereign",
                 "chunk_count": 0,
                 "merkle_root": compute_sha256("JANSETU_GENESIS_ROOT"),
                 "prev_hash": "0" * 64,
                 "block_hash": compute_sha256("JANSETU_GENESIS_HASH"),
-                "authority": "NIC-MeitY-National-Blockchain-Node-01",
-                "consensus": "Proof-of-Authority (PoA)",
-                "standard": "National Blockchain Framework v2.1",
+                "authority": "JanSetu-Local-Audit-Node-01",
+                "consensus": "Chained Merkle Tree (Local Audit Store)",
+                "standard": "SHA-256 Merkle Provenance Tree",
             }
             with open(self.local_file, "w", encoding="utf-8") as f:
                 json.dump([genesis], f, indent=2)
@@ -138,9 +146,9 @@ class SovereignLedger:
             "leaf_hashes": chunk_hashes,
             "prev_hash": prev_hash,
             "block_hash": block_hash,
-            "authority": "NIC-MeitY-National-Blockchain-Node-01",
-            "consensus": "Proof-of-Authority (PoA)",
-            "standard": "National Blockchain Framework (NBF) v2.1",
+            "authority": "JanSetu-Local-Audit-Node-01",
+            "consensus": "Chained Merkle Tree (Local Audit Store)",
+            "standard": "SHA-256 Merkle Provenance Tree",
         }
 
         # 4. Append to ledger and MongoDB
@@ -153,13 +161,13 @@ class SovereignLedger:
             except Exception as e_db:
                 logger.debug("Mongo ledger insert optional notice: %s", e_db)
 
-        logger.info("⛓️  [NBF LEDGER] Anchored '%s' at Block #%d | Merkle: %s...", doc_name, height, merkle_root[:12])
+        logger.info("⛓️  [LEDGER] Anchored '%s' at Block #%d | Merkle: %s...", doc_name, height, merkle_root[:12])
         return block
 
     def verify_document(self, doc_id: str, current_chunks_text: List[str]) -> Dict[str, Any]:
         """
-        Cryptographically verify document integrity against the anchored blockchain ledger.
-        Detects if even a single character has been modified.
+        Cryptographically verify document integrity against the anchored local Merkle ledger.
+        Detects accidental or unauthorized modifications to ingested text chunks.
         """
         chain = self._read_chain()
         target_block = next((b for b in reversed(chain) if b.get("doc_id") == doc_id), None)
@@ -168,7 +176,7 @@ class SovereignLedger:
             return {
                 "verified": False,
                 "status": "NOT_ANCHORED",
-                "message": "Document is not registered on the Sovereign Blockchain Ledger.",
+                "message": "Document is not registered on the Provenance Ledger.",
                 "doc_id": doc_id,
             }
 
@@ -192,7 +200,7 @@ class SovereignLedger:
             "authority": target_block["authority"],
             "consensus": target_block["consensus"],
             "standard": target_block["standard"],
-            "message": "Cryptographic proof matches official NBF Ledger." if is_authentic else "Warning: Content hashes do NOT match anchored state!",
+            "message": "Cryptographic proof matches anchored local Merkle root." if is_authentic else "Warning: Content hashes do NOT match anchored state!",
         }
 
     def list_blocks(self, tenant_id: Optional[str] = None, limit: int = 25) -> List[Dict[str, Any]]:

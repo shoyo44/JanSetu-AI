@@ -24,7 +24,7 @@ flowchart TD
 
     subgraph Data & Storage Tier
         Graph["In-Process GraphStore & FAISS\n(Persistent Volume: backend_data)"]
-        Ledger["MeitY NBF v2.1 Merkle Ledger\n(JSON Block Store & Merkle DAGs)"]
+        Ledger["SHA-256 Merkle Ledger\n(JSON Block Store & Merkle DAGs)"]
         Mongo["MongoDB Container (Port 27017)\n(WiredTiger Cache: 256MB)"]
         Redis["Redis Cache & Queue (Port 6379)\n(Persistent Volume: redis_data)"]
     end
@@ -121,7 +121,7 @@ docker compose exec ollama ollama pull nomic-embed-text
 
 ---
 
-## 4. MeitY NBF v2.1 Blockchain Ledger Verification
+## 4. Cryptographic Merkle Provenance Ledger Verification
 
 To verify cryptographic provenance and tamper-evidence of ingested government records:
 ```bash
@@ -140,7 +140,7 @@ curl http://localhost:8000/api/v1/ledger/verify/<doc_id>
 #   "recomputed_merkle_root": "a8f3...",
 #   "chunk_count": 9,
 #   "tamper_detected": false,
-#   "compliance": "MeitY National Blockchain Framework (NBF v2.1)"
+#   "standard": "SHA-256 Merkle Provenance Tree (Local Audit Store)"
 # }
 ```
 

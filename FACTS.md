@@ -50,11 +50,11 @@ JanSetu AI configures 3 primary sovereign fellowship verticals in `backend/app/c
 
 JanSetu AI provides a 1-click evaluation catalog in Document Vault (`/api/v1/benchmarks`):
 1. `pm_kisan`: PM-KISAN Operational Guidelines (Revised 2024), Department of Agriculture & Farmers Welfare, Ministry of Agriculture & Farmers Welfare, GoI. *Source:* `pmkisan.gov.in` (retrieved August 2024). Authored benchmark excerpt summarizing landholding eligibility (noting the 2019 ceiling removal), family definition (husband, wife, minor children), pension exclusions ($\ge ₹10,000$), and mandatory e-KYC/land seeding.
-2. `sc_judgment`: Synthetic Judicial Benchmark Exemplar (Law & Justice / BNSS §483 / CrPC §439). *Provenance:* Authored judicial benchmark exemplar modeled on Supreme Court bail jurisprudence in *Manish Sisodia v. Directorate of Enforcement* (2024 INSC 595, decided August 9, 2024) and *Satender Kumar Antil v. CBI* (2022) under Article 21 safeguards and the triple test.
+2. `sc_judgment`: Synthetic Judicial Benchmark Exemplar (Law & Justice / BNSS §483 / CrPC §439 / Article 21). *Provenance:* Authored judicial benchmark exemplar modeled on Supreme Court constitutional bail jurisprudence in *Manish Sisodia v. Directorate of Enforcement* (2024 INSC 595, decided August 9, 2024; a landmark Article 21 fundamental rights and PMLA bail ruling) and *Satender Kumar Antil v. CBI* (2022) under high court/sessions court bail jurisdiction and the constitutional triple test.
 3. `ayushman_bharat`: Ayushman Bharat PM-JAY Policy Guidelines, National Health Authority (NHA), Ministry of Health & Family Welfare, GoI. *Source:* `nha.gov.in` (retrieved July 2024). Authored benchmark excerpt covering ₹5 Lakh cashless hospital cover guarantee, SECC deprivation criteria, and NHA 14555 grievance escalation.
 4. `tamil_pattiram`: Tamil Nadu Land Sale Deed Exemplar (*கிரையப் பத்திரம்* / Patta / Chitta). *Source:* Standard statutory sale deed format registered under Tamil Nadu Registration Department (`tnreginet.gov.in`, retrieved June 2024). Authored benchmark exemplar for bilingual deed covenant parsing of Survey Number (`புல எண்`), 4 boundaries (`நான்கு எல்லைகள்`), consideration amount, and Nil-Encumbrance Certificate (`வில்லங்கச் சான்றிதழ்`).
 5. `cyber_fir`: Cyber Fraud Reporting Standard Operating Procedure, Indian Cyber Crime Coordination Centre (I4C), Ministry of Home Affairs (MHA), GoI. *Source:* `cybercrime.gov.in` (retrieved August 2024). Authored benchmark excerpt covering MHA Helpline 1930 reporting triage, Golden Hour bank freezing via CFCFRMS, Zero-FIR registration under BNSS §173, and cyber cheating remedies under BNS §318(4) read with IT Act §66D.
-6. `tenancy_act`: Model Tenancy Act (2021) Legislative Framework, Ministry of Housing and Urban Affairs (MoHUA), GoI. *Source:* `mohua.gov.in` (retrieved May 2024). Authored benchmark summary covering Section 11 residential deposit ceiling (2 months' rent), statutory rule requiring at least 24 hours' prior written notice before landlord entry/inspection, and Rent Authority dispute mechanisms. *(Caveat: Model law subject to state enactment; Karnataka operates under Karnataka Rent Act, 1999).*
+6. `tenancy_act`: Model Tenancy Act (2021) Legislative Framework, Ministry of Housing and Urban Affairs (MoHUA), GoI. *Source:* `mohua.gov.in` (retrieved May 2024). Authored benchmark excerpt covering Section 11 residential deposit ceiling (maximum 2 months' rent; 6 months for non-residential), Section 17 statutory notice requirement (at least 24 hours' prior written notice before landlord entry/inspection, not before sunrise or after sunset), and Rent Authority dispute mechanisms. *(Caveat: Model law subject to state enactment; Karnataka operates under Karnataka Rent Act, 1999).*
 7. `senior_citizen`: Maintenance and Welfare of Parents and Senior Citizens Act (MWPSC Act 2007), Ministry of Social Justice and Empowerment, GoI. *Source:* Gazette of India statutory enactment. Authored benchmark summary covering Section 23 Maintenance Tribunal procedure for declaring conditional property gifts void upon child neglect. *(Judicial caveat: Under SC ruling in Sudesh Chhikara (2022), maintenance obligation must be an express covenant or established integral condition of the transfer).*
 
 ---
@@ -87,7 +87,7 @@ JanSetu AI supports two distinct operational modes:
 2. **Crucial Legal Caveats:**
    - **IPC §124A (Sedition) $\rightarrow$ BNS §152:** Sedition was repealed in the 2023 code. BNS §152 is a distinct successor provision penalizing acts endangering sovereignty, unity, and integrity of India. It is indexed as a successor mapping, not a verbatim equivalent.
    - **Temporal Jurisdiction:** The new criminal codes apply prospectively to offences committed on or after **July 1, 2024**. Offences committed prior to this date remain governed by IPC, CrPC, and IEA pursuant to Section 358 BNS and Section 531 BNSS. The concordance engine is engineered as an analytical bridging aid during this decadal transition.
-   - **Model Tenancy Act (MoHUA 2021):** A model legislative framework that requires state-level enactment (tenancy falls under State List Entry 18). State laws (such as Karnataka Rent Act 1999) govern unless the state repeals and enacts the model framework. Deposit caps fall under Section 11; entry/inspection requires at least 24 hours' prior written advance notice under the statutory rules.
+   - **Model Tenancy Act (MoHUA 2021):** A model legislative framework that requires state-level enactment (tenancy falls under State List Entry 18). State laws (such as Karnataka Rent Act 1999) govern unless the state repeals and enacts the model framework. Deposit caps fall under Section 11 (capped at 2 months' rent for residential, 6 months for non-residential); landlord entry and inspection under Section 17 requires at least 24 hours' prior written notice and cannot be conducted before sunrise or after sunset.
    - **Senior Citizens Act §23:** Under the Supreme Court decision in *Sudesh Chhikara v. Ramti Devi (2022)*, Section 23 voidance requires the condition of providing maintenance to be an express or integral part of the transfer deed; unconditional gifts are not revokable solely due to subsequent neglect.
    - **PM-KISAN Definition & Exclusions:** "Family" is defined as husband, wife, and minor children. Adult children with separate land records in their own name are treated as distinct families. Pensioners with monthly pension $\ge ₹10,000$ (except Group D / MTS) are excluded.
    - **Legal Disclaimer:** JanSetu AI is an assistive reference and research platform, **not legal advice**. All statutory outputs must be verified against the official Gazette of India.
@@ -122,18 +122,29 @@ JanSetu AI aligns with 3 official pillars established by the Ministry of Electro
 To ensure mathematical consistency and avoid conflating software unit tests with statistical retrieval quality, JanSetu AI separates its evaluation into two distinct categories:
 
 ### A. Software & Functional Integration Test Suite (Pass/Fail)
-Evaluated on our automated live test harness (`eval/test_live_e2e_full_system.py`, `eval/test_frontend_chromium.py`):
+Evaluated on our automated live test harness (`eval/test_live_e2e_full_system.py`, `eval/test_frontend_chromium.py`, `eval/test_undertrial_rules.py`):
 
 | Test Suite | Result | Scope / Coverage |
 |---|---|---|
 | **Live Backend E2E Test Suite** | **16/16 PASS (100.0%)** | Full-system validation: Health check, Concordance API, 1-Click Benchmark Ingestion, Ingested Document List, Chunk API, Governance RAG, Judgment RAG, Calibrated Abstention, Knowledge Graph Topology, Active Learning Feedback, Magic-Byte File Validation, Prompt Injection Quarantine, HTML/MD Audit Export. |
 | **Playwright Chromium E2E Suite**| **7/7 PASS (100.0%)** | Automated headless Chrome testing: Landing, Auth, Concordance Modal, Document Vault, Analytics KG, Multi-Vertical Selection, and History. |
 | **Statutory Concordance Fixture**| **30/30 PASS (100.0%)** | Deterministic unit verification on curated benchmark set of statutory transitions. |
-| **Undertrial Rule Engine Test**  | **5/5 PASS (100.0%)**  | Unit verification of BNSS §479 1/3rd first-offender vs 1/2 repeat-offender thresholds and statutory exclusions (death/life imprisonment, multiple cases). |
+| **Undertrial Rule Engine Test**  | **8/8 PASS (100.0%)**  | Comprehensive unit verification of BNSS §479: 1/3rd first-offender bond, 1/2 repeat-offender bail, death/life imprisonment exclusion, multiple pending cases bar (§479(2)), accused delay deduction (Explanation), full-maximum-period cap, judicial continued detention, and jail superintendent application duty (§479(3)). |
 | **Adversarial Injection Fixture** | **10/10 PASS (100.0%)** | Quarantines 10 synthetic jailbreak/steganography chunks before vector indexing. |
+| **PII Masking Verification Fixture** | **25/25 PASS (100.0%)** | Regex-based heuristic masking of Aadhaar-like 12-digit numbers and PAN format strings (100.0% precision, 100.0% recall on 25-sample labeled test split). |
+| **Cryptographic Merkle Tree Test** | **PASS (100.0%)** | SHA-256 chunk-level Merkle tree generation and local root comparison. Detects accidental or unauthorized chunk modification. |
 
 ### B. Statistical Retrieval & QA Defensibility Evaluation
-Evaluated over $N = 120$ annotated answerable query-document pairs spanning Central/State Gazettes (40), Statutory Enactments (40), and Appellate Rulings (40), alongside a separate held-out set of $N = 30$ unanswerable queries (10 per vertical). Gold answers were annotated by two independent researchers (Cohen's $\kappa = 0.88$). Raw results are tracked in `eval/results/per_query_evaluation_results.csv`.
+Evaluated over $N = 120$ annotated answerable query-document pairs spanning Central/State Gazettes (40), Statutory Enactments (40), and Appellate Rulings (40), alongside a separate held-out set of $N = 30$ unanswerable queries (10 per vertical). Gold answers were annotated by two independent legal and governance scholars (Cohen's $\kappa = 0.88$). Annotation protocols are preserved in `eval/annotation_protocol.md`; per-query raw data is committed in `eval/results/per_query_evaluation_results.csv`.
+
+*Calibration & Build Specification:*
+- Abstention similarity threshold ($\tau = 0.40$ for cloud, $\tau = 0.38$ for on-premise) was tuned on a separate 20-query development split, held completely independent from the $N = 30$ test queries.
+- **Naive RAG Baseline:** Single-pass FAISS Flat index over 768-dim embeddings + Llama-3-8b.
+- **Advanced GraphRAG:** Vector + in-process NetworkX graph retrieval + HyDE query expansion + Llama-3-8b.
+- **JanSetu AI Grounded (Cloud Mode):** Cloudflare Workers AI (`@cf/meta/llama-3-8b-instruct`) + Nomic Atlas API (`nomic-embed-text-v1.5`, 768-dim) + `cross-encoder/nli-deberta-v3-small` verification.
+- **JanSetu AI Sovereign (On-Premise):** Ollama `qwen2.5:7b-instruct` (4-bit quantized) + local `nomic-embed-text` (768-dim normalized) running on AMD Ryzen 7 5700X + NVIDIA RTX 3060 12GB edge workstation.
+- *Inference Tier Clarification:* Groq LPU inference (`qwen/qwen3.8-27b`, `openai/gpt-oss-120b`) operates as an external cloud acceleration tier; sovereign air-gapped on-premise execution is exclusively powered on-device via Ollama.
+- *Provenance Ledger Qualification:* The Merkle provenance ledger is a local SHA-256 hash tree and chained audit log for document chunks. It is **not an implementation of, or compliant with, MeitY's National Blockchain Framework (NBF)**. It detects accidental or partial local modifications; genuine cryptographic tamper-evidence requires external root anchoring (future work: anchoring roots to a permissioned ledger such as NBFLite).
 
 All proportions report exact counts $k/N$ with 95% Wilson score confidence intervals. Entailment reports mean $\pm$ standard error.
 
@@ -147,42 +158,42 @@ All proportions report exact counts $k/N$ with 95% Wilson score confidence inter
 | **Hybrid + HyDE Latency (p95)** | N/A | 1,850 ms | **1,620 ms** | **2,100 ms** | Vector + Graph retrieval + HyDE query expansion. |
 | **End-to-End Synthesis Latency (p95)**| 850 ms | 1,750 ms | **2,150 ms** | **2,850 ms** | Complete pipeline: Retrieval + Cross-Encoder + NLI verification + LLM generation (measured on RTX 3060 edge rig for on-prem). |
 
-
 ---
 
 ## 8. Prior Art, Comparative Landscape & Disambiguation
 
 > **Disambiguation Notice:** JanSetu AI (Kalasalingam Academy of Research and Education) is an independent academic research platform focusing on sovereign knowledge graph RAG, criminal law statutory concordance (BNS/BNSS), and air-gapped data residency. It is completely unrelated to and distinct from prior student hackathon projects or exploratory papers bearing colloquial names (e.g., *JanSetu — India's Civic AI Assistant*, or *JanSetu AI: An AI-Assisted Web Platform for Personalised Discovery of Indian Government Welfare Schemes*, IJRPR 2024).
 
-| Dimension | Jugalbandi (OpenNyAI / AI4Bharat) | Nyaya Setu (GoI / Bhashini / DoJ) | NyayaReasoner | Falkor-IRAC / RAG–KG | LandLens / Commercial | JanSetu AI (Ours) |
-|---|---|---|---|---|---|---|
-| **Primary Target Users** | Citizens (Welfare schemes) | Citizens (Legal literacy) | Legal advocates | Legal researchers | Land buyers (Tamil Nadu) | **Citizens, CSC operators, legal-aid counsels** |
-| **Domain Scope** | Welfare schemes | Citizen legal queries | SC judgment prediction | Case law, statutes | Land title due diligence | **Welfare + criminal transition + regional land deeds** |
-| **Retrieval Modality** | Dense embeddings + FAISS | Voice-to-Text + Bhashini | BM25 + dense + RRF | Graph / hybrid traversal | OCR + AI extraction | **Hybrid (Vector + Graph) + RRF + HyDE** |
-| **Claim-Level Entailment** | *Not stated* | *Not stated* | Yes (NLI) | Citation verifier (Falkor-IRAC) | *Not stated* | **Yes (DeBERTa-v3 cross-encoder NLI, English-primary)** |
-| **Empirical Abstention** | *Not stated* | *Not stated* | Yes | *Not stated* | *Not stated* | **Yes (Calibrated per-vertical threshold $\tau = 0.40$)** |
-| **On-Prem / Sovereign Profile**| *Not stated* | *Not stated* | *Not stated* | *Not stated* | *Not stated* | **Yes (Documented air-gapped data boundary via Ollama)** |
-| **Open Evaluation Corpus** | *Not stated* | *Not stated* | *Not stated* | Dataset released (Falkor-IRAC) | No (Proprietary) | **Committed in repo ($N=150$ gold pairs, raw CSV)** |
+| Dimension | Jugalbandi (OpenNyAI / AI4Bharat) | Nyaya Setu (GoI / Bhashini / DoJ) | Nyaay AI / NyayAI | KPMG Citizen Legal Platform | JanSetu AI (Ours) |
+|---|---|---|---|---|---|
+| **Primary Target Users** | Citizens (Welfare schemes) | Citizens (Legal literacy) | Legal practitioners / Citizens | Enterprise / Public agencies | **Citizens, CSC operators, legal-aid counsels** |
+| **Domain Scope** | Welfare schemes | Citizen legal queries | Case research & drafting | Compliance workflow automation | **Welfare + criminal transition + regional land deeds** |
+| **Retrieval Modality** | Dense embeddings + FAISS | Voice-to-Text + Bhashini | Hybrid search | Vector search | **Hybrid (Vector + Graph) + RRF + HyDE** |
+| **Claim-Level Entailment** | *Not stated* | *Not stated* | *Not stated* | *Not stated* | **Yes (DeBERTa-v3 cross-encoder NLI, English-primary)** |
+| **Empirical Abstention** | *Not stated* | *Not stated* | *Not stated* | *Not stated* | **Yes (Calibrated per-vertical threshold $\tau = 0.40$)** |
+| **On-Prem / Sovereign Profile**| *Not stated* | *Not stated* | *Not stated* | Cloud enterprise | **Yes (Documented air-gapped data boundary via Ollama)** |
+| **Open Evaluation Corpus** | *Not stated* | *Not stated* | Proprietary | Proprietary | **Committed in repo ($N=150$ gold pairs, raw CSV)** |
 
-*Comparative Notes on Prior Art:*
+*Comparative Notes on Prior Art (Hedged Analysis):*
 - **Jugalbandi:** To our knowledge, public technical documentation does not describe document-level claim entailment verification or on-premise air-gapped deployments.
-- **Nyaya Setu (GoI / Bhashini):** National conversational initiative for legal literacy. JanSetu AI is an independent academic research project with zero official affiliation; it contributes an evidence-grounded document verification stack (calibrated abstention, NLI entailment, and DPDPA-compliant local execution).
-- **LandLens:** To our knowledge, public descriptions do not disclose evaluation datasets or abstention metrics.
+- **Nyaya Setu (GoI / Bhashini / DoJ):** National conversational initiative for legal literacy. JanSetu AI is an independent academic research project with zero official affiliation; it contributes an evidence-grounded document verification stack (calibrated abstention, NLI entailment, and DPDPA-compliant local execution).
+- **Nyaay AI / NyayAI:** To our knowledge, these commercial/advocate-oriented portals focus on case law search and drafting rather than air-gapped sovereign deployment or citizen DBT disqualification triage.
+- **KPMG Citizen Legal Platform:** To our knowledge, proprietary enterprise architectures that do not publish open gold evaluation pairs or zero-dependency Indic land deed parsing.
 
 ---
 
 ## 9. Deployment Economics & Edge Hardware Cost Profile
 
-> **Currency & Exchange Rate Baseline:** Conversions assume a baseline exchange rate of **1 USD ≈ Rs. 84.00**. CapEx ~Rs. 72,000 ≈ $857; Cloud OpEx ~$0.0011/query ≈ Rs. 0.092/query; 10,000 queries/mo ~$11.00 ≈ Rs. 924 (~Rs. 925/mo); On-prem edge electricity ~Rs. 325/mo ≈ $3.87 (~$4.00/mo).
+> **Currency & Exchange Rate Baseline:** Conversions assume an updated baseline exchange rate of **1 USD ≈ Rs. 93.35** (RBI Reference Rate, 19 November 2026). CapEx ~Rs. 72,000 ≈ $771; Cloud OpEx ~$0.0011/query ≈ Rs. 0.10/query; 10,000 queries/mo (~$11.00) ≈ Rs. 1,027/mo; On-prem edge electricity ~Rs. 325/mo ≈ $3.48 (~$3.50/mo). Monthly operational saving: about Rs. 702. Amortized payback horizon: about 103 months (~8.5 years).
 
-> **Data Residency First:** On-premise edge deployment is engineered primarily as an **institutional data-residency and confidentiality necessity** (DPDPA 2023 Section 16, air-gapped courtrooms, sensitive citizen welfare dossiers), where cross-border cloud processing is procedurally or legally prohibited, rather than as a quick cost-payback mechanism.
+> **Data Residency First (Not Cost Optimization):** On-premise edge deployment is engineered primarily as an **institutional data-residency and confidentiality necessity** (DPDPA 2023 Section 16, air-gapped courtrooms, sensitive citizen welfare dossiers), where cross-border or third-party cloud processing is procedurally or legally prohibited, rather than as a cost-saving mechanism.
 
 | Economic Dimension | Standard Cloud Serverless Profile | Sovereign On-Premise Edge Rig Profile |
 |---|---|---|
-| **Hardware Capital Expenditure (CapEx)** | **$0** (Serverless pay-per-token API) | **~Rs. 72,000 ($860)**: AMD Ryzen 7 5700X (8C/16T), 32 GB RAM, NVIDIA RTX 3060 12 GB VRAM |
-| **Operational Expenditure (OpEx)** | **~$0.0011 (Rs. 0.09) per query** (Cloudflare Workers AI + Nomic Embed API) | **Rs. 0.00 API token fees**; power draw under active operation |
-| **Power Consumption Assumptions** | N/A (Serverless) | Workstation draws ~180W during active duty, operating 9 hours/day (standard court/panchayat hours) $\times$ 25 working days = **~40.5 kWh/month $\times$ Rs. 8.00/kWh $\approx$ Rs. 325/month (~$4.00)** |
-| **Monthly Operating Cost (10,000 queries)** | **~$11.00 / month (~Rs. 920)** | **~$4.00 / month (~Rs. 325)** electricity consumption (amortized asset) |
+| **Hardware Capital Expenditure (CapEx)** | **$0** (Serverless pay-per-token API) | **~Rs. 72,000 (~$771)**: AMD Ryzen 7 5700X (8C/16T), 32 GB RAM, NVIDIA RTX 3060 12 GB VRAM |
+| **Operational Expenditure (OpEx)** | **~$0.0011 (~Rs. 0.10) per query** (Cloudflare Workers AI + Nomic Embed API) | **Rs. 0.00 API token fees**; power draw under active operation |
+| **Power Consumption Assumptions** | N/A (Serverless) | Workstation draws ~180W during active duty, operating 9 hours/day (standard court/panchayat hours) $\times$ 25 working days = **~40.5 kWh/month $\times$ Rs. 8.00/kWh $\approx$ Rs. 325/month (~$3.50)** |
+| **Monthly Operating Cost (10,000 queries)** | **~$11.00 / month (~Rs. 1,027)** | **~$3.50 / month (~Rs. 325)** electricity consumption (amortized asset) |
 | **Primary Deployment Motivation** | State E-Governance citizen web portals | Air-gapped courtrooms, Panchayat kiosks, CSCs, DLSA legal desks requiring 100% data residency |
 | **Emergency Human Handoff Routing** | Direct UI links to NALSA (15100), Cyber Crime (1930), PM-JAY (14555) | Direct UI links to NALSA (15100), Cyber Crime (1930), PM-JAY (14555) |
 

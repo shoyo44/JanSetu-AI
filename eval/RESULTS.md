@@ -82,4 +82,11 @@ Evaluated live on AWS EC2 (`http://ec2-98-93-55-8.compute-1.amazonaws.com:3000`)
 | **Buyer / Purchaser** | M. Meenakshi (திருமதி. எம். மீனாட்சி) | Mrs. M. Meenakshi |
 | **Property Spec** | Survey 142/3A, Patta 874, Chitlapakkam Village | Survey 142/3A, Sub-division 3A2, Patta 874 |
 | **Statutory Citations** | Tamil Nadu Stamp Act 1899 (Clause 6, Clause 3/4) | Clause 2 & 3 (Vendor & Purchaser Details) |
-| **Zero-Hallucination Behavior** | Verbatim grounding from Clause 6 | **Refused to guess monetary amount** when Clause 6 was omitted from candidate context window. |
+| **Calibrated Abstention Behavior** | Verbatim grounding from Clause 6 | **Refused to guess monetary amount** when Clause 6 was omitted from candidate context window. |
+
+
+*Evaluation Build & Model Specification:*
+- Similarity threshold ($\tau = 0.40$ cloud, $\tau = 0.38$ on-prem) was tuned on a separate 20-query dev split, completely held out from the 30 unanswerable test queries.
+- Cloud mode utilizes Cloudflare Workers AI (`@cf/meta/llama-3-8b-instruct`) + Nomic Atlas API + DeBERTa-v3 Small cross-encoder NLI. Groq LPU operates as an external cloud acceleration tier (`qwen/qwen3.8-27b`, `openai/gpt-oss-120b`).
+- Sovereign on-premise mode runs locally via Ollama (`qwen2.5:7b-instruct` 4-bit) + local Ollama `nomic-embed-text` on AMD Ryzen 7 5700X + RTX 3060 12GB edge workstation.
+- Provenance ledger is an internal SHA-256 Merkle tree and chained audit log (not an implementation of MeitY NBF; future work: NBFLite anchoring).

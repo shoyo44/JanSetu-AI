@@ -4,9 +4,7 @@
     <img src="./assets/jansetu-brand-light.svg#gh-light-mode-only" width="560" alt="JanSetu AI Logo" />
   </a>
 
-  <p align="center">
-    <a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=19&duration=3000&pause=1000&color=F59E0B&center=true&vCenter=true&width=720&lines=Sovereign+Multi-Vertical+Agentic+Knowledge+Graph+%26+RAG;July+1%2C+2024+Criminal+Concordance+(IPC+%E2%87%84+BNS%2C+BNSS+%C2%A7479);100%25+Air-Gapped+Edge+Data+Residency+(DPDPA+2023+%C2%A716);Calibrated+Abstention+(%CF%84%3D0.40)+%2B+DeBERTa-v3+NLI+Verification" alt="JanSetu Dynamic Typing Headline" /></a>
-  </p>
+  
 
   <p align="center">
     <b>जनसेतु · Sovereign Citizen Intelligence & Governance Platform</b><br/>
@@ -15,19 +13,17 @@
 
   <!-- Modern High-Contrast Pill Badges -->
   <p align="center">
-    <a href="https://indiaai.gov.in/"><img src="https://img.shields.io/badge/IndiaAI%20Mission-MeitY%20Aligned-FF9933?style=for-the-badge&logo=india&logoColor=white" alt="IndiaAI Fellowship" /></a>
-    <a href="https://www.meity.gov.in/"><img src="https://img.shields.io/badge/Blockchain%20Ledger-MeitY%20NBF%20v2.1-8B5CF6?style=for-the-badge&logo=blockchaindotcom&logoColor=white" alt="MeitY NBF v2.1" /></a>
-    <a href="https://github.com/shoyo44/JanSetu-AI"><img src="https://img.shields.io/badge/Data%20Sovereignty-DPDPA%202023%20%C2%A716-10B981?style=for-the-badge&logo=shield&logoColor=white" alt="Sovereignty" /></a>
-    <a href="https://github.com/shoyo44/JanSetu-AI"><img src="https://img.shields.io/badge/PII%20Protection-Aadhaar%20Act%20%C2%A729-06B6D4?style=for-the-badge&logo=security&logoColor=white" alt="Aadhaar Masking" /></a>
+    <a href="https://indiaai.gov.in/"><img src="https://img.shields.io/badge/IndiaAI%20Mission-Fellowship%20Proposal-FF9933?style=for-the-badge&logo=india&logoColor=white" alt="IndiaAI Fellowship Proposal" /></a>
+    <a href="#-zero-infrastructure-in-process-hybrid-store--cryptographic-merkle-ledger"><img src="https://img.shields.io/badge/Provenance-SHA--256%20Merkle%20Tree-8B5CF6?style=for-the-badge&logo=git&logoColor=white" alt="SHA-256 Merkle Provenance" /></a>
+    <a href="https://github.com/shoyo44/JanSetu-AI"><img src="https://img.shields.io/badge/Data%20Residency-Local%20Air--Gapped-10B981?style=for-the-badge&logo=shield&logoColor=white" alt="Local Data Residency" /></a>
+    <a href="https://github.com/shoyo44/JanSetu-AI"><img src="https://img.shields.io/badge/Safety-5--Layer%20Guardrails-06B6D4?style=for-the-badge&logo=security&logoColor=white" alt="Safety Guardrails" /></a>
     <a href="https://github.com/shoyo44/JanSetu-AI"><img src="https://img.shields.io/badge/DevSecOps-Aqua%20Trivy%20%7C%20Bandit-E11D48?style=for-the-badge&logo=security&logoColor=white" alt="DevSecOps" /></a>
-    <a href="http://ec2-98-93-55-8.compute-1.amazonaws.com:3000"><img src="https://img.shields.io/badge/Cloud%20Live-AWS%20EC2-2563EB?style=for-the-badge&logo=amazon-aws&logoColor=white" alt="Live Demo" /></a>
-    <a href="http://98.93.55.8:3001"><img src="https://img.shields.io/badge/Observability-Prometheus%20%2B%20Grafana-F97316?style=for-the-badge&logo=grafana&logoColor=white" alt="Grafana" /></a>
+    <a href="http://ec2-98-93-55-8.compute-1.amazonaws.com:3000"><img src="https://img.shields.io/badge/Cloud%20Demo-AWS%20(us--east--1)-2563EB?style=for-the-badge&logo=amazon-aws&logoColor=white" alt="AWS EC2 Demo (us-east-1)" /></a>
   </p>
 
   <!-- Quick Action Navigation Bar -->
   <p align="center">
     <a href="http://ec2-98-93-55-8.compute-1.amazonaws.com:3000"><b>🌐 Live Cloud Web App</b></a> •
-    <a href="http://98.93.55.8:8000/docs"><b>⚡ FastAPI Swagger Docs</b></a> •
     <a href="./DOCS_PROJECT_REPORT.pdf"><b>📄 Academic Report (PDF)</b></a> •
     <a href="./INDIA_AI_FELLOWSHIP_PROPOSAL.md"><b>🏛️ Fellowship Proposal</b></a> •
     <a href="./ARCHITECTURE.md"><b>📐 System Architecture</b></a> •
@@ -40,11 +36,11 @@
 
 JanSetu AI (जनसेतु) is a sovereign AI Document Intelligence, Q&A, and Knowledge Graph Platform designed to analyze, index, search, and reason over unstructured public documents across high-stakes sovereign domains — engineered specifically for **Public Governance** and **Law & Justice** (IndiaAI Mission Priority Domains). A modular prototype validated on live sovereign benchmark suites, JanSetu AI supports data-residency-friendly deployment and air-gapped on-premise execution.
 
-Built with an async **FastAPI** backend, a zero-infrastructure in-process **Hybrid Vector-Graph Database** (NetworkX + FAISS Flat Index), **MeitY National Blockchain Framework (NBF v2.1) Cryptographic Merkle Provenance**, multi-tier LLM/LPU inference (**Groq LPUs**, **Cloudflare Workers AI**, & sovereign local **Ollama**), and a responsive **React/Vite** SPA frontend, the system provides calibrated hallucination suppression via empirical abstention, claim-level NLI citation entailment, automated statutory criminal law concordance (IPC $\longleftrightarrow$ BNS), and pre-retrieval indirect prompt injection defense.
+Built with an async **FastAPI** backend, a zero-infrastructure in-process **Hybrid Vector-Graph Database** (NetworkX + FAISS Flat Index), **Tamper-Evident SHA-256 Merkle Provenance Ledger**, multi-tier LLM/LPU inference (**Groq LPUs**, **Cloudflare Workers AI**, & sovereign local **Ollama**), and a responsive **React/Vite** SPA frontend, the system provides calibrated hallucination suppression via empirical abstention, claim-level NLI citation entailment, automated statutory criminal law concordance (IPC $\longleftrightarrow$ BNS), and pre-retrieval indirect prompt injection defense.
 
-> 🚀 **Live Cloud Deployment (AWS EC2):** [http://ec2-98-93-55-8.compute-1.amazonaws.com:3000](http://ec2-98-93-55-8.compute-1.amazonaws.com:3000) *(Running multi-container prototype with live multi-vertical RAG, NBF Blockchain Vault, & Graph UI)*  
-> ⚡ **API Engine & Swagger Docs:** [http://98.93.55.8:8000/docs](http://98.93.55.8:8000/docs)  
-> 📈 **Telemetry & Observability:** [Grafana Dashboards :3001](http://98.93.55.8:3001) • [Prometheus Metrics :9090](http://98.93.55.8:9090)  
+> 🚀 **Live Cloud Demo (AWS EC2, us-east-1 region — evaluation prototype, not sovereign hosted):** [http://ec2-98-93-55-8.compute-1.amazonaws.com:3000](http://ec2-98-93-55-8.compute-1.amazonaws.com:3000) *(Running multi-container prototype with live multi-vertical RAG, Merkle Provenance Vault, & Graph UI)*  
+> ⚡ **API Engine & Swagger Docs (Demo):** [http://ec2-98-93-55-8.compute-1.amazonaws.com:8000/docs](http://ec2-98-93-55-8.compute-1.amazonaws.com:8000/docs)  
+> 📈 **Telemetry & Observability:** Provisioned internally via Docker Compose (Prometheus :9090 & Grafana :3001 on localhost)  
 > 🌐 **Secondary Web Mirror:** [docs-ai-ashen.vercel.app](https://docs-ai-ashen.vercel.app) *(Hosted on Vercel; source repository: [github.com/shoyo44/JanSetu-AI](https://github.com/shoyo44/JanSetu-AI))*  
 > 🏛️ **Fellowship Proposal:** [INDIA_AI_FELLOWSHIP_PROPOSAL.md](./INDIA_AI_FELLOWSHIP_PROPOSAL.md)  
 > 📄 **Academic Project Report:** [DOCS_PROJECT_REPORT.pdf](./DOCS_PROJECT_REPORT.pdf)  
@@ -57,14 +53,14 @@ Built with an async **FastAPI** backend, a zero-infrastructure in-process **Hybr
 
 ## 🏗️ End-to-End System Architecture
 
-JanSetu AI employs a **layered sovereign neuro-symbolic architecture** that unifies in-process knowledge graph ontologies, dense vector search, MeitY NBF Merkle provenance, empirical hallucination suppression, and deterministic statutory rule engines:
+JanSetu AI employs a **layered architecture combining in-process knowledge graph ontologies, dense vector search, SHA-256 Merkle provenance, empirical hallucination suppression, and deterministic statutory rule engines** that unifies in-process knowledge graph ontologies, dense vector search, MeitY NBF Merkle provenance, empirical hallucination suppression, and deterministic statutory rule engines:
 
 ```mermaid
 flowchart TB
     subgraph Presentation["🖥️ Layer 1: Presentation & Citizen Interface (React 18 + Vite)"]
         UI_Chat["💬 Bilingual Agent Chat & Jan Suvidha Explainer Cards"]
         UI_Vault["📂 Document Vault & 1-Click Sovereign Benchmark Ingestion"]
-        UI_Ledger["🔗 MeitY NBF Blockchain Provenance & Tamper-Evident Modal"]
+        UI_Ledger["🔗 SHA-256 Merkle Provenance & Tamper-Evident Modal"]
         UI_Concord["⚖️ Statutory Criminal Concordance Engine (BNS ⇄ IPC)"]
         UI_Obs["📊 Prometheus & Grafana Real-Time Telemetry Dashboards"]
     end
@@ -72,7 +68,7 @@ flowchart TB
     subgraph Ingestion["🛡️ Layer 2: DevSecOps, Pre-Indexing Guardrails & Ingestion"]
         GW_MIME["🔍 Binary Magic-Byte MIME Inspector (%PDF-, PK\x03\x04, Block MZ/ELF)"]
         GW_Stego["🛡️ Indirect Prompt Injection & Unicode Steganography Quarantine"]
-        GW_Guard["🔒 5-Layer Sovereign Guardrails (Aadhaar Act §29, DPDP Act 2023 Masking)"]
+        GW_Guard["🔒 5-Layer Sovereign Guardrails (PII Masking & Security Shield)"]
         GW_Rate["⏱️ Sliding-Window Rate Limiter (20 uploads/hr, 150 queries/hr)"]
         GW_Chunk["📑 Multi-Facet Semantic Chunker (Eligibility, Exclusions, DBT Benefits)"]
     end
@@ -80,12 +76,12 @@ flowchart TB
     subgraph KnowledgeCore["⚡ Layer 3: Zero-Infrastructure In-Process Hybrid Core & Ledger"]
         DB_Graph["🕸️ NetworkX Knowledge Graph (Hierarchical Nodes, CITES, SUPERSEDES)"]
         DB_Vector["📐 768-Dim FAISS Flat Index (Normalized Continuous Cosine Space)"]
-        DB_Ledger["⛓️ MeitY NBF v2.1 Merkle DAG Ledger (SHA-256 Provenance & Tamper Proofs)"]
+        DB_Ledger["⛓️ SHA-256 Merkle Provenance Ledger (Chained Audit Log & Root Hashes)"]
         DB_Cache["⚡ SQLite Semantic Cache (p95: 3.8ms at Cosine Sim ≥ 0.95)"]
         DB_History["🗄️ Containerized MongoDB / Local Resilient JSON Audit Store"]
     end
 
-    subgraph Reasoning["🧠 Layer 4: Grounded Retrieval & Neuro-Symbolic Verification"]
+    subgraph Reasoning["🧠 Layer 4: Grounded Retrieval & Statutory Rule Verification"]
         RAG_HyDE["💡 HyDE Query Expansion & Contextual Sub-Query Generator"]
         RAG_RRF["🔄 Reciprocal Rank Fusion (Dense Vector + Graph Traversal)"]
         RAG_Abstain["🚫 Calibrated Abstention Engine (Threshold τ = 0.40 Hallucination Gate)"]
@@ -94,9 +90,9 @@ flowchart TB
     end
 
     subgraph Compute["⚙️ Layer 5: Multi-Tier Sovereign LLM / LPU Compute Engine"]
-        LLM_Groq["⚡ Primary LPU: Groq (Qwen 27B / GPT-OSS 120B — Low Latency)"]
+        LLM_Groq["⚡ Cloud LPU Tier: Groq (Qwen 27B / GPT-OSS 120B — Cloud Acceleration)"]
         LLM_Cloud["☁️ Secondary Cloud: Cloudflare Workers AI (Llama 3.1 8B / Nomic-Embed)"]
-        LLM_Edge["🔒 Sovereign Air-Gapped Mode: Ollama Daemon (Qwen2.5 7B, DPDPA 2023 §16)"]
+        LLM_Edge["🔒 Sovereign Air-Gapped Mode: Ollama Daemon (Qwen2.5 7B Local Execution)"]
         LLM_Extract["🛡️ Tier 3 Fallback: Sovereign Extractive RAG (Zero-API Verbatim Synthesis)"]
     end
 
@@ -115,9 +111,9 @@ JanSetu AI directly addresses the **Governance** and **Law and Justice** priorit
 
 | Feature | Domain | Technical Implementation | Citizen / Institutional Impact |
 |---|---|---|---|
-| **MeitY NBF v2.1 Blockchain Ledger** | Data Integrity & Trust | Cryptographic SHA-256 Merkle DAG tree auto-anchoring of document chunks with genesis block provenance | Complies with the **National Blockchain Framework (NBF v2.1)** by MeitY; provides mathematically provable tamper-evident audit trails (`/api/v1/ledger/verify/{doc_id}`) for public records and land titles. |
-| **5-Layer Sovereign Guardrails** | Trust & Privacy | Real-time PII anonymizer (Aadhaar, PAN, phone regex), toxic content blocker, and anti-forgery gate | Enforces strict statutory privacy under **DPDP Act 2023** and **Section 29 of the Aadhaar Act, 2016**; actively halts prompt injection attacks and prevents generation of fake IDs or forged land deeds. |
-| **Multi-Tier LPU & Sovereign LLM** | Compute Sovereignty | Ultra-low-latency Groq LPU (`qwen/qwen3.8-27b`, `openai/gpt-oss-120b`) with Cloudflare & local Ollama fallback | Enables lightning-fast inference for citizen chats while maintaining full resilience with an offline Sovereign Extractive RAG fallback. |
+| **Tamper-Evident Merkle Provenance Ledger** | Data Integrity & Trust | Cryptographic SHA-256 Merkle DAG tree auto-anchoring of document chunks with genesis block provenance | Tamper-evident Merkle provenance ledger (SHA-256 hash tree and chained audit log). *Not an implementation of, or compliant with, MeitY's National Blockchain Framework.* Detects accidental or partial changes; genuinely tamper-evident only when root hashes are stored separately or signed (future work: anchoring roots on a permissioned ledger such as NBFLite). Provides audit trails (`/api/v1/ledger/verify/{doc_id}`). |
+| **5-Layer Sovereign Guardrails** | Trust & Privacy | Real-time PII anonymizer (regex masking of Aadhaar-like 12-digit numbers and PAN format strings), toxic content blocker, and anti-forgery gate | Designed for local data residency; masks citizen identifiers (100% precision, 100% recall on 25-sample labeled test split) to support privacy workflows; actively halts prompt injection attacks and prevents generation of fake IDs or forged land deeds. |
+| **Multi-Tier LPU & Sovereign LLM** | Compute Sovereignty | Ultra-low-latency Groq LPU (`qwen/qwen3.8-27b`, `openai/gpt-oss-120b`) as external cloud inference tier, with Cloudflare & local Ollama on-premise execution | Enables fast cloud inference for web chats while maintaining full air-gapped sovereignty via local Ollama and an offline Sovereign Extractive RAG fallback. |
 | **Jan Suvidha Explainer** | Governance | Multi-facet scheme chunking (Eligibility, Disqualifying Exclusions, DBT Benefits, Documents, Steps) | Translates dense gazettes into plain language with structured eligibility checklists for rural citizens & CSC operators. |
 | **Statutory Concordance Engine** | Law & Justice | Bidirectional concordance hash-maps & regex parser (`IPC ⇄ BNS`, `CrPC ⇄ BNSS`, `IEA ⇄ BSA`) | Bridges pre-2024 judicial precedents with modern 2024 criminal codes for judges, prosecutors, and legal aid clinics. Highlights undertrial relief under BNSS §479 and Zero-FIR rights under BNSS §173. |
 | **Calibrated Abstention Engine** | Trust & Safety | Per-vertical similarity thresholds ($\tau = 0.40$) with structured refusal explanations | Reduces unsupported answers on absent statutory sections or unmentioned welfare provisions. |
@@ -141,8 +137,8 @@ Prior systems address isolated parts of Indian legal informatics and welfare acc
 | **Retrieval Modality** | Dense + FAISS | Conversational API | BM25 + dense + RRF | Graph / hybrid | OCR + AI extraction | **Hybrid (Vector + Graph) + RRF + HyDE** |
 | **Claim-Level Entailment** | *Not stated* | *Not stated* | Yes (NLI) | Citation verifier | *Not stated* | **Yes (DeBERTa-v3 cross-encoder NLI)** |
 | **Empirical Abstention** | *Not stated* | *Not stated* | Yes | *Not stated* | *Not stated* | **Yes (Calibrated per-vertical τ = 0.40)** |
-| **MeitY NBF v2.1 Blockchain**| *Not stated* | *Not stated* | *Not stated* | *Not stated* | *Not stated* | **Yes (Cryptographic Merkle Provenance Ledger)** |
-| **Statutory PII Redaction** | *Not stated* | *Not stated* | *Not stated* | *Not stated* | *Not stated* | **Yes (Aadhaar Act §29 & DPDP Act 2023 Masking)** |
+| **Merkle Provenance Ledger** | *Not stated* | *Not stated* | *Not stated* | *Not stated* | *Not stated* | **Yes (SHA-256 Merkle Provenance Tree)** |
+| **Citizen PII Masking** | *Not stated* | *Not stated* | *Not stated* | *Not stated* | *Not stated* | **Yes (Aadhaar-like & PAN regex masking)** |
 | **Multi-Tier LPU/LLM Fallback**| Cloud only | Cloud only | Cloud only | Cloud only | Cloud only | **Yes (Groq Qwen-27B → Cloudflare → Local Ollama → Extractive RAG)** |
 | **On-Prem / Sovereign Profile**| *Not stated* | *Not stated* | *Not stated* | *Not stated* | *Not stated* | **Yes (Air-gapped data boundary via Ollama)** |
 | **Open Evaluation Corpus** | *Not stated* | *Not stated* | *Not stated* | Dataset released | No (Proprietary) | **Committed in repo ($N=150$ gold pairs)** |
@@ -173,11 +169,11 @@ JanSetu AI provides a 1-click evaluation catalog in Document Vault (`/api/v1/ben
 | Benchmark Key | Document Title & Provenance | Vertical | Solved Citizen / Institutional Problem & Caveats |
 |---|---|---|---|
 | `pm_kisan` | **PM-KISAN Operational Guidelines (Revised 2024)**<br>*(Source: Dept. of Agriculture & Farmers Welfare, GoI; authored benchmark excerpt)* | `governance` | Direct Benefit Transfer (DBT) ₹6,000/yr criteria. Evaluates cultivable landholder eligibility (2019 ceiling removal), "family" definition (husband, wife, minor children), pension exclusions ($\ge ₹10,000$), and mandatory e-KYC/land seeding. |
-| `sc_judgment` | **Synthetic Judicial Benchmark Exemplar**<br>*(Source: Authored exemplar modeled on SC jurisprudence)* | `judgment` | Pre-trial bail jurisprudence under BNSS §483 / CrPC §439, triple test condition synthesis, and Article 21 liberty protections. Modeled on Supreme Court bail principles in *Manish Sisodia v. Directorate of Enforcement* (2024 INSC 595, Aug 9, 2024) and *Satender Kumar Antil v. CBI* (2022). |
+| `sc_judgment` | **Synthetic Judicial Benchmark Exemplar**<br>*(Source: Authored exemplar modeled on SC jurisprudence)* | `judgment` | Pre-trial bail jurisprudence under BNSS §483 / CrPC §439, triple test condition synthesis, and Article 21 liberty protections. Modeled on Supreme Court bail principles in *Manish Sisodia v. Directorate of Enforcement* (2024 INSC 595, Aug 9, 2024; an Article 21 fundamental rights and PMLA bail ruling) and *Satender Kumar Antil v. CBI* (2022) under high court/sessions bail jurisdiction. |
 | `ayushman_bharat` | **Ayushman Bharat PM-JAY Policy Guidelines**<br>*(Source: National Health Authority, GoI)* | `governance` | ₹5 Lakh cashless health cover guarantee, SECC deprivation criteria, and mandatory pre-authorization grievance resolution via NHA 14555. |
 | `tamil_pattiram` | **Tamil Nadu Land Sale Deed & Patta (*கிரையப் பத்திரம்*)**<br>*(Source: TN Registration Dept deed format)* | `law` | Bilingual land record verification: Survey Number (`புல எண்`), 4 boundaries (`நான்கு எல்லைகள்`), consideration amount, and Nil-Encumbrance Certificate (`வில்லங்கச் சான்றிதழ்`). |
 | `cyber_fir` | **Cyber Fraud & Citizen FIR Guidelines (Helpline 1930 / I4C)**<br>*(Source: I4C / MHA Standard Operating Procedure)* | `law` | Financial fraud reporting, Golden Hour inter-bank freezing via CFCFRMS, Zero-FIR registration under BNSS §173, and cyber cheating remedies under BNS §318(4) read with IT Act §66D. |
-| `tenancy_act` | **Model Tenancy Act Guidelines (MoHUA)**<br>*(Source: Ministry of Housing & Urban Affairs framework)* | `law` | 2-month residential security deposit ceiling (Section 11), statutory rule requiring at least 24-hr advance notice prior to inspection/entry, and Rent Authority dispute redressal. *(Caveat: Model law requiring state enactment; Karnataka operates under Karnataka Rent Act, 1999).* |
+| `tenancy_act` | **Model Tenancy Act Guidelines (MoHUA)**<br>*(Source: Ministry of Housing & Urban Affairs framework)* | `law` | 2-month residential security deposit ceiling (Section 11; 6 months non-residential), statutory notice requirement under Section 17 (at least 24 hours' prior written notice before landlord entry/inspection, not before sunrise or after sunset), and Rent Authority dispute redressal. *(Caveat: Model law requiring state enactment; Karnataka operates under Karnataka Rent Act, 1999).* |
 | `senior_citizen` | **Senior Citizens Parental Protection Act (MWPSC Act 2007 §23)**<br>*(Source: Ministry of Social Justice & Empowerment)* | `law` | Section 23 voidance of conditional property gift deeds before Maintenance Tribunal. *(Judicial caveat: Under SC ruling in Sudesh Chhikara (2022), maintenance obligation must be an express or integral covenant of the transfer).* |
 
 ---
@@ -197,17 +193,18 @@ JanSetu AI includes native support for regional Indian land records and register
 
 ---
 
-## ⚡ Zero-Infrastructure In-Process Hybrid Store & MeitY NBF v2.1 Ledger
+## ⚡ Zero-Infrastructure In-Process Hybrid Store & Cryptographic Merkle Ledger
 
 Replaces heavy external database infrastructure (Neo4j, Milvus, Pinecone) with an embedded, zero-dependency in-process engine and cryptographic ledger:
 
 - **NetworkX Topology:** Manages hierarchical document structures (`TenantNode` $\rightarrow$ `DocumentNode` $\rightarrow$ `ChunkNode`), sequential reading chains (`NEXT_CHUNK`), and semantic entity linkages (`MENTIONS`, `CITES`, `SUPERSEDES`). Suited for up to 50,000 document nodes per instance; HNSW and DuckDB migration planned on roadmap for 250,000+ nodes.
 - **FAISS Vector Acceleration:** Embeds text chunks into a 768-dimensional normalized continuous space (`nomic-embed-text-v1.5` in cloud mode; `nomic-embed-text` in local Ollama) for high-speed inner-product cosine similarity retrieval.
-- **MeitY National Blockchain Framework (NBF v2.1) Ledger:**
+- **Tamper-Evident SHA-256 Merkle Provenance Ledger:**
   - Automated SHA-256 Merkle Directed Acyclic Graph (DAG) construction for every ingested document.
   - Every text chunk is hashed into a cryptographic leaf node (`sha256(chunk_text)`); adjacent leaf pairs are iteratively hashed to compute an immutable Merkle Root.
   - Document records are sequenced into an audit block with genesis block chaining (`prev_block_hash`, `timestamp`, `merkle_root`).
-  - Provides mathematical tamper-evident verification: modifying a single byte in any stored chunk causes root hash recalculation to fail (`TAMPERING_DETECTED`), while authentic records return `TAMPER_EVIDENT_VERIFIED`.
+  - *Tamper-Evidence Qualification:* Detects accidental, partial, or out-of-band chunk changes. It is genuinely tamper-evident against external adversaries only when root hashes are stored separately or signed by an independent authority.
+  - *Framework Notice:* This ledger is an internal SHA-256 provenance mechanism, **not an implementation of, or compliant with, MeitY's National Blockchain Framework (NBF)**. Future work includes anchoring roots on a permissioned ledger such as NBFLite.
   - Accessible via the Document Vault UI modal and REST endpoints (`GET /api/v1/ledger/records`, `GET /api/v1/ledger/verify/{doc_id}`).
 - **Vector Model Incommensurability Note:** Embeddings from different models inhabit different latent spaces. Switching between cloud and local Ollama requires re-indexing the document corpus. The hash router in `embedding_router.py` is strictly an offline unit-test mock fixture.
 - **Re-Entrant RWLock Safety:** Regulates multi-threaded concurrency — allows unlimited parallel reads during search queries while serializing atomic background disk write-backs to `graph_store.json`.
@@ -268,7 +265,7 @@ Replaces heavy external database infrastructure (Neo4j, Milvus, Pinecone) with a
    - **Layer 1 (Adversarial Injection Defense):** Quarantines prompt injection attacks, role hijacking, and jailbreaks.
    - **Layer 2 (Harm & Safety Gate):** Blocks toxic, abusive, or anti-national content.
    - **Layer 3 (Anti-Forgery & Statutory Enforcement):** Halts and refuses requests to forge government documents, fake voter IDs, fake caste certificates, or bypass e-KYC.
-   - **Layer 4 (Automated Statutory PII Masking):** Complies with **Section 29 of the Aadhaar Act, 2016** and **DPDP Act, 2023**:
+   - **Layer 4 (Automated PII Masking):** Masks citizen identifiers to support privacy workflows (evaluated at 100% precision and 100% recall on 25-sample labeled test split):
      - Aadhaar numbers redacted to `XXXX-XXXX-1234`
      - Permanent Account Numbers (PAN) masked to `XXXXX1234X`
      - Indian phone numbers masked to `+91-XXXXX-98765`
@@ -278,7 +275,7 @@ Replaces heavy external database infrastructure (Neo4j, Milvus, Pinecone) with a
 3. **Binary Magic-Byte File Validation (`file_validator.py`):** Inspects raw file headers to confirm genuine MIME signatures; outright blocks executable binaries (Windows PE `MZ`, Linux ELF `\x7fELF`), double extensions (e.g., `policy.pdf.exe`), and files $>50\text{ MB}$.
 4. **Tenant Sliding-Window Rate Limiting (`rate_limiter.py`):** Enforces per-tenant quotas (20 uploads/hr, 150 queries/hr) with HTTP 429 Retry-After headers.
 5. **Multi-Tier Sovereign LLM & LPU Inference (`cloudflare_ai.py`):**
-   - **Tier 1 (Groq LPU):** Lightning-fast inference utilizing open-weight sovereign models (`qwen/qwen3.8-27b`, `openai/gpt-oss-120b`).
+   - **Tier 1 (Groq LPU):** External cloud inference acceleration tier utilizing open-weight models (`qwen/qwen3.8-27b`, `openai/gpt-oss-120b`).
    - **Tier 2 (Cloudflare Workers AI):** Serverless global cloud fallback (`@cf/meta/llama-3-8b-instruct`).
    - **Tier 3 (Local Sovereign Ollama):** 100% offline edge execution for institutional air-gapped data residency under DPDPA 2023 §16.
    - **Tier 4 (Sovereign Extractive RAG):** Verbatim chunk synthesis operating with 0% external API dependencies.
@@ -298,7 +295,9 @@ Tested via automated test suites (`eval/test_live_e2e_full_system.py`, `eval/tes
 |---|---|---|
 | **Live Backend E2E Test Suite** | **16/16 PASS (100.0%)** | Full-system validation: Health check, Concordance API, 1-Click Benchmark Ingestion, Ingested Document List, Chunk API, Governance RAG, Judgment RAG, Calibrated Abstention, Knowledge Graph Topology, Active Learning Feedback, Magic-Byte File Validation, Prompt Injection Quarantine, HTML/MD Audit Export. |
 | **Playwright Chromium E2E Suite**| **7/7 PASS (100.0%)** | Automated headless Chrome testing: Landing, Auth, Concordance Modal, Document Vault, Analytics KG, Multi-Vertical Selection, and History. |
-| **Undertrial Rule Engine Test (BNSS §479)** | **5/5 PASS (100.0%)** | Validates 1/3rd first offender, 1/2 repeat offender, life/death exclusion, multiple case exclusion, and judicial review recommendation (`eval/test_undertrial_rules.py`). |
+| **Undertrial Rule Engine Test (BNSS §479)** | **8/8 PASS (100.0%)** | Validates 1/3rd first offender on bond, 1/2 repeat offender on bail, life/death exclusion, multiple case bar (§479(2)), accused delay deduction (Explanation), full-maximum-period cap, judicial continued detention, and jail superintendent application duty (§479(3)) in `eval/test_undertrial_rules.py`. |
+| **PII Masking Verification Fixture** | **25/25 PASS (100.0%)** | Regex-based masking of Aadhaar-like 12-digit numbers and PAN format strings (100.0% precision, 100.0% recall on 25-sample labeled test split). |
+| **Cryptographic Merkle Tree Test** | **PASS (100.0%)** | Validates SHA-256 chunk-level Merkle tree generation and local root comparison. |
 | **Statutory Concordance Fixture**| **30/30 PASS (100.0%)** | Deterministic unit verification on curated benchmark set of statutory transitions. |
 | **Adversarial Injection Fixture** | **10/10 PASS (100.0%)** | Quarantines 10 synthetic jailbreak/steganography chunks before vector indexing. |
 
@@ -448,14 +447,14 @@ bash ./scripts/run_trivy.sh
 | Component | Technology | Role & Purpose |
 |---|---|---|
 | **Frontend SPA** | React 18, Vite, Lucide Icons, ForceGraph2D | Glassmorphism UI, Jan Suvidha Card, IPC ⇄ BNS Modal, NBF Blockchain Modal, Graph Visualizer |
-| **Blockchain Ledger** | Python, SHA-256 Merkle DAG Tree | MeitY National Blockchain Framework (NBF v2.1) cryptographic chunk-level auto-anchoring & tamper detection |
-| **5-Layer Guardrails** | Regex, Token Normalizers, Heuristic NLP | Real-time PII anonymizer (Aadhaar Act §29, DPDP Act 2023), anti-forgery filter, toxic prompt blocker |
+| **Merkle Provenance Ledger** | Python, SHA-256 Merkle DAG Tree | Internal cryptographic chunk-level auto-anchoring & local tamper detection (SHA-256 Merkle tree and chained audit log; not MeitY NBF) |
+| **5-Layer Guardrails** | Regex, Token Normalizers, Heuristic NLP | Real-time PII anonymizer (Aadhaar-like & PAN format masking), anti-forgery filter, toxic prompt blocker |
 | **Voice Interface** | Browser Web Speech API | Client-assisted speech-to-text input (desktop convenience; local Whisper roadmap for air-gapped on-prem) |
 | **API Gateway** | FastAPI, Pydantic V2, Starlette | High-performance async REST & WebSocket streaming endpoints |
 | **Graph Store** | NetworkX (in-process) | Hierarchical document topology & entity linkage (up to 50k nodes; HNSW roadmap for 250k) |
 | **Vector Engine** | FAISS Flat Index (768-dim) | Inner-product cosine similarity semantic search |
 | **Embedding Router** | Nomic Atlas / Cloudflare / Local BGE | 768-dimensional normalized dense vectors with Indic script detection & 3-tier fallback |
-| **LLM Inference Tier** | Groq LPU / Cloudflare / Ollama | Multi-tier sovereign compute: Groq Qwen-27B → Cloudflare Llama-3 → Local Ollama → Extractive RAG |
+| **LLM Inference Tier** | Groq LPU / Cloudflare / Ollama | Multi-tier compute: Groq Qwen-27B (cloud acceleration) → Cloudflare Llama-3 → Local Ollama (air-gapped sovereign) → Extractive RAG |
 | **Concordance Engine**| Statutory Hashmaps & Regex | Real-time bidirectional mapping (IPC ⇄ BNS, CrPC ⇄ BNSS, IEA ⇄ BSA) |
 | **Abstention Engine** | Calibrated Similarity Thresholds | Selective refusal on low-confidence/absent document contexts ($\tau = 0.40$) |
 | **Citation Verifier** | Cross-Encoder NLI | DeBERTa-v3 claim-to-chunk entailment verification |

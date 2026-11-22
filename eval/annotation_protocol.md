@@ -1,6 +1,6 @@
-# DocsAI — Gold Benchmark Annotation & Calibration Protocol
+# JanSetu AI — Gold Benchmark Annotation & Calibration Protocol
 
-This document establishes the empirical annotation protocol, annotator credentials, agreement metrics, and threshold calibration methodology for the DocsAI Sovereign Benchmark QA Suite (`eval/gold/sovereign_benchmark_qa.jsonl`).
+This document establishes the empirical annotation protocol, annotator credentials, agreement metrics, and threshold calibration methodology for the JanSetu AI Sovereign Benchmark QA Suite (`eval/gold/sovereign_benchmark_qa.jsonl`).
 
 ---
 

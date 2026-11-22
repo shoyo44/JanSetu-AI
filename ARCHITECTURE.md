@@ -25,7 +25,7 @@
 
 ## 1. High-Level Overview
 
-JanSetu AI is engineered with a **five-tier sovereign neuro-symbolic architecture**, separating citizen presentation, DevSecOps perimeter security, in-process hybrid knowledge storage, grounded reasoning with calibrated refusal, and dual-mode inference:
+JanSetu AI is engineered with a **five-tier architecture combining knowledge graph ontologies, vector search, Merkle provenance, and statutory rule engines**, separating citizen presentation, DevSecOps perimeter security, in-process hybrid knowledge storage, grounded reasoning with calibrated refusal, and dual-mode inference:
 
 ```mermaid
 flowchart TB
@@ -50,7 +50,7 @@ flowchart TB
         DB_History["🗄️ MongoDB Atlas / Local Resilient JSON Audit Store"]
     end
 
-    subgraph ReasoningEngine["🧠 4. Grounded Retrieval & Neuro-Symbolic Verification"]
+    subgraph ReasoningEngine["🧠 4. Grounded Retrieval & Statutory Rule Verification"]
         RAG_HyDE["💡 HyDE Query Expansion & Contextual Sub-Query Generator"]
         RAG_RRF["🔄 Reciprocal Rank Fusion (Dense Vector + Graph Traversal)"]
         RAG_Abstain["🚫 Calibrated Abstention Engine (Threshold τ = 0.40 Hallucination Gate)"]
@@ -444,13 +444,13 @@ GraphStore
 - **Hit condition:** Cosine similarity >= 0.95 between new query vector and stored vectors
 - **Invalidation:** Cleared automatically on any document upload/delete for the tenant
 
-### Sovereign Blockchain Provenance Ledger (MeitY NBF v2.1 Compliance — `core/sovereign_ledger.py`)
+### Cryptographic Merkle Provenance Ledger (SHA-256 Audit Log — `core/sovereign_ledger.py`)
 
-Adhering to the **National Blockchain Framework (NBF v2.1)** published by the Ministry of Electronics and Information Technology (MeitY), JanSetu AI implements an automated, cryptographic Merkle Directed Acyclic Graph (DAG) ledger for every ingested public document and citizen record:
+JanSetu AI implements an internal cryptographic SHA-256 Merkle Directed Acyclic Graph (DAG) provenance ledger and chained audit log for every ingested public document and citizen record (`core/sovereign_ledger.py`). *Notice:* This ledger is an internal SHA-256 provenance mechanism, **not an implementation of, or compliant with, MeitY's National Blockchain Framework (NBF)**. It detects accidental or partial chunk modifications; full tamper-evidence against external adversaries requires anchoring root hashes to an independent or permissioned ledger (future work: NBFLite).
 
 ```
 +-----------------------------------------------------------------------------------+
-|               MeitY National Blockchain Framework (NBF v2.1) Provenance Ledger    |
+|               Tamper-Evident SHA-256 Merkle Provenance Ledger                     |
 |                                                                                   |
 |  [Block 0: Genesis Block]  <-- HASH LINK <--  [Block 1: Doc A]  <-- HASH LINK ...  |
 |  hash: 0000000000...                          prev_hash: 0000...                  |
@@ -508,7 +508,7 @@ Adhering to the **National Blockchain Framework (NBF v2.1)** published by the Mi
 | `DELETE` | `/documents/{doc_id}` | Delete a specific document |
 | `POST` | `/documents/{doc_id}/supersede` | Mark document superseded by new version |
 | `GET` | `/documents/{doc_id}/redflags` | Retrieve red-flag scan report |
-| `GET` | `/ledger/records` | Retrieve all MeitY NBF blockchain provenance ledger records |
+| `GET` | `/ledger/records` | Retrieve all Merkle provenance ledger records |
 | `GET` | `/ledger/verify/{doc_id}` | Perform cryptographic Merkle DAG recalculation and tamper verification |
 | `POST` | `/history/message` | Save a chat message to MongoDB |
 | `GET` | `/history` | Retrieve chat history for tenant+vertical |
@@ -613,7 +613,7 @@ Applied at the API boundary, stream ingress, and output generators before and af
    -> Anti-Forgery Gate: detects and refuses instructions to forge Aadhaar, PAN, fake voter IDs, fake caste certificates, or falsify land deeds
                |
                v
- [Layer 4: Automated Statutory PII Redaction (DPDP Act 2023 & Aadhaar Act 2016 §29)]
+ [Layer 4: Automated PII Masking (Aadhaar-like & PAN regex normalizers)]
    -> Aadhaar Masking: \b\d{4}\s\d{4}\s(\d{4})\b -> "XXXX-XXXX-\1"
    -> PAN Masking: \b[A-Z]{5}(\d{4})[A-Z]\b -> "XXXXX\1X"
    -> Phone Number Redaction: (\+91[\-\s]?)?[6-9]\d{9} -> "+91-XXXXX-XXXXX"
@@ -691,7 +691,7 @@ Users can rate any response thumbs up/down via the Chat UI:
 |   +-------------------------------------+   +-------------------------------------+   |
 |   |  docsai_frontend (Port 3000)        |   |  docsai_backend (Port 8000)         |   |
 |   |  - React 18 + Vite SPA              |   |  - FastAPI Async Uvicorn Core       |   |
-|   |  - Nginx hardened web server        |<->|  - MeitY NBF Merkle Ledger Engine   |   |
+|   |  - Nginx hardened web server        |<->|  - SHA-256 Merkle Ledger Engine     |   |
 |   |  - Vault, Chat, KG, Concordance     |   |  - In-process NetworkX + FAISS      |   |
 |   +-------------------------------------+   +------------------+------------------+   |
 |                                                                |                      |

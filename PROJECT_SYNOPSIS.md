@@ -10,7 +10,7 @@
 
 ---
 
-🌐 **Live Prototype Deployment:** [docs-ai-ashen.vercel.app](https://docs-ai-ashen.vercel.app) *(Hosted on Vercel; source repository: [github.com/shoyo44/JanSetu-AI](https://github.com/shoyo44/JanSetu-AI))*  
+🌐 **Live Cloud Demo (AWS EC2, us-east-1):** [http://ec2-98-93-55-8.compute-1.amazonaws.com:3000](http://ec2-98-93-55-8.compute-1.amazonaws.com:3000) *(Secondary Web Mirror: [docs-ai-ashen.vercel.app](https://docs-ai-ashen.vercel.app); repository: [github.com/shoyo44/JanSetu-AI](https://github.com/shoyo44/JanSetu-AI))*  
 📁 **Repository:** [github.com/shoyo44/JanSetu-AI](https://github.com/shoyo44/JanSetu-AI)  
 
 ---
@@ -49,7 +49,7 @@ JanSetu AI (जनसेतु) is a sovereign AI document intelligence and know
 
 The platform addresses pressing, real-world problems faced by everyday citizens across India: resolving cyber fraud through Golden Hour reporting (Helpline 1930) and Zero-FIR registration under **BNSS §173 / BNS §318(4)** (general cheating applied to cyber fraud, read with IT Act §66D); interpreting **Model Tenancy Act** 2-month residential security deposit ceilings (Section 11) and statutory 24-hr advance inspection notice rules; guiding senior citizens on revoking conditional property gift deeds under **Section 23 of the MWPSC Act, 2007** (with judicial caveats under *Sudesh Chhikara (2022)*); and verifying vernacular land sale deeds (*கிரையப் பத்திரம்*) through automated bilingual extraction of Survey Numbers (`புல எண்`), four boundaries (`நான்கு எல்லைகள்`), and Nil-Encumbrance status (`வில்லங்கச் சான்றிதழ்`).
 
-JanSetu AI combines **Hybrid Reciprocal Rank Fusion (RRF)**, an **in-process NetworkX graph database**, a **768-dimensional FAISS vector index**, a **MeitY National Blockchain Framework (NBF v2.1) Cryptographic Merkle Provenance Ledger**, a **5-tier multimodal OCR cascade**, a **tri-code criminal law concordance engine (IPC ⇄ BNS, CrPC ⇄ BNSS, IEA ⇄ BSA)**, **5-Layer Sovereign Government Guardrails (Aadhaar Act §29 & DPDP Act 2023 PII Masking)**, and a **Calibrated Abstention Engine ($\tau = 0.40$)** that safely refuses unanswerable queries rather than generating unsupported assertions. Every factual claim is independently verified through **DeBERTa-v3 NLI Citation Entailment**. Evaluated on an automated live test harness and deployed on AWS EC2 (`http://ec2-98-93-55-8.compute-1.amazonaws.com:3000`), JanSetu AI achieves a **100.0% software integration test pass rate (16/16 PASS)**, 111/120 (**92.5%** [95% CI: 86.4%, 96.0%]) context recall@5, and 28/30 (**93.3%** [95% CI: 78.7%, 98.2%]) calibrated refusal accuracy, with full on-premise air-gapped data residency supporting compliance with Section 16 of India's *Digital Personal Data Protection Act (DPDPA), 2023*.
+JanSetu AI combines **Hybrid Reciprocal Rank Fusion (RRF)**, an **in-process NetworkX graph database**, a **768-dimensional FAISS vector index**, a **Tamper-Evident SHA-256 Merkle Provenance Ledger**, a **5-tier multimodal OCR cascade**, a **tri-code criminal law concordance engine (IPC ⇄ BNS, CrPC ⇄ BNSS, IEA ⇄ BSA)**, **5-Layer Sovereign Government Guardrails (PII Masking & Safety Shield)**, and a **Calibrated Abstention Engine ($\tau = 0.40$)** that safely refuses unanswerable queries rather than generating unsupported assertions. Every factual claim is independently verified through **DeBERTa-v3 NLI Citation Entailment**. Evaluated on an automated live test harness and deployed on AWS EC2 (`http://ec2-98-93-55-8.compute-1.amazonaws.com:3000`), JanSetu AI achieves a **100.0% software integration test pass rate (16/16 PASS)**, 111/120 (**92.5%** [95% CI: 86.4%, 96.0%]) context recall@5, and 28/30 (**93.3%** [95% CI: 78.7%, 98.2%]) calibrated refusal accuracy, with full on-premise air-gapped data residency supporting compliance with Section 16 of India's *Digital Personal Data Protection Act (DPDPA), 2023*.
 
 ---
 
@@ -111,7 +111,7 @@ Chunks are embedded into a **768-dimensional normalized continuous space** (`nom
 4. **Calibrated Abstention:** Evaluates candidate similarity against empirical threshold ($\tau = 0.40$), returning a structured refusal explanation when evidence is insufficient.
 5. **NLI Citation Entailment:** Cross-encoder scores claim entailment against source chunks, assigning verification badges to grounded assertions.
 
-### 7.5 MeitY National Blockchain Framework (NBF v2.1) Provenance Ledger
+### 7.5 Tamper-Evident SHA-256 Merkle Provenance Ledger
 - Generates a cryptographic SHA-256 Merkle DAG tree for every ingested document chunk.
 - Calculates an immutable 256-bit Merkle Root anchored to an audit ledger with genesis block sequencing.
 - Exposes on-demand mathematical verification (`/api/v1/ledger/verify/{doc_id}`): recalculating the Merkle tree from current chunks instantly flags `TAMPERING_DETECTED` if any chunk has been altered, or confirms `TAMPER_EVIDENT_VERIFIED`.
@@ -125,7 +125,7 @@ Chunks are embedded into a **768-dimensional normalized continuous space** (`nom
 | **Frontend SPA** | React 18, Vite, Responsive Glassmorphism UI, Lucide Icons, ForceGraph2D, Web Speech API (Client-assisted) |
 | **Authentication** | Firebase Web SDK (Google OAuth) + Local DevUser session |
 | **API Gateway** | FastAPI, Uvicorn, Python 3.11+, Pydantic V2 |
-| **Blockchain Provenance** | MeitY National Blockchain Framework (NBF v2.1) SHA-256 Merkle DAG Ledger |
+| **Document Provenance** | Tamper-Evident SHA-256 Merkle DAG Ledger (`core/sovereign_ledger.py`; not MeitY NBF) |
 | **Sovereign Guardrails** | 5-Layer Shield (Aadhaar Act 2016 §29, DPDP Act 2023 PII Masking, Anti-Forgery Gates) |
 | **LLM & Inference Tier** | Groq LPU (`qwen/qwen3.8-27b`, `openai/gpt-oss-120b`), Cloudflare Workers AI, Sovereign Ollama (`qwen2.5:7b`), Extractive RAG fallback |
 | **Hybrid Database** | NetworkX (in-process topology) + FAISS (768-dim cosine normalized vector index) |

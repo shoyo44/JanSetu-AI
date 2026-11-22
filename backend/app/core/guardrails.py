@@ -1,6 +1,7 @@
 """
 Sovereign Guardrails — Public Governance & Legal AI Safety Shield.
-Complies with MeitY AI Safety Directives, UIDAI Aadhaar Regulations, and Digital Personal Data Protection (DPDP) Act 2023.
+Heuristic security filter and regex normalizer designed for citizen privacy and system integrity.
+Note: Regex masking is an engineering safeguard, not a statutory certification of legal compliance.
 """
 from __future__ import annotations
 
@@ -58,11 +59,11 @@ _PAN_REGEX = re.compile(r"\b([A-Z]{5})(\d{4})([A-Z]{1})\b")
 
 def mask_pii(text: str) -> str:
     """
-    Mask raw citizen PII in compliance with Section 29 of the Aadhaar Act
-    and India's DPDP Act 2023.
+    Mask raw citizen PII patterns (Aadhaar-like 12-digit numbers and PAN format strings)
+    to support privacy workflows.
     Transforms:
-      Aadhaar: '2345 6789 0123' -> 'XXXX-XXXX-0123'
-      PAN:     'ABCDE1234F'     -> 'XXXXX1234F'
+      Aadhaar-like: '2345 6789 0123' -> 'XXXX-XXXX-0123'
+      PAN format:   'ABCDE1234F'     -> 'XXXXX1234F'
     """
     if not text:
         return ""
