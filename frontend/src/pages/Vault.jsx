@@ -217,7 +217,13 @@ const Vault = () => {
       const res = await fetch(`${apiBase}/benchmarks/load?benchmark_id=${benchmarkId}&tenant_id=${tenantId}`, {
         method: 'POST'
       });
-      const data = await res.json();
+      let data = {};
+      try {
+        data = await res.json();
+      } catch (jsonErr) {
+        const textErr = await res.text().catch(() => '');
+        throw new Error(textErr || `Server returned HTTP ${res.status}`);
+      }
       if (!res.ok) {
         throw new Error(data.detail || "Failed to load benchmark.");
       }
