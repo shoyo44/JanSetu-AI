@@ -7,6 +7,7 @@ This document establishes the verified, definitive technical and factual paramet
 ## 1. Identity & Application Scope
 - **Project Name:** JanSetu AI (जनसेतु) — Sovereign Multi-Vertical Agentic Knowledge Graph & RAG Platform for Public Governance and Citizen Welfare
 - **Author / Applicant:** Dhanush S
+- **Faculty Guide / Supervisor:** [Faculty Guide Name & Designation, Department of Computer Science & Engineering, KARE] (To match Institutional Endorsement Letter)
 - **Target Fellowship:** IndiaAI Fellowship 2026–27 (Undergraduate track)
 - **Primary Domain:** Governance
 - **Cross-Cutting Domain:** Law & Justice

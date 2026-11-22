@@ -90,7 +90,7 @@ flowchart TB
     end
 
     subgraph Compute["⚙️ Layer 5: Multi-Tier Sovereign LLM / LPU Compute Engine"]
-        LLM_Groq["⚡ Cloud LPU Tier: Groq (Qwen 27B / GPT-OSS 120B — Cloud Acceleration)"]
+        LLM_Groq["⚡ Cloud LPU Tier: Groq (Qwen 32B / GPT-OSS 120B — Cloud Acceleration)"]
         LLM_Cloud["☁️ Secondary Cloud: Cloudflare Workers AI (Llama 3.1 8B / Nomic-Embed)"]
         LLM_Edge["🔒 Sovereign Air-Gapped Mode: Ollama Daemon (Qwen2.5 7B Local Execution)"]
         LLM_Extract["🛡️ Tier 3 Fallback: Sovereign Extractive RAG (Zero-API Verbatim Synthesis)"]
@@ -139,7 +139,7 @@ Prior systems address isolated parts of Indian legal informatics and welfare acc
 | **Empirical Abstention** | *Not stated* | *Not stated* | Yes | *Not stated* | *Not stated* | **Yes (Calibrated per-vertical τ = 0.40)** |
 | **Merkle Provenance Ledger** | *Not stated* | *Not stated* | *Not stated* | *Not stated* | *Not stated* | **Yes (SHA-256 Merkle Provenance Tree)** |
 | **Citizen PII Masking** | *Not stated* | *Not stated* | *Not stated* | *Not stated* | *Not stated* | **Yes (Aadhaar-like & PAN regex masking)** |
-| **Multi-Tier LPU/LLM Fallback**| Cloud only | Cloud only | Cloud only | Cloud only | Cloud only | **Yes (Groq Qwen-27B → Cloudflare → Local Ollama → Extractive RAG)** |
+| **Multi-Tier LPU/LLM Fallback**| Cloud only | Cloud only | Cloud only | Cloud only | Cloud only | **Yes (Groq qwen3-32b → Cloudflare → Local Ollama → Extractive RAG)** |
 | **On-Prem / Sovereign Profile**| *Not stated* | *Not stated* | *Not stated* | *Not stated* | *Not stated* | **Yes (Air-gapped data boundary via Ollama)** |
 | **Open Evaluation Corpus** | *Not stated* | *Not stated* | *Not stated* | Dataset released | No (Proprietary) | **Committed in repo ($N=150$ gold pairs)** |
 
@@ -254,8 +254,8 @@ Replaces heavy external database infrastructure (Neo4j, Milvus, Pinecone) with a
                                               │
                                               ▼
                                ┌─────────────────────────────┐
-                               │ Multi-Tier Sovereign LLMs   │
-                               │ • Groq LPU (Qwen 27B)       │
+                               │ Multi-Tier Inference LLMs   │
+                               │ • Groq LPU (Qwen 32B)       │
                                │ • Cloudflare Workers AI     │
                                │ • Local Ollama (DPDPA §16)  │
                                └─────────────────────────────┘
@@ -341,7 +341,7 @@ Copy-Item .env.example .env
 
 Key variables:
 ```env
-# Groq LPU Ultra-Low Latency Inference (Primary Sovereign Open Weights)
+# Groq LPU Ultra-Low Latency Inference (External Cloud Tier - Open Weights)
 GROQ_API_KEY=gsk_your_groq_api_key_here
 
 # Cloudflare Workers AI (Cloud Secondary Fallback)
@@ -447,7 +447,7 @@ bash ./scripts/run_trivy.sh
 
 | Component | Technology | Role & Purpose |
 |---|---|---|
-| **Frontend SPA** | React 18, Vite, Lucide Icons, ForceGraph2D | Glassmorphism UI, Jan Suvidha Card, IPC ⇄ BNS Modal, NBF Blockchain Modal, Graph Visualizer |
+| **Frontend SPA** | React 18, Vite, Lucide Icons, ForceGraph2D | Glassmorphism UI, Jan Suvidha Card, IPC ⇄ BNS Modal, Provenance Ledger Modal, Graph Visualizer |
 | **Merkle Provenance Ledger** | Python, SHA-256 Merkle DAG Tree | Internal cryptographic chunk-level auto-anchoring & local tamper detection (SHA-256 Merkle tree and chained audit log; local provenance ledger) |
 | **5-Layer Guardrails** | Regex, Token Normalizers, Heuristic NLP | Real-time PII anonymizer (Aadhaar-like & PAN format masking), anti-forgery filter, toxic prompt blocker |
 | **Voice Interface** | Browser Web Speech API | Client-assisted speech-to-text input (desktop convenience; local Whisper roadmap for air-gapped on-prem) |
@@ -455,7 +455,7 @@ bash ./scripts/run_trivy.sh
 | **Graph Store** | NetworkX (in-process) | Hierarchical document topology & entity linkage (up to 50k nodes; HNSW roadmap for 250k) |
 | **Vector Engine** | FAISS Flat Index (768-dim) | Inner-product cosine similarity semantic search |
 | **Embedding Router** | Nomic Atlas / Cloudflare / Local BGE | 768-dimensional normalized dense vectors with Indic script detection & 3-tier fallback |
-| **LLM Inference Tier** | Groq LPU / Cloudflare / Ollama | Multi-tier compute: Groq Qwen-27B (cloud acceleration) → Cloudflare Llama-3 → Local Ollama (air-gapped sovereign) → Extractive RAG |
+| **LLM Inference Tier** | Groq LPU / Cloudflare / Ollama | Multi-tier compute: Groq qwen3-32b (cloud acceleration) → Cloudflare Llama-3 → Local Ollama (air-gapped sovereign) → Extractive RAG |
 | **Concordance Engine**| Statutory Hashmaps & Regex | Real-time bidirectional mapping (IPC ⇄ BNS, CrPC ⇄ BNSS, IEA ⇄ BSA) |
 | **Abstention Engine** | Calibrated Similarity Thresholds | Selective refusal on low-confidence/absent document contexts ($\tau = 0.40$) |
 | **Citation Verifier** | Cross-Encoder NLI | DeBERTa-v3 claim-to-chunk entailment verification |

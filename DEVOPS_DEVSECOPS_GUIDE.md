@@ -1,12 +1,12 @@
-# DocsAI DevOps & DevSecOps Architecture & Deployment Guide
+# JanSetu AI DevOps & DevSecOps Architecture & Deployment Guide
 
-This document specifies the operational, deployment, and security hardening procedures for the **DocsAI Enterprise RAG Knowledge Graph Platform**.
+This document specifies the operational, deployment, and security hardening procedures for the **JanSetu AI Sovereign Knowledge Graph Platform**.
 
 ---
 
 ## 1. System & Security Architecture
 
-DocsAI supports two primary operational topologies:
+JanSetu AI supports two primary operational topologies:
 
 ```mermaid
 flowchart TD
@@ -19,7 +19,7 @@ flowchart TD
     end
 
     subgraph Application Tier
-        API["FastAPI Backend Engine (Port 8000)\n(Non-root user: docqa 10001)\n• 5-Layer Sovereign Guardrails (Aadhaar/PAN Masking)\n• MeitY NBF Merkle Provenance Ledger\n• Magic Byte Validation\n• Calibrated Abstention Engine\n• Citation Entailment Verification"]
+        API["FastAPI Backend Engine (Port 8000)\n(Non-root user: docqa 10001)\n• 5-Layer Sovereign Guardrails (Aadhaar/PAN Masking)\n• Merkle Provenance Ledger (SHA-256 Hash Tree)\n• Magic Byte Validation\n• Calibrated Abstention Engine\n• Citation Entailment Verification"]
     end
 
     subgraph Data & Storage Tier
@@ -35,7 +35,7 @@ flowchart TD
     end
 
     subgraph AI Compute Tier
-        Groq["Groq LPU Sovereign Open Weights\n(Qwen 27B / GPT-OSS 120B)"]
+        Groq["Groq LPU External Cloud Tier\n(Qwen 32B / GPT-OSS 120B)"]
         Cloudflare["Cloudflare Workers AI\n(Cloud Fallback Mode)"]
         Ollama["Local Ollama Daemon\n(On-Prem / Air-Gapped Mode)"]
     end

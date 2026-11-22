@@ -2,6 +2,7 @@
 
 **Project Title:** JanSetu AI: Sovereign Agentic Knowledge Graph & RAG Platform for Public Governance & Citizen Welfare  
 **Applicant Name:** Dhanush S  
+**Faculty Guide / Supervisor:** [Faculty Guide Name & Designation, Department of Computer Science and Engineering, KARE] *(Ensure exact match with Institutional Endorsement Letter)*  
 **Institution:** Department of Computer Science and Engineering, Kalasalingam Academy of Research and Education (Deemed University), Tamil Nadu, India  
 **Primary Domain (Portal Choice):** Governance *(Cross-cutting with Law and Justice)*  
 **Repository:** [github.com/shoyo44/JanSetu-AI](https://github.com/shoyo44/JanSetu-AI)  

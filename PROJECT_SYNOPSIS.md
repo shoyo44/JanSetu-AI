@@ -35,10 +35,11 @@ Artificial Intelligence · Natural Language Processing · Information Retrieval 
 
 | Field | Details |
 |---|---|
-| **Author / Applicant** | Dhanush S |
+| **Author / Applicant** | Dhanush S (B.Tech Final Year, Dept. of CSE) |
+| **Faculty Guide / Supervisor** | [Faculty Guide Name & Designation, Dept. of Computer Science & Engineering, KARE] *(Matches Institutional Endorsement Letter)* |
 | **Institution** | Kalasalingam Academy of Research and Education (Deemed University) |
 | **Department** | Computer Science and Engineering |
-| **Target Fellowship** | IndiaAI Mission Fellowship (Priority Domains: Governance + Law & Justice) |
+| **Target Fellowship** | IndiaAI Fellowship 2026–27 (Undergraduate track; Priority Domains: Governance + Law & Justice) |
 | **Tech Stack** | Python · FastAPI · React 18 · NetworkX · FAISS · Cloudflare Workers AI · Sovereign Ollama |
 
 ---

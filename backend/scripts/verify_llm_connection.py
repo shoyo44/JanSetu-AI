@@ -43,8 +43,8 @@ async def test_groq():
             print(f"📋 [GROQ] Account has access to {len(available_models)} models:")
             print("   " + ", ".join(available_models[:8]))
 
-            # 2. Test chat completion models (qwen/qwen3.8-27b, openai/gpt-oss-120b)
-            chat_candidates = ["qwen/qwen3.8-27b", "openai/gpt-oss-120b", "openai/gpt-oss-safeguard-20b"]
+            # 2. Test chat completion models (qwen/qwen3-32b, openai/gpt-oss-120b)
+            chat_candidates = ["qwen/qwen3-32b", "openai/gpt-oss-120b", "openai/gpt-oss-safeguard-20b"]
             chosen_model = None
             for candidate in chat_candidates:
                 if candidate in available_models:

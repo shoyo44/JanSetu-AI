@@ -1,6 +1,6 @@
-# DocsAI — Quantitative Evaluation Results & Benchmark Protocol
+# JanSetu AI — Quantitative Evaluation Results & Benchmark Protocol
 
-This document establishes the verified experimental methodology, dataset specifications, baselines, and exact quantitative evaluation metrics for DocsAI across its 3 primary sovereign verticals: **Public Governance**, **Court Judgments (India)**, and **Statutory Law & Concordance**.
+This document establishes the verified experimental methodology, dataset specifications, baselines, and exact quantitative evaluation metrics for JanSetu AI across its 3 primary sovereign verticals: **Public Governance**, **Court Judgments (India)**, and **Statutory Law & Concordance**.
 
 ---
 
@@ -38,7 +38,7 @@ This document establishes the verified experimental methodology, dataset specifi
 
 All proportions report exact counts $k/N$ and 95% Wilson score confidence intervals. Entailment scores report bootstrap mean $\pm$ standard error.
 
-| Evaluation Metric | Naive RAG Baseline | Advanced GraphRAG | DocsAI Grounded (Cloud Mode) | DocsAI Sovereign (On-Premise) | Metric Context & Protocol |
+| Evaluation Metric | Naive RAG Baseline | Advanced GraphRAG | JanSetu AI Grounded (Cloud Mode)* | JanSetu AI Sovereign (On-Premise) | Metric Context & Protocol |
 |---|---|---|---|---|---|
 | **Top-5 Context Recall** | 85/120 (**70.8%**)<br>[62.2%, 78.2%] | 102/120 (**85.0%**)<br>[77.5%, 90.3%] | 111/120 (**92.5%**)<br>[86.4%, 96.0%] | 106/120 (**88.3%**)<br>[81.4%, 92.9%] | Ground-truth statutory clause or welfare criterion present in top-5 candidate chunks ($N = 120$). |
 | **Calibrated Refusal Accuracy** | 12/30 (**40.0%**)<br>[24.6%, 57.7%] | 19/30 (**63.3%**)<br>[45.5%, 78.1%] | 28/30 (**93.3%**)<br>[78.7%, 98.2%] | 27/30 (**90.0%**)<br>[74.4%, 96.5%] | Correctly triggers refusal on $N = 30$ held-out unanswerable queries ($\tau = 0.40$ cloud, $\tau = 0.38$ on-prem). |
@@ -47,6 +47,8 @@ All proportions report exact counts $k/N$ and 95% Wilson score confidence interv
 | **Single-Pass Vector Search (p95)**| 450 ms | 720 ms | **680 ms** | **740 ms** | FAISS Flat inner-product search over 768-dim continuous space. |
 | **Hybrid + HyDE Latency (p95)** | N/A | 1,850 ms | **1,620 ms** | **2,100 ms** | HyDE generation + Vector + NetworkX graph traversal with RRF. |
 | **End-to-End Latency (p95)** | 850 ms | 1,750 ms | **2,150 ms** | **2,850 ms** | Complete pipeline: Retrieval + Cross-Encoder + NLI verification + LLM generation. |
+
+*\*Note: Cloud-mode benchmark figures were measured with Cloudflare Workers AI (`@cf/meta/llama-3-8b-instruct`); the Groq LPU tier was not evaluated in this quantitative benchmark table.*
 
 ### Baseline Implementation Specifications:
 1. **Naive RAG Baseline:** Fixed 500-token chunking (50 overlap), single FAISS flat cosine search, top-5 chunks concatenated directly into LLM prompt without HyDE, graph traversal, reranking, or calibrated abstention threshold.

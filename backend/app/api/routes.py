@@ -928,7 +928,7 @@ def get_document_chunks(
     return {"chunks": store.get_document_chunks(doc_id, tenant_id)}
 
 
-# ─── Sovereign Blockchain Ledger Endpoints (MeitY NBF v2.1) ───────────────────
+# ─── Sovereign Merkle Provenance Ledger Endpoints ───────────────────────────────
 
 @router.get("/ledger/verify/{doc_id}")
 def verify_document_ledger(
@@ -939,7 +939,7 @@ def verify_document_ledger(
 ):
     """
     Verify document cryptographic provenance and tamper-evident status
-    against the Sovereign Blockchain Ledger (MeitY NBF v2.1).
+    against the Sovereign Merkle Provenance Ledger (SHA-256 Hash Tree).
     """
     from app.core.sovereign_ledger import SovereignLedger
     ledger = getattr(request.app.state, "sovereign_ledger", None) or SovereignLedger()
@@ -955,11 +955,11 @@ def get_ledger_blocks(
     limit: int = 25,
     request: Request = None,
 ):
-    """List recent immutable blocks anchored to the National Blockchain Framework ledger."""
+    """List recent immutable blocks anchored to the internal cryptographic Merkle provenance ledger."""
     from app.core.sovereign_ledger import SovereignLedger
     ledger = getattr(request.app.state, "sovereign_ledger", None) or SovereignLedger()
     blocks = ledger.list_blocks(tenant_id=tenant_id, limit=limit)
-    return {"blocks": blocks, "total_blocks": len(blocks), "standard": "National Blockchain Framework (NBF) v2.1"}
+    return {"blocks": blocks, "total_blocks": len(blocks), "standard": "Cryptographic Merkle Provenance Ledger (SHA-256 Chained Hash Tree)"}
 
 
 # ─── Chat History Store Endpoints ───────────────────────────────────────────

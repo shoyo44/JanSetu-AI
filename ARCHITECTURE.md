@@ -710,7 +710,7 @@ Users can rate any response thumbs up/down via the Chat UI:
                        v                                   v
         +-----------------------------+     +-----------------------------+
         | External Compute Cloud      |     | Sovereign Air-Gapped Mode   |
-        | • Groq LPU (Qwen 27B /      |     | • Ollama Daemon (:11434)    |
+        | • Groq LPU (Qwen 32B /      |     | • Ollama Daemon (:11434)    |
         |   GPT-OSS 120B)             |     |   (qwen2.5:7b, nomic-embed) |
         | • Cloudflare Workers AI     |     | • Zero-API Extractive RAG   |
         |   (Llama 3.1 8B, BGE)       |     | • DPDPA 2023 §16 Compliant  |
@@ -763,7 +763,7 @@ services:
 
 | Variable | Description |
 |---|---|
-| `GROQ_API_KEY` | Groq LPU API key for ultra-low-latency sovereign Qwen-27B inference |
+| `GROQ_API_KEY` | Groq LPU API key for ultra-low-latency external cloud Qwen-32B inference |
 | `CF_ACCOUNT_ID` | Cloudflare Workers AI account ID |
 | `CF_API_TOKEN` | Cloudflare API bearer token |
 | `USE_OLLAMA` | Toggle local sovereign air-gapped mode (`true` / `false`) |

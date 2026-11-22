@@ -85,7 +85,7 @@ const Vault = () => {
   const [loadingBenchmark, setLoadingBenchmark] = useState(null);
   const [viewerSearch, setViewerSearch] = useState('');
 
-  // ── Sovereign Blockchain Ledger State (MeitY NBF v2.1) ────────────────────
+  // ── Sovereign Merkle Provenance Ledger State ────────────────────
   const [selectedLedgerDoc, setSelectedLedgerDoc] = useState(null);
   const [ledgerProof, setLedgerProof] = useState(null);
   const [loadingLedger, setLoadingLedger] = useState(false);
@@ -901,12 +901,12 @@ const Vault = () => {
 
                       <button 
                         className="action-icon-btn hover-lift" 
-                        title="Verify Sovereign Blockchain Provenance (MeitY NBF v2.1)"
+                        title="Verify Cryptographic Merkle Provenance"
                         onClick={() => openLedgerModal(doc)}
                         style={{ padding: '6px 8px', borderRadius: '6px', border: '1px solid rgba(16, 185, 129, 0.35)', background: 'rgba(16, 185, 129, 0.1)', color: '#10b981', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.75rem', fontWeight: 600 }}
                       >
                         <Link2 size={14} />
-                        <span>Blockchain</span>
+                        <span>Provenance</span>
                       </button>
 
                       {['law', 'judgment'].includes(doc.vertical) && (
@@ -1216,7 +1216,7 @@ const Vault = () => {
         </div>
       )}
 
-      {/* ── Phase 4: Sovereign Blockchain Ledger (MeitY NBF v2.1) Provenance Modal ── */}
+      {/* ── Phase 4: Sovereign Merkle Provenance Ledger Modal ── */}
       {selectedLedgerDoc && (
         <div className="modal-backdrop" style={{
           position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
@@ -1244,10 +1244,10 @@ const Vault = () => {
                 </div>
                 <div>
                   <h3 style={{ margin: 0, fontSize: '1.05rem', fontWeight: 700, color: '#f8fafc', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    Sovereign Blockchain Provenance Certificate
+                    Cryptographic Merkle Provenance Certificate
                   </h3>
                   <span style={{ fontSize: '0.72rem', color: '#10b981', fontWeight: 600, letterSpacing: '0.5px' }}>
-                    MEITY NATIONAL BLOCKCHAIN FRAMEWORK (NBF) v2.1
+                    CRYPTOGRAPHIC MERKLE TREE &amp; CHAINED AUDIT LOG
                   </span>
                 </div>
               </div>
@@ -1264,7 +1264,7 @@ const Vault = () => {
               {loadingLedger ? (
                 <div style={{ padding: '40px 0', textAlign: 'center', color: 'var(--text-secondary)' }}>
                   <Loader className="spin" size={32} style={{ margin: '0 auto 12px', color: '#10b981' }} />
-                  <p>Verifying cryptographic Merkle DAG proof against NBF Node...</p>
+                  <p>Verifying cryptographic Merkle DAG proof against anchored root...</p>
                 </div>
               ) : ledgerProof ? (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -1301,16 +1301,16 @@ const Vault = () => {
                       <strong style={{ color: 'var(--text-primary)', wordBreak: 'break-all' }}>{ledgerProof.doc_name || selectedLedgerDoc.name}</strong>
                     </div>
                     <div>
-                      <span style={{ color: 'var(--text-tertiary)', fontSize: '0.72rem', display: 'block' }}>BLOCKCHAIN BLOCK HEIGHT</span>
+                      <span style={{ color: 'var(--text-tertiary)', fontSize: '0.72rem', display: 'block' }}>LEDGER BLOCK HEIGHT</span>
                       <strong style={{ color: '#10b981', fontSize: '0.95rem' }}>Block #{ledgerProof.block_height ?? 1}</strong>
                     </div>
                     <div>
                       <span style={{ color: 'var(--text-tertiary)', fontSize: '0.72rem', display: 'block' }}>CONSENSUS PROTOCOL</span>
-                      <strong style={{ color: 'var(--text-primary)' }}>{ledgerProof.consensus || 'Proof-of-Authority (PoA)'}</strong>
+                      <strong style={{ color: 'var(--text-primary)' }}>{ledgerProof.consensus || 'Chained Merkle Tree (Local Audit Store)'}</strong>
                     </div>
                     <div>
-                      <span style={{ color: 'var(--text-tertiary)', fontSize: '0.72rem', display: 'block' }}>AUTHORITY SIGNER</span>
-                      <strong style={{ color: 'var(--text-primary)' }}>{ledgerProof.authority || 'NIC-MeitY-National-Blockchain-Node-01'}</strong>
+                      <span style={{ color: 'var(--text-tertiary)', fontSize: '0.72rem', display: 'block' }}>AUDIT NODE SIGNER</span>
+                      <strong style={{ color: 'var(--text-primary)' }}>{ledgerProof.authority || 'JanSetu-Local-Audit-Node-01'}</strong>
                     </div>
                     <div style={{ gridColumn: 'span 2' }}>
                       <span style={{ color: 'var(--text-tertiary)', fontSize: '0.72rem', display: 'block' }}>MERKLE ROOT HASH</span>
@@ -1327,11 +1327,11 @@ const Vault = () => {
                   </div>
 
                   <div style={{ fontSize: '0.72rem', color: 'var(--text-tertiary)', textAlign: 'center', lineHeight: 1.4 }}>
-                    🛡️ Verified under Ministry of Electronics and Information Technology (MeitY) Sovereign Distributed Ledger Guidelines.
+                    🛡️ Tamper-evident Merkle provenance ledger (SHA-256 hash tree and chained audit log). Not an implementation of, or compliant with, MeitY's National Blockchain Framework.
                   </div>
                 </div>
               ) : (
-                <p style={{ textAlign: 'center', color: 'var(--text-secondary)' }}>Failed to load blockchain proof.</p>
+                <p style={{ textAlign: 'center', color: 'var(--text-secondary)' }}>Failed to load provenance proof.</p>
               )}
             </div>
           </div>
