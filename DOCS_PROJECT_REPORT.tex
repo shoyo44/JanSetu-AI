@@ -34,20 +34,15 @@
 \usepackage{float}
 \usepackage{tocloft}
 
-% Hyperref setup (Clean monochromatic)
-\usepackage[hidelinks, pdfstartview=FitH]{hyperref}
-
-% TikZ Libraries
-\usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, backgrounds, calc}
-
-% Standard 1.2 Line Spacing
-\setstretch{1.2}
-
 % Monochromatic Colors
 \definecolor{monoblack}{RGB}{0, 0, 0}
 \definecolor{monodarkgray}{RGB}{70, 70, 70}
 \definecolor{monolightgray}{RGB}{245, 245, 245}
 \definecolor{monoborder}{RGB}{180, 180, 180}
+\definecolor{linkblue}{RGB}{29, 78, 216}
+
+% Hyperref setup (Clean professional typography with clickable blue hyperlinks)
+\usepackage[colorlinks=true, linkcolor=monoblack, urlcolor=linkblue, citecolor=monoblack, pdfstartview=FitH]{hyperref}
 
 % ==============================================================================
 % HEADER & FOOTER CONFIGURATION
@@ -169,6 +164,13 @@
         \end{flushright}
     \end{minipage}
     
+    \vspace{0.7cm}
+    \begin{tcolorbox}[colback=monolightgray,colframe=monoblack,arc=1mm,boxrule=0.8pt,center,width=0.98\textwidth]
+        \centering \small
+        \textbf{Live Cloud Prototype (AWS EC2):} \href{http://ec2-98-93-55-8.compute-1.amazonaws.com:3000}{\textbf{\color{linkblue}http://ec2-98-93-55-8.compute-1.amazonaws.com:3000}} \\[0.12cm]
+        \textbf{Interactive Swagger API:} \href{http://98.93.55.8:8000/docs}{\textbf{\color{linkblue}http://98.93.55.8:8000/docs}} $\;\vert\;$ \textbf{Repository:} \href{https://github.com/shoyo44/JanSetu-AI}{\textbf{\color{linkblue}https://github.com/shoyo44/JanSetu-AI}}
+    \end{tcolorbox}
+    
     \vfill
     
     \begin{center}
@@ -246,6 +248,17 @@
 Modern organizations produce and store vast collections of unstructured and semi-structured documents, including contracts, policy handbooks, scientific publications, regulatory standards, and financial prospectuses. Extracting actionable insights and obtaining precise, factual answers from these repositories requires systems that understand not only plain text semantics, but also structural hierarchy, cross-document entity connections, and domain-specific rules.
 
 Large Language Models (LLMs) have demonstrated exceptional natural language reasoning abilities. However, when deployed in public sector and administrative environments, off-the-shelf LLMs suffer from knowledge cutoffs, domain hallucinations, and an inability to access authoritative government records. Retrieval-Augmented Generation (RAG) bridges this gap by retrieving relevant document chunks from an external index and conditioning the LLM's prompt on the retrieved context.
+
+\begin{infobox}{Live Cloud Deployment \& Interactive Demonstration}
+JanSetu AI is actively deployed and operational on AWS EC2 as a multi-container sovereign service. Reviewers and evaluation committees can interact directly with the live system:
+\begin{itemize}[leftmargin=*,itemsep=2pt,topsep=2pt]
+    \item \textbf{Live Web Application:} \href{http://ec2-98-93-55-8.compute-1.amazonaws.com:3000}{\textbf{\color{linkblue}http://ec2-98-93-55-8.compute-1.amazonaws.com:3000}} \textit{(Click to open live app)}
+    \item \textbf{Interactive Swagger API Documentation:} \href{http://98.93.55.8:8000/docs}{\textbf{\color{linkblue}http://98.93.55.8:8000/docs}}
+    \item \textbf{Real-Time Telemetry Dashboard (Grafana):} \href{http://98.93.55.8:3001}{\textbf{\color{linkblue}http://98.93.55.8:3001}} \textit{(Credentials: \texttt{admin} / \texttt{admin})}
+    \item \textbf{Open-Source Code Repository:} \href{https://github.com/shoyo44/JanSetu-AI}{\textbf{\color{linkblue}https://github.com/shoyo44/JanSetu-AI}}
+\end{itemize}
+\textit{Note: All URLs formatted in blue within this report are active hyperlinks. Clicking any link in the PDF will redirect directly to the corresponding live web service.}
+\end{infobox}
 
 \section{Problem Statement}
 Despite widespread adoption, first-generation RAG implementations suffer from five fundamental architectural limitations:
@@ -396,7 +409,7 @@ JanSetu AI is engineered as a modular, tiered platform separating client present
     node distance=0.9cm and 1.2cm,
     block/.style={rectangle, draw=monoblack, fill=monolightgray, rounded corners=1.5mm, text centered, minimum height=0.8cm, minimum width=3.2cm, font=\footnotesize\bfseries},
     layerbox/.style={draw=monoblack!80, dashed, inner sep=0.3cm, rounded corners=2mm, fill=white},
-    arrow/.style={-{Stealth[length=2.5mm]}, thick, color=monoblack}
+    arrow/.style={->, >=latex, thick, color=monoblack}
 ]
 
 % Nodes
@@ -463,7 +476,7 @@ Real-world public governance and legal documents range from clean digital gazett
     tier/.style={rectangle, draw=monoblack, fill=monolightgray, rounded corners=1.5mm, text centered, minimum height=0.75cm, minimum width=4.5cm, font=\footnotesize\bfseries},
     decision/.style={diamond, draw=monoblack, fill=white, aspect=2, text centered, inner sep=1pt, font=\scriptsize\bfseries},
     action/.style={rectangle, draw=monoblack, fill=white, rounded corners=1mm, text centered, minimum height=0.65cm, minimum width=3.0cm, font=\scriptsize},
-    arrow/.style={-{Stealth[length=2mm]}, thick, color=monoblack}
+    arrow/.style={->, >=latex, thick, color=monoblack}
 ]
 
 \node[tier] (t1) {Tier 1: Native Text Extraction (\texttt{pdfplumber} / \texttt{PyMuPDF})};
@@ -558,7 +571,7 @@ For analytical queries spanning multiple documents or comparative requirements (
 \begin{tikzpicture}[
     node distance=0.8cm,
     stepbox/.style={rectangle, draw=monoblack, fill=white, rounded corners=1.5mm, text centered, minimum height=0.75cm, minimum width=4.0cm, font=\footnotesize\bfseries},
-    arrow/.style={-{Stealth[length=2.2mm]}, thick, color=monoblack}
+    arrow/.style={->, >=latex, thick, color=monoblack}
 ]
 
 \node[stepbox, fill=monolightgray] (query) {User Query Received};
@@ -786,6 +799,7 @@ Production deployments adhere to zero-trust security standards:
     \item \textbf{Multi-Stage Hardened Dockerfiles:} Backend container uses a multi-stage Python build running under an unprivileged user (\texttt{docqa:10001}), eliminating host compromise risks via container escapes.
     \item \textbf{Nginx Security Reverse Proxy:} Frontend container is proxied through an Nginx configuration with \texttt{Content-Security-Policy}, \texttt{X-Frame-Options: DENY}, and \texttt{X-Content-Type-Options: nosniff}.
     \item \textbf{Automated DevSecOps Pipeline:} A GitHub Actions workflow (\texttt{.github/workflows/ci.yml}) executes static analysis (Ruff), Python security scanning with \texttt{Bandit} (SAST), dependency auditing with \texttt{pip-audit} and \texttt{npm audit}, and container vulnerability scanning via \texttt{Trivy}.
+    \item \textbf{Live Cloud Orchestration (AWS EC2):} The complete multi-container stack is continuously deployed and operational at \href{http://ec2-98-93-55-8.compute-1.amazonaws.com:3000}{\textbf{\color{linkblue}http://ec2-98-93-55-8.compute-1.amazonaws.com:3000}}, providing instantaneous live testing for evaluation committees.
 \end{itemize}
 
 \newpage
