@@ -107,6 +107,8 @@ class CloudflareAI:
 
     # ── Fallback Helpers (Groq & Offline Extractive RAG) ──────────────────────
 
+    _groq_active_model: Optional[str] = None
+
     async def _try_groq_chat(
         self,
         system_prompt: str,
@@ -117,28 +119,39 @@ class CloudflareAI:
         groq_key = os.getenv("GROQ_API_KEY")
         if not groq_key:
             return None
-        try:
-            async with httpx.AsyncClient(timeout=30.0) as client:
-                r = await client.post(
-                    "https://api.groq.com/openai/v1/chat/completions",
-                    headers={"Authorization": f"Bearer {groq_key}", "Content-Type": "application/json"},
-                    json={
-                        "model": "llama-3.1-8b-instant",
-                        "messages": [
-                            {"role": "system", "content": system_prompt},
-                            {"role": "user",   "content": user_message}
-                        ],
-                        "max_tokens": max_tokens,
-                        "temperature": temperature,
-                    }
-                )
-                if r.status_code == 200:
-                    data = r.json()
-                    return data["choices"][0]["message"]["content"]
-                else:
-                    logger.warning("Groq API returned HTTP %d: %s", r.status_code, r.text[:250])
-        except Exception as e:
-            logger.warning("Groq API call failed: %s", e)
+
+        candidates = [self._groq_active_model] if self._groq_active_model else [
+            os.getenv("GROQ_MODEL"),
+            "qwen/qwen3.8-27b",
+            "openai/gpt-oss-120b",
+            "llama-3.1-8b-instant",
+        ]
+        candidates = [m for m in candidates if m]
+
+        for model in candidates:
+            try:
+                async with httpx.AsyncClient(timeout=30.0) as client:
+                    r = await client.post(
+                        "https://api.groq.com/openai/v1/chat/completions",
+                        headers={"Authorization": f"Bearer {groq_key}", "Content-Type": "application/json"},
+                        json={
+                            "model": model,
+                            "messages": [
+                                {"role": "system", "content": system_prompt},
+                                {"role": "user",   "content": user_message}
+                            ],
+                            "max_tokens": max_tokens,
+                            "temperature": temperature,
+                        }
+                    )
+                    if r.status_code == 200:
+                        self._groq_active_model = model
+                        data = r.json()
+                        return data["choices"][0]["message"]["content"]
+                    else:
+                        logger.warning("Groq model %s returned HTTP %d: %s", model, r.status_code, r.text[:120])
+            except Exception as e:
+                logger.warning("Groq model %s exception: %s", model, e)
         return None
 
     @staticmethod
@@ -236,6 +249,7 @@ class CloudflareAI:
         # 1. Try Groq streaming if key is set
         groq_key = os.getenv("GROQ_API_KEY")
         if groq_key:
+            groq_m = self._groq_active_model or os.getenv("GROQ_MODEL") or "qwen/qwen3.8-27b"
             try:
                 async with httpx.AsyncClient(timeout=30.0) as client:
                     async with client.stream(
@@ -243,7 +257,7 @@ class CloudflareAI:
                         "https://api.groq.com/openai/v1/chat/completions",
                         headers={"Authorization": f"Bearer {groq_key}", "Content-Type": "application/json"},
                         json={
-                            "model": "llama-3.1-8b-instant",
+                            "model": groq_m,
                             "messages": [
                                 {"role": "system", "content": system_prompt},
                                 {"role": "user",   "content": user_message}

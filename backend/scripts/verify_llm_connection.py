@@ -43,30 +43,28 @@ async def test_groq():
             print(f"📋 [GROQ] Account has access to {len(available_models)} models:")
             print("   " + ", ".join(available_models[:8]))
 
-            # 2. Pick the best model (prefer llama or first available)
+            # 2. Test chat completion models (qwen/qwen3.8-27b, openai/gpt-oss-120b)
+            chat_candidates = ["qwen/qwen3.8-27b", "openai/gpt-oss-120b", "openai/gpt-oss-safeguard-20b"]
             chosen_model = None
-            for candidate in available_models:
-                if "llama" in candidate.lower() and "guard" not in candidate.lower() and "whisper" not in candidate.lower():
-                    chosen_model = candidate
-                    break
-            if not chosen_model and available_models:
-                chosen_model = available_models[0]
-
-            print(f"🚀 [GROQ] Testing completion with model: '{chosen_model}'...")
-            resp = await client.post(
-                "https://api.groq.com/openai/v1/chat/completions",
-                headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
-                json={
-                    "model": chosen_model,
-                    "messages": [{"role": "user", "content": "Reply with 'GROQ_OK'"}],
-                    "max_tokens": 10
-                }
-            )
-            if resp.status_code == 200:
-                answer = resp.json()["choices"][0]["message"]["content"].strip()
-                print(f"✅ [GROQ] Connected successfully! Response: {answer}")
-                print(f"💡 [RECOMMENDATION] Set GROQ model to: '{chosen_model}'")
-                return True
+            for candidate in chat_candidates:
+                if candidate in available_models:
+                    print(f"🚀 [GROQ] Testing completion with model: '{candidate}'...")
+                    resp = await client.post(
+                        "https://api.groq.com/openai/v1/chat/completions",
+                        headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+                        json={
+                            "model": candidate,
+                            "messages": [{"role": "user", "content": "What is 2+2? Answer in one word."}],
+                            "max_tokens": 10
+                        }
+                    )
+                    if resp.status_code == 200:
+                        answer = resp.json()["choices"][0]["message"]["content"].strip()
+                        print(f"✅ [GROQ] Model '{candidate}' is WORKING! Response: {answer}")
+                        chosen_model = candidate
+                        break
+                    else:
+                        print(f"⚠️  [GROQ] Model '{candidate}' returned HTTP {resp.status_code}: {resp.text[:100]}")
             else:
                 print(f"❌ [GROQ] HTTP {resp.status_code}: {resp.text[:200]}")
                 return False
