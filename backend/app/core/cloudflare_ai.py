@@ -74,27 +74,34 @@ class CloudflareAI:
 
     async def embed_batch(self, texts: List[str]) -> List[List[float]]:
         """
-        Batch embed up to 100 texts per request.
-        Automatically splits larger lists into batches.
+        Batch embed up to 100 texts per request with automatic offline fallback.
         """
         if not texts:
             return []
 
+        from app.core.embedding_router import MultilingualRouter
+
+        if not self.account_id or "your_cf_account_id" in self.account_id.lower():
+            return [MultilingualRouter._fallback_embedding(t, 768) for t in texts]
+
         all_vectors: List[List[float]] = []
-        for i in range(0, len(texts), _BATCH_SIZE):
-            batch = texts[i : i + _BATCH_SIZE]
-            resp  = await self._client.post(
-                self._url(CF_EMBED_MODEL),
-                json={"text": batch},
-            )
-            resp.raise_for_status()
-            data = resp.json()
-
-            if not data.get("success"):
-                raise RuntimeError(f"CF embed failed: {data.get('errors')}")
-
-            all_vectors.extend(data["result"]["data"])
-            logger.debug("Embedded batch %d–%d (%d dims).", i, i + len(batch), CF_EMBED_DIMS)
+        try:
+            for i in range(0, len(texts), _BATCH_SIZE):
+                batch = texts[i : i + _BATCH_SIZE]
+                resp  = await self._client.post(
+                    self._url(CF_EMBED_MODEL),
+                    json={"text": batch},
+                )
+                if resp.status_code == 200:
+                    data = resp.json()
+                    if data.get("success"):
+                        all_vectors.extend(data["result"]["data"])
+                        continue
+                logger.warning("Cloudflare embed returned %d, using offline projection", resp.status_code)
+                return [MultilingualRouter._fallback_embedding(t, 768) for t in texts]
+        except Exception as exc:
+            logger.warning("Cloudflare embed exception: %s, using offline projection", exc)
+            return [MultilingualRouter._fallback_embedding(t, 768) for t in texts]
 
         return all_vectors
 
@@ -128,6 +135,8 @@ class CloudflareAI:
                 if r.status_code == 200:
                     data = r.json()
                     return data["choices"][0]["message"]["content"]
+                else:
+                    logger.warning("Groq API returned HTTP %d: %s", r.status_code, r.text[:250])
         except Exception as e:
             logger.warning("Groq API call failed: %s", e)
         return None
