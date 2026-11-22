@@ -16,16 +16,21 @@ services:
       - GRAPH_STORE_DIR=/app/backend/data
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+      - MONGODB_URI=mongodb://mongodb:27017
+      - MONGODB_DB=jansetu_db
+      - MONGODB_COLLECTION=chat_history
     volumes:
       - graph_data:/app/backend/data
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 20s
       timeout: 5s
-      retries: 3
-      start_period: 15s
+      retries: 5
+      start_period: 30s
     depends_on:
       redis:
+        condition: service_healthy
+      mongodb:
         condition: service_healthy
 
   # ── Frontend: React / Vite SPA via Hardened Nginx ─────────────────────────
@@ -55,6 +60,25 @@ services:
       interval: 5s
       timeout: 3s
       retries: 5
+
+  # ── Persistent Sovereign Document & History Store (MongoDB) ───────────────
+  mongodb:
+    image: mongo:7-jammy
+    container_name: docsai_mongodb
+    restart: unless-stopped
+    command: ["mongod", "--wiredTigerCacheSizeGB", "0.25"]
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=jansetu_db
+    volumes:
+      - mongodb_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
   # ── On-Premise Ollama Daemon (Data Sovereignty Profile) ───────────────────
   ollama:
@@ -114,6 +138,8 @@ volumes:
     name: docsai_graph_data
   redis_data:
     name: docsai_redis_data
+  mongodb_data:
+    name: docsai_mongodb_data
   ollama_data:
     name: docsai_ollama_data
   prometheus_data:

@@ -95,8 +95,8 @@ async def run_startup_connectivity_check(app: FastAPI) -> None:
         else:
             try:
                 app.state.mongodb_client.admin.command('ping')
-                db_name = os.getenv("MONGODB_DB", "job_agent")
-                coll_name = os.getenv("MONGODB_COLLECTION", "applications")
+                db_name = os.getenv("MONGODB_DB", "jansetu_db")
+                coll_name = os.getenv("MONGODB_COLLECTION", "chat_history")
                 print(f"  [OK] MongoDB History DB:      CONNECTED (DB={db_name}, Coll={coll_name})")
             except Exception as exc:
                 print(f"  [FAIL] MongoDB History DB:    CONNECTION FAILED: {exc}")
@@ -161,7 +161,7 @@ async def lifespan(app: FastAPI):
 
     # 6. MongoDB connection for query log history
     mongodb_uri = os.getenv("MONGODB_URI")
-    mongodb_db_name = os.getenv("MONGODB_DB", "job_agent")
+    mongodb_db_name = os.getenv("MONGODB_DB", "jansetu_db")
     
     app.state.mongodb_is_fallback = False
     
