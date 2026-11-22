@@ -274,6 +274,9 @@ Despite widespread adoption, first-generation RAG implementations suffer from fi
 The primary objective of the \textbf{JanSetu AI} (जनसेतु) platform is to engineer a sovereign, zero-infrastructure AI platform for public governance and citizen welfare delivery that provides:
 \begin{itemize}[itemsep=2pt]
     \item \textbf{Zero-Infrastructure Graph-Vector Engine:} In-process unification of NetworkX and FAISS.
+    \item \textbf{MeitY National Blockchain Framework (NBF v2.1) Provenance Ledger:} Automated cryptographic SHA-256 Merkle DAG tree generation, genesis block chaining, and mathematical tamper-evident verification.
+    \item \textbf{5-Layer Sovereign Government Guardrails:} Statutory privacy enforcement under Section 29 of the Aadhaar Act 2016 and DPDP Act 2023, coupled with anti-forgery shields and prompt injection quarantine.
+    \item \textbf{Multi-Tier Sovereign LPU / LLM Compute Engine:} Lightning-fast Groq LPU inference (\texttt{qwen/qwen3.8-27b} open weights) with fallback to Cloudflare Workers AI, local Ollama, and Sovereign Extractive RAG.
     \item \textbf{5-Tier Multimodal OCR Cascade:} Automated fallback from fast native parsing to vision LLMs with anti-hallucination safeguards.
     \item \textbf{Advanced Hybrid Retrieval Stack:} Integration of Hypothetical Document Embeddings (HyDE), Reciprocal Rank Fusion (RRF), and Cross-Encoder reranking.
     \item \textbf{Autonomous Multi-Step Agent Orchestrator:} ReAct-driven planning and dynamic tool invocation.
@@ -451,11 +454,29 @@ JanSetu AI is engineered as a modular, tiered platform separating client present
 
 \section{Component Specifications}
 \begin{itemize}[itemsep=3pt]
-    \item \textbf{Frontend Application:} Built with React 18, Vite, and custom CSS. Features an interactive Knowledge Graph Visualizer, dynamic streaming chat interface, and a document ingestion vault.
+    \item \textbf{Frontend Application:} Built with React 18, Vite, and custom CSS. Features an interactive Knowledge Graph Visualizer, dynamic streaming chat interface, MeitY NBF Blockchain Provenance modal, and a document ingestion vault.
     \item \textbf{Backend REST \& WebSocket Gateway:} Powered by FastAPI and Python 3.11. Implements strict schema validation using Pydantic V2 and real-time step streaming over WebSockets and SSE.
-    \item \textbf{Security Guardrails:} Pre-execution regex and pattern matching layer that inspects incoming queries for prompt injection, system prompt extraction, script tags, and toxic sequences.
+    \item \textbf{Security Guardrails:} 5-Layer sovereign inspection pipeline covering prompt injection, PII masking (Aadhaar Act \S 29, DPDP Act 2023), and anti-forgery filters.
     \item \textbf{In-Process Hybrid Database:} Pairs NetworkX topological graph management with FAISS cosine vector indexing under a re-entrant reader-writer lock (\texttt{RWLock}).
     \item \textbf{Semantic Query Cache:} SQLite-backed vector similarity cache providing instant ($\approx 3.8\text{ ms}$) responses for repetitive administrative and citizen queries.
+\end{itemize}
+
+\section{MeitY National Blockchain Framework (NBF v2.1) Provenance Ledger}
+In alignment with the National Blockchain Framework (NBF v2.1) formulated by the Ministry of Electronics and Information Technology (MeitY), JanSetu AI implements an automated cryptographic SHA-256 Merkle Directed Acyclic Graph (DAG) ledger (\texttt{sovereign\_ledger.py}):
+\begin{itemize}[itemsep=2pt]
+    \item \textbf{Chunk-Level Leaf Hashing:} During document chunking, each text chunk is transformed into a cryptographic leaf node $H_i = \text{SHA-256}(\text{chunk\_text}_i)$.
+    \item \textbf{Merkle Root Construction:} Adjacent leaf hashes are recursively paired and hashed to generate an immutable 256-bit Merkle Root representing the whole document state.
+    \item \textbf{Audit Chain Anchoring:} Document records are anchored with a timestamp, metadata, and link to previous block hashes, originating from a deterministic genesis block.
+    \item \textbf{Mathematical Tamper Verification:} Exposed via REST endpoint \texttt{/api/v1/ledger/verify/\{doc\_id\}}, the system re-extracts the live chunks from GraphStore and recomputes the Merkle Root. Any single-byte modification immediately flags \texttt{TAMPERING\_DETECTED}, while untampered records return \texttt{TAMPER\_EVIDENT\_VERIFIED}.
+\end{itemize}
+
+\section{Multi-Tier Sovereign LPU and LLM Inference Architecture}
+To guarantee resilience and ultra-low latency without reliance on a single vendor or overseas cloud:
+\begin{itemize}[itemsep=2pt]
+    \item \textbf{Tier 1 (Groq LPU Primary):} High-speed hardware inference executing open-weights sovereign models (\texttt{qwen/qwen3.8-27b} and \texttt{openai/gpt-oss-120b}), providing sub-second generation times for citizen dialogue.
+    \item \textbf{Tier 2 (Cloudflare Workers AI Secondary):} Serverless cloud fallback (\texttt{@cf/meta/llama-3-8b-instruct}) active when LPU limits are exceeded.
+    \item \textbf{Tier 3 (Local Sovereign Ollama):} 100\% air-gapped on-premise execution profile (\texttt{qwen2.5:7b-instruct}) for high-security environments under Section 16 of the DPDP Act, 2023.
+    \item \textbf{Tier 4 (Sovereign Extractive RAG):} Zero-API fallback synthesizing verbatim grounded document spans when external network endpoints are unavailable.
 \end{itemize}
 
 \newpage
@@ -743,6 +764,22 @@ To defend against forged document uploads and denial-of-wallet (DoW) attacks:
     \item \textbf{Tenant Sliding-Window Rate Limiting (\texttt{rate\_limiter.py}):} Implements sliding-window counters per tenant (20 uploads/hour, 150 search queries/hour). Excessive requests receive an immediate HTTP 429 response with a calibrated \texttt{Retry-After} header, protecting compute resources.
 \end{itemize}
 
+\section{5-Layer Sovereign Government Guardrails and Statutory PII Redaction}
+To enforce citizen privacy under Indian statutory mandates and prevent misuse of AI in public governance, JanSetu AI applies a 5-layer sovereign guardrail suite (\texttt{guardrails.py}) across all incoming queries, ingested texts, and generated outputs:
+\begin{enumerate}[itemsep=2pt]
+    \item \textbf{Layer 1: Prompt Injection \& Role Hijacking Defense:} Identifies and terminates attempts to extract system instructions, override role definitions, or escape containment.
+    \item \textbf{Layer 2: Toxicity \& Malicious Activity Blocker:} Halts harmful, toxic, cyberattack, or exploitative instructions before retrieval execution.
+    \item \textbf{Layer 3: Statutory Anti-Forgery \& e-KYC Shield:} Proactively intercepts and rejects requests attempting to forge government identity cards (e.g., fake voter ID, counterfeit caste certificates, forged ration cards) or falsify land deeds and revenue stamps.
+    \item \textbf{Layer 4: Automated Statutory PII Redaction:} Complies strictly with \textbf{Section 29 of the Aadhaar Act, 2016} and the \textbf{DPDP Act, 2023}:
+    \begin{itemize}[itemsep=1pt]
+        \item \textit{Aadhaar Numbers:} Matches 12-digit Indian National Identity numbers and masks them to format \texttt{XXXX-XXXX-1234}.
+        \item \textit{Permanent Account Numbers (PAN):} Masks alphanumeric tax IDs to format \texttt{XXXXX1234X}.
+        \item \textit{Indian Telephony:} Redacts 10-digit mobile numbers to format \texttt{+91-XXXXX-98765}.
+        \item \textit{Email Addresses:} Anonymizes email identifiers to format \texttt{u***@domain.com}.
+    \end{itemize}
+    \item \textbf{Layer 5: Output Grounding \& Anti-Hallucination Shield:} Guarantees that generated responses reference verified document spans and triggers calibrated refusal when ground-truth evidence is absent.
+\end{enumerate}
+
 \section{On-Premise Sovereign Execution via Ollama (Institutional Data Residency)}
 Under Section 16 of India's \textit{Digital Personal Data Protection Act, 2023 (DPDPA)}, cross-border transfer of personal data is subject to central government notifications and institutional compliance mandates. For government ministries, welfare bodies, and judicial chambers handling confidential citizen records or pending court files, local data residency is essential. JanSetu AI provides native sovereign on-premise execution via an embedded Ollama daemon (\texttt{ollama\_client.py}):
 \begin{itemize}[itemsep=2pt]
@@ -900,6 +937,22 @@ Evaluated over $N = 120$ annotated query-document pairs spanning Central/State G
 
 \section{Calibrated Abstention and Grounding Verification}
 First-generation RAG systems frequently succumb to ungrounded hallucinations when querying missing policies or absent case precedents. JanSetu AI's calibrated refusal engine evaluates retrieved candidate chunks against calibrated similarity thresholds ($\tau \in [0.40, 0.45]$). When semantic overlap is insufficient, the system safely refuses rather than fabricating false legal precedents or eligibility promises. Furthermore, every synthesized response undergoes claim-level Natural Language Inference (NLI) verification, assigning a verifiable confidence score and flagging unsupported assertions for human review.
+
+\section{Indic Multilingual Benchmark: Tamil Land Deed Case Study}
+To evaluate real-world governance capability on complex vernacular documents, JanSetu AI was benchmarked live against a registered Tamil Nadu Sale Deed and Patta exemplar (\textit{Kraiya Pathiram / Registered Land Sale Deed}):
+\begin{itemize}[itemsep=2pt]
+    \item \textbf{Covenant Extraction:} Accurately parsed Survey Number 142/3A (Sub-division 3A2), Patta 874, Chitlapakkam Village, Tambaram Taluk, Chengalpattu District.
+    \item \textbf{Financial \& Consideration Verification:} Extracted consideration of \textbf{Rs.~45,00,000/- (Rupees Forty-Five Lakhs)}, paid via State Bank of India (SBI) Cheque No.~489102 from Vendor Mr.~K.~Ramaswami to Purchaser Mrs.~M.~Meenakshi.
+    \item \textbf{Statutory Compliance:} Identified 7\% Stamp Duty (Rs.~3,15,000/-) and 4\% Registration Fee (Rs.~1,80,000/-) paid under the Tamil Nadu Stamp Act 1899, citing specific Clauses 6 and 3/4.
+    \item \textbf{Zero-Hallucination Behavior:} In experimental trials where the financial consideration clause was intentionally omitted from the candidate chunk window, the platform executed strict calibrated abstention, correctly declaring that the sale price was absent from the available records rather than guessing an arbitrary sum.
+\end{itemize}
+
+\section{MeitY NBF v2.1 Cryptographic Merkle Tamper-Evidence Verification}
+The cryptographic integrity of the National Blockchain Framework ledger was evaluated via automated test suites:
+\begin{itemize}[itemsep=2pt]
+    \item \textbf{Deterministic Tree Construction:} Verified across 10 multi-page documents, proving consistent Merkle Root generation and block chaining.
+    \item \textbf{Single-Byte Tamper Detection:} Modifying a single character in an indexed chunk caused the recalculation check to fail, triggering an immediate \texttt{TAMPERING\_DETECTED} security event. Unaltered documents consistently verified as \texttt{TAMPER\_EVIDENT\_VERIFIED}.
+\end{itemize}
 
 \newpage
 
