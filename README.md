@@ -149,8 +149,6 @@ JanSetu AI configures **3 primary sovereign fellowship verticals** in `backend/a
 | `judgment` | **Court Judgments (India)** ⚖️ | 500 / 100 | Hybrid (Vector + Graph) | Statutory Citation Boost | Binding *Ratio Decidendi* extraction, bail precedent synthesis under BNSS §483 / §479, Article 21 constitutional safeguards. |
 | `law` | **Statutory Law & Concordance** 📑 | 768 / 128 | Hybrid (Vector + Graph) | `VerticalReranker` (Domain-keyword boost) | Tri-code concordance (`IPC ⇄ BNS`, `CrPC ⇄ BNSS`, `IEA ⇄ BSA`), Regional Land Deeds (*கிரையப் பத்திரம்*), 10-point Red-Flag risk scanner. |
 
-*Note: Legacy vertical aliases (`compliance` $\to$ `law`, `startup` $\to$ `law`, `university` $\to$ `governance`, `hr` $\to$ `governance`) are resolved automatically by the pipeline factory.*
-
 ---
 
 ## 🏛️ Preloaded Sovereign Benchmark Catalog (7 Bundled Scenarios & Provenance)

@@ -102,7 +102,7 @@ flowchart TB
 |  |     & Welfare      | |      (India)      | | & Concordance  |  |
 |  |     Pipeline       | |     Pipeline      | |    Pipeline    |  |
 |  +--------------------+ +-------------------+ +----------------+  |
-|  [Legacy Aliases: university->gov, hr->gov, startup/compliance->law]|
+|  [Sovereign Verticals: governance (Welfare), judgment (Precedents), law (Statutes)]|
 +---------------------------+---------------------------------------+
                             | Read/Write
 +---------------------------v---------------------------------------+
@@ -189,28 +189,25 @@ backend/
     |   |-- active_learning.py      <- User feedback store (thumbs up/down)
     |   +-- jobs.py                 <- asyncio background job queue
     |
-    |-- indexers/                   <- Per-vertical chunking strategies
-    |   |-- clause.py               <- Law: clause-boundary splitting
-    |   |-- article.py              <- Compliance: article/section splitting
-    |   |-- topic.py                <- HR: topic-aware paragraph splitting
-    |   |-- term.py                 <- Startup: term-sheet aware splitting
-    |   +-- section.py              <- University: academic section splitting
+    |-- indexers/                   <- Sovereign chunking strategies
+    |   |-- governance.py           <- Governance: multi-facet scheme splitting (eligibility, exclusions, DBT)
+    |   |-- judgment.py             <- Judgment: judicial headnote & ratio decidendi splitting
+    |   +-- clause.py               <- Law: statutory section, proviso & clause boundary splitting
     |
     |-- retrievers/                 <- Retrieval strategies
-    |   |-- vector.py               <- Pure FAISS cosine similarity search
-    |   |-- graph.py                <- NetworkX entity + keyword graph traversal
-    |   +-- hybrid.py               <- Combines vector + graph results (RRF fusion)
+    |   |-- vector.py               <- Pure FAISS cosine similarity search (768-dim)
+    |   |-- graph.py                <- NetworkX entity + statutory citation graph traversal
+    |   +-- hybrid.py               <- Combines vector + graph results (Reciprocal Rank Fusion)
     |
     |-- rerankers/                  <- Post-retrieval scoring
-    |   |-- cross_encoder.py        <- sentence-transformers cross-encoder (~80MB model)
+    |   |-- cross_encoder.py        <- sentence-transformers DeBERTa-v3 cross-encoder
     |   |-- vertical.py             <- Keyword-boosted vertical-specific reranker
-    |   +-- noop.py                 <- Pass-through (used for HR vertical)
+    |   +-- noop.py                 <- Pass-through reranker
     |
-    |-- generators/                 <- LLM response formatters
-    |   |-- risk.py                 <- Law/Startup: risk-flagged response format
-    |   |-- compliance.py           <- Compliance: audit-style response format
-    |   |-- friendly.py             <- HR: conversational plain-English format
-    |   +-- academic.py             <- University: paper-citation format
+    |-- generators/                 <- Sovereign LLM response formatters
+    |   |-- governance.py           <- Governance: Jan Suvidha citizen-friendly explanation & DBT checklist
+    |   |-- judgment.py             <- Judgment: binding ratio decidendi & bail precedents (BNSS §483/§479)
+    |   +-- risk.py                 <- Statutory Law: IPC ⇄ BNS concordance & 10-point red-flag scanner
     |
     +-- config/
         +-- verticals.py            <- Vertical configs: chunk_size, chunk_overlap, top_k, score_floor
@@ -235,7 +232,7 @@ User Query
     |  -> Cache HIT: return instantly, skip remaining pipeline
     v
 [3. AI INTENT ROUTER] (if vertical="auto")
-    |  CloudflareAI.chat() -- classifies query into: law/hr/startup/compliance/university
+    |  CloudflareAI.chat() -- classifies query into sovereign verticals: governance / judgment / law
     v
 [4. HYDE QUERY EXPANSION]
     |  HyDEExpander.expand() -- generates hypothetical document for richer embedding
@@ -247,24 +244,22 @@ User Query
 [6. RETRIEVAL]
     |
     |-- VectorRetriever  -> FAISS ANN search on GraphStore embeddings
-    |-- GraphRetriever   -> Entity/keyword graph traversal (NetworkX)
+    |-- GraphRetriever   -> Entity/keyword/citation graph traversal (NetworkX)
     +-- HybridRetriever  -> Vector + Graph with Reciprocal Rank Fusion (RRF)
     v
 [7. RERANKING]
     |
-    |-- CrossEncoderReranker  -> sentence-transformers cross-encoder (compliance/university)
-    |-- VerticalReranker      -> keyword-boost scoring (law/startup)
-    +-- NoReranker            -> pass-through (hr)
+    |-- CrossEncoderReranker  -> DeBERTa-v3 cross-encoder (governance / judgment)
+    +-- VerticalReranker      -> Statutory keyword-boost scoring (law)
     v
 [8. CONTEXT ASSEMBLY]
-    |  context.py -- fits top-k chunks into token budget (default 4096 tokens)
+    |  context.py -- fits top-k chunks into token budget (default 4096-5000 tokens)
     v
-[9. GENERATION]
+[9. GENERATION & REASONING]
     |
-    |-- RiskGenerator        -> Law/Startup: risk-framed structured response
-    |-- ComplianceGenerator  -> Compliance: audit-style regulatory response
-    |-- FriendlyGenerator    -> HR: plain-English conversational response
-    +-- AcademicGenerator    -> University: citation-rich academic response
+    |-- GovernanceGenerator (Jan Suvidha) -> Governance: plain-language eligibility, exclusions, DBT checklists
+    |-- JudgmentGenerator (RatioDecidendi) -> Judgments: binding ratio, bail precedents under BNSS §483 / §479
+    +-- RiskGenerator (StatutoryConcordance)-> Law: tri-code concordance (IPC ⇄ BNS), Zero-FIR §173, red flags
     v
 [10. CACHE WRITE + ANALYTICS LOG]
     |  SemanticCache.set() -- store response for future cache hits
@@ -273,15 +268,13 @@ User Query
 Response -> Client
 ```
 
-### Vertical Pipeline Wiring Table
+### Sovereign Vertical Pipeline Wiring Table (IndiaAI Fellowship)
 
-| Vertical | Indexer | Retriever | Reranker | Generator |
-|---|---|---|---|---|
-| `law` | ClauseIndexer | GraphRetriever | VerticalReranker | RiskGenerator |
-| `compliance` | ArticleIndexer | HybridRetriever | CrossEncoderReranker | ComplianceGenerator |
-| `hr` | TopicIndexer | VectorRetriever | NoReranker | FriendlyGenerator |
-| `startup` | TermIndexer | GraphRetriever | VerticalReranker | RiskGenerator |
-| `university` | SectionIndexer | HybridRetriever | CrossEncoderReranker | AcademicGenerator |
+| Vertical Key | Vertical Name | Indexer | Retriever | Reranker | Generator | Specialized Sovereign Capability |
+|---|---|---|---|---|---|---|
+| `governance` | **Public Governance & Welfare Schemes** 🏛️ | `GovernanceIndexer` (SchemeChunker) | `HybridRetriever` (Vector + Graph RRF) | `CrossEncoderReranker` (Lexical & Facet Boost) | `GovernanceGenerator` (Jan Suvidha) | Plain-language citizen eligibility cards, DBT subsidy mapping, disqualification triage |
+| `judgment` | **Court Judgments (India)** ⚖️ | `JudgmentIndexer` (Headnote & Ratio) | `HybridRetriever` (Vector + Citation Graph) | `CrossEncoderReranker` (Statutory Citation Boost) | `JudgmentGenerator` (Ratio Decidendi) | Binding *Ratio Decidendi* extraction, bail precedent synthesis under BNSS §483 / §479 |
+| `law` | **Statutory Law & Concordance** 📑 | `ClauseIndexer` (Statutory Clauses) | `GraphRetriever` (Concordance Graph) | `VerticalReranker` (Statutory Keyword Boost) | `RiskGenerator` (Concordance & Red Flags) | Tri-code concordance (`IPC ⇄ BNS`, `CrPC ⇄ BNSS`, `IEA ⇄ BSA`), Zero-FIR §173, Land Deeds |
 
 ---
 
@@ -296,15 +289,15 @@ User Query
 +-----------------------------------------------------+
 |  AgentPlanner (planner.py)                          |
 |                                                     |
-|  System prompt -> Cloudflare LLM                    |
+|  System prompt -> Cloudflare LLM / Sovereign Ollama |
 |  Output: JSON array of tool steps                   |
 |                                                     |
-|  Example plan for "Compare legal vs compliance":    |
+|  Example plan for "Compare PM-KISAN vs Ayushman":   |
 |  [                                                  |
 |    { id: "s1", tool: "search_documents",            |
-|      params: { vertical: "law", query: "..." } },   |
+|      params: { vertical: "governance", query: "..." } },
 |    { id: "s2", tool: "search_documents",            |
-|      params: { vertical: "compliance", ... },        |
+|      params: { vertical: "governance", ... },       |
 |      depends_on: [] },                              |
 |    { id: "s3", tool: "compare_documents",           |
 |      params: { doc_a: "$s1", doc_b: "$s2" },        |
@@ -359,7 +352,7 @@ File Upload (multipart/form-data)
     |
     v
 [1. VALIDATION]
-    |  Vertical whitelist check: law | hr | startup | compliance | university
+    |  Vertical whitelist check: governance | judgment | law
     |  Save to /backend/app/temp/<uuid>_<filename>
     v
 [2. BACKGROUND JOB SUBMISSION]
@@ -369,7 +362,7 @@ File Upload (multipart/form-data)
 [3. 5-TIER OCR / TEXT EXTRACTION] (async, background)
     |
     |-- Tier 1: Native PDF layer parsing (pdfplumber/PyMuPDF)
-    |-- Tier 2: PyTesseract OCR (scanned/blank pages)
+    |-- Tier 2: PyTesseract OCR (scanned/blank pages, Tamil & Hindi language packs)
     |-- Tier 3: AWS Textract (tables, complex layouts)
     |-- Tier 4: OCR.space API (tertiary high-accuracy backup)
     +-- Tier 5: Cloudflare Workers AI Vision
@@ -377,24 +370,28 @@ File Upload (multipart/form-data)
                Hallucination Guard: repetition ratio check
     v
 [4. VERTICAL-SPECIFIC CHUNKING]
-    |  Indexer.chunk() -- clause/article/topic/term/section splitting
+    |  GovernanceIndexer.chunk() -> multi-facet scheme splitting (eligibility/exclusions/DBT)
+    |  JudgmentIndexer.chunk()   -> judicial headnote & binding ratio decidendi splitting
+    |  ClauseIndexer.chunk()     -> statutory section, proviso & clause boundary splitting
     |  Preserves: page, doc_id, tenant_id, chunk_offset
     v
 [5. GRAPH STORE INGESTION]
     |  ingest_document():
-    |  |-- Embed each chunk (Nomic via Cloudflare)
+    |  |-- Embed each chunk (Nomic-embed-text 768-dim normalized vectors)
     |  |-- Add Chunk nodes to NetworkX graph
-    |  |-- Build FAISS index entry
+    |  |-- Build FAISS index entry (inner-product cosine space)
     |  +-- Create parent-child Document->Chunk edges
     v
 [6. AUTOMATED POST-PROCESSING]
     |
-    |-- vertical=law/startup    -> run_redflag_scan()
-    |   +-- 10-category risk analysis, batched LLM, stored as RedFlagReport node
+    |-- vertical=governance     -> run_jan_suvidha_triage()
+    |   +-- Generates structured 5-point citizen checklist & DBT subsidy map
     |
-    +-- vertical=compliance     -> run_compliance_monitor()
-        +-- Compare new doc vs existing compliance docs
-           Detects changed articles -> stores ComplianceAlert node
+    |-- vertical=judgment       -> run_ratio_decidendi_extraction()
+    |   +-- Identifies binding precedents, bail relief benchmarks (BNSS §479)
+    |
+    +-- vertical=law            -> run_concordance_mapping() & run_redflag_scan()
+        +-- Bidirectional mapping (IPC ⇄ BNS) and 10-point statutory risk scan
     v
 [7. CACHE INVALIDATION]
     |  SemanticCache.clear_tenant_cache(tenant_id)

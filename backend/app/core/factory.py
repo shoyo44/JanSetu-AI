@@ -15,13 +15,11 @@ KEY FIX over original:
         stored on app.state, and passed in here as singletons.
 
 Wiring table:
-    vertical    indexer          retriever        reranker             generator
-    ─────────────────────────────────────────────────────────────────────────────
-    law         ClauseIndexer    GraphRetriever   VerticalReranker     RiskGenerator
-    compliance  ArticleIndexer   HybridRetriever  CrossEncoderReranker ComplianceGenerator
-    hr          TopicIndexer     VectorRetriever  NoReranker           FriendlyGenerator
-    startup     TermIndexer      GraphRetriever   VerticalReranker     RiskGenerator
-    university  SectionIndexer   HybridRetriever  CrossEncoderReranker AcademicGenerator
+    vertical    indexer            retriever        reranker             generator
+    ───────────────────────────────────────────────────────────────────────────────────
+    governance  GovernanceIndexer  HybridRetriever  CrossEncoderReranker GovernanceGenerator
+    judgment    JudgmentIndexer    HybridRetriever  CrossEncoderReranker JudgmentGenerator
+    law         ClauseIndexer      GraphRetriever   VerticalReranker     RiskGenerator
 """
 from __future__ import annotations
 
