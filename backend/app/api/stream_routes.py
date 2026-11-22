@@ -331,7 +331,11 @@ async def websocket_endpoint(websocket: WebSocket):
 
         reranked    = await pipeline.reranker.rerank(query_text, raw_chunks)
         floor       = pipeline.config.get("score_floor", 0.40)
-        qualified   = [c for c in reranked if c.best_score >= floor] or reranked[:5]
+        # For small focused documents (e.g. single deed with <= 10 chunks), preserve all chunks so clauses aren't lost
+        if len(reranked) <= 10:
+            qualified = reranked
+        else:
+            qualified = [c for c in reranked if c.best_score >= floor] or reranked[:8]
 
         # 6. Send evidence chunks if frontend
         if is_frontend:

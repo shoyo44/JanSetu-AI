@@ -16,15 +16,18 @@
   <!-- Modern High-Contrast Pill Badges -->
   <p align="center">
     <a href="https://indiaai.gov.in/"><img src="https://img.shields.io/badge/IndiaAI%20Mission-MeitY%20Aligned-FF9933?style=for-the-badge&logo=india&logoColor=white" alt="IndiaAI Fellowship" /></a>
+    <a href="https://www.meity.gov.in/"><img src="https://img.shields.io/badge/Blockchain%20Ledger-MeitY%20NBF%20v2.1-8B5CF6?style=for-the-badge&logo=blockchaindotcom&logoColor=white" alt="MeitY NBF v2.1" /></a>
     <a href="https://github.com/shoyo44/JanSetu-AI"><img src="https://img.shields.io/badge/Data%20Sovereignty-DPDPA%202023%20%C2%A716-10B981?style=for-the-badge&logo=shield&logoColor=white" alt="Sovereignty" /></a>
+    <a href="https://github.com/shoyo44/JanSetu-AI"><img src="https://img.shields.io/badge/PII%20Protection-Aadhaar%20Act%20%C2%A729-06B6D4?style=for-the-badge&logo=security&logoColor=white" alt="Aadhaar Masking" /></a>
     <a href="https://github.com/shoyo44/JanSetu-AI"><img src="https://img.shields.io/badge/DevSecOps-Aqua%20Trivy%20%7C%20Bandit-E11D48?style=for-the-badge&logo=security&logoColor=white" alt="DevSecOps" /></a>
-    <a href="http://98.93.55.8:3000"><img src="https://img.shields.io/badge/Cloud%20Live-AWS%20EC2-2563EB?style=for-the-badge&logo=amazon-aws&logoColor=white" alt="Live Demo" /></a>
+    <a href="http://ec2-98-93-55-8.compute-1.amazonaws.com:3000"><img src="https://img.shields.io/badge/Cloud%20Live-AWS%20EC2-2563EB?style=for-the-badge&logo=amazon-aws&logoColor=white" alt="Live Demo" /></a>
     <a href="http://98.93.55.8:3001"><img src="https://img.shields.io/badge/Observability-Prometheus%20%2B%20Grafana-F97316?style=for-the-badge&logo=grafana&logoColor=white" alt="Grafana" /></a>
   </p>
 
   <!-- Quick Action Navigation Bar -->
   <p align="center">
-    <a href="http://98.93.55.8:3000"><b>🌐 Live Cloud Web App</b></a> •
+    <a href="http://ec2-98-93-55-8.compute-1.amazonaws.com:3000"><b>🌐 Live Cloud Web App</b></a> •
+    <a href="http://98.93.55.8:8000/docs"><b>⚡ FastAPI Swagger Docs</b></a> •
     <a href="./DOCS_PROJECT_REPORT.pdf"><b>📄 Academic Report (PDF)</b></a> •
     <a href="./INDIA_AI_FELLOWSHIP_PROPOSAL.md"><b>🏛️ Fellowship Proposal</b></a> •
     <a href="./ARCHITECTURE.md"><b>📐 System Architecture</b></a> •
@@ -37,9 +40,10 @@
 
 JanSetu AI (जनसेतु) is a sovereign AI Document Intelligence, Q&A, and Knowledge Graph Platform designed to analyze, index, search, and reason over unstructured public documents across high-stakes sovereign domains — engineered specifically for **Public Governance** and **Law & Justice** (IndiaAI Mission Priority Domains). A modular prototype validated on live sovereign benchmark suites, JanSetu AI supports data-residency-friendly deployment and air-gapped on-premise execution.
 
-Built with an async **FastAPI** backend, a zero-infrastructure in-process **Hybrid Vector-Graph Database** (NetworkX + FAISS Flat Index), dual cloud/on-premise LLM inference (**Cloudflare Workers AI** & sovereign local **Ollama**), and a responsive **React/Vite** SPA frontend, the system provides calibrated hallucination suppression via empirical abstention, claim-level NLI citation entailment, automated statutory criminal law concordance (IPC $\longleftrightarrow$ BNS), and pre-retrieval indirect prompt injection defense.
+Built with an async **FastAPI** backend, a zero-infrastructure in-process **Hybrid Vector-Graph Database** (NetworkX + FAISS Flat Index), **MeitY National Blockchain Framework (NBF v2.1) Cryptographic Merkle Provenance**, multi-tier LLM/LPU inference (**Groq LPUs**, **Cloudflare Workers AI**, & sovereign local **Ollama**), and a responsive **React/Vite** SPA frontend, the system provides calibrated hallucination suppression via empirical abstention, claim-level NLI citation entailment, automated statutory criminal law concordance (IPC $\longleftrightarrow$ BNS), and pre-retrieval indirect prompt injection defense.
 
-> 🚀 **Live Cloud Deployment (AWS EC2):** [http://98.93.55.8:3000](http://98.93.55.8:3000) *(Running multi-container prototype with live multi-vertical RAG & Graph UI)*  
+> 🚀 **Live Cloud Deployment (AWS EC2):** [http://ec2-98-93-55-8.compute-1.amazonaws.com:3000](http://ec2-98-93-55-8.compute-1.amazonaws.com:3000) *(Running multi-container prototype with live multi-vertical RAG, NBF Blockchain Vault, & Graph UI)*  
+> ⚡ **API Engine & Swagger Docs:** [http://98.93.55.8:8000/docs](http://98.93.55.8:8000/docs)  
 > 📈 **Telemetry & Observability:** [Grafana Dashboards :3001](http://98.93.55.8:3001) • [Prometheus Metrics :9090](http://98.93.55.8:9090)  
 > 🌐 **Secondary Web Mirror:** [docs-ai-ashen.vercel.app](https://docs-ai-ashen.vercel.app) *(Hosted on Vercel; source repository: [github.com/shoyo44/JanSetu-AI](https://github.com/shoyo44/JanSetu-AI))*  
 > 🏛️ **Fellowship Proposal:** [INDIA_AI_FELLOWSHIP_PROPOSAL.md](./INDIA_AI_FELLOWSHIP_PROPOSAL.md)  
@@ -53,13 +57,14 @@ Built with an async **FastAPI** backend, a zero-infrastructure in-process **Hybr
 
 ## 🏗️ End-to-End System Architecture
 
-JanSetu AI employs a **layered sovereign neuro-symbolic architecture** that unifies in-process knowledge graph ontologies, dense vector search, empirical hallucination suppression, and deterministic statutory rule engines:
+JanSetu AI employs a **layered sovereign neuro-symbolic architecture** that unifies in-process knowledge graph ontologies, dense vector search, MeitY NBF Merkle provenance, empirical hallucination suppression, and deterministic statutory rule engines:
 
 ```mermaid
 flowchart TB
     subgraph Presentation["🖥️ Layer 1: Presentation & Citizen Interface (React 18 + Vite)"]
         UI_Chat["💬 Bilingual Agent Chat & Jan Suvidha Explainer Cards"]
         UI_Vault["📂 Document Vault & 1-Click Sovereign Benchmark Ingestion"]
+        UI_Ledger["🔗 MeitY NBF Blockchain Provenance & Tamper-Evident Modal"]
         UI_Concord["⚖️ Statutory Criminal Concordance Engine (BNS ⇄ IPC)"]
         UI_Obs["📊 Prometheus & Grafana Real-Time Telemetry Dashboards"]
     end
@@ -67,15 +72,17 @@ flowchart TB
     subgraph Ingestion["🛡️ Layer 2: DevSecOps, Pre-Indexing Guardrails & Ingestion"]
         GW_MIME["🔍 Binary Magic-Byte MIME Inspector (%PDF-, PK\x03\x04, Block MZ/ELF)"]
         GW_Stego["🛡️ Indirect Prompt Injection & Unicode Steganography Quarantine"]
+        GW_Guard["🔒 5-Layer Sovereign Guardrails (Aadhaar Act §29, DPDP Act 2023 Masking)"]
         GW_Rate["⏱️ Sliding-Window Rate Limiter (20 uploads/hr, 150 queries/hr)"]
         GW_Chunk["📑 Multi-Facet Semantic Chunker (Eligibility, Exclusions, DBT Benefits)"]
     end
 
-    subgraph KnowledgeCore["⚡ Layer 3: Zero-Infrastructure In-Process Hybrid Core"]
+    subgraph KnowledgeCore["⚡ Layer 3: Zero-Infrastructure In-Process Hybrid Core & Ledger"]
         DB_Graph["🕸️ NetworkX Knowledge Graph (Hierarchical Nodes, CITES, SUPERSEDES)"]
         DB_Vector["📐 768-Dim FAISS Flat Index (Normalized Continuous Cosine Space)"]
+        DB_Ledger["⛓️ MeitY NBF v2.1 Merkle DAG Ledger (SHA-256 Provenance & Tamper Proofs)"]
         DB_Cache["⚡ SQLite Semantic Cache (p95: 3.8ms at Cosine Sim ≥ 0.95)"]
-        DB_History["🗄️ MongoDB Atlas / Local Resilient JSON Audit Store"]
+        DB_History["🗄️ Containerized MongoDB / Local Resilient JSON Audit Store"]
     end
 
     subgraph Reasoning["🧠 Layer 4: Grounded Retrieval & Neuro-Symbolic Verification"]
@@ -86,9 +93,11 @@ flowchart TB
         RAG_Rule["📜 Deterministic Rule Engine (BNSS §479 Undertrial Relief & Zero-FIR §173)"]
     end
 
-    subgraph Compute["⚙️ Layer 5: Dual Sovereign LLM Compute Engine"]
-        LLM_Cloud["☁️ Cloud Mode: Cloudflare Workers AI (Llama 3.1 8B / Nomic-Embed-768)"]
+    subgraph Compute["⚙️ Layer 5: Multi-Tier Sovereign LLM / LPU Compute Engine"]
+        LLM_Groq["⚡ Primary LPU: Groq (Qwen 27B / GPT-OSS 120B — Low Latency)"]
+        LLM_Cloud["☁️ Secondary Cloud: Cloudflare Workers AI (Llama 3.1 8B / Nomic-Embed)"]
         LLM_Edge["🔒 Sovereign Air-Gapped Mode: Ollama Daemon (Qwen2.5 7B, DPDPA 2023 §16)"]
+        LLM_Extract["🛡️ Tier 3 Fallback: Sovereign Extractive RAG (Zero-API Verbatim Synthesis)"]
     end
 
     Presentation -->|HTTPS / Secure WebSockets| Ingestion
@@ -106,6 +115,9 @@ JanSetu AI directly addresses the **Governance** and **Law and Justice** priorit
 
 | Feature | Domain | Technical Implementation | Citizen / Institutional Impact |
 |---|---|---|---|
+| **MeitY NBF v2.1 Blockchain Ledger** | Data Integrity & Trust | Cryptographic SHA-256 Merkle DAG tree auto-anchoring of document chunks with genesis block provenance | Complies with the **National Blockchain Framework (NBF v2.1)** by MeitY; provides mathematically provable tamper-evident audit trails (`/api/v1/ledger/verify/{doc_id}`) for public records and land titles. |
+| **5-Layer Sovereign Guardrails** | Trust & Privacy | Real-time PII anonymizer (Aadhaar, PAN, phone regex), toxic content blocker, and anti-forgery gate | Enforces strict statutory privacy under **DPDP Act 2023** and **Section 29 of the Aadhaar Act, 2016**; actively halts prompt injection attacks and prevents generation of fake IDs or forged land deeds. |
+| **Multi-Tier LPU & Sovereign LLM** | Compute Sovereignty | Ultra-low-latency Groq LPU (`qwen/qwen3.8-27b`, `openai/gpt-oss-120b`) with Cloudflare & local Ollama fallback | Enables lightning-fast inference for citizen chats while maintaining full resilience with an offline Sovereign Extractive RAG fallback. |
 | **Jan Suvidha Explainer** | Governance | Multi-facet scheme chunking (Eligibility, Disqualifying Exclusions, DBT Benefits, Documents, Steps) | Translates dense gazettes into plain language with structured eligibility checklists for rural citizens & CSC operators. |
 | **Statutory Concordance Engine** | Law & Justice | Bidirectional concordance hash-maps & regex parser (`IPC ⇄ BNS`, `CrPC ⇄ BNSS`, `IEA ⇄ BSA`) | Bridges pre-2024 judicial precedents with modern 2024 criminal codes for judges, prosecutors, and legal aid clinics. Highlights undertrial relief under BNSS §479 and Zero-FIR rights under BNSS §173. |
 | **Calibrated Abstention Engine** | Trust & Safety | Per-vertical similarity thresholds ($\tau = 0.40$) with structured refusal explanations | Reduces unsupported answers on absent statutory sections or unmentioned welfare provisions. |
@@ -129,6 +141,9 @@ Prior systems address isolated parts of Indian legal informatics and welfare acc
 | **Retrieval Modality** | Dense + FAISS | Conversational API | BM25 + dense + RRF | Graph / hybrid | OCR + AI extraction | **Hybrid (Vector + Graph) + RRF + HyDE** |
 | **Claim-Level Entailment** | *Not stated* | *Not stated* | Yes (NLI) | Citation verifier | *Not stated* | **Yes (DeBERTa-v3 cross-encoder NLI)** |
 | **Empirical Abstention** | *Not stated* | *Not stated* | Yes | *Not stated* | *Not stated* | **Yes (Calibrated per-vertical τ = 0.40)** |
+| **MeitY NBF v2.1 Blockchain**| *Not stated* | *Not stated* | *Not stated* | *Not stated* | *Not stated* | **Yes (Cryptographic Merkle Provenance Ledger)** |
+| **Statutory PII Redaction** | *Not stated* | *Not stated* | *Not stated* | *Not stated* | *Not stated* | **Yes (Aadhaar Act §29 & DPDP Act 2023 Masking)** |
+| **Multi-Tier LPU/LLM Fallback**| Cloud only | Cloud only | Cloud only | Cloud only | Cloud only | **Yes (Groq Qwen-27B → Cloudflare → Local Ollama → Extractive RAG)** |
 | **On-Prem / Sovereign Profile**| *Not stated* | *Not stated* | *Not stated* | *Not stated* | *Not stated* | **Yes (Air-gapped data boundary via Ollama)** |
 | **Open Evaluation Corpus** | *Not stated* | *Not stated* | *Not stated* | Dataset released | No (Proprietary) | **Committed in repo ($N=150$ gold pairs)** |
 
@@ -182,12 +197,18 @@ JanSetu AI includes native support for regional Indian land records and register
 
 ---
 
-## ⚡ Zero-Infrastructure In-Process Hybrid Store
+## ⚡ Zero-Infrastructure In-Process Hybrid Store & MeitY NBF v2.1 Ledger
 
-Replaces heavy external database infrastructure (Neo4j, Milvus, Pinecone) with an embedded, zero-dependency in-process engine:
+Replaces heavy external database infrastructure (Neo4j, Milvus, Pinecone) with an embedded, zero-dependency in-process engine and cryptographic ledger:
 
 - **NetworkX Topology:** Manages hierarchical document structures (`TenantNode` $\rightarrow$ `DocumentNode` $\rightarrow$ `ChunkNode`), sequential reading chains (`NEXT_CHUNK`), and semantic entity linkages (`MENTIONS`, `CITES`, `SUPERSEDES`). Suited for up to 50,000 document nodes per instance; HNSW and DuckDB migration planned on roadmap for 250,000+ nodes.
 - **FAISS Vector Acceleration:** Embeds text chunks into a 768-dimensional normalized continuous space (`nomic-embed-text-v1.5` in cloud mode; `nomic-embed-text` in local Ollama) for high-speed inner-product cosine similarity retrieval.
+- **MeitY National Blockchain Framework (NBF v2.1) Ledger:**
+  - Automated SHA-256 Merkle Directed Acyclic Graph (DAG) construction for every ingested document.
+  - Every text chunk is hashed into a cryptographic leaf node (`sha256(chunk_text)`); adjacent leaf pairs are iteratively hashed to compute an immutable Merkle Root.
+  - Document records are sequenced into an audit block with genesis block chaining (`prev_block_hash`, `timestamp`, `merkle_root`).
+  - Provides mathematical tamper-evident verification: modifying a single byte in any stored chunk causes root hash recalculation to fail (`TAMPERING_DETECTED`), while authentic records return `TAMPER_EVIDENT_VERIFIED`.
+  - Accessible via the Document Vault UI modal and REST endpoints (`GET /api/v1/ledger/records`, `GET /api/v1/ledger/verify/{doc_id}`).
 - **Vector Model Incommensurability Note:** Embeddings from different models inhabit different latent spaces. Switching between cloud and local Ollama requires re-indexing the document corpus. The hash router in `embedding_router.py` is strictly an offline unit-test mock fixture.
 - **Re-Entrant RWLock Safety:** Regulates multi-threaded concurrency — allows unlimited parallel reads during search queries while serializing atomic background disk write-backs to `graph_store.json`.
 - **SQLite Semantic Cache:** Fast retrieval ($\approx 3.8\text{ ms}$) for repeated queries with cosine similarity $\ge 0.95$.
@@ -205,11 +226,11 @@ Replaces heavy external database infrastructure (Neo4j, Milvus, Pinecone) with a
                          ┌────────────────────┴────────────────────┐
                          ▼                                         ▼
             ┌──────────────────────────┐              ┌──────────────────────────┐
-            │ Magic-Byte MIME Inspector │              │ Input Guardrails / Regex │
-            │  (%PDF-, PK\x03\x04;      │              │ (Block system override,  │
-            │   Block MZ/ELF Executables)│              │  toxic payloads, XSS)    │
-            └────────────┬─────────────┘              └────────────┬─────────────┘
-                         │                                         │
+            │ Magic-Byte MIME Inspector │              │ 5-Layer Sovereign Guard  │
+            │  (%PDF-, PK\x03\x04;      │              │ (Aadhaar Act §29 Regex,  │
+            │   Block MZ/ELF Executables)│              │  DPDPA 2023 PII Masking, │
+            └────────────┬─────────────┘              │  Anti-Forgery Shield)    │
+                         │                            └────────────┬─────────────┘
                          ▼                                         │
             ┌──────────────────────────┐                           │
             │ Indirect Injection Scanner│                           │
@@ -225,21 +246,44 @@ Replaces heavy external database infrastructure (Neo4j, Milvus, Pinecone) with a
           │ (Searchable)│ │(Quarantined)│                          │
           └──────┬──────┘ └─────────────┘                          │
                  │                                                 │
+                 ▼                                                 │
+          ┌─────────────┐                                          │
+          │ MeitY NBF   │                                          │
+          │ Merkle Hash │                                          │
+          │ (Blockchain)│                                          │
+          └──────┬──────┘                                          │
+                 │                                                 │
                  └────────────────────────────┬────────────────────┘
                                               │
                                               ▼
                                ┌─────────────────────────────┐
-                               │ Sovereign Ollama / CF LLM   │
-                               │ (DPDPA 2023 Data Residency) │
+                               │ Multi-Tier Sovereign LLMs   │
+                               │ • Groq LPU (Qwen 27B)       │
+                               │ • Cloudflare Workers AI     │
+                               │ • Local Ollama (DPDPA §16)  │
                                └─────────────────────────────┘
 ```
 
-1. **Pre-Indexing Indirect Prompt Injection Scanner (`doc_injection_scanner.py`):** Scans for adversarial jailbreaks, role impersonation delimiters (`<|im_start|>`), and zero-width unicode steganography. Quarantines suspicious chunks before vector indexing.
-2. **Binary Magic-Byte File Validation (`file_validator.py`):** Inspects raw file headers to confirm genuine MIME signatures; outright blocks executable binaries (Windows PE `MZ`, Linux ELF `\x7fELF`), double extensions (e.g., `policy.pdf.exe`), and files $>50\text{ MB}$.
-3. **Tenant Sliding-Window Rate Limiting (`rate_limiter.py`):** Enforces per-tenant quotas (20 uploads/hr, 150 queries/hr) with HTTP 429 Retry-After headers.
-4. **On-Premise Sovereign Execution (`ollama_client.py`):** Supports offline, air-gapped LLM and embedding inference via local Ollama daemons, supporting data residency compliance under Section 16 of India's **Digital Personal Data Protection Act (DPDPA), 2023**.
-5. **Multi-Stage Container Hardening:** Multi-stage Docker builds running under an unprivileged non-root user (`docqa:10001`) with Indic OCR language packs (`hin`, `tam`).
-6. **Automated DevSecOps Pipeline (`.github/workflows/ci.yml`):** Enforces static linting (Ruff), Python security scanning with **Bandit (SAST)**, dependency vulnerability auditing with **pip-audit** & **npm audit**, and container image vulnerability scanning via **Trivy**.
+1. **5-Layer Sovereign Government Guardrails (`guardrails.py`):**
+   - **Layer 1 (Adversarial Injection Defense):** Quarantines prompt injection attacks, role hijacking, and jailbreaks.
+   - **Layer 2 (Harm & Safety Gate):** Blocks toxic, abusive, or anti-national content.
+   - **Layer 3 (Anti-Forgery & Statutory Enforcement):** Halts and refuses requests to forge government documents, fake voter IDs, fake caste certificates, or bypass e-KYC.
+   - **Layer 4 (Automated Statutory PII Masking):** Complies with **Section 29 of the Aadhaar Act, 2016** and **DPDP Act, 2023**:
+     - Aadhaar numbers redacted to `XXXX-XXXX-1234`
+     - Permanent Account Numbers (PAN) masked to `XXXXX1234X`
+     - Indian phone numbers masked to `+91-XXXXX-98765`
+     - Email addresses anonymized to `d***@domain.com`
+   - **Layer 5 (Output Hallucination & Factuality Shield):** Validates generated answers against retrieved source citations.
+2. **Pre-Indexing Indirect Prompt Injection Scanner (`doc_injection_scanner.py`):** Scans for adversarial jailbreaks, role impersonation delimiters (`<|im_start|>`), and zero-width unicode steganography. Quarantines suspicious chunks before vector indexing.
+3. **Binary Magic-Byte File Validation (`file_validator.py`):** Inspects raw file headers to confirm genuine MIME signatures; outright blocks executable binaries (Windows PE `MZ`, Linux ELF `\x7fELF`), double extensions (e.g., `policy.pdf.exe`), and files $>50\text{ MB}$.
+4. **Tenant Sliding-Window Rate Limiting (`rate_limiter.py`):** Enforces per-tenant quotas (20 uploads/hr, 150 queries/hr) with HTTP 429 Retry-After headers.
+5. **Multi-Tier Sovereign LLM & LPU Inference (`cloudflare_ai.py`):**
+   - **Tier 1 (Groq LPU):** Lightning-fast inference utilizing open-weight sovereign models (`qwen/qwen3.8-27b`, `openai/gpt-oss-120b`).
+   - **Tier 2 (Cloudflare Workers AI):** Serverless global cloud fallback (`@cf/meta/llama-3-8b-instruct`).
+   - **Tier 3 (Local Sovereign Ollama):** 100% offline edge execution for institutional air-gapped data residency under DPDPA 2023 §16.
+   - **Tier 4 (Sovereign Extractive RAG):** Verbatim chunk synthesis operating with 0% external API dependencies.
+6. **Multi-Stage Container Hardening:** Multi-stage Docker builds running under an unprivileged non-root user (`docqa:10001`) with Indic OCR language packs (`hin`, `tam`).
+7. **Automated DevSecOps Pipeline (`.github/workflows/ci.yml`):** Enforces static linting (Ruff), Python security scanning with **Bandit (SAST)**, dependency vulnerability auditing with **pip-audit** & **npm audit**, and container image vulnerability scanning via **Trivy**.
 
 ---
 
@@ -297,17 +341,20 @@ Copy-Item .env.example .env
 
 Key variables:
 ```env
-# Cloudflare Workers AI (Cloud Mode)
+# Groq LPU Ultra-Low Latency Inference (Primary Sovereign Open Weights)
+GROQ_API_KEY=gsk_your_groq_api_key_here
+
+# Cloudflare Workers AI (Cloud Secondary Fallback)
 CF_ACCOUNT_ID=your_cloudflare_account_id
 CF_API_TOKEN=your_cloudflare_api_token
 
-# Sovereign On-Premise Execution (Local Mode - DPDPA 2023)
+# Sovereign On-Premise Execution (Local Mode - DPDPA 2023 Air-Gapped)
 USE_OLLAMA=false
 OLLAMA_BASE_URL=http://localhost:11434
 OLLAMA_MODEL=qwen2.5:7b-instruct
 
 # In-Process & Fallback Storage
-MONGODB_URI=your_mongodb_connection_string
+MONGODB_URI=mongodb://localhost:27017/docsai
 ENABLE_JSON_FALLBACK=true
 
 # Security & Rate Limiting
@@ -400,18 +447,21 @@ bash ./scripts/run_trivy.sh
 
 | Component | Technology | Role & Purpose |
 |---|---|---|
-| **Frontend SPA** | React 18, Vite, Lucide Icons, ForceGraph2D | Glassmorphism UI, Jan Suvidha Card, IPC ⇄ BNS Modal, Graph Visualizer |
+| **Frontend SPA** | React 18, Vite, Lucide Icons, ForceGraph2D | Glassmorphism UI, Jan Suvidha Card, IPC ⇄ BNS Modal, NBF Blockchain Modal, Graph Visualizer |
+| **Blockchain Ledger** | Python, SHA-256 Merkle DAG Tree | MeitY National Blockchain Framework (NBF v2.1) cryptographic chunk-level auto-anchoring & tamper detection |
+| **5-Layer Guardrails** | Regex, Token Normalizers, Heuristic NLP | Real-time PII anonymizer (Aadhaar Act §29, DPDP Act 2023), anti-forgery filter, toxic prompt blocker |
 | **Voice Interface** | Browser Web Speech API | Client-assisted speech-to-text input (desktop convenience; local Whisper roadmap for air-gapped on-prem) |
 | **API Gateway** | FastAPI, Pydantic V2, Starlette | High-performance async REST & WebSocket streaming endpoints |
 | **Graph Store** | NetworkX (in-process) | Hierarchical document topology & entity linkage (up to 50k nodes; HNSW roadmap for 250k) |
 | **Vector Engine** | FAISS Flat Index (768-dim) | Inner-product cosine similarity semantic search |
-| **Embedding Router** | Nomic Atlas / Local Ollama Nomic | 768-dimensional normalized dense vectors with Indic script detection |
+| **Embedding Router** | Nomic Atlas / Cloudflare / Local BGE | 768-dimensional normalized dense vectors with Indic script detection & 3-tier fallback |
+| **LLM Inference Tier** | Groq LPU / Cloudflare / Ollama | Multi-tier sovereign compute: Groq Qwen-27B → Cloudflare Llama-3 → Local Ollama → Extractive RAG |
 | **Concordance Engine**| Statutory Hashmaps & Regex | Real-time bidirectional mapping (IPC ⇄ BNS, CrPC ⇄ BNSS, IEA ⇄ BSA) |
 | **Abstention Engine** | Calibrated Similarity Thresholds | Selective refusal on low-confidence/absent document contexts ($\tau = 0.40$) |
 | **Citation Verifier** | Cross-Encoder NLI | DeBERTa-v3 claim-to-chunk entailment verification |
 | **Injection Defense**| Regex / Unicode Steganography Filter | Pre-indexing quarantine of adversarial prompts |
 | **Sovereign Engine** | Ollama (`qwen2.5:7b-instruct`) | Local air-gapped inference adhering to DPDPA 2023 Section 16 |
-| **Containerization** | Docker, Nginx, Docker Compose | Non-root (`docqa:10001`) multi-stage deployment |
+| **Containerization** | Docker, Nginx, Docker Compose | Non-root (`docqa:10001`) multi-stage deployment (Backend, Frontend, MongoDB, Prometheus, Grafana) |
 
 ---
 

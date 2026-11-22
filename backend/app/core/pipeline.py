@@ -145,10 +145,13 @@ class RAGPipeline:
 
         # Still apply score floor for context quality (but pipeline continues)
         floor = self.config.get("score_floor", 0.40)
-        qualified = [c for c in reranked if c.best_score >= floor]
-        if not qualified:
-            # Fallback: take top 3 chunks even if below floor (abstention already passed)
-            qualified = reranked[:3]
+        if len(reranked) <= 10:
+            qualified = reranked
+        else:
+            qualified = [c for c in reranked if c.best_score >= floor]
+            if not qualified:
+                # Fallback: take top 5 chunks even if below floor (abstention already passed)
+                qualified = reranked[:5]
 
         # ── 4. Context packing ────────────────────────────────────────────────
         context_str, used_ids, truncated = self.ctx_mgr.build_context(

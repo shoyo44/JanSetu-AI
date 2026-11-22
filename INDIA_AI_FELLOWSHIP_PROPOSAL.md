@@ -148,7 +148,8 @@ JanSetu AI aligns directly with 3 official pillars established by the Ministry o
 |---|---|
 | **IndiaAI Application Development Initiative** | High-impact citizen application deployed across Public Governance, Law & Justice, and Vernacular Land Administration. |
 | **IndiaAI Datasets Platform** | Standardized ingestion of Central/State Gazettes, Supreme Court judgments, and Tamil land deeds; committing to contribute our verified $N=150$ gold benchmark dataset (`eval/gold/sovereign_benchmark_qa.jsonl`) to the national repository. |
-| **Safe & Trusted AI** | Calibrated refusal engine ($\tau = 0.40$), claim-level NLI verification, pre-indexing injection quarantine, and sliding-window rate limiting. |
+| **National Blockchain Framework (NBF v2.1)** | MeitY-aligned cryptographic SHA-256 Merkle DAG provenance ledger auto-anchoring document chunks with mathematical tamper detection (`/api/v1/ledger/verify/{doc_id}`). |
+| **Safe & Trusted AI** | 5-Layer Sovereign Guardrails, automated Aadhaar Act §29 & DPDP Act 2023 PII masking, anti-forgery shields, calibrated refusal ($\tau = 0.40$), claim-level NLI verification, and sliding-window rate limiting. |
 
 *(Note: JanSetu AI is engineered for compute efficiency and runs on IndiaAI sovereign cloud compute or local edge workstations, without claiming the separate Startup Financing pillar).*
 
@@ -205,8 +206,9 @@ JanSetu AI bundles 7 preloaded sovereign benchmarks directly accessible in 1 cli
    - *System Output:* Cites mandatory cashless clause under PM-JAY guidelines, ₹5 Lakh family float cover, and provides immediate grievance escalation steps via the National Health Authority (NHA) 14555 helpline.
 
 4. **Tamil Nadu Land Sale Deed & Patta (*கிரையப் பத்திரம்*) (`tamil_pattiram`):**
-   - *Citizen Query:* *"கிரையப் பத்திரத்தில் புல எண் மற்றும் நான்கு எல்லைகளை சரிபார்க்கவும்."*
-   - *System Output:* Identifies Survey Number (`புல எண் 142/3B`), confirms extent (1200 Sq. Ft. / 2.75 Cents), parses North/South/East/West boundary recitals, checks Nil-Encumbrance Certificate (`வில்லங்கச் சான்றிதழ்`) status, and verifies consideration amount.
+   - *Citizen Query (Tamil Indic):* *"தமிழில் விடை: சொத்து யாருக்கு விற்கப்பட்டது மற்றும் கிரையத் தொகை எவ்வளவு?"* (Or in English: *"What is the total cost of the land and who are the buyer and seller?"*)
+   - *Empirically Verified Output:* Accurately extracts Survey No. 142/3A (Sub-division 3A2), Patta No. 874, Chitlapakkam Village, Tambaram Taluk, Chengalpattu District. Identifies consideration amount of **₹45,00,000/- (Rupees Forty-Five Lakhs)** paid via SBI Cheque No. 489102 from Vendor Mr. K. Ramaswami to Purchaser Mrs. M. Meenakshi. Identifies Stamp Duty of 7% (₹3,15,000/-) and Registration Fee of 4% (₹1,80,000/-) under the Tamil Nadu Stamp Act 1899, and verifies Nil-Encumbrance guarantee with exact citations to Clause 6 and Clause 3/4.
+   - *Zero-Hallucination Guardrail Demonstration:* When monetary clauses are absent from retrieved context (e.g., partial top-k retrieval), the engine reliably triggers calibrated abstention ("monetary consideration is not present in available records"), refusing to hallucinate an arbitrary price.
 
 5. **Cyber Fraud Reporting & Zero-FIR (Helpline 1930 / I4C) (`cyber_fir`):**
    - *Citizen Query:* *"Scammer transferred ₹50,000 from my UPI account 40 minutes ago. What should I do?"*

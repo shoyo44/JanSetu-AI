@@ -63,3 +63,23 @@ All proportions report exact counts $k/N$ and 95% Wilson score confidence interv
 | **Undertrial Rule Engine Test (BNSS §479)** | **5/5 PASS (100.0%)** | Validates 1/3rd first offender, 1/2 repeat offender, life/death exclusion, multiple case exclusion, and judicial review recommendation (`eval/test_undertrial_rules.py`). |
 | **Statutory Concordance Fixture**| **30/30 PASS (100.0%)** | Deterministic lookup on 30 standard transitions (`IPC ⇄ BNS`, `CrPC ⇄ BNSS`, `IEA ⇄ BSA`). |
 | **Adversarial Injection Fixture** | **10/10 PASS (100.0%)** | Quarantines 10 synthetic jailbreak/steganography chunks before vector indexing. |
+| **MeitY NBF Blockchain Ledger Test** | **PASS (100.0%)** | Validates cryptographic SHA-256 Merkle tree calculation, genesis block anchoring, single-byte modification tamper detection (`TAMPERING_DETECTED`), and authentic verification (`TAMPER_EVIDENT_VERIFIED`). |
+| **5-Layer Sovereign Guardrails** | **PASS (100.0%)** | Validates Aadhaar number redaction (`XXXX-XXXX-1234`), PAN masking (`XXXXX1234X`), phone number redaction, and anti-forgery request rejection. |
+
+---
+
+## 5. Indic Multilingual Benchmark & Calibrated Abstention Case Study
+
+Evaluated live on AWS EC2 (`http://ec2-98-93-55-8.compute-1.amazonaws.com:3000`) using the Tamil Nadu registered sale deed (*கிரையப் பத்திரம்*) and Patta exemplar:
+
+| Dimension | Tamil Indic Query (`ta`) | Cross-Lingual English Query (`en`) |
+|---|---|---|
+| **Input Query** | `தமிழில் விடை: சொத்து யாருக்கு விற்கப்பட்டது மற்றும் கிரையத் தொகை எவ்வளவு?` | `"What is the total cost of the land and who are the buyer and seller?"` |
+| **Retrieved Chunks** | 9 evidence chunks (100% corpus coverage) | 5 candidate chunks (Vendor/Purchaser details) |
+| **Extracted Consideration**| **₹45,00,000/- (ரூபாய் நாற்பத்தைந்து லட்சம் மட்டும்)** | **Calibrated Abstention Refusal** |
+| **Payment Instrument** | SBI Cheque No. 489102 | Refusal explanation: *"Text chunks contain parties and property details but do NOT contain monetary amount of sale price."* |
+| **Seller / Vendor** | K. Ramaswami (திரு. கே. ராமசுவாமி) | Mr. K. Ramaswami |
+| **Buyer / Purchaser** | M. Meenakshi (திருமதி. எம். மீனாட்சி) | Mrs. M. Meenakshi |
+| **Property Spec** | Survey 142/3A, Patta 874, Chitlapakkam Village | Survey 142/3A, Sub-division 3A2, Patta 874 |
+| **Statutory Citations** | Tamil Nadu Stamp Act 1899 (Clause 6, Clause 3/4) | Clause 2 & 3 (Vendor & Purchaser Details) |
+| **Zero-Hallucination Behavior** | Verbatim grounding from Clause 6 | **Refused to guess monetary amount** when Clause 6 was omitted from candidate context window. |

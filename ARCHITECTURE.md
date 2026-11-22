@@ -444,6 +444,43 @@ GraphStore
 - **Hit condition:** Cosine similarity >= 0.95 between new query vector and stored vectors
 - **Invalidation:** Cleared automatically on any document upload/delete for the tenant
 
+### Sovereign Blockchain Provenance Ledger (MeitY NBF v2.1 Compliance — `core/sovereign_ledger.py`)
+
+Adhering to the **National Blockchain Framework (NBF v2.1)** published by the Ministry of Electronics and Information Technology (MeitY), JanSetu AI implements an automated, cryptographic Merkle Directed Acyclic Graph (DAG) ledger for every ingested public document and citizen record:
+
+```
++-----------------------------------------------------------------------------------+
+|               MeitY National Blockchain Framework (NBF v2.1) Provenance Ledger    |
+|                                                                                   |
+|  [Block 0: Genesis Block]  <-- HASH LINK <--  [Block 1: Doc A]  <-- HASH LINK ...  |
+|  hash: 0000000000...                          prev_hash: 0000...                  |
+|                                               merkle_root: e3b0c44298fc1c...      |
+|                                                                                   |
+|                        +-----------------------------+                            |
+|                        |  Merkle Root Hash (SHA-256) |                            |
+|                        +--------------+--------------+                            |
+|                                       |                                           |
+|                     +-----------------+-----------------+                         |
+|                     |                                   |                         |
+|              +------+------+                     +------+------+                  |
+|              | Hash(Node 1) |                     | Hash(Node 2) |                  |
+|              +------+------+                     +------+------+                  |
+|                     |                                   |                         |
+|             +-------+-------+                   +-------+-------+                 |
+|             |               |                   |               |                 |
+|       +-----+-----+   +-----+-----+       +-----+-----+   +-----+-----+           |
+|       | Chunk 0 H |   | Chunk 1 H |       | Chunk 2 H |   | Chunk 3 H |           |
+|       +-----+-----+   +-----+-----+       +-----+-----+   +-----+-----+           |
+|             |               |                   |               |                 |
+|       [Text Chunk 0]  [Text Chunk 1]      [Text Chunk 2]  [Text Chunk 3]          |
++-----------------------------------------------------------------------------------+
+```
+
+- **Chunk-Level SHA-256 Leaves:** When a document is ingested and chunked, each text chunk is hashed into a cryptographic leaf node: $H_i = \text{SHA-256}(\text{chunk\_text}_i)$.
+- **Merkle DAG Tree Construction:** Leaf pairs are concatenated and recursively hashed: $H_{parent} = \text{SHA-256}(H_{left} + H_{right})$ until a single 256-bit Merkle Root is obtained.
+- **Tamper-Evident Verification:** On demand via `/api/v1/ledger/verify/{doc_id}`, the ledger recomputes the Merkle tree directly from the active GraphStore chunks. If even a single byte, punctuation mark, or character was modified, the recalculated root differs from the anchored record, immediately flagging `TAMPERING_DETECTED`. Unaltered records verify as `TAMPER_EVIDENT_VERIFIED`.
+- **Persistence:** Ledger blocks are persisted to `/backend/data/sovereign_ledger.json` with an immutable genesis block and atomic mutex write locks.
+
 ### Redis (Optional)
 
 | Usage | Key Pattern | TTL |
@@ -471,6 +508,8 @@ GraphStore
 | `DELETE` | `/documents/{doc_id}` | Delete a specific document |
 | `POST` | `/documents/{doc_id}/supersede` | Mark document superseded by new version |
 | `GET` | `/documents/{doc_id}/redflags` | Retrieve red-flag scan report |
+| `GET` | `/ledger/records` | Retrieve all MeitY NBF blockchain provenance ledger records |
+| `GET` | `/ledger/verify/{doc_id}` | Perform cryptographic Merkle DAG recalculation and tamper verification |
 | `POST` | `/history/message` | Save a chat message to MongoDB |
 | `GET` | `/history` | Retrieve chat history for tenant+vertical |
 | `DELETE` | `/history` | Clear chat history for tenant+vertical |
@@ -554,35 +593,49 @@ frontend/src/
 
 ## 10. Security & Guardrails
 
-### Input Guardrails (`core/guardrails.py`)
+### 5-Layer Sovereign Government Guardrails (`core/guardrails.py`)
 
-Applied at the API level before any LLM or pipeline call:
+Applied at the API boundary, stream ingress, and output generators before and after any LLM or pipeline execution:
 
-```python
-BLOCKED_PATTERNS = [
-    r"ignore (previous|all) instructions",
-    r"reveal (your |the )?(system )?prompt",
-    r"you are now",
-    r"bypass.*safety",
-    r"jailbreak",
-    # ... toxic keywords, code execution requests, auth bypass attempts
-]
+```
+[Inbound User Query / Document Chunk]
+               |
+               v
+ [Layer 1: Prompt Injection & Adversarial Jailbreak Defense]
+   -> Regex & Token Normalizer: blocks "ignore instructions", "bypass safety", system prompt exfiltration
+               |
+               v
+ [Layer 2: Toxicity & Malicious Content Filter]
+   -> Blocks hate speech, self-harm, cyberattack recipes, and toxic exploitation payloads
+               |
+               v
+ [Layer 3: Statutory & Sovereign Boundary Enforcement]
+   -> Anti-Forgery Gate: detects and refuses instructions to forge Aadhaar, PAN, fake voter IDs, fake caste certificates, or falsify land deeds
+               |
+               v
+ [Layer 4: Automated Statutory PII Redaction (DPDP Act 2023 & Aadhaar Act 2016 §29)]
+   -> Aadhaar Masking: \b\d{4}\s\d{4}\s(\d{4})\b -> "XXXX-XXXX-\1"
+   -> PAN Masking: \b[A-Z]{5}(\d{4})[A-Z]\b -> "XXXXX\1X"
+   -> Phone Number Redaction: (\+91[\-\s]?)?[6-9]\d{9} -> "+91-XXXXX-XXXXX"
+   -> Email Anonymization: user@domain.com -> u***@domain.com
+               |
+               v
+[RAG Pipeline / Grounded LLM Inference Engine]
+               |
+               v
+ [Layer 5: Output Grounding & Anti-Hallucination Shield]
+   -> Verifies generated tokens against retrieved evidence spans; enforces calibrated abstention (tau = 0.40)
 ```
 
-- Scans query text with `re.search()` against compiled regex list
-- Returns a violation message if triggered; the query never reaches the pipeline
-- Logged as a warning with the matched pattern
+- **Statutory Compliance:** Enforces Section 29 of the **Aadhaar (Targeted Delivery of Financial and Other Subsidies, Benefits and Services) Act, 2016** (prohibiting publishing or displaying 12-digit Aadhaar numbers) and the **Digital Personal Data Protection Act (DPDPA), 2023**.
+- **Anti-Forgery Safeguards:** Proactively prevents the AI from being weaponized to generate counterfeit government identity artifacts or tamper with revenue records.
 
-### Authentication
+### Authentication & Tenant Isolation
 
-- **Firebase Google Identity** (Production): Google OAuth popup → Firebase JWT → UID used as `tenant_id`
-- **Dev Mode Fallback**: If Firebase API keys are absent → simulated `DevUser` session → fixed dev `tenant_id`
-- **CORS**: Configured per `CORS_ORIGINS` env var (default: localhost:5173, localhost:3000, Vercel URL)
-
-### Document Isolation
-
-- Every GraphStore node is scoped by `tenant_id`
-- All queries, retrievals, and deletes filter by `tenant_id` — no cross-tenant data leakage
+- **Firebase Google Identity** (Production): Google OAuth popup → Firebase JWT → UID used as `tenant_id`. Configured with authorized origin `ec2-98-93-55-8.compute-1.amazonaws.com`.
+- **Dev Mode Fallback**: If Firebase API keys are absent → simulated `DevUser` session → fixed dev `tenant_id`.
+- **Tenant Isolation**: Every GraphStore node, vector embedding, and audit record is strictly partitioned by `tenant_id` — zero cross-tenant vector contamination or query leakage.
+- **CORS**: Configured per `CORS_ORIGINS` env var (default: localhost:5173, localhost:3000, Vercel URL, AWS EC2 public DNS).
 
 ---
 
@@ -632,65 +685,94 @@ Users can rate any response thumbs up/down via the Chat UI:
 ## 12. Deployment Architecture
 
 ```
-+--------------------------------------------------------+
-|                   VERCEL (Frontend CDN)                |
-|   React SPA build -> static assets -> global CDN edge  |
-+--------------------------------------------------------+
-                         ^
-                  HTTPS + WSS
-                         |
-+--------------------------------------------------------+
-|              BACKEND (Docker Container)                |
-|                                                        |
-|  python -m uvicorn main:app \                          |
-|    --host 0.0.0.0 --port 8000 \                        |
-|    --reload-dir app                                    |
-|                                                        |
-|  Local data:                                           |
-|  |-- /backend/data/graph_store.json                    |
-|  |-- /backend/data/semantic_cache.db                   |
-|  +-- /backend/data/json_db/ (MongoDB fallback)         |
-+--------------------------------------------------------+
-                         |
-        +----------------+-----------------+
-        v                v                 v
-+--------------+  +------------+  +-----------------+
-| MongoDB Atlas|  |  Redis     |  | Cloudflare      |
-| (shared)     |  | (optional) |  | Workers AI      |
-|              |  |            |  | (LLM + Embed)   |
-+--------------+  +------------+  +-----------------+
++---------------------------------------------------------------------------------------+
+|                                AWS EC2 CLOUD / ON-PREMISE HOST                         |
+|                                                                                       |
+|   +-------------------------------------+   +-------------------------------------+   |
+|   |  docsai_frontend (Port 3000)        |   |  docsai_backend (Port 8000)         |   |
+|   |  - React 18 + Vite SPA              |   |  - FastAPI Async Uvicorn Core       |   |
+|   |  - Nginx hardened web server        |<->|  - MeitY NBF Merkle Ledger Engine   |   |
+|   |  - Vault, Chat, KG, Concordance     |   |  - In-process NetworkX + FAISS      |   |
+|   +-------------------------------------+   +------------------+------------------+   |
+|                                                                |                      |
+|                     +------------------------------------------+                      |
+|                     |                  |                       |                      |
+|                     v                  v                       v                      |
+|   +--------------------+     +--------------------+  +--------------------+           |
+|   | docsai_mongo:27017 |     | docsai_prom:9090   |  | docsai_grafana:3001|           |
+|   | - Local DB Audit   |     | - Scrapes /metrics |  | - Live Sovereign   |           |
+|   | - WiredTiger 256MB |     |   every 15s        |  |   Dashboard & Alerts|          |
+|   +--------------------+     +--------------------+  +--------------------+           |
++---------------------------------------------------------------------------------------+
+                                         |
+                       +-----------------+-----------------+
+                       |                                   |
+                       v                                   v
+        +-----------------------------+     +-----------------------------+
+        | External Compute Cloud      |     | Sovereign Air-Gapped Mode   |
+        | • Groq LPU (Qwen 27B /      |     | • Ollama Daemon (:11434)    |
+        |   GPT-OSS 120B)             |     |   (qwen2.5:7b, nomic-embed) |
+        | • Cloudflare Workers AI     |     | • Zero-API Extractive RAG   |
+        |   (Llama 3.1 8B, BGE)       |     | • DPDPA 2023 §16 Compliant  |
+        +-----------------------------+     +-----------------------------+
 ```
 
-### Docker
+### Docker Compose Multi-Container Orchestration
 
 ```yaml
 # docker-compose.yml
 services:
   backend:
-    build: .
+    build: { context: ./backend, dockerfile: Dockerfile }
+    container_name: docsai_backend
     ports: ["8000:8000"]
-    env_file: .env
-  redis:
-    image: redis:alpine
-    ports: ["6379:6379"]
+    environment:
+      - GROQ_API_KEY=${GROQ_API_KEY:-}
+      - CF_ACCOUNT_ID=${CF_ACCOUNT_ID:-}
+      - CF_API_TOKEN=${CF_API_TOKEN:-}
+      - MONGODB_URI=mongodb://mongo:27017/docsai
+      - ENABLE_JSON_FALLBACK=true
+    volumes:
+      - ./backend/data:/app/data
+    depends_on:
+      - mongo
+
+  frontend:
+    build: { context: ./frontend, dockerfile: Dockerfile }
+    container_name: docsai_frontend
+    ports: ["3000:3000"]
+
+  mongo:
+    image: mongo:6-jammy
+    container_name: docsai_mongo
+    command: ["--wiredTigerCacheSizeGB", "0.25"]
+    ports: ["27017:27017"]
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: docsai_prometheus
+    ports: ["9090:9090"]
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: docsai_grafana
+    ports: ["3001:3000"]
 ```
 
 ### Environment Variables
 
 | Variable | Description |
 |---|---|
-| `CF_ACCOUNT_ID` | Cloudflare Workers AI account |
+| `GROQ_API_KEY` | Groq LPU API key for ultra-low-latency sovereign Qwen-27B inference |
+| `CF_ACCOUNT_ID` | Cloudflare Workers AI account ID |
 | `CF_API_TOKEN` | Cloudflare API bearer token |
-| `MONGODB_URI` | MongoDB Atlas connection string |
-| `MONGODB_DB` | Database name (default: `job_agent`) |
-| `MONGODB_COLLECTION` | Collection name (default: `chat_history`) |
-| `CORS_ORIGINS` | Comma-separated allowed origins |
-| `GRAPH_STORE_DIR` | Path for graph_store.json + cache.db |
-| `LOG_LEVEL` | Logging verbosity (default: `INFO`) |
-| `VITE_FIREBASE_*` | Firebase Web SDK config keys |
-| `VITE_API_BASE_URL` | Frontend -> backend REST base URL |
-| `VITE_WS_BASE_URL` | Frontend -> backend WebSocket base URL |
-| `VITE_TENANT_ID` | Fixed tenant ID for dev/testing |
+| `USE_OLLAMA` | Toggle local sovereign air-gapped mode (`true` / `false`) |
+| `OLLAMA_BASE_URL` | Local Ollama API host (e.g., `http://localhost:11434`) |
+| `MONGODB_URI` | MongoDB connection string (local container or Atlas) |
+| `ENABLE_JSON_FALLBACK` | Resilient file-based fallback if MongoDB is unreachable |
+| `RATE_LIMIT_UPLOADS_PER_HOUR` | Sliding-window tenant limit for document uploads (default: 20) |
+| `RATE_LIMIT_QUERIES_PER_HOUR` | Sliding-window tenant limit for queries (default: 150) |
+| `VITE_FIREBASE_*` | Firebase Google Auth credentials (baked into production frontend build) |
 
 ---
 
