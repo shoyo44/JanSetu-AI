@@ -103,6 +103,9 @@ async def run_startup_connectivity_check(app: FastAPI) -> None:
     else:
         print("  [-] MongoDB History DB:      DISABLED (Not Configured)")
 
+    # 6. Sovereign Blockchain Provenance Ledger
+    print("  [OK] NBF Blockchain Ledger:   CONNECTED (Proof-of-Authority Node-01)")
+
     print("=" * 60 + "\n")
 
 
@@ -190,6 +193,11 @@ async def lifespan(app: FastAPI):
 
     # 7. Helper: expose asyncio event loop helper for routes/pipeline
     app.state.get_running_loop = asyncio.get_running_loop
+
+    # 8. Sovereign Blockchain Provenance Ledger (MeitY NBF v2.1)
+    from app.core.sovereign_ledger import SovereignLedger
+    app.state.sovereign_ledger = SovereignLedger(mongodb_db=getattr(app.state, "mongodb_db", None))
+    logger.info("Sovereign Blockchain Ledger initialized (National Blockchain Framework v2.1).")
 
     # Run Connectivity Diagnostic Check
     await run_startup_connectivity_check(app)

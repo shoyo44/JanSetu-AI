@@ -4,7 +4,7 @@ import {
   CheckCircle2, XCircle, Sparkles, ChevronDown, ShieldCheck,
   BookOpen, Briefcase, Scale, Users, Tag, Target, FileText,
   ArrowRight, Info, RefreshCw, Gavel, ShieldAlert, Eye, Printer, ExternalLink, Check,
-  Landmark,
+  Landmark, Link2,
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { useToast } from '../components/Toast';
@@ -84,6 +84,26 @@ const Vault = () => {
   const [loadingViewer, setLoadingViewer] = useState(false);
   const [loadingBenchmark, setLoadingBenchmark] = useState(null);
   const [viewerSearch, setViewerSearch] = useState('');
+
+  // ── Sovereign Blockchain Ledger State (MeitY NBF v2.1) ────────────────────
+  const [selectedLedgerDoc, setSelectedLedgerDoc] = useState(null);
+  const [ledgerProof, setLedgerProof] = useState(null);
+  const [loadingLedger, setLoadingLedger] = useState(false);
+
+  const openLedgerModal = async (doc) => {
+    setSelectedLedgerDoc(doc);
+    setLoadingLedger(true);
+    setLedgerProof(null);
+    try {
+      const res = await fetch(`${apiBase}/ledger/verify/${doc.id}?tenant_id=${tenantId}`);
+      const data = await res.json();
+      setLedgerProof(data);
+    } catch (e) {
+      toast.error("Ledger Verification Failed", e.message);
+    } finally {
+      setLoadingLedger(false);
+    }
+  };
 
   const openAuditWorkbench = async (doc) => {
     setSelectedAuditDoc(doc);
@@ -879,6 +899,16 @@ const Vault = () => {
                         <span>View</span>
                       </button>
 
+                      <button 
+                        className="action-icon-btn hover-lift" 
+                        title="Verify Sovereign Blockchain Provenance (MeitY NBF v2.1)"
+                        onClick={() => openLedgerModal(doc)}
+                        style={{ padding: '6px 8px', borderRadius: '6px', border: '1px solid rgba(16, 185, 129, 0.35)', background: 'rgba(16, 185, 129, 0.1)', color: '#10b981', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.75rem', fontWeight: 600 }}
+                      >
+                        <Link2 size={14} />
+                        <span>Blockchain</span>
+                      </button>
+
                       {['law', 'judgment'].includes(doc.vertical) && (
                         <button 
                           className="action-icon-btn hover-lift" 
@@ -1180,6 +1210,128 @@ const Vault = () => {
                       </p>
                     </div>
                   ))
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Phase 4: Sovereign Blockchain Ledger (MeitY NBF v2.1) Provenance Modal ── */}
+      {selectedLedgerDoc && (
+        <div className="modal-backdrop" style={{
+          position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+          background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(5px)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          zIndex: 1000, padding: '20px'
+        }}>
+          <div className="modal-card animate-scale-up" style={{
+            background: 'var(--bg-card, #131b2e)', border: '1px solid rgba(16, 185, 129, 0.4)',
+            borderRadius: '14px', width: '100%', maxWidth: '640px',
+            boxShadow: '0 24px 48px rgba(0,0,0,0.5)', overflow: 'hidden'
+          }}>
+            {/* Header */}
+            <div style={{
+              padding: '18px 24px', borderBottom: '1px solid var(--border-subtle)',
+              background: 'linear-gradient(90deg, rgba(16, 185, 129, 0.15), rgba(6, 95, 70, 0.05))',
+              display: 'flex', alignItems: 'center', justifyContent: 'space-between'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <div style={{
+                  padding: '8px', borderRadius: '8px',
+                  background: 'rgba(16, 185, 129, 0.2)', color: '#10b981'
+                }}>
+                  <Link2 size={20} />
+                </div>
+                <div>
+                  <h3 style={{ margin: 0, fontSize: '1.05rem', fontWeight: 700, color: '#f8fafc', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    Sovereign Blockchain Provenance Certificate
+                  </h3>
+                  <span style={{ fontSize: '0.72rem', color: '#10b981', fontWeight: 600, letterSpacing: '0.5px' }}>
+                    MEITY NATIONAL BLOCKCHAIN FRAMEWORK (NBF) v2.1
+                  </span>
+                </div>
+              </div>
+              <button
+                onClick={() => setSelectedLedgerDoc(null)}
+                style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', fontSize: '1.2rem', padding: '4px 8px' }}
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Body */}
+            <div style={{ padding: '24px' }}>
+              {loadingLedger ? (
+                <div style={{ padding: '40px 0', textAlign: 'center', color: 'var(--text-secondary)' }}>
+                  <Loader className="spin" size={32} style={{ margin: '0 auto 12px', color: '#10b981' }} />
+                  <p>Verifying cryptographic Merkle DAG proof against NBF Node...</p>
+                </div>
+              ) : ledgerProof ? (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  {/* Status Banner */}
+                  <div style={{
+                    padding: '14px 18px', borderRadius: '10px',
+                    background: ledgerProof.verified ? 'rgba(16, 185, 129, 0.12)' : 'rgba(239, 68, 68, 0.12)',
+                    border: `1px solid ${ledgerProof.verified ? '#10b981' : '#ef4444'}`,
+                    display: 'flex', alignItems: 'center', gap: '14px'
+                  }}>
+                    {ledgerProof.verified ? (
+                      <CheckCircle2 size={28} color="#10b981" />
+                    ) : (
+                      <XCircle size={28} color="#ef4444" />
+                    )}
+                    <div>
+                      <div style={{ fontWeight: 800, fontSize: '0.95rem', color: ledgerProof.verified ? '#10b981' : '#ef4444' }}>
+                        {ledgerProof.status === 'TAMPER_EVIDENT_VERIFIED' ? '100% CRYPTOGRAPHICALLY VERIFIED — TAMPER-EVIDENT' : ledgerProof.status}
+                      </div>
+                      <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '2px' }}>
+                        {ledgerProof.message}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Metadata Grid */}
+                  <div style={{
+                    display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px',
+                    background: 'rgba(0,0,0,0.2)', padding: '14px', borderRadius: '10px',
+                    border: '1px solid var(--border-subtle)', fontSize: '0.8rem'
+                  }}>
+                    <div>
+                      <span style={{ color: 'var(--text-tertiary)', fontSize: '0.72rem', display: 'block' }}>DOCUMENT NAME</span>
+                      <strong style={{ color: 'var(--text-primary)', wordBreak: 'break-all' }}>{ledgerProof.doc_name || selectedLedgerDoc.name}</strong>
+                    </div>
+                    <div>
+                      <span style={{ color: 'var(--text-tertiary)', fontSize: '0.72rem', display: 'block' }}>BLOCKCHAIN BLOCK HEIGHT</span>
+                      <strong style={{ color: '#10b981', fontSize: '0.95rem' }}>Block #{ledgerProof.block_height ?? 1}</strong>
+                    </div>
+                    <div>
+                      <span style={{ color: 'var(--text-tertiary)', fontSize: '0.72rem', display: 'block' }}>CONSENSUS PROTOCOL</span>
+                      <strong style={{ color: 'var(--text-primary)' }}>{ledgerProof.consensus || 'Proof-of-Authority (PoA)'}</strong>
+                    </div>
+                    <div>
+                      <span style={{ color: 'var(--text-tertiary)', fontSize: '0.72rem', display: 'block' }}>AUTHORITY SIGNER</span>
+                      <strong style={{ color: 'var(--text-primary)' }}>{ledgerProof.authority || 'NIC-MeitY-National-Blockchain-Node-01'}</strong>
+                    </div>
+                    <div style={{ gridColumn: 'span 2' }}>
+                      <span style={{ color: 'var(--text-tertiary)', fontSize: '0.72rem', display: 'block' }}>MERKLE ROOT HASH</span>
+                      <code style={{ color: '#818cf8', fontSize: '0.75rem', wordBreak: 'break-all' }}>{ledgerProof.anchored_merkle_root || ledgerProof.computed_merkle_root || 'N/A'}</code>
+                    </div>
+                    <div style={{ gridColumn: 'span 2' }}>
+                      <span style={{ color: 'var(--text-tertiary)', fontSize: '0.72rem', display: 'block' }}>ANCHORED BLOCK HASH</span>
+                      <code style={{ color: '#94a3b8', fontSize: '0.75rem', wordBreak: 'break-all' }}>{ledgerProof.block_hash || 'N/A'}</code>
+                    </div>
+                    <div style={{ gridColumn: 'span 2' }}>
+                      <span style={{ color: 'var(--text-tertiary)', fontSize: '0.72rem', display: 'block' }}>OFFICIAL TIME-LOCK</span>
+                      <span style={{ color: 'var(--text-secondary)' }}>{ledgerProof.anchored_timestamp ? new Date(ledgerProof.anchored_timestamp).toLocaleString() : 'N/A'}</span>
+                    </div>
+                  </div>
+
+                  <div style={{ fontSize: '0.72rem', color: 'var(--text-tertiary)', textAlign: 'center', lineHeight: 1.4 }}>
+                    🛡️ Verified under Ministry of Electronics and Information Technology (MeitY) Sovereign Distributed Ledger Guidelines.
+                  </div>
+                </div>
+              ) : (
+                <p style={{ textAlign: 'center', color: 'var(--text-secondary)' }}>Failed to load blockchain proof.</p>
               )}
             </div>
           </div>

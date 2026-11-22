@@ -258,10 +258,26 @@ async def ingest_document(
         ]
         store.create_entities_batch(entity_params)
 
+    # 5f. Sovereign Blockchain Provenance Anchoring (MeitY NBF v2.1)
+    ledger_receipt = {}
+    try:
+        from app.core.sovereign_ledger import SovereignLedger
+        ledger = SovereignLedger()
+        ledger_receipt = ledger.anchor_document(
+            doc_id=doc_id,
+            doc_name=display_name,
+            chunks_text=[c["text"] for c in safe_records],
+            tenant_id=tenant_id,
+            vertical=vertical
+        )
+    except Exception as e_led:
+        logger.warning("Blockchain ledger anchoring notice: %s", e_led)
+
     unique_entities = len({e["canonical_name"] for e in all_entity_rows})
     logger.info(
-        "Ingested '%s' → doc_id=%s | %d safe chunks | %d quarantined | %d entities",
+        "Ingested '%s' → doc_id=%s | %d safe chunks | %d quarantined | %d entities | NBF Block #%s",
         doc_name, doc_id, len(safe_chunks), len(quarantined_chunks), unique_entities,
+        ledger_receipt.get("block_height", "?"),
     )
     return {
         "doc_id":              doc_id,
@@ -270,6 +286,9 @@ async def ingest_document(
         "quarantined_chunks":  len(quarantined_chunks),
         "security_scan":       scan_summary,
         "entities_extracted":  unique_entities,
+        "ledger_receipt":      ledger_receipt,
+        "merkle_root":         ledger_receipt.get("merkle_root"),
+        "block_height":        ledger_receipt.get("block_height"),
     }
 
 

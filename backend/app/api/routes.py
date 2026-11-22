@@ -928,6 +928,40 @@ def get_document_chunks(
     return {"chunks": store.get_document_chunks(doc_id, tenant_id)}
 
 
+# ─── Sovereign Blockchain Ledger Endpoints (MeitY NBF v2.1) ───────────────────
+
+@router.get("/ledger/verify/{doc_id}")
+def verify_document_ledger(
+    doc_id: str,
+    tenant_id: str = "tenant-123",
+    request: Request = None,
+    store: Any = Depends(get_graph_store),
+):
+    """
+    Verify document cryptographic provenance and tamper-evident status
+    against the Sovereign Blockchain Ledger (MeitY NBF v2.1).
+    """
+    from app.core.sovereign_ledger import SovereignLedger
+    ledger = getattr(request.app.state, "sovereign_ledger", None) or SovereignLedger()
+    chunks = store.get_document_chunks(doc_id, tenant_id)
+    chunks_text = [c.get("text", "") for c in chunks if not c.get("quarantined", False)]
+    proof = ledger.verify_document(doc_id, chunks_text)
+    return proof
+
+
+@router.get("/ledger/blocks")
+def get_ledger_blocks(
+    tenant_id: Optional[str] = None,
+    limit: int = 25,
+    request: Request = None,
+):
+    """List recent immutable blocks anchored to the National Blockchain Framework ledger."""
+    from app.core.sovereign_ledger import SovereignLedger
+    ledger = getattr(request.app.state, "sovereign_ledger", None) or SovereignLedger()
+    blocks = ledger.list_blocks(tenant_id=tenant_id, limit=limit)
+    return {"blocks": blocks, "total_blocks": len(blocks), "standard": "National Blockchain Framework (NBF) v2.1"}
+
+
 # ─── Chat History Store Endpoints ───────────────────────────────────────────
 
 class ChatMessageRequest(BaseModel):
