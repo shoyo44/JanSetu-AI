@@ -502,45 +502,43 @@ Real-world public governance and legal documents range from clean digital gazett
 
 \begin{figure}[H]
 \centering
-\resizebox{0.88\linewidth}{!}{
 \begin{tikzpicture}[
-    node distance=0.8cm,
-    tier/.style={rectangle, draw=monoblack, fill=monolightgray, rounded corners=1.5mm, text centered, minimum height=0.75cm, minimum width=4.5cm, font=\footnotesize\bfseries},
-    decision/.style={diamond, draw=monoblack, fill=white, aspect=2, text centered, inner sep=1pt, font=\scriptsize\bfseries},
-    action/.style={rectangle, draw=monoblack, fill=white, rounded corners=1mm, text centered, minimum height=0.65cm, minimum width=3.0cm, font=\scriptsize},
+    node distance=0.55cm,
+    tier/.style={rectangle, draw=monoblack, fill=monolightgray, rounded corners=1.5mm, text centered, minimum height=0.72cm, minimum width=5.6cm, font=\footnotesize\bfseries},
+    decision/.style={diamond, draw=monoblack, fill=white, aspect=2.2, text centered, inner sep=1pt, font=\scriptsize\bfseries},
+    action/.style={rectangle, draw=monoblack, fill=white, rounded corners=1mm, text centered, minimum height=0.62cm, minimum width=3.0cm, font=\scriptsize},
     arrow/.style={->, >=latex, thick, color=monoblack}
 ]
 
 \node[tier] (t1) {Tier 1: Native Text Extraction (\texttt{pdfplumber} / \texttt{PyMuPDF})};
-\node[decision, below=0.6cm of t1] (d1) {Text Density Valid?};
-\node[action, right=1.2cm of d1] (a1) {Extract Clean Chunks};
+\node[decision, below=0.5cm of t1] (d1) {Text Density Valid?};
+\node[action, right=1.0cm of d1] (a1) {Extract Clean Chunks};
 
-\node[tier, below=0.6cm of d1] (t2) {Tier 2: Local OCR (\texttt{PyTesseract})};
-\node[decision, below=0.6cm of t2] (d2) {Confidence $> 85\%$?};
-\node[action, right=1.2cm of d2] (a2) {Extract OCR Text};
+\node[tier, below=0.5cm of d1] (t2) {Tier 2: Local OCR (\texttt{PyTesseract})};
+\node[decision, below=0.5cm of t2] (d2) {Confidence $> 85\%$?};
+\node[action, right=1.0cm of d2] (a2) {Extract OCR Text};
 
-\node[tier, below=0.6cm of d2] (t3) {Tier 3: Form Parser (AWS Textract)};
-\node[decision, below=0.6cm of t3] (d3) {Tables Detected?};
-\node[action, right=1.2cm of d3] (a3) {Extract Tabular JSON};
+\node[tier, below=0.5cm of d2] (t3) {Tier 3: Form Parser (AWS Textract)};
+\node[decision, below=0.5cm of t3] (d3) {Tables Detected?};
+\node[action, right=1.0cm of d3] (a3) {Extract Tabular JSON};
 
-\node[tier, below=0.6cm of d3] (t4) {Tier 4: Remote OCR (OCR.space API)};
-\node[tier, below=0.6cm of t4] (t5) {Tier 5: Vision LLM (Cloudflare Llama 3 Vision)};
-\node[action, right=1.2cm of t5] (a5) {Vision Description Chunk};
+\node[tier, below=0.5cm of d3] (t4) {Tier 4: Remote OCR (OCR.space API)};
+\node[tier, below=0.5cm of t4] (t5) {Tier 5: Vision LLM (Cloudflare Llama 3 Vision)};
+\node[action, right=1.0cm of t5] (a5) {Vision Description Chunk};
 
 \draw[arrow] (t1) -- (d1);
-\draw[arrow] (d1) -- node[above, font=\tiny]{Yes} (a1);
-\draw[arrow] (d1) -- node[left, font=\tiny]{No} (t2);
+\draw[arrow] (d1) -- node[above, font=\tiny\bfseries]{Yes} (a1);
+\draw[arrow] (d1) -- node[left, font=\tiny\bfseries]{No} (t2);
 \draw[arrow] (t2) -- (d2);
-\draw[arrow] (d2) -- node[above, font=\tiny]{Yes} (a2);
-\draw[arrow] (d2) -- node[left, font=\tiny]{No} (t3);
+\draw[arrow] (d2) -- node[above, font=\tiny\bfseries]{Yes} (a2);
+\draw[arrow] (d2) -- node[left, font=\tiny\bfseries]{No} (t3);
 \draw[arrow] (t3) -- (d3);
-\draw[arrow] (d3) -- node[above, font=\tiny]{Yes} (a3);
-\draw[arrow] (d3) -- node[left, font=\tiny]{No} (t4);
+\draw[arrow] (d3) -- node[above, font=\tiny\bfseries]{Yes} (a3);
+\draw[arrow] (d3) -- node[left, font=\tiny\bfseries]{No} (t4);
 \draw[arrow] (t4) -- (t5);
 \draw[arrow] (t5) -- (a5);
 
 \end{tikzpicture}
-}
 \caption{JanSetu AI 5-Tier Multimodal OCR Fallback Cascade}
 \label{fig:ocr_cascade}
 \end{figure}
