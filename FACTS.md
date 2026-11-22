@@ -7,7 +7,7 @@ This document establishes the verified, definitive technical and factual paramet
 ## 1. Identity & Application Scope
 - **Project Name:** JanSetu AI (जनसेतु) — Sovereign Multi-Vertical Agentic Knowledge Graph & RAG Platform for Public Governance and Citizen Welfare
 - **Author / Applicant:** Dhanush S
-- **Target Fellowship:** IndiaAI Mission Fellowship (Graduate / Research Scholar)
+- **Target Fellowship:** IndiaAI Fellowship 2026–27 (Undergraduate track)
 - **Primary Domain:** Governance
 - **Cross-Cutting Domain:** Law & Justice
 - **Repository:** https://github.com/shoyo44/JanSetu-AI
@@ -47,6 +47,8 @@ JanSetu AI configures 3 primary sovereign fellowship verticals in `backend/app/c
 ---
 
 ## 3A. Preloaded Sovereign Benchmark Catalog (7 Bundled Scenarios & Provenance)
+
+> *Temporal Verification Caveat:* Bundled source gazettes and guidelines were retrieved during May–August 2024. Users and evaluators should verify against current versions, as operational guidelines (e.g., PM-KISAN exclusion norms and Ayushman Bharat PM-JAY package rates) undergo periodic administrative amendments.
 
 JanSetu AI provides a 1-click evaluation catalog in Document Vault (`/api/v1/benchmarks`):
 1. `pm_kisan`: PM-KISAN Operational Guidelines (Revised 2024), Department of Agriculture & Farmers Welfare, Ministry of Agriculture & Farmers Welfare, GoI. *Source:* `pmkisan.gov.in` (retrieved August 2024). Authored benchmark excerpt summarizing landholding eligibility (noting the 2019 ceiling removal), family definition (husband, wife, minor children), pension exclusions ($\ge ₹10,000$), and mandatory e-KYC/land seeding.
@@ -131,7 +133,7 @@ Evaluated on our automated live test harness (`eval/test_live_e2e_full_system.py
 | **Statutory Concordance Fixture**| **30/30 PASS (100.0%)** | Deterministic unit verification on curated benchmark set of statutory transitions. |
 | **Undertrial Rule Engine Test**  | **8/8 PASS (100.0%)**  | Comprehensive unit verification of BNSS §479: 1/3rd first-offender bond, 1/2 repeat-offender bail, death/life imprisonment exclusion, multiple pending cases bar (§479(2)), accused delay deduction (Explanation), full-maximum-period cap, judicial continued detention, and jail superintendent application duty (§479(3)). |
 | **Adversarial Injection Fixture** | **10/10 PASS (100.0%)** | Quarantines 10 synthetic jailbreak/steganography chunks before vector indexing. |
-| **PII Masking Verification Fixture** | **25/25 PASS (100.0%)** | Regex-based heuristic masking of Aadhaar-like 12-digit numbers and PAN format strings (100.0% precision, 100.0% recall on 25-sample labeled test split). |
+| **PII Masking Verification Fixture** | **25/25 PASS (100.0%)** | Regex-based heuristic masking of Aadhaar-like 12-digit numbers and PAN format strings (100.0% precision, 100.0% recall on 25-sample synthetic test split; unit fixture, not a general population accuracy estimate). |
 | **Cryptographic Merkle Tree Test** | **PASS (100.0%)** | SHA-256 chunk-level Merkle tree generation and local root comparison. Detects accidental or unauthorized chunk modification. |
 
 ### B. Statistical Retrieval & QA Defensibility Evaluation
@@ -143,7 +145,8 @@ Evaluated over $N = 120$ annotated answerable query-document pairs spanning Cent
 - **Advanced GraphRAG:** Vector + in-process NetworkX graph retrieval + HyDE query expansion + Llama-3-8b.
 - **JanSetu AI Grounded (Cloud Mode):** Cloudflare Workers AI (`@cf/meta/llama-3-8b-instruct`) + Nomic Atlas API (`nomic-embed-text-v1.5`, 768-dim) + `cross-encoder/nli-deberta-v3-small` verification.
 - **JanSetu AI Sovereign (On-Premise):** Ollama `qwen2.5:7b-instruct` (4-bit quantized) + local `nomic-embed-text` (768-dim normalized) running on AMD Ryzen 7 5700X + NVIDIA RTX 3060 12GB edge workstation.
-- *Inference Tier Clarification:* Groq LPU inference (`qwen/qwen3.8-27b`, `openai/gpt-oss-120b`) operates as an external cloud acceleration tier; sovereign air-gapped on-premise execution is exclusively powered on-device via Ollama.
+- *Evaluation Model Specification:* Cloud-mode figures measured with Cloudflare Workers AI (`@cf/meta/llama-3-8b-instruct`); Groq tier not evaluated in this benchmark table.
+- *Inference Tier Clarification:* Groq LPU inference (`qwen/qwen3-32b`, `openai/gpt-oss-120b`) operates as an external cloud acceleration tier; sovereign air-gapped on-premise execution is exclusively powered on-device via Ollama.
 - *Provenance Ledger Qualification:* The Merkle provenance ledger is a local SHA-256 hash tree and chained audit log for document chunks. It is **not an implementation of, or compliant with, MeitY's National Blockchain Framework (NBF)**. It detects accidental or partial local modifications; genuine cryptographic tamper-evidence requires external root anchoring (future work: anchoring roots to a permissioned ledger such as NBFLite).
 
 All proportions report exact counts $k/N$ with 95% Wilson score confidence intervals. Entailment reports mean $\pm$ standard error.
@@ -178,7 +181,7 @@ All proportions report exact counts $k/N$ with 95% Wilson score confidence inter
 - **Jugalbandi:** To our knowledge, public technical documentation does not describe document-level claim entailment verification or on-premise air-gapped deployments.
 - **Nyaya Setu (GoI / Bhashini / DoJ):** National conversational initiative for legal literacy. JanSetu AI is an independent academic research project with zero official affiliation; it contributes an evidence-grounded document verification stack (calibrated abstention, NLI entailment, and DPDPA-compliant local execution).
 - **Nyaay AI / NyayAI:** To our knowledge, these commercial/advocate-oriented portals focus on case law search and drafting rather than air-gapped sovereign deployment or citizen DBT disqualification triage.
-- **KPMG Citizen Legal Platform:** To our knowledge, proprietary enterprise architectures that do not publish open gold evaluation pairs or zero-dependency Indic land deed parsing.
+- **KPMG Citizen Legal Platform:** A KPMG-built citizen-facing GenAI legal information platform for the government (supporting 22+ languages); to our knowledge, its evaluation data is not public.
 
 ---
 

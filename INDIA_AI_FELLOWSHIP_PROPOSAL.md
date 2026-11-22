@@ -5,7 +5,7 @@
 **Institution:** Department of Computer Science and Engineering, Kalasalingam Academy of Research and Education (Deemed University), Tamil Nadu, India  
 **Primary Domain (Portal Choice):** Governance *(Cross-cutting with Law and Justice)*  
 **Repository:** [github.com/shoyo44/JanSetu-AI](https://github.com/shoyo44/JanSetu-AI)  
-**Target Fellowship:** IndiaAI Mission — Graduate / Research Scholar AI Fellowship (Ministry of Electronics and Information Technology, MeitY)  
+**Target Fellowship:** IndiaAI Fellowship 2026–27 (Undergraduate track, Ministry of Electronics and Information Technology, MeitY)  
 
 ---
 
@@ -51,7 +51,7 @@ Prior efforts address isolated dimensions of public governance and Indian legal 
 * **Nyaya Setu (Department of Justice / Bhashini, GoI):** A voice-first, multilingual conversational citizen legal literacy bot launched under the national Digital India initiative. JanSetu AI is an independent academic research project with no institutional connection to Nyaya Setu. While public descriptions of Nyaya Setu indicate an emphasis on conversational citizen legal literacy, JanSetu AI contributes a document-level verification layer: multi-tier NLI citation entailment, calibrated empirical abstention (τ = 0.40), statutory criminal concordance rule engines (BNSS §479 undertrial review), and an air-gapped on-premise deployment profile ensuring institutional data residency under Section 16 of DPDPA 2023.
 * **NyayaReasoner:** Combines hybrid BM25 and dense retrieval with claim verification for Supreme Court judgment prediction, focusing specifically on judicial outcomes rather than citizen welfare or regional land administration.
 * **Nyaay AI / NyayAI:** To our knowledge, these commercial legal AI portals focus on case law search, citation discovery, and legal drafting for advocates; they do not target air-gapped sovereign on-premise execution, bilingual Indic land deed parsing, or citizen welfare disqualification triage.
-* **KPMG Citizen Legal Platform / Enterprise Solutions:** To our knowledge, proprietary enterprise architectures designed for corporate compliance workflows; they do not publish open gold evaluation pairs or zero-dependency Indic land deed parsing.
+* **KPMG Citizen Legal Platform:** A KPMG-built citizen-facing GenAI legal information platform for the government; to our knowledge, its evaluation data is not public.
 * **Falkor-IRAC / RAG–KG Architectures:** Utilize knowledge graphs for statutory grounding and legal research.
 * **LandLens & Commercial Tools:** Target isolated private verticals (such as Tamil Nadu land due diligence or IPC ↔ BNS lookup) behind proprietary subscription paywalls. To our knowledge, public descriptions do not disclose evaluation datasets or calibrated abstention metrics.
 
@@ -151,7 +151,7 @@ JanSetu AI aligns directly with 3 official pillars established by the Ministry o
 | **IndiaAI Application Development Initiative** | High-impact citizen application deployed across Public Governance, Law & Justice, and Vernacular Land Administration. |
 | **IndiaAI Datasets Platform** | Standardized ingestion of Central/State Gazettes, Supreme Court judgments, and Tamil land deeds; committing to contribute our verified $N=150$ gold benchmark dataset (`eval/gold/sovereign_benchmark_qa.jsonl`) to the national repository. |
 | **Tamper-Evident Merkle Provenance Ledger** | Cryptographic SHA-256 Merkle DAG provenance ledger and chained audit log for document chunks. *Not an implementation of, or compliant with, MeitY's National Blockchain Framework.* Detects accidental or partial modifications; genuinely tamper-evident only when root hashes are stored separately or signed (future work: anchoring roots on a permissioned ledger such as NBFLite). Provides audit trails (`/api/v1/ledger/verify/{doc_id}`). |
-| **Safe & Trusted AI** | 5-Layer Sovereign Guardrails, automated Aadhaar Act §29 & DPDP Act 2023 PII masking, anti-forgery shields, calibrated refusal ($\tau = 0.40$), claim-level NLI verification, and sliding-window rate limiting. |
+| **Safe & Trusted AI** | 5-Layer Sovereign Guardrails: masks Aadhaar-like and PAN-like identifiers (regex); designed with Aadhaar Act §29 and DPDP in mind, anti-forgery shields, calibrated refusal ($\tau = 0.40$), claim-level NLI verification, and sliding-window rate limiting. |
 
 *(Note: JanSetu AI is engineered for compute efficiency and runs on IndiaAI sovereign cloud compute or local edge workstations, without claiming the separate Startup Financing pillar).*
 
@@ -233,14 +233,14 @@ JanSetu AI bundles 7 preloaded sovereign benchmarks directly accessible in 1 cli
 > **Data Residency First (Not Cost Optimization):** On-premise edge deployment is engineered primarily as an **institutional data-residency and confidentiality necessity** (DPDPA 2023 Section 16, air-gapped courtrooms, sensitive citizen welfare dossiers), where cross-border or third-party cloud processing is procedurally or legally prohibited, rather than as a cost-saving mechanism.
 
 To establish operational feasibility for public sector deployment, JanSetu AI benchmarks two profiles:
-- **Cloud Serverless:** Rs. 920/mo ($11.00) at ~Rs. 0.09/query.
+- **Cloud Serverless:** ~Rs. 1,027/mo ($11.00) at ~Rs. 0.10/query.
 - **On-Premise Edge Rig:** Rs. 72,000 CapEx. Electricity formula: ~180W duty × 9 hrs/day × 25 working days = **~40.5 kWh/month × Rs. 8.00/kWh ≈ Rs. 325/month (~$4.00)**.
 
 | Economic Dimension | Cloud Serverless (Pay-per-Token) | Sovereign On-Premise Edge Rig |
 |---|---|---|
-| **Capital Expenditure (CapEx)** | **$0** (No upfront server hardware purchase) | **~Rs. 72,000 ($860)**: AMD Ryzen 7 5700X (8C/16T), 32 GB DDR4, NVIDIA RTX 3060 12 GB VRAM |
-| **Operational Cost per Query** | **~$0.0011 (Rs. 0.09) per query** (Workers AI + Nomic Embed API) | **Rs. 0.00 API cost**; ~180W power under active synthesis (~Rs. 1.44 / hour (180W at Rs. 8.00/kWh) electricity) |
-| **Monthly Operating Cost (10,000 Queries)** | **~$11.00 / month (~Rs. 920)** | **~$4.00 / month (~Rs. 325)** power draw (amortized fixed asset) |
+| **Capital Expenditure (CapEx)** | **$0** (No upfront server hardware purchase) | **~Rs. 72,000 (~$771)**: AMD Ryzen 7 5700X (8C/16T), 32 GB DDR4, NVIDIA RTX 3060 12 GB VRAM |
+| **Operational Cost per Query** | **~$0.0011 (~Rs. 0.10) per query** (Workers AI + Nomic Embed API) | **Rs. 0.00 API cost**; ~180W power under active synthesis (~Rs. 1.44 / hour (180W at Rs. 8.00/kWh) electricity) |
+| **Monthly Operating Cost (10,000 Queries)** | **~$11.00 / month (~Rs. 1,027)** | **~$3.48 / month (~Rs. 325)** power draw (amortized fixed asset) |
 | **Institutional Applicability** | State E-Governance citizen web portals | Panchayat kiosks, Common Service Centers (CSCs), District Legal Services Authorities (DLSAs), air-gapped courtrooms |
 
 ## 6B. Citizen Safeguards, Red-Teaming & Human Handoff Routing
@@ -263,14 +263,16 @@ The Q3 edge deployment milestone follows a structured, human-subject-compliant e
 
 ---
 
-## 7. 12-Month Fellowship Work Plan & Implementation Roadmap
+## 7. Work Plan & Implementation Roadmap (IndiaAI Fellowship Undergraduate Track)
 
-| Milestone / Quarter | Focus Areas | Key Technical Deliverables | National Impact & Outcomes |
+> **Fellowship Scope & Grant Budget:** Scoped strictly to the final undergraduate year (**Months 1–6**, within the ₹1,00,000 undergraduate fellowship grant). Months 7–12 represent an extended post-fellowship research and deployment roadmap. A core fellowship deliverable is releasing the verified sovereign evaluation gold set to the IndiaAI Datasets Platform (**AIKosh**).
+
+| Phase / Period | Focus Areas | Key Technical Deliverables | Impact & Deliverables |
 |---|---|---|---|
-| **Q1 (Months 1–3)** | **Sovereign Foundation & Corpus Expansion** | • Scale vector retrieval from flat FAISS to `IndexHNSWFlat` and migrate graph persistence to embedded columnar storage (DuckDB / SQLite WAL) for scaling to 250,000 document nodes.<br>• Ingest complete Central Gazettes (2020–2024) and Supreme Court Constitution Bench rulings.<br>• Refine zero-dependency Indic script parsing across 10 official languages.<br>• Implement local authentication (argon2id password hashing + local JWT tokens), RBAC roles, and AES-256 storage encryption to transition beyond single-tenant DevUser test profiles. | High-fidelity retrieval across national welfare and legal statutes with scalable vector-graph search and hardened local security. |
-| **Q2 (Months 4–6)** | **Multi-State Land Deed & Concordance Hardening** | • Expand deed extraction to Telugu, Marathi, and Hindi registry formats (*विक्रय विलेख, खरेदीखत*).<br>• Integrate native Indic NLI models (MuRIL / IndicBERT fine-tuned on IndicXNLI) for vernacular entailment verification.<br>• Incorporate State-specific High Court concordance amendments under BNSS.<br>• Curate and contribute `IndiaGroundedRAG-2500` benchmark dataset ($N=2,500$ verified pairs in Q2, scaling to $N=5,000$ in Q3, annotated by 4 legal and public administration research scholars, targeting Cohen's $\kappa \ge 0.85$). | Rural citizen protection against fraudulent land registrations, boundary manipulation, and verified open datasets for the IndiaAI platform. |
-| **Q3 (Months 7–9)** | **Edge Hardware Deployment & CSC Pilot Trials** | • Containerize JanSetu AI for lightweight edge devices (AMD Ryzen 7 5700X, 32 GB RAM, NVIDIA RTX 3060 12 GB VRAM / Jetson) with quantized local models (Qwen2.5 7B, local Whisper.cpp / AI4Bharat IndicConformer for offline speech).<br>• Proposed pilot trials: 10 Common Service Centers (CSCs) and 2 District Legal Services Authorities (DLSAs), subject to Institutional Review and formal MoUs with State E-Governance Missions and State Legal Services Authorities.<br>• Hybrid architecture: offline local edge processing for document intelligence, with optional online uplink to Government of India Bhashini APIs. | Grassroots citizen assistance at panchayats and legal aid kiosks. |
-| **Q4 (Months 10–12)** | **Open-Source DPI Release & Policy Synthesis** | • Open-source reference implementation under MIT License on GitHub.<br>• Finalize comprehensive empirical benchmark dataset and evaluation suite.<br>• Draft and submit Technical Policy Whitepaper on Verifiable RAG for e-Courts and Digital India. | Open-source reference implementation and evaluation benchmark for Digital Public Infrastructure (DPI). |
+| **Phase 1: Months 1–3 (Fellowship Core)** | **Sovereign Retrieval Scaling & Corpus Expansion** | • Scale vector retrieval from flat FAISS to `IndexHNSWFlat` and migrate graph persistence to embedded columnar storage (DuckDB / SQLite WAL) for scaling to 250,000 document nodes.<br>• Ingest complete Central Gazettes (2020–2024) and Supreme Court Constitution Bench rulings.<br>• Refine zero-dependency Indic script parsing across 10 official languages.<br>• Implement local authentication (argon2id password hashing + local JWT tokens), RBAC roles, and AES-256 storage encryption. | High-fidelity retrieval across national welfare and legal statutes with hardened local security and data residency. |
+| **Phase 2: Months 4–6 (Fellowship Core)** | **Indic Deed Hardening & AIKosh Open Dataset Release** | • Expand deed extraction to Telugu, Marathi, and Hindi registry formats (*विक्रय विलेख, खरेदीखत*).<br>• Integrate native Indic NLI models (MuRIL / IndicBERT fine-tuned on IndicXNLI) for vernacular entailment verification.<br>• **Core Fellowship Milestone:** Curate and contribute the verified `IndiaGroundedRAG-2500` benchmark dataset ($N=2,500$ verified pairs, annotated with independent legal scholars, $\kappa \ge 0.85$) directly to **AIKosh** (IndiaAI Datasets Platform).<br>• Final undergraduate fellowship project report submission. | Rural citizen protection against land title fraud; open-access sovereign dataset deliverable on AIKosh. |
+| **Phase 3: Months 7–9 (Post-Fellowship Roadmap)** | **Edge Hardware Deployment & CSC Pilot Trials** | • Containerize JanSetu AI for lightweight edge workstations with quantized local models (Qwen2.5 7B, local Whisper.cpp / AI4Bharat IndicConformer for offline speech).<br>• Grassroots pilot evaluation: 10 Common Service Centers (CSCs) and 2 District Legal Services Authorities (DLSAs), measuring Task Completion Time and System Usability Scale (SUS). | Grassroots citizen assistance at panchayats and legal aid kiosks. |
+| **Phase 4: Months 10–12 (Post-Fellowship Roadmap)** | **Open DPI Policy Synthesis** | • Continuous open-source maintenance under MIT License on GitHub.<br>• Scale benchmark dataset from 2,500 to 5,000 verified pairs.<br>• Technical policy whitepaper on Verifiable RAG for e-Courts and Digital India. | Reference architecture and open governance resources for Digital Public Infrastructure (DPI). |
 
 ---
 
@@ -281,4 +283,4 @@ The Q3 edge deployment milestone follows a structured, human-subject-compliant e
 - **Research Scholars / Annotator Support:** Ground-truth annotations and verification rubrics conducted with 2 postgraduate legal and public administration scholars at Kalasalingam Academy of Research and Education (Cohen's $\kappa = 0.88$, protocol in `eval/annotation_protocol.md`).
 - **Research Foundation:** Built upon peer-reviewed literature in Retrieval-Augmented Generation (Lewis et al., 2020), HyDE (Gao et al., 2022), Reciprocal Rank Fusion (Cormack et al., 2009), and cross-encoder claim entailment.
 - **Repository:** Fully reproducible code, tests, and documentation hosted publicly at [github.com/shoyo44/JanSetu-AI](https://github.com/shoyo44/JanSetu-AI).
-- **Compliance:** Aligned with IndiaAI Mission trust and safety frameworks and open-source reproducibility standards.
+- **Trust & Safety Alignment:** Masks Aadhaar-like and PAN-like identifiers (regex); designed with Aadhaar Act §29 and DPDP principles in mind, adhering to open-source reproducibility standards.

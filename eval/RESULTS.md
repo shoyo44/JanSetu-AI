@@ -60,11 +60,11 @@ All proportions report exact counts $k/N$ and 95% Wilson score confidence interv
 |---|---|---|
 | **Live Backend E2E Suite** | **16/16 PASS (100.0%)** | Validates Health, Concordance API, 1-Click Ingestion, Document Chunks, Governance RAG, Judgment RAG, Calibrated Abstention, KG Topology, Active Learning, Magic-Byte File Validation, Prompt Injection Quarantine, HTML/MD Export. |
 | **Chromium Headless UI Suite** | **7/7 PASS (100.0%)** | Automated browser verification: Landing, Auth, Concordance Modal, Document Vault, Analytics KG, Multi-Vertical, History. |
-| **Undertrial Rule Engine Test (BNSS §479)** | **5/5 PASS (100.0%)** | Validates 1/3rd first offender, 1/2 repeat offender, life/death exclusion, multiple case exclusion, and judicial review recommendation (`eval/test_undertrial_rules.py`). |
+| **Undertrial Rule Engine Test (BNSS §479)** | **8/8 PASS (100.0%)** | Validates 1/3rd first offender on bond, 1/2 repeat offender on bail, life/death exclusion, multiple pending cases bar (§479(2)), accused delay deduction, full-maximum cap, judicial continued detention, and jail superintendent application duty (§479(3)) in `eval/test_undertrial_rules.py`. |
 | **Statutory Concordance Fixture**| **30/30 PASS (100.0%)** | Deterministic lookup on 30 standard transitions (`IPC ⇄ BNS`, `CrPC ⇄ BNSS`, `IEA ⇄ BSA`). |
 | **Adversarial Injection Fixture** | **10/10 PASS (100.0%)** | Quarantines 10 synthetic jailbreak/steganography chunks before vector indexing. |
-| **MeitY NBF Blockchain Ledger Test** | **PASS (100.0%)** | Validates cryptographic SHA-256 Merkle tree calculation, genesis block anchoring, single-byte modification tamper detection (`TAMPERING_DETECTED`), and authentic verification (`TAMPER_EVIDENT_VERIFIED`). |
-| **5-Layer Sovereign Guardrails** | **PASS (100.0%)** | Validates Aadhaar number redaction (`XXXX-XXXX-1234`), PAN masking (`XXXXX1234X`), phone number redaction, and anti-forgery request rejection. |
+| **Cryptographic Merkle Provenance Test** | **PASS (100.0%)** | Validates SHA-256 Merkle tree calculation, chained audit blocks, single-byte modification tamper detection (`TAMPERING_DETECTED`), and authentic verification (`TAMPER_EVIDENT_VERIFIED`). |
+| **5-Layer Sovereign Guardrails** | **PASS (100.0%)** | Validates Aadhaar-like number redaction (`XXXX-XXXX-1234`), PAN masking (`XXXXX1234X`), phone number redaction, and anti-forgery request rejection (100% precision/recall on 25-sample unit fixture, not a general population estimate). |
 
 ---
 
@@ -87,6 +87,6 @@ Evaluated live on AWS EC2 (`http://ec2-98-93-55-8.compute-1.amazonaws.com:3000`)
 
 *Evaluation Build & Model Specification:*
 - Similarity threshold ($\tau = 0.40$ cloud, $\tau = 0.38$ on-prem) was tuned on a separate 20-query dev split, completely held out from the 30 unanswerable test queries.
-- Cloud mode utilizes Cloudflare Workers AI (`@cf/meta/llama-3-8b-instruct`) + Nomic Atlas API + DeBERTa-v3 Small cross-encoder NLI. Groq LPU operates as an external cloud acceleration tier (`qwen/qwen3.8-27b`, `openai/gpt-oss-120b`).
+- Cloud mode utilizes Cloudflare Workers AI (`@cf/meta/llama-3-8b-instruct`) + Nomic Atlas API + DeBERTa-v3 Small cross-encoder NLI. Groq LPU operates as an external cloud acceleration tier (`qwen/qwen3-32b`, `openai/gpt-oss-120b`).
 - Sovereign on-premise mode runs locally via Ollama (`qwen2.5:7b-instruct` 4-bit) + local Ollama `nomic-embed-text` on AMD Ryzen 7 5700X + RTX 3060 12GB edge workstation.
-- Provenance ledger is an internal SHA-256 Merkle tree and chained audit log (not an implementation of MeitY NBF; future work: NBFLite anchoring).
+- Provenance ledger is an internal SHA-256 Merkle tree and chained audit log (not an implementation of national blockchain platforms; future work: anchoring roots on permissioned ledgers such as NBFLite).
