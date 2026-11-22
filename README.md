@@ -18,13 +18,13 @@
     <a href="https://indiaai.gov.in/"><img src="https://img.shields.io/badge/IndiaAI%20Mission-MeitY%20Aligned-FF9933?style=for-the-badge&logo=india&logoColor=white" alt="IndiaAI Fellowship" /></a>
     <a href="https://github.com/shoyo44/JanSetu-AI"><img src="https://img.shields.io/badge/Data%20Sovereignty-DPDPA%202023%20%C2%A716-10B981?style=for-the-badge&logo=shield&logoColor=white" alt="Sovereignty" /></a>
     <a href="https://github.com/shoyo44/JanSetu-AI"><img src="https://img.shields.io/badge/DevSecOps-Aqua%20Trivy%20%7C%20Bandit-E11D48?style=for-the-badge&logo=security&logoColor=white" alt="DevSecOps" /></a>
-    <a href="http://204.236.202.125:3000"><img src="https://img.shields.io/badge/Cloud%20Live-AWS%20EC2-2563EB?style=for-the-badge&logo=amazon-aws&logoColor=white" alt="Live Demo" /></a>
-    <a href="http://204.236.202.125:3001"><img src="https://img.shields.io/badge/Observability-Prometheus%20%2B%20Grafana-F97316?style=for-the-badge&logo=grafana&logoColor=white" alt="Grafana" /></a>
+    <a href="http://98.93.55.8:3000"><img src="https://img.shields.io/badge/Cloud%20Live-AWS%20EC2-2563EB?style=for-the-badge&logo=amazon-aws&logoColor=white" alt="Live Demo" /></a>
+    <a href="http://98.93.55.8:3001"><img src="https://img.shields.io/badge/Observability-Prometheus%20%2B%20Grafana-F97316?style=for-the-badge&logo=grafana&logoColor=white" alt="Grafana" /></a>
   </p>
 
   <!-- Quick Action Navigation Bar -->
   <p align="center">
-    <a href="http://204.236.202.125:3000"><b>🌐 Live Cloud Web App</b></a> •
+    <a href="http://98.93.55.8:3000"><b>🌐 Live Cloud Web App</b></a> •
     <a href="./DOCS_PROJECT_REPORT.pdf"><b>📄 Academic Report (PDF)</b></a> •
     <a href="./INDIA_AI_FELLOWSHIP_PROPOSAL.md"><b>🏛️ Fellowship Proposal</b></a> •
     <a href="./ARCHITECTURE.md"><b>📐 System Architecture</b></a> •
@@ -39,8 +39,8 @@ JanSetu AI (जनसेतु) is a sovereign AI Document Intelligence, Q&A, an
 
 Built with an async **FastAPI** backend, a zero-infrastructure in-process **Hybrid Vector-Graph Database** (NetworkX + FAISS Flat Index), dual cloud/on-premise LLM inference (**Cloudflare Workers AI** & sovereign local **Ollama**), and a responsive **React/Vite** SPA frontend, the system provides calibrated hallucination suppression via empirical abstention, claim-level NLI citation entailment, automated statutory criminal law concordance (IPC $\longleftrightarrow$ BNS), and pre-retrieval indirect prompt injection defense.
 
-> 🚀 **Live Cloud Deployment (AWS EC2):** [http://204.236.202.125:3000](http://204.236.202.125:3000) *(Running multi-container prototype with live multi-vertical RAG & Graph UI)*  
-> 📈 **Telemetry & Observability:** [Grafana Dashboards :3001](http://204.236.202.125:3001) • [Prometheus Metrics :9090](http://204.236.202.125:9090)  
+> 🚀 **Live Cloud Deployment (AWS EC2):** [http://98.93.55.8:3000](http://98.93.55.8:3000) *(Running multi-container prototype with live multi-vertical RAG & Graph UI)*  
+> 📈 **Telemetry & Observability:** [Grafana Dashboards :3001](http://98.93.55.8:3001) • [Prometheus Metrics :9090](http://98.93.55.8:9090)  
 > 🌐 **Secondary Web Mirror:** [docs-ai-ashen.vercel.app](https://docs-ai-ashen.vercel.app) *(Hosted on Vercel; source repository: [github.com/shoyo44/JanSetu-AI](https://github.com/shoyo44/JanSetu-AI))*  
 > 🏛️ **Fellowship Proposal:** [INDIA_AI_FELLOWSHIP_PROPOSAL.md](./INDIA_AI_FELLOWSHIP_PROPOSAL.md)  
 > 📄 **Academic Project Report:** [DOCS_PROJECT_REPORT.pdf](./DOCS_PROJECT_REPORT.pdf)  
