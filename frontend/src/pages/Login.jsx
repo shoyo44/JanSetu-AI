@@ -46,7 +46,7 @@ const Login = () => {
         err.code === "auth/popup-closed-by-user" ||
         !import.meta.env.VITE_FIREBASE_API_KEY
       ) {
-        toast.warning("Local Demo Mode", "Firebase unauthorized for 127.0.0.1. Logging in with Developer Workspace.");
+        toast.warning("Local Demo Mode", "Logging in with Sovereign Developer Workspace.");
       } else {
         toast.error("Authentication Error", err.message || "Failed to sign in with Google.");
         setLoading(false);

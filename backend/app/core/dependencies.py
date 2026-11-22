@@ -57,7 +57,7 @@ async def get_embedding(
     Guarantees 768-dim normalized embedding vectors across English and Indic languages.
     """
     nomic_key = os.getenv("NOMIC_API_KEY")
-    if nomic_key:
+    if nomic_key and "your_nomic" not in nomic_key.lower():
         import httpx
         import asyncio
 
