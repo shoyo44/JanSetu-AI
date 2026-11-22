@@ -402,4 +402,4 @@ bash ./scripts/run_trivy.sh
 }
 ```
 
-*Developed for the **IndiaAI Mission Fellowship Program** under the priority domains of **Governance** and **Law & Justice**.*
+*Developed for the **IndiaAI Mission Fellowship Program** under the priority domain of **Governance**.*
