@@ -1,4 +1,4 @@
-﻿# JanSetu AI — Trivy DevSecOps Security Scanner (Windows PowerShell)
+# JanSetu AI — Trivy DevSecOps Security Scanner (Windows PowerShell)
 # Scans filesystem, secrets, configurations, and container images using Aqua Security Trivy.
 Write-Host "==========================================================" -ForegroundColor Cyan
 Write-Host "      JanSetu AI DevSecOps: Trivy Vulnerability Scan      " -ForegroundColor Cyan

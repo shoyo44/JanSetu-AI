@@ -11,13 +11,64 @@ JanSetu AI (जनसेतु) is a sovereign AI Document Intelligence, Q&A, an
 
 Built with an async **FastAPI** backend, a zero-infrastructure in-process **Hybrid Vector-Graph Database** (NetworkX + FAISS Flat Index), dual cloud/on-premise LLM inference (**Cloudflare Workers AI** & sovereign local **Ollama**), and a responsive **React/Vite** SPA frontend, the system provides calibrated hallucination suppression via empirical abstention, claim-level NLI citation entailment, automated statutory criminal law concordance (IPC $\longleftrightarrow$ BNS), and pre-retrieval indirect prompt injection defense.
 
-> 🚀 **Live Prototype Deployment:** [docs-ai-ashen.vercel.app](https://docs-ai-ashen.vercel.app) *(Hosted on Vercel; source repository: [github.com/shoyo44/JanSetu-AI](https://github.com/shoyo44/JanSetu-AI))*  
+> 🚀 **Live Cloud Deployment (AWS EC2):** [http://204.236.202.125:3000](http://204.236.202.125:3000) *(Running multi-container prototype with live multi-vertical RAG & Graph UI)*  
+> 📈 **Telemetry & Observability:** [Grafana Dashboards :3001](http://204.236.202.125:3001) • [Prometheus Metrics :9090](http://204.236.202.125:9090)  
+> 🌐 **Secondary Web Mirror:** [docs-ai-ashen.vercel.app](https://docs-ai-ashen.vercel.app) *(Hosted on Vercel; source repository: [github.com/shoyo44/JanSetu-AI](https://github.com/shoyo44/JanSetu-AI))*  
 > 🏛️ **Fellowship Proposal:** [INDIA_AI_FELLOWSHIP_PROPOSAL.md](./INDIA_AI_FELLOWSHIP_PROPOSAL.md)  
 > 📄 **Academic Project Report:** [DOCS_PROJECT_REPORT.pdf](./DOCS_PROJECT_REPORT.pdf)  
-> 📐 **System Architecture:** [ARCHITECTURE.md](./ARCHITECTURE.md)  
+> 📐 **System Architecture Guide:** [ARCHITECTURE.md](./ARCHITECTURE.md)  
 > 🛡️ **DevSecOps & Security Guide:** [DEVOPS_DEVSECOPS_GUIDE.md](./DEVOPS_DEVSECOPS_GUIDE.md)  
 > 📋 **Annotation & Evaluation Protocol:** [eval/annotation_protocol.md](./eval/annotation_protocol.md)  
 > 📊 **Per-Query Evaluation Results:** [eval/results/per_query_evaluation_results.csv](./eval/results/per_query_evaluation_results.csv)
+
+---
+
+## 🏗️ End-to-End System Architecture
+
+JanSetu AI employs a **layered sovereign neuro-symbolic architecture** that unifies in-process knowledge graph ontologies, dense vector search, empirical hallucination suppression, and deterministic statutory rule engines:
+
+```mermaid
+flowchart TB
+    subgraph Presentation["🖥️ Layer 1: Presentation & Citizen Interface (React 18 + Vite)"]
+        UI_Chat["💬 Bilingual Agent Chat & Jan Suvidha Explainer Cards"]
+        UI_Vault["📂 Document Vault & 1-Click Sovereign Benchmark Ingestion"]
+        UI_Concord["⚖️ Statutory Criminal Concordance Engine (BNS ⇄ IPC)"]
+        UI_Obs["📊 Prometheus & Grafana Real-Time Telemetry Dashboards"]
+    end
+
+    subgraph Ingestion["🛡️ Layer 2: DevSecOps, Pre-Indexing Guardrails & Ingestion"]
+        GW_MIME["🔍 Binary Magic-Byte MIME Inspector (%PDF-, PK\x03\x04, Block MZ/ELF)"]
+        GW_Stego["🛡️ Indirect Prompt Injection & Unicode Steganography Quarantine"]
+        GW_Rate["⏱️ Sliding-Window Rate Limiter (20 uploads/hr, 150 queries/hr)"]
+        GW_Chunk["📑 Multi-Facet Semantic Chunker (Eligibility, Exclusions, DBT Benefits)"]
+    end
+
+    subgraph KnowledgeCore["⚡ Layer 3: Zero-Infrastructure In-Process Hybrid Core"]
+        DB_Graph["🕸️ NetworkX Knowledge Graph (Hierarchical Nodes, CITES, SUPERSEDES)"]
+        DB_Vector["📐 768-Dim FAISS Flat Index (Normalized Continuous Cosine Space)"]
+        DB_Cache["⚡ SQLite Semantic Cache (p95: 3.8ms at Cosine Sim ≥ 0.95)"]
+        DB_History["🗄️ MongoDB Atlas / Local Resilient JSON Audit Store"]
+    end
+
+    subgraph Reasoning["🧠 Layer 4: Grounded Retrieval & Neuro-Symbolic Verification"]
+        RAG_HyDE["💡 HyDE Query Expansion & Contextual Sub-Query Generator"]
+        RAG_RRF["🔄 Reciprocal Rank Fusion (Dense Vector + Graph Traversal)"]
+        RAG_Abstain["🚫 Calibrated Abstention Engine (Threshold τ = 0.40 Hallucination Gate)"]
+        RAG_NLI["✅ DeBERTa-v3 Cross-Encoder Natural Language Inference (Claim Entailment)"]
+        RAG_Rule["📜 Deterministic Rule Engine (BNSS §479 Undertrial Relief & Zero-FIR §173)"]
+    end
+
+    subgraph Compute["⚙️ Layer 5: Dual Sovereign LLM Compute Engine"]
+        LLM_Cloud["☁️ Cloud Mode: Cloudflare Workers AI (Llama 3.1 8B / Nomic-Embed-768)"]
+        LLM_Edge["🔒 Sovereign Air-Gapped Mode: Ollama Daemon (Qwen2.5 7B, DPDPA 2023 §16)"]
+    end
+
+    Presentation -->|HTTPS / Secure WebSockets| Ingestion
+    Ingestion --> KnowledgeCore
+    KnowledgeCore <--> Reasoning
+    Reasoning <--> Compute
+    Ingestion -.->|Metrics Export :9090| UI_Obs
+```
 
 ---
 

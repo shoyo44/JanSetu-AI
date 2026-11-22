@@ -25,6 +25,51 @@
 
 ## 1. High-Level Overview
 
+JanSetu AI is engineered with a **five-tier sovereign neuro-symbolic architecture**, separating citizen presentation, DevSecOps perimeter security, in-process hybrid knowledge storage, grounded reasoning with calibrated refusal, and dual-mode inference:
+
+```mermaid
+flowchart TB
+    subgraph ClientLayer["🖥️ 1. Presentation & Citizen Interface (React 18 + Vite)"]
+        UI_Chat["💬 Bilingual Agent Chat & Jan Suvidha Explainer"]
+        UI_Vault["📂 Document Vault & 1-Click Sovereign Benchmarks"]
+        UI_Concord["⚖️ Statutory Criminal Concordance Engine (BNS ⇄ IPC)"]
+        UI_Tele["📊 Prometheus & Grafana Real-Time Observability"]
+    end
+
+    subgraph SecurityGateway["🛡️ 2. API, Security & Ingestion Gateway (FastAPI)"]
+        GW_MIME["🔍 Binary Magic-Byte MIME Inspector (%PDF-, PK\x03\x04)"]
+        GW_Stego["🛡️ Indirect Prompt Injection & Stego Quarantine"]
+        GW_Rate["⏱️ Sliding-Window Rate Limiter (20 uploads/hr, 150 queries/hr)"]
+        GW_Router["🔀 Vertical Intent Router (Governance | Judgment | Law)"]
+    end
+
+    subgraph StorageCore["⚡ 3. Zero-Infrastructure In-Process Hybrid Core"]
+        DB_Graph["🕸️ NetworkX Knowledge Graph (Hierarchical Nodes, CITES, SUPERSEDES)"]
+        DB_Vector["📐 768-Dim FAISS Flat Index (Normalized Continuous Cosine Space)"]
+        DB_Cache["⚡ SQLite Semantic Cache (p95: 3.8ms at Cosine Sim ≥ 0.95)"]
+        DB_History["🗄️ MongoDB Atlas / Local Resilient JSON Audit Store"]
+    end
+
+    subgraph ReasoningEngine["🧠 4. Grounded Retrieval & Neuro-Symbolic Verification"]
+        RAG_HyDE["💡 HyDE Query Expansion & Contextual Sub-Query Generator"]
+        RAG_RRF["🔄 Reciprocal Rank Fusion (Dense Vector + Graph Traversal)"]
+        RAG_Abstain["🚫 Calibrated Abstention Engine (Threshold τ = 0.40 Hallucination Gate)"]
+        RAG_NLI["✅ DeBERTa-v3 Cross-Encoder Natural Language Inference (Claim Entailment)"]
+        RAG_Rule["📜 Deterministic Rule Engine (BNSS §479 Undertrial Relief & Zero-FIR §173)"]
+    end
+
+    subgraph ComputeLayer["⚙️ 5. Dual Sovereign LLM Compute Engine"]
+        LLM_Cloud["☁️ Cloud Mode: Cloudflare Workers AI (Llama 3.1 8B / Nomic-Embed-768)"]
+        LLM_Edge["🔒 Sovereign Air-Gapped Mode: Ollama Daemon (Qwen2.5 7B, DPDPA 2023 §16)"]
+    end
+
+    ClientLayer -->|HTTPS / Secure WebSockets| SecurityGateway
+    SecurityGateway --> StorageCore
+    StorageCore <--> ReasoningEngine
+    ReasoningEngine <--> ComputeLayer
+    SecurityGateway -.->|Metrics Export :9090| UI_Tele
+```
+
 ```
 +-------------------------------------------------------------------+
 |                        CLIENT LAYER                               |
