@@ -575,8 +575,9 @@ async def query_vertical(
             detail=f"Unsupported vertical '{payload.vertical}'. Valid options: {SUPPORTED_VERTICALS}",
         )
 
-    # ── Guardrail check ──
-    from app.core.guardrails import check_guardrails
+    # ── Guardrail check & DPDP/Aadhaar PII Masking ──
+    from app.core.guardrails import check_guardrails, mask_pii
+    payload.query_text = mask_pii(payload.query_text)
     violation = check_guardrails(payload.query_text)
     if violation:
         logger.warning("Safety Guardrail Violation for query %r: %s", payload.query_text, violation)

@@ -174,7 +174,9 @@ async def websocket_endpoint(websocket: WebSocket):
             await websocket.close(code=1008)
             return
 
-        # ── Guardrail check ──
+        # ── Guardrail check & DPDP/Aadhaar PII Masking ──
+        from app.core.guardrails import check_guardrails, mask_pii
+        query_text = mask_pii(query_text)
         violation = check_guardrails(query_text)
         if violation:
             logger.warning("Safety Guardrail Violation for query %r: %s", query_text, violation)
@@ -528,7 +530,9 @@ async def websocket_agent_endpoint(websocket: WebSocket):
             await websocket.close(code=1008)
             return
 
-        # ── Guardrail check ──
+        # ── Guardrail check & DPDP/Aadhaar PII Masking ──
+        from app.core.guardrails import check_guardrails, mask_pii
+        query_text = mask_pii(query_text)
         violation = check_guardrails(query_text)
         if violation:
             logger.warning("Safety Guardrail Violation for agent query: %s", violation)
