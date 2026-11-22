@@ -18,6 +18,17 @@
       <stop offset="50%" stop-color="#38BDF8" />
       <stop offset="100%" stop-color="#10B981" />
     </linearGradient>
+
+    <style>
+      .brand-title-jan { fill: #0F2B48; }
+      .brand-title-setu { fill: #0284C7; }
+      .brand-sub { fill: #334155; }
+      @media (prefers-color-scheme: dark) {
+        .brand-title-jan { fill: #F8FAFC; }
+        .brand-title-setu { fill: #38BDF8; }
+        .brand-sub { fill: #94A3B8; }
+      }
+    </style>
   </defs>
 
   <g transform="translate(10, 10) scale(0.39)">
@@ -50,8 +61,8 @@
     <rect x="148" y="210" width="34" height="6" rx="3" fill="#10B981" />
   </g>
 
-  <text x="125" y="62" font-family="system-ui, -apple-system, sans-serif" font-size="44" font-weight="800" fill="#F8FAFC" letter-spacing="-0.5">
-    Jan<tspan fill="#38BDF8">Setu</tspan>
+  <text x="125" y="62" font-family="system-ui, -apple-system, sans-serif" font-size="44" font-weight="800" class="brand-title-jan" letter-spacing="-0.5">
+    Jan<tspan class="brand-title-setu">Setu</tspan>
   </text>
   
   <rect x="305" y="28" width="56" height="34" rx="8" fill="url(#saffronGrad)" />
@@ -59,7 +70,7 @@
     AI
   </text>
 
-  <text x="126" y="88" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#94A3B8" letter-spacing="0.5">
+  <text x="126" y="88" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" class="brand-sub" letter-spacing="0.5">
     जनसेतु · SOVEREIGN GOVERNANCE INTELLIGENCE
   </text>
 </svg>

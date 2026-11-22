@@ -1,6 +1,9 @@
 <div align="center">
 
-  <img src="./assets/jansetu-brand.svg" width="560" alt="JanSetu AI — Sovereign Governance & Citizen Intelligence Platform" />
+  <a href="https://github.com/shoyo44/JanSetu-AI">
+    <img src="./assets/jansetu-brand-light.svg#gh-light-mode-only" width="560" alt="JanSetu AI Logo" />
+    <img src="./assets/jansetu-brand-dark.svg#gh-dark-mode-only" width="560" alt="JanSetu AI Logo" />
+  </a>
 
   <br/><br/>
 
