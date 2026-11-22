@@ -27,14 +27,37 @@ async def test_groq():
         return False
     
     masked = key[:7] + "..." + key[-4:]
-    print(f"📡 [GROQ] Found key: {masked}. Testing API handshake...")
+    print(f"📡 [GROQ] Found key: {masked}. Querying available models...")
     try:
         async with httpx.AsyncClient(timeout=10.0) as client:
+            # 1. Fetch available models for this specific account
+            r_models = await client.get(
+                "https://api.groq.com/openai/v1/models",
+                headers={"Authorization": f"Bearer {key}"}
+            )
+            if r_models.status_code != 200:
+                print(f"❌ [GROQ] Failed to fetch models HTTP {r_models.status_code}: {r_models.text[:200]}")
+                return False
+
+            available_models = [m["id"] for m in r_models.json().get("data", [])]
+            print(f"📋 [GROQ] Account has access to {len(available_models)} models:")
+            print("   " + ", ".join(available_models[:8]))
+
+            # 2. Pick the best model (prefer llama or first available)
+            chosen_model = None
+            for candidate in available_models:
+                if "llama" in candidate.lower() and "guard" not in candidate.lower() and "whisper" not in candidate.lower():
+                    chosen_model = candidate
+                    break
+            if not chosen_model and available_models:
+                chosen_model = available_models[0]
+
+            print(f"🚀 [GROQ] Testing completion with model: '{chosen_model}'...")
             resp = await client.post(
                 "https://api.groq.com/openai/v1/chat/completions",
                 headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
                 json={
-                    "model": "llama-3.1-8b-instant",
+                    "model": chosen_model,
                     "messages": [{"role": "user", "content": "Reply with 'GROQ_OK'"}],
                     "max_tokens": 10
                 }
@@ -42,6 +65,7 @@ async def test_groq():
             if resp.status_code == 200:
                 answer = resp.json()["choices"][0]["message"]["content"].strip()
                 print(f"✅ [GROQ] Connected successfully! Response: {answer}")
+                print(f"💡 [RECOMMENDATION] Set GROQ model to: '{chosen_model}'")
                 return True
             else:
                 print(f"❌ [GROQ] HTTP {resp.status_code}: {resp.text[:200]}")
