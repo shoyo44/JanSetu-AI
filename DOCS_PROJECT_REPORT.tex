@@ -23,6 +23,7 @@
 \usepackage{titlesec}
 \usepackage{listings}
 \usepackage{tikz}
+\usetikzlibrary{positioning, fit, backgrounds, calc, arrows.meta, shapes.geometric}
 \usepackage{tcolorbox}
 \usepackage{microtype}
 \usepackage{caption}
@@ -417,29 +418,29 @@ JanSetu AI is engineered as a modular, tiered platform separating client present
 
 \begin{figure}[H]
 \centering
-\resizebox{0.92\linewidth}{!}{
+\resizebox{0.88\linewidth}{!}{
 \begin{tikzpicture}[
-    node distance=0.9cm and 1.2cm,
-    block/.style={rectangle, draw=monoblack, fill=monolightgray, rounded corners=1.5mm, text centered, minimum height=0.8cm, minimum width=3.2cm, font=\footnotesize\bfseries},
-    layerbox/.style={draw=monoblack!80, dashed, inner sep=0.3cm, rounded corners=2mm, fill=white},
+    node distance=0.95cm and 1.2cm,
+    block/.style={rectangle, draw=monoblack, fill=monolightgray, rounded corners=1.5mm, text centered, minimum height=0.8cm, minimum width=3.3cm, font=\footnotesize\bfseries},
+    layerbox/.style={draw=monoblack!70, dashed, inner sep=0.22cm, rounded corners=2mm, fill=white},
     arrow/.style={->, >=latex, thick, color=monoblack}
 ]
 
 % Nodes
 \node[block] (client) {React 18 / Vite SPA Client};
-\node[block, below=0.7cm of client] (gateway) {FastAPI Gateway \& Guardrails};
-\node[block, below left=0.9cm and 0.2cm of gateway] (router) {Vertical Intent Router};
-\node[block, below right=0.9cm and 0.2cm of gateway] (agent) {ReAct Agent Orchestrator};
+\node[block, below=0.95cm of client] (gateway) {FastAPI Gateway \& Guardrails};
+\node[block, below left=1.0cm and 0.3cm of gateway] (router) {Vertical Intent Router};
+\node[block, below right=1.0cm and 0.3cm of gateway] (agent) {ReAct Agent Orchestrator};
 
-\node[block, below=0.9cm of router] (graph) {In-Process NetworkX Graph};
-\node[block, below=0.9cm of agent] (vector) {In-Process FAISS Vector Index};
+\node[block, below=0.95cm of router] (graph) {In-Process NetworkX Graph};
+\node[block, below=0.95cm of agent] (vector) {In-Process FAISS Vector Index};
 
-\node[block, below=0.9cm of $(graph)!0.5!(vector)$] (cache) {SQLite Semantic Cache \& Cloud Persistence};
+\node[block, below=0.95cm of $(graph)!0.5!(vector)$] (cache) {SQLite Semantic Cache \& Cloud Persistence};
 
 % Arrows
-\draw[arrow] (client) -- node[right, font=\tiny]{REST / WebSocket} (gateway);
-\draw[arrow] (gateway) -- node[left, font=\tiny]{Auto-Classify} (router);
-\draw[arrow] (gateway) -- node[right, font=\tiny]{Multi-Step Plan} (agent);
+\draw[arrow] (client) -- node[right=2pt, font=\tiny\bfseries]{REST / WebSocket} (gateway);
+\draw[arrow] (gateway) -- node[left=1pt, font=\tiny\bfseries]{Auto-Classify} (router);
+\draw[arrow] (gateway) -- node[right=1pt, font=\tiny\bfseries]{Multi-Step Plan} (agent);
 \draw[arrow] (router) -- (graph);
 \draw[arrow] (router) -- (vector);
 \draw[arrow] (agent) -- (graph);
@@ -449,11 +450,11 @@ JanSetu AI is engineered as a modular, tiered platform separating client present
 
 % Background Layers
 \begin{scope}[on background layer]
-    \node[layerbox, fit=(client), label=above:{\small\textbf{Client Presentation Layer}}] {};
-    \node[layerbox, fit=(gateway), label=right:{\small\textbf{Security \& Routing Layer}}] {};
-    \node[layerbox, fit=(router)(agent), label=left:{\small\textbf{Intelligence Orchestration Layer}}] {};
-    \node[layerbox, fit=(graph)(vector), label=left:{\small\textbf{In-Process Hybrid Engine}}] {};
-    \node[layerbox, fit=(cache), label=below:{\small\textbf{Persistence \& Inference Layer}}] {};
+    \node[layerbox, fit=(client), label=above:{\scriptsize\textbf{Client Presentation Layer}}] {};
+    \node[layerbox, fit=(gateway), label=right:{\scriptsize\textbf{Security \& Routing Layer}}] {};
+    \node[layerbox, fit=(router)(agent), label=left:{\scriptsize\textbf{Intelligence Orchestration Layer}}] {};
+    \node[layerbox, fit=(graph)(vector), label=left:{\scriptsize\textbf{In-Process Hybrid Engine}}] {};
+    \node[layerbox, fit=(cache), label=below:{\scriptsize\textbf{Persistence \& Inference Layer}}] {};
 \end{scope}
 
 \end{tikzpicture}
@@ -598,27 +599,25 @@ For analytical queries spanning multiple documents or comparative requirements (
 
 \begin{figure}[H]
 \centering
-\resizebox{0.75\linewidth}{!}{
 \begin{tikzpicture}[
-    node distance=0.8cm,
-    stepbox/.style={rectangle, draw=monoblack, fill=white, rounded corners=1.5mm, text centered, minimum height=0.75cm, minimum width=4.0cm, font=\footnotesize\bfseries},
+    node distance=0.65cm,
+    stepbox/.style={rectangle, draw=monoblack, fill=white, rounded corners=1.5mm, text centered, minimum height=0.72cm, minimum width=6.6cm, font=\small\bfseries},
     arrow/.style={->, >=latex, thick, color=monoblack}
 ]
 
 \node[stepbox, fill=monolightgray] (query) {User Query Received};
-\node[stepbox, below=0.6cm of query] (plan) {AgentPlanner: Decompose Plan (JSON)};
-\node[stepbox, below=0.6cm of plan] (tool) {Tool Selection \& Variable Resolution};
-\node[stepbox, below=0.6cm of tool] (exec) {AgentExecutor: Tool Execution};
-\node[stepbox, below=0.6cm of exec] (synth) {Synthesis \& Response Generation};
+\node[stepbox, below=0.65cm of query] (plan) {AgentPlanner: Decompose Plan (JSON)};
+\node[stepbox, below=0.65cm of plan] (tool) {Tool Selection \& Variable Resolution};
+\node[stepbox, below=0.65cm of tool] (exec) {AgentExecutor: Tool Execution};
+\node[stepbox, below=0.65cm of exec] (synth) {Synthesis \& Response Generation};
 
 \draw[arrow] (query) -- (plan);
 \draw[arrow] (plan) -- (tool);
 \draw[arrow] (tool) -- (exec);
-\draw[arrow] (exec.east) -- node[right, font=\tiny]{Iterate Steps} ++(0.8,0) |- (tool.east);
+\draw[arrow] (exec.east) -- ++(1.3,0) |- node[pos=0.25, right=2pt, font=\scriptsize\bfseries]{Iterate Steps} (tool.east);
 \draw[arrow] (exec) -- (synth);
 
 \end{tikzpicture}
-}
 \caption{ReAct Agent Execution Lifecycle}
 \label{fig:react_loop}
 \end{figure}
