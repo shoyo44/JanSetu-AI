@@ -4,8 +4,6 @@
     <img src="./assets/jansetu-brand-light.svg#gh-light-mode-only" width="560" alt="JanSetu AI Logo" />
   </a>
 
-  <br/><br/>
-
   <p align="center">
     <a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=19&duration=3000&pause=1000&color=F59E0B&center=true&vCenter=true&width=720&lines=Sovereign+Multi-Vertical+Agentic+Knowledge+Graph+%26+RAG;July+1%2C+2024+Criminal+Concordance+(IPC+%E2%87%84+BNS%2C+BNSS+%C2%A7479);100%25+Air-Gapped+Edge+Data+Residency+(DPDPA+2023+%C2%A716);Calibrated+Abstention+(%CF%84%3D0.40)+%2B+DeBERTa-v3+NLI+Verification" alt="JanSetu Dynamic Typing Headline" /></a>
   </p>
