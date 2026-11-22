@@ -1,11 +1,39 @@
-# JanSetu AI — Sovereign Governance & Citizen Intelligence Platform
-### *जनसेतु · Sovereign Multi-Vertical Agentic Knowledge Graph & RAG Platform for Public Governance and Citizen Welfare*
+<div align="center">
 
-[![IndiaAI Fellowship](https://img.shields.io/badge/IndiaAI-Fellowship%20Aligned-orange.svg)](https://indiaai.gov.in/)
-[![FastAPI](https://img.shields.io/badge/Backend-FastAPI%200.110-009688.svg)](https://fastapi.tiangolo.com/)
-[![React](https://img.shields.io/badge/Frontend-React%2018%20%2B%20Vite-61DAFB.svg)](https://react.dev/)
-[![Security](https://img.shields.io/badge/DevSecOps-Bandit%20%7C%20Trivy%20%7C%20pip--audit-red.svg)](https://github.com/shoyo44/JanSetu-AI)
-[![Data Sovereignty](https://img.shields.io/badge/Sovereignty-DPDPA%202023%20%7C%20Ollama-blue.svg)](https://github.com/shoyo44/JanSetu-AI)
+  <img src="./assets/jansetu-brand.svg" width="560" alt="JanSetu AI — Sovereign Governance & Citizen Intelligence Platform" />
+
+  <br/><br/>
+
+  <p align="center">
+    <a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=19&duration=3000&pause=1000&color=F59E0B&center=true&vCenter=true&width=720&lines=Sovereign+Multi-Vertical+Agentic+Knowledge+Graph+%26+RAG;July+1%2C+2024+Criminal+Concordance+(IPC+%E2%87%84+BNS%2C+BNSS+%C2%A7479);100%25+Air-Gapped+Edge+Data+Residency+(DPDPA+2023+%C2%A716);Calibrated+Abstention+(%CF%84%3D0.40)+%2B+DeBERTa-v3+NLI+Verification" alt="JanSetu Dynamic Typing Headline" /></a>
+  </p>
+
+  <p align="center">
+    <b>जनसेतु · Sovereign Citizen Intelligence & Governance Platform</b><br/>
+    <i>Bridging Public Administration, Welfare Disqualification Triage & Statutory Criminal Concordance</i>
+  </p>
+
+  <!-- Modern High-Contrast Pill Badges -->
+  <p align="center">
+    <a href="https://indiaai.gov.in/"><img src="https://img.shields.io/badge/IndiaAI%20Mission-MeitY%20Aligned-FF9933?style=for-the-badge&logo=india&logoColor=white" alt="IndiaAI Fellowship" /></a>
+    <a href="https://github.com/shoyo44/JanSetu-AI"><img src="https://img.shields.io/badge/Data%20Sovereignty-DPDPA%202023%20%C2%A716-10B981?style=for-the-badge&logo=shield&logoColor=white" alt="Sovereignty" /></a>
+    <a href="https://github.com/shoyo44/JanSetu-AI"><img src="https://img.shields.io/badge/DevSecOps-Aqua%20Trivy%20%7C%20Bandit-E11D48?style=for-the-badge&logo=security&logoColor=white" alt="DevSecOps" /></a>
+    <a href="http://204.236.202.125:3000"><img src="https://img.shields.io/badge/Cloud%20Live-AWS%20EC2-2563EB?style=for-the-badge&logo=amazon-aws&logoColor=white" alt="Live Demo" /></a>
+    <a href="http://204.236.202.125:3001"><img src="https://img.shields.io/badge/Observability-Prometheus%20%2B%20Grafana-F97316?style=for-the-badge&logo=grafana&logoColor=white" alt="Grafana" /></a>
+  </p>
+
+  <!-- Quick Action Navigation Bar -->
+  <p align="center">
+    <a href="http://204.236.202.125:3000"><b>🌐 Live Cloud Web App</b></a> •
+    <a href="./DOCS_PROJECT_REPORT.pdf"><b>📄 Academic Report (PDF)</b></a> •
+    <a href="./INDIA_AI_FELLOWSHIP_PROPOSAL.md"><b>🏛️ Fellowship Proposal</b></a> •
+    <a href="./ARCHITECTURE.md"><b>📐 System Architecture</b></a> •
+    <a href="./DEVOPS_DEVSECOPS_GUIDE.md"><b>🛡️ DevSecOps Guide</b></a>
+  </p>
+
+</div>
+
+---
 
 JanSetu AI (जनसेतु) is a sovereign AI Document Intelligence, Q&A, and Knowledge Graph Platform designed to analyze, index, search, and reason over unstructured public documents across high-stakes sovereign domains — engineered specifically for **Public Governance** and **Law & Justice** (IndiaAI Mission Priority Domains). A modular prototype validated on live sovereign benchmark suites, JanSetu AI supports data-residency-friendly deployment and air-gapped on-premise execution.
 
