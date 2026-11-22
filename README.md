@@ -421,7 +421,7 @@ bash ./scripts/run_trivy.sh
 @misc{jansetu2024,
   author = {Dhanush S},
   title = {JanSetu AI: Sovereign Multi-Vertical Agentic Knowledge Graph & RAG Platform for Public Governance and Citizen Welfare},
-  year = {2024},
+  year = {2026},
   publisher = {GitHub},
   journal = {GitHub repository},
   howpublished = {\url{https://github.com/shoyo44/JanSetu-AI}}
