@@ -34,7 +34,7 @@ async def test_groq():
                 "https://api.groq.com/openai/v1/chat/completions",
                 headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
                 json={
-                    "model": "llama-3.3-70b-versatile",
+                    "model": "llama-3.1-8b-instant",
                     "messages": [{"role": "user", "content": "Reply with 'GROQ_OK'"}],
                     "max_tokens": 10
                 }
