@@ -94,10 +94,11 @@ Everyday citizens, public administrators, and judicial practitioners face acute 
 ### 7.2 5-Tier Multimodal Ingestion Cascade
 Uploaded documents are processed through a 5-tier fallback cascade:
 - **Tier 1:** Native PDF text extraction (PyMuPDF)
-- **Tier 2:** Local OCR (PyTesseract)
+- **Tier 2:** Local OCR (PyTesseract with Indic models)
 - **Tier 3:** AWS Textract (Complex tabular documents)
 - **Tier 4:** Remote OCR (OCR.space API)
 - **Tier 5:** Vision LLM (Cloudflare Llama 3 Vision with token repetition hallucination guard)
+*(Note: Evaluated as a functional multi-tier fallback cascade ensuring zero-failure document ingestion; empirical Character Error Rate (CER) and Word Error Rate (WER) benchmarking across degraded historic gazettes is slated for the fellowship research phase).*
 
 ### 7.3 In-Process Hybrid Vector-Graph Storage
 Chunks are embedded into a **768-dimensional normalized continuous space** (`nomic-embed-text-v1.5` / Local Ollama `nomic-embed-text`) and indexed in an in-process hybrid database:

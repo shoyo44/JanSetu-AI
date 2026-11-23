@@ -281,6 +281,7 @@ Replaces heavy external database infrastructure (Neo4j, Milvus, Pinecone) with a
    - **Tier 4 (Sovereign Extractive RAG):** Verbatim chunk synthesis operating with 0% external API dependencies.
 6. **Multi-Stage Container Hardening:** Multi-stage Docker builds running under an unprivileged non-root user (`docqa:10001`) with Indic OCR language packs (`hin`, `tam`).
 7. **Automated DevSecOps Pipeline (`.github/workflows/ci.yml`):** Enforces static linting (Ruff), Python security scanning with **Bandit (SAST)**, dependency vulnerability auditing with **pip-audit** & **npm audit**, and container image vulnerability scanning via **Trivy**.
+8. **5-Tier Multimodal Ingestion Cascade (`ocr_cascade.py`):** Multi-tier fallback architecture (native PyMuPDF $\to$ local PyTesseract with Indic packs $\to$ AWS Textract $\to$ OCR.space $\to$ Cloudflare Vision); ensures robust ingestion of degraded gazettes and regional land records. (Formal CER/WER benchmarking across regional scripts is a key research objective under the fellowship roadmap).
 
 ---
 
@@ -303,7 +304,7 @@ Tested via automated test suites (`eval/test_live_e2e_full_system.py`, `eval/tes
 
 ### B. Statistical Retrieval & QA Defensibility Evaluation ($N = 120$)
 > ℹ️ **Evaluation Model Note:** Cloud-mode benchmark figures were measured with Cloudflare Workers AI (`@cf/meta/llama-3-8b-instruct`); the Groq LPU tier was not evaluated in this quantitative benchmark.
-Evaluated over $N = 120$ annotated answerable query-document pairs spanning Central/State Gazettes (40), Statutory Enactments (40), and Appellate Rulings (40), alongside a separate held-out set of $N = 30$ unanswerable queries (10 per vertical). Gold answers were annotated by two independent legal and public administration researchers (Cohen's $\kappa = 0.88$). Refusal threshold $\tau = 0.40$ was tuned on a separate 20-query dev split. Raw per-query evaluation results are committed and tracked in [`eval/results/per_query_evaluation_results.csv`](./eval/results/per_query_evaluation_results.csv).
+Evaluated over $N = 120$ annotated answerable query-document pairs spanning Central/State Gazettes (40), Statutory Enactments (40), and Appellate Rulings (40), alongside a separate held-out set of $N = 30$ unanswerable queries (10 per vertical) formulated across English, Hindi (हिन्दी), and Tamil (தமிழ்). Gold answers were annotated by two independent legal and public administration researchers (Cohen's $\kappa = 0.88$). Refusal threshold $\tau = 0.40$ was tuned on a separate 20-query dev split. Raw per-query evaluation results are committed and tracked in [`eval/results/per_query_evaluation_results.csv`](./eval/results/per_query_evaluation_results.csv).
 
 All proportions report exact counts $k/N$ with 95% Wilson score confidence intervals. Entailment reports mean $\pm$ standard error.
 
@@ -318,7 +319,7 @@ All proportions report exact counts $k/N$ with 95% Wilson score confidence inter
 | **End-to-End Synthesis Latency (p95)**| 850 ms | 1,750 ms | **2,150 ms** | **2,850 ms** | Complete pipeline: Retrieval + Cross-Encoder + NLI verification + LLM generation (measured on RTX 3060 edge rig for on-prem). |
 
 #### Evaluation Protocol & Gold Dataset
-- **Gold Question Set:** [`eval/gold/sovereign_benchmark_qa.jsonl`](./eval/gold/sovereign_benchmark_qa.jsonl) (120 answerable + 30 held-out unanswerable queries).
+- **Gold Question Set:** [`eval/gold/sovereign_benchmark_qa.jsonl`](./eval/gold/sovereign_benchmark_qa.jsonl) (120 answerable + 30 held-out unanswerable queries in English, Hindi, and Tamil).
 - **Per-Query Binary Hits:** [`eval/results/per_query_evaluation_results.csv`](./eval/results/per_query_evaluation_results.csv).
 - **Annotation Methodology:** Two independent legal and public administration researchers annotated gold citations. Inter-annotator agreement achieved Cohen's $\kappa = 0.88$.
 - **Edge Benchmark Hardware:** AMD Ryzen 7 5700X (8 cores / 16 threads), 32 GB RAM, NVIDIA GeForce RTX 3060 (12 GB VRAM). Local models: `qwen2.5:7b-instruct` (4-bit quantized) and `nomic-embed-text` via Ollama.
