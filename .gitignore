@@ -21,6 +21,7 @@ env/
 
 # Local app data and generated stores
 backend/data/
+backend/app/data/
 *.db
 *.sqlite
 *.sqlite3

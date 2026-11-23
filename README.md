@@ -158,7 +158,7 @@ JanSetu AI configures **3 primary sovereign fellowship verticals** in `backend/a
 |---|---|---|---|---|---|
 | `governance` | **Governance & Welfare** 🏛️ | 500 / 100 | Hybrid (Vector + Graph) | Lexical & Facet Boost | Citizen *Jan Suvidha* plain-language summary, DBT subsidy mapping, eligibility vs disqualifying exclusion separation. |
 | `judgment` | **Court Judgments (India)** ⚖️ | 500 / 100 | Hybrid (Vector + Graph) | Statutory Citation Boost | Binding *Ratio Decidendi* extraction, bail precedent synthesis under BNSS §483 / §479, Article 21 constitutional safeguards. |
-| `law` | **Statutory Law & Concordance** 📑 | 768 / 128 | Hybrid (Vector + Graph) | `VerticalReranker` (Domain-keyword boost) | Tri-code concordance (`IPC ⇄ BNS`, `CrPC ⇄ BNSS`, `IEA ⇄ BSA`), Regional Land Deeds (*கிரையப் பத்திரம்*), 10-point Red-Flag risk scanner. |
+| `law` | **Statutory Law & Concordance** 📑 | 400 / 80 | Hybrid (Vector + Graph) | `VerticalReranker` (Domain-keyword boost) | Tri-code concordance (`IPC ⇄ BNS`, `CrPC ⇄ BNSS`, `IEA ⇄ BSA`), Regional Land Deeds (*கிரையப் பத்திரம்*), 10-point Red-Flag risk scanner. |
 
 ---
 

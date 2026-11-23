@@ -87,7 +87,7 @@ Everyday citizens, public administrators, and judicial practitioners face acute 
 |---|---|---|---|---|
 | `governance` | Governance & Welfare | 500 / 100 | Hybrid (Vector + Graph) | Citizen *Jan Suvidha* plain-language cards, DBT subsidy mapping, eligibility vs exclusion separation. |
 | `judgment` | Court Judgments (India) | 500 / 100 | Hybrid (Vector + Graph) | Binding *Ratio Decidendi* extraction, bail condition synthesis under BNSS §483 / §479, Article 21 protections. |
-| `law` | Statutory Law & Concordance | 768 / 128 | Hybrid (Vector + Graph) | Tri-code concordance (`IPC ⇄ BNS`, `CrPC ⇄ BNSS`), Regional Land Deeds (*கிரையப் பத்திரம்*), 10-point Red-Flag risk scanner. |
+| `law` | Statutory Law & Concordance | 400 / 80 | Hybrid (Vector + Graph) | Tri-code concordance (`IPC ⇄ BNS`, `CrPC ⇄ BNSS`), Regional Land Deeds (*கிரையப் பத்திரம்*), 10-point Red-Flag risk scanner. |
 
 *Note: Legacy aliases (`compliance` $\to$ `law`, `startup` $\to$ `law`, `university` $\to$ `governance`, `hr` $\to$ `governance`) are resolved automatically by the pipeline factory.*
 
