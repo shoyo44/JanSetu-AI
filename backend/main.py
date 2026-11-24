@@ -56,7 +56,7 @@ async def run_startup_connectivity_check(app: FastAPI) -> None:
         print(f"  [FAIL] Graph Store:           FAILED: {exc}")
 
     # 2. Redis connectivity
-    if app.state.redis:
+    if getattr(app.state, "redis", None):
         try:
             app.state.redis.ping()
             print("  [OK] Redis Cache:           CONNECTED (OK)")
@@ -212,7 +212,7 @@ async def lifespan(app: FastAPI):
     await app.state.cf_client.close()
 
     # Close Redis connection if present
-    if app.state.redis:
+    if getattr(app.state, "redis", None):
         try:
             app.state.redis.close()
         except Exception:
@@ -300,7 +300,7 @@ def health_check():
     except Exception:
         pass
 
-    if app.state.redis:
+    if getattr(app.state, "redis", None):
         try:
             app.state.redis.ping()
             redis_ok = True

@@ -346,7 +346,7 @@ OLLAMA_BASE_URL=http://localhost:11434
 OLLAMA_MODEL=qwen2.5:7b-instruct
 
 # In-Process & Fallback Storage
-MONGODB_URI=mongodb://localhost:27017/docsai
+MONGODB_URI=mongodb://localhost:27017/jansetu_ai
 ENABLE_JSON_FALLBACK=true
 
 # Security & Rate Limiting

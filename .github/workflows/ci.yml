@@ -1,4 +1,4 @@
-name: DocsAI DevOps & DevSecOps CI Pipeline
+name: JanSetu AI DevOps & DevSecOps CI Pipeline
 
 on:
   push:
@@ -40,7 +40,7 @@ jobs:
 
       - name: Dependency Audit (pip-audit)
         run: |
-          pip-audit -r backend/requirements.txt --ignore-vuln CVE-2024-34062 || true
+          pip-audit -r backend/requirements.txt --ignore-vuln CVE-2024-34062
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -52,7 +52,7 @@ jobs:
       - name: Frontend Dependency Audit (npm audit)
         run: |
           cd frontend
-          npm audit --audit-level=moderate || true
+          npm audit --audit-level=critical
 
   # ── 2. Backend Unit Tests & Grounding Eval ────────────────────────────────
   backend-test:
@@ -88,6 +88,7 @@ jobs:
           python eval/test_defensibility_fixtures.py
           python eval/test_undertrial_rules.py
           python eval/test_india_ai_features.py
+          python eval/test_live_e2e_full_system.py
           python eval/run.py
 
   # ── 3. Frontend Build Verification ────────────────────────────────────────

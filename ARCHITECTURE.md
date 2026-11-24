@@ -730,7 +730,7 @@ services:
       - GROQ_API_KEY=${GROQ_API_KEY:-}
       - CF_ACCOUNT_ID=${CF_ACCOUNT_ID:-}
       - CF_API_TOKEN=${CF_API_TOKEN:-}
-      - MONGODB_URI=mongodb://mongo:27017/docsai
+      - MONGODB_URI=mongodb://mongo:27017/jansetu_ai
       - ENABLE_JSON_FALLBACK=true
     volumes:
       - ./backend/data:/app/data

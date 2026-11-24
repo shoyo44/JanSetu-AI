@@ -122,8 +122,8 @@ class CloudflareAI:
 
         candidates = [self._groq_active_model] if self._groq_active_model else [
             os.getenv("GROQ_MODEL"),
-            "qwen/qwen3-32b",
             "openai/gpt-oss-120b",
+            "qwen/qwen3.8-27b",
             "llama-3.1-8b-instant",
         ]
         candidates = [m for m in candidates if m]
@@ -249,7 +249,7 @@ class CloudflareAI:
         # 1. Try Groq streaming if key is set
         groq_key = os.getenv("GROQ_API_KEY")
         if groq_key:
-            groq_m = self._groq_active_model or os.getenv("GROQ_MODEL") or "qwen/qwen3-32b"
+            groq_m = self._groq_active_model or os.getenv("GROQ_MODEL") or "openai/gpt-oss-120b"
             try:
                 async with httpx.AsyncClient(timeout=30.0) as client:
                     async with client.stream(
