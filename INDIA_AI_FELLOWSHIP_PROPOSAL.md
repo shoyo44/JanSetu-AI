@@ -1,9 +1,11 @@
 # IndiaAI Fellowship Project Proposal Dossier
 
-**Project Title:** JanSetu AI: Sovereign Agentic Knowledge Graph & RAG Platform for Public Governance & Citizen Welfare  
-**Applicant Name:** Dhanush S  
-**Faculty Guide / Supervisor:** [Faculty Guide Name & Designation, Department of Computer Science and Engineering, KARE] *(Ensure exact match with Institutional Endorsement Letter)*  
-**Institution:** Department of Computer Science and Engineering, Kalasalingam Academy of Research and Education (Deemed University), Tamil Nadu, India  
+**Project Title:** JanSetu AI Sovereign MultiVertical Agentic Knowledge Graph RAG Platform for Public Governance and Citizen Welfare  
+**Applicant Name:** Dhanush S (Enrolment No: 99230041087, CGPA: 8.93, 7th Sem / 4th Year B.Tech CSE)  
+**Faculty Guide / Supervisor:** Dr. Vijay M, Associate Professor, Department of Computer Science and Engineering, Kalasalingam Academy of Research and Education  
+**Alternative Guide:** Dr. Gurusigaamani M, Associate Professor, Department of Computer Science and Engineering  
+**Head of Department:** Dr. R. Raja Subramanian, Associate Professor & HoD, Department of Computer Science and Engineering  
+**Institution:** Department of Computer Science and Engineering, Kalasalingam Academy of Research and Education (Deemed to be University), Anand Nagar, Krishnankoil, Tamil Nadu - 626126  
 **Primary Domain (Portal Choice):** Governance *(Cross-cutting with Law and Justice)*  
 **Repository:** [github.com/shoyo44/JanSetu-AI](https://github.com/shoyo44/JanSetu-AI)  
 **Target Fellowship:** IndiaAI Fellowship 2026–27 (Undergraduate track, Ministry of Electronics and Information Technology, MeitY)  

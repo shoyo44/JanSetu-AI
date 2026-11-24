@@ -35,8 +35,11 @@ Artificial Intelligence · Natural Language Processing · Information Retrieval 
 
 | Field | Details |
 |---|---|
-| **Author / Applicant** | Dhanush S (B.Tech Final Year, Dept. of CSE) |
-| **Faculty Guide / Supervisor** | [Faculty Guide Name & Designation, Dept. of Computer Science & Engineering, KARE] *(Matches Institutional Endorsement Letter)* |
+| **Project Title** | JanSetu AI Sovereign MultiVertical Agentic Knowledge Graph RAG Platform for Public Governance and Citizen Welfare |
+| **Author / Applicant** | Dhanush S (Enrolment No: 99230041087, CGPA: 8.93, B.Tech CSE 7th Sem / 4th Year) |
+| **Faculty Guide / Supervisor** | Dr. Vijay M, Associate Professor, Dept. of Computer Science & Engineering, KARE |
+| **Alternative Guide** | Dr. Gurusigaamani M, Associate Professor, Dept. of Computer Science & Engineering, KARE |
+| **Head of Department** | Dr. R. Raja Subramanian, Associate Professor & HoD, Dept. of CSE, KARE |
 | **Institution** | Kalasalingam Academy of Research and Education (Deemed University) |
 | **Department** | Computer Science and Engineering |
 | **Target Fellowship** | IndiaAI Fellowship 2026–27 (Undergraduate track; Priority Domains: Governance + Law & Justice) |
