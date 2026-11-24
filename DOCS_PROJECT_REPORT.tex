@@ -857,12 +857,12 @@ Production deployments adhere to zero-trust security standards:
 \chapter{Experimental Evaluation and Benchmarks}
 
 \section{Latency Benchmarks}
-Performance testing was conducted on an AMD Ryzen 7 5700X (8 cores / 16 threads, 32 GB RAM) edge workstation with an NVIDIA GeForce RTX 3060 (12 GB VRAM) for sovereign on-premise execution, paired with local FAISS indexing and Cloudflare Workers AI Llama 3 inference for cloud mode:
+Performance testing was conducted on an AMD Ryzen 7 5700X (8 cores / 16 threads, 32 GB RAM) edge workstation with an NVIDIA GeForce RTX 3060 (12 GB VRAM) for sovereign on-premise execution, paired with local FAISS indexing and Cloudflare Workers AI Llama 3 inference for cloud mode (indicative development machine measurements, not a formal benchmark):
 
 \begin{table}[H]
 \centering
 \small
-\caption{JanSetu AI Latency Benchmarks Across Query Pathways}
+\caption{JanSetu AI Latency Benchmarks Across Query Pathways (Indicative Measurements)}
 \label{tab:benchmarks}
 \begin{tabularx}{\textwidth}{lrrX}
 \toprule
@@ -875,19 +875,21 @@ Performance testing was conducted on an AMD Ryzen 7 5700X (8 cores / 16 threads,
 \textbf{Legal Red-Flag Scan} & $3,100\text{ ms}$ & $4,500\text{ ms}$ & 60-chunk batch evaluation across 10 risk vectors. \\
 \bottomrule
 \end{tabularx}
+\vspace{2pt}
+{\footnotesize \textit{Note: Figures represent indicative development machine measurements on local hardware, not a formal standardized multi-user benchmark.}}
 \end{table}
 
 \section{Retrieval and Abstention Evaluation Framework}
 JanSetu AI establishes an open evaluation benchmark over $N = 150$ gold queries spanning public governance, statutory law, and judicial precedents:
 \begin{itemize}[itemsep=3pt]
     \item \textbf{Gold Corpus Verification:} 120 answerable queries mapped to specific evidence chunks across Central/State Gazettes, Criminal Law Codes (BNS, BNSS, BSA), and Tenancy Acts, accompanied by 30 held-out unanswerable queries to test safe refusal.
-    \item \textbf{Calibrated Abstention Engine:} Evaluates query similarity against an empirical threshold ($\tau = 0.40$ cloud, $\tau = 0.38$ on-premise) calibrated on an isolated 20-query development split to transparently refuse queries without sufficient textual grounding.
+    \item \textbf{Calibrated Abstention Engine:} Evaluates query similarity against an empirical threshold (initial $\tau = 0.40$ cloud, $\tau = 0.38$ on-premise chosen on a 20-query development set, to be recalibrated on the full benchmark) to transparently refuse queries without sufficient textual grounding.
     \item \textbf{Citation Entailment Verification:} Implements claim-level cross-encoder Natural Language Inference (NLI via DeBERTa-v3) to score whether generated claims are strictly entailed by retrieved statutory clauses.
     \item \textbf{Benchmarking Deliverable:} The evaluation harness (\texttt{eval/run.py}) executes across Naive RAG, Advanced GraphRAG, Sovereign On-Premise, and Grounded Cloud Mode, generating standardized outputs for national release on AIKosh.
 \end{itemize}
 
 \section{Quantitative Defensibility and Verification Benchmarks}
-To ensure scientific credibility and avoid conflating functional unit tests with statistical retrieval metrics, JanSetu AI separates its empirical evaluation into software integration testing and statistical retrieval evaluation over an annotated benchmark corpus of $N = 120$ queries spanning official gazettes, statutory enactments, and appellate judgments.
+To ensure scientific credibility and avoid conflating functional unit tests with statistical retrieval metrics, JanSetu AI separates its empirical evaluation into software integration testing and statistical retrieval evaluation over a curated benchmark corpus of $N = 150$ queries (120 answerable, 30 held-out unanswerable) spanning official gazettes, statutory enactments, and appellate judgments.
 
 \subsection{Software and Functional Integration Test Suite}
 The live system integration test harness (\texttt{eval/test\_live\_e2e\_full\_system.py} and \texttt{eval/test\_frontend\_chromium.py}) verifies end-to-end functionality across backend APIs and frontend UI components:
@@ -925,8 +927,8 @@ The platform establishes a standardized 150-query multilingual gold evaluation b
 \begin{itemize}
     \item \textbf{120 Answerable Queries:} Spanning Central/State Gazettes ($40$), Statutory Enactments ($40$), and Appellate Rulings ($40$), grounded in specific statutory clauses.
     \item \textbf{30 Held-Out Unanswerable Queries:} ($10$ per vertical) to systematically evaluate calibrated abstention against out-of-scope, adversarial, or foreign queries without hallucination.
-    \item \textbf{Multilingual Scope:} 103 queries in English, 39 queries in Hindi, and 8 queries in Tamil.
-    \item \textbf{Calibrated Abstention Engine:} Similarity threshold ($\tau = 0.40$ cloud, $\tau = 0.38$ on-premise) calibrated on an isolated 20-query development split held strictly independent from test queries.
+    \item \textbf{Multilingual Scope:} 102 queries in English, 39 queries in Hindi, and 9 queries in Tamil.
+    \item \textbf{Calibrated Abstention Engine:} Initial similarity threshold ($\tau = 0.40$ cloud, $\tau = 0.38$ on-premise) chosen on an isolated 20-query development split, to be recalibrated across full model configurations on the benchmark.
 \end{itemize}
 
 The comparative evaluation harness (\texttt{eval/run.py}) executes across four architectural paradigms: Naive RAG (flat vector search without graph traversal or abstention), Advanced GraphRAG (vector + NetworkX traversal with RRF), JanSetu AI Grounded Cloud (Cloudflare Workers AI + Nomic Atlas API + DeBERTa-v3 cross-encoder NLI claim verification), and JanSetu AI Sovereign On-Premise (local Ollama on an RTX 3060 edge workstation). Empirical comparative benchmarks across all four paradigms are being recorded via live execution for open contribution to the national AIKosh portal as part of the IndiaAI Fellowship deliverables.
@@ -971,10 +973,10 @@ JanSetu AI addresses the acute information divide in Indian public governance an
     \end{itemize}
     \item \textbf{Quarter 2 (Months 4--6): Multi-State Vernacular Deed \& Concordance Expansion}
     \begin{itemize}[itemsep=1pt]
-        \item Expand regional land deed parsing to Telugu, Marathi, and Hindi registry formats (\textit{Vikraya Vilekh}, \textit{Kharidikhata}).
+        \item Expand regional land deed parsing to Telugu and Hindi registry formats (\textit{Vikraya Vilekh}).
         \item Integrate native Indic NLI models (such as MuRIL / IndicBERT fine-tuned on IndicXNLI) for regional language entailment verification.
         \item Incorporate State-specific High Court concordance amendments under BNSS and BSA.
-        \item Curate and publish \textit{IndiaGroundedRAG-2500} benchmark dataset ($N=2,500$ verified pairs in Q2, scaling to $N=5,000$ in Q3, annotated by 4 legal and public administration research scholars, targeting Cohen's $\kappa \ge 0.85$).
+        \item Curate and publish open benchmark dataset ($N=500$ verified pairs across Hindi and Telugu, annotated with independent legal scholars, targeting Cohen's $\kappa \ge 0.85$) for contribution to AIKosh.
     \end{itemize}
     \item \textbf{Quarter 3 (Months 7--9): Edge Workstation Deployment \& Pilot Trials}
     \begin{itemize}[itemsep=1pt]

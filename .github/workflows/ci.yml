@@ -80,12 +80,15 @@ jobs:
           pip install -r backend/requirements.txt
           python -m spacy download en_core_web_sm
 
-      - name: Run Phase 4 Security Verification Suite
+      - name: Run Verification Test Suites
         env:
           PYTHONPATH: backend
         run: |
           python eval/test_phase4_security.py
+          python eval/test_defensibility_fixtures.py
+          python eval/test_undertrial_rules.py
           python eval/test_india_ai_features.py
+          python eval/run.py
 
   # ── 3. Frontend Build Verification ────────────────────────────────────────
   frontend-build:

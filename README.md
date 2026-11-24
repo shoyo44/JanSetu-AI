@@ -77,7 +77,7 @@ flowchart TB
         DB_Graph["🕸️ NetworkX Knowledge Graph (Hierarchical Nodes, CITES, SUPERSEDES)"]
         DB_Vector["📐 768-Dim FAISS Flat Index (Normalized Continuous Cosine Space)"]
         DB_Ledger["⛓️ SHA-256 Merkle Provenance Ledger (Chained Audit Log & Root Hashes)"]
-        DB_Cache["⚡ SQLite Semantic Cache (p95: 3.8ms at Cosine Sim ≥ 0.95)"]
+        DB_Cache["⚡ SQLite Semantic Cache (Indicative ~3.8ms at Cosine Sim ≥ 0.95)"]
         DB_History["🗄️ Containerized MongoDB / Local Resilient JSON Audit Store"]
     end
 
@@ -208,7 +208,7 @@ Replaces heavy external database infrastructure (Neo4j, Milvus, Pinecone) with a
   - Accessible via the Document Vault UI modal and REST endpoints (`GET /api/v1/ledger/records`, `GET /api/v1/ledger/verify/{doc_id}`).
 - **Vector Model Incommensurability Note:** Embeddings from different models inhabit different latent spaces. Switching between cloud and local Ollama requires re-indexing the document corpus. The hash router in `embedding_router.py` is strictly an offline unit-test mock fixture.
 - **Re-Entrant RWLock Safety:** Regulates multi-threaded concurrency — allows unlimited parallel reads during search queries while serializing atomic background disk write-backs to `graph_store.json`.
-- **SQLite Semantic Cache:** Fast retrieval ($\approx 3.8\text{ ms}$) for repeated queries with cosine similarity $\ge 0.95$.
+- **SQLite Semantic Cache:** Fast retrieval (indicative development measurement $\approx 3.8\text{ ms}$) for repeated queries with cosine similarity $\ge 0.95$.
 
 ---
 
@@ -306,8 +306,8 @@ Tested via automated test suites (`eval/test_live_e2e_full_system.py`, `eval/tes
 The repository establishes a standardized 150-query multilingual gold evaluation benchmark committed at [`eval/gold/sovereign_benchmark_qa.jsonl`](./eval/gold/sovereign_benchmark_qa.jsonl):
 - **120 Answerable Queries:** 40 Public Governance (PM-KISAN, Ayushman Bharat, Senior Citizens Act), 40 Statutory Law & Citizen Rights (Cyber FIR, Model Tenancy Act, Tamil Land Deeds), 40 Judicial Precedents & Bail Reforms (Supreme Court bail ruling, Statutory Concordance).
 - **30 Held-Out Unanswerable Queries:** 10 per vertical, to evaluate calibrated abstention without hallucinating.
-- **Multilingual Queries:** 103 English, 39 Hindi (हिन्दी), and 8 Tamil (தமிழ்).
-- **Calibrated Abstention Engine:** Similarity threshold $\tau = 0.40$ (cloud) and $\tau = 0.38$ (on-prem) tuned on an isolated 20-query development split (`eval/gold/dev_tuning_split.jsonl`).
+- **Multilingual Queries:** 102 English, 39 Hindi (हिन्दी), and 9 Tamil (தமிழ்).
+- **Calibrated Abstention Engine:** Initial similarity threshold $\tau = 0.40$ (cloud) and $\tau = 0.38$ (on-premise) chosen on an isolated 20-query development split (`eval/gold/dev_tuning_split.jsonl`), to be recalibrated on the full benchmark.
 - **Comparative Evaluation Harness:** [`eval/run.py`](./eval/run.py) provides the evaluation harness across 4 architectural paradigms: Naive RAG, Advanced GraphRAG, Sovereign On-Premise, and Grounded Cloud Mode. Full empirical comparative metrics across all configurations are being recorded via live execution for open publication on AIKosh as part of the IndiaAI Fellowship deliverables.
 
 #### Evaluation Protocol & Gold Dataset

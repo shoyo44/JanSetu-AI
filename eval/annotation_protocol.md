@@ -27,7 +27,7 @@ To prevent data leakage, queries are strictly partitioned into distinct developm
 
 | Split | File Location | Query Count | Purpose |
 |---|---|---|---|
-| **Development Tuning Split** | `eval/gold/dev_tuning_split.jsonl` | $N = 20$ (10 answerable, 10 unanswerable) | Threshold grid search ($\tau \in [0.20, 0.60]$) to calibrate the abstention engine. |
+| **Development Tuning Split** | `eval/gold/dev_tuning_split.jsonl` | $N = 20$ (10 answerable, 10 unanswerable) | Initial threshold selection ($\tau = 0.40$) on development split to configure baseline abstention prior to full benchmark recalibration. |
 | **Held-Out Test Split (Answerable)** | `eval/gold/sovereign_benchmark_qa.jsonl` (`Q_001`–`Q_120`) | $N = 120$ (40 Governance, 40 Judgment, 40 Statutory Law) | Unseen evaluation of Top-5 Context Recall and NLI Citation Entailment. |
 | **Held-Out Test Split (Unanswerable)** | `eval/gold/sovereign_benchmark_qa.jsonl` (`Q_121`–`Q_150`) | $N = 30$ (10 per vertical) | Unseen evaluation of Calibrated Refusal Accuracy under fixed $\tau$. |
 
@@ -44,10 +44,6 @@ As part of the IndiaAI Fellowship research deliverables (Milestone: AIKosh Open 
 
 ## 4. Threshold Calibration Methodology ($\tau$)
 
-The empirical similarity threshold $\tau$ separates grounded answerable contexts from out-of-scope/unanswerable queries. Calibration was performed exclusively on the 20-query development split (`eval/gold/dev_tuning_split.jsonl`):
-- Grid search over $\tau \in [0.25, 0.55]$ with step size $\Delta = 0.01$.
-- Objective: Maximize Youden's $J = \text{TPR} + \text{TNR} - 1$ (balancing answerable retrieval rate with safe refusal rate).
-- **Calibrated Cloud Threshold (`nomic-embed-text-v1.5`):** $\tau^* = \mathbf{0.40}$ ($J = 0.90$ on dev split).
-- **Calibrated On-Premise Threshold (`nomic-embed-text` Ollama):** $\tau^* = \mathbf{0.38}$ ($J = 0.88$ on dev split).
-
-Both thresholds were fixed on the development split prior to evaluating held-out test splits.
+The empirical similarity threshold $\tau$ separates grounded answerable contexts from out-of-scope/unanswerable queries:
+- **Development Baseline:** An initial threshold of $\tau = 0.40$ (cloud) and $\tau = 0.38$ (on-premise) was chosen on the 20-query development split (`eval/gold/dev_tuning_split.jsonl`: 10 answerable, 10 unanswerable) to establish a baseline separation between grounded citizen inquiries and out-of-scope/unanswerable requests.
+- **Benchmark Recalibration:** Full threshold recalibration across embedding models and retrieval configurations is conducted as part of the live fellowship benchmarking pipeline against the 150-query corpus.

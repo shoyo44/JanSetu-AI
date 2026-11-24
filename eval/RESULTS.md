@@ -21,8 +21,8 @@ The repository provides a standardized 150-query multilingual gold evaluation da
   - 40 Statutory Law & Citizen Rights (Cyber FIR, Model Tenancy Act, Tamil Land Deeds)
   - 40 Judicial Precedents & Bail Reforms (Supreme Court bail ruling, Statutory Concordance)
 - **$N = 30$ Held-Out Unanswerable Queries:** 10 per vertical, testing safe abstention on out-of-scope, foreign, or adversarial queries without hallucinating.
-- **Multilingual Coverage:** 103 queries in English, 39 queries in Hindi (हिन्दी), and 8 queries in Tamil (தமிழ்).
-- **Split Separation:** The 30 unanswerable queries form an isolated held-out split. The similarity threshold ($\tau = 0.40$ cloud, $\tau = 0.38$ on-prem) was tuned on a separate 20-query development split (`eval/gold/dev_tuning_split.jsonl`).
+- **Multilingual Coverage:** 102 queries in English, 39 queries in Hindi (हिन्दी), and 9 queries in Tamil (தமிழ்).
+- **Split Separation:** The 30 unanswerable queries form an isolated held-out split. An initial similarity threshold ($\tau = 0.40$ cloud, $\tau = 0.38$ on-premise) was chosen on a separate 20-query development split (`eval/gold/dev_tuning_split.jsonl`), to be recalibrated across full model configurations on the benchmark.
 
 ---
 
@@ -42,8 +42,8 @@ The repository provides a standardized 150-query multilingual gold evaluation da
 The comparative evaluation runner is implemented in [`eval/run.py`](./run.py). It evaluates query outputs against ground truth across 4 architectural paradigms:
 1. **Naive RAG Baseline:** Fixed chunking, single FAISS Flat search, top-5 chunks concatenated into prompt, without graph traversal, reranking, or calibrated abstention.
 2. **Advanced GraphRAG:** Vector + NetworkX graph entity traversal with Reciprocal Rank Fusion (RRF), top-5 chunks.
-3. **JanSetu AI Sovereign (On-Premise):** Local embeddings + FAISS + NetworkX graph traversal + calibrated abstention ($\tau = 0.38$) + local NLI claim verification.
-4. **JanSetu AI Grounded (Cloud Mode):** Nomic Atlas embeddings + FAISS + NetworkX + RRF + calibrated abstention ($\tau = 0.40$) + DeBERTa-v3 cross-encoder NLI claim verification.
+3. **JanSetu AI Sovereign (On-Premise):** Local embeddings + FAISS + NetworkX graph traversal + calibrated abstention (initial $\tau = 0.38$) + local NLI claim verification.
+4. **JanSetu AI Grounded (Cloud Mode):** Nomic Atlas embeddings + FAISS + NetworkX + RRF + calibrated abstention (initial $\tau = 0.40$) + DeBERTa-v3 cross-encoder NLI claim verification.
 
 *(Note: Prior simulated benchmark figures have been removed. Empirical pipeline benchmark results across all 4 configurations are being recorded via live execution for contribution to the national AIKosh portal as part of the IndiaAI Fellowship research deliverables).*
 

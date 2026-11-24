@@ -26,7 +26,7 @@ This document establishes the verified, definitive technical and factual paramet
 | **Vector Index** | In-process FAISS Flat Index (`IndexFlatIP`) | Normalized inner product (cosine similarity) |
 | **Primary Embedding Model** | `nomic-embed-text-v1.5` (Cloud API / Local Ollama) | Strictly **768 dimensions** (normalized). Cloud mode uses Nomic Atlas API; on-premise mode uses local Ollama `nomic-embed-text`. |
 | **Embedding Consistency** | **Vectors across models are incommensurable** | Switching between cloud (`nomic-embed-text-v1.5`) and local models requires a complete corpus re-index. Hash router in `embedding_router.py` is strictly an offline unit-test mock fixture, not semantic search. |
-| **Abstention Calibration** | Per-vertical similarity threshold ($\tau = 0.40$) | Calibrated specifically for normalized `nomic-embed-text-v1.5` cosine similarities on a 20-query dev split. Recalibration ($\tau = 0.38$) on local models. |
+| **Abstention Calibration** | Initial similarity threshold ($\tau = 0.40$) | Initial threshold chosen on a 20-query dev split, to be recalibrated on the full benchmark. |
 | **Indic Language Support** | Zero-dependency Unicode script detector | Covers 10 Indic scripts: Devanagari (Hindi/Marathi), Tamil, Telugu, Bengali, Punjabi, Gujarati, Odia, Kannada, Malayalam, Urdu. |
 | **Voice Interface** | Browser Web Speech API (Client-assisted) | Convenience feature in desktop/cloud mode; delegates audio to browser vendor cloud (e.g., Google Chrome speech service). For air-gapped on-premise mode, voice input must be disabled or replaced by local on-device models (e.g., Whisper.cpp / AI4Bharat IndicConformer, planned Q3). |
 | **Supported File Formats** | PDF, DOCX, TXT | Binary magic-byte verified (`%PDF-`, `PK\x03\x04`, UTF-8). Blocks PE/ELF executables and double extensions. Max size: 50 MB. |
@@ -141,12 +141,12 @@ Evaluated on our automated live test harness (`eval/test_live_e2e_full_system.py
 The repository establishes a standardized 150-query multilingual gold evaluation benchmark committed at [`eval/gold/sovereign_benchmark_qa.jsonl`](./eval/gold/sovereign_benchmark_qa.jsonl):
 - **120 Answerable Queries:** 40 Public Governance (PM-KISAN, Ayushman Bharat, Senior Citizens Act), 40 Statutory Law & Citizen Rights (Cyber FIR, Model Tenancy Act, Tamil Land Deeds), 40 Judicial Precedents & Bail Reforms (Supreme Court bail ruling, Statutory Concordance).
 - **30 Held-Out Unanswerable Queries:** 10 per vertical, to evaluate calibrated abstention without hallucinating.
-- **Multilingual Scope:** 103 queries in English, 39 queries in Hindi (हिन्दी), and 8 queries in Tamil (தமிழ்).
-- **Calibrated Abstention Engine:** Similarity threshold $\tau = 0.40$ (cloud) and $\tau = 0.38$ (on-prem) tuned on an isolated 20-query development split (`eval/gold/dev_tuning_split.jsonl`).
+- **Multilingual Scope:** 102 queries in English, 39 queries in Hindi (हिन्दी), and 9 queries in Tamil (தமிழ்).
+- **Calibrated Abstention Engine:** Initial similarity threshold $\tau = 0.40$ (cloud) and $\tau = 0.38$ (on-premise) chosen on an isolated 20-query development split (`eval/gold/dev_tuning_split.jsonl`), to be recalibrated on the full benchmark.
 - **Comparative Evaluation Harness:** [`eval/run.py`](./eval/run.py) provides the evaluation harness across 4 architectural paradigms: Naive RAG, Advanced GraphRAG, Sovereign On-Premise, and Grounded Cloud Mode. Full empirical comparative metrics across all configurations are being recorded via live execution for open publication on AIKosh as part of the IndiaAI Fellowship deliverables.
 
 *Calibration & Build Specification:*
-- Abstention similarity threshold ($\tau = 0.40$ for cloud, $\tau = 0.38$ for on-premise) was tuned on a separate 20-query development split, held completely independent from the $N = 30$ test queries.
+- Initial abstention similarity threshold ($\tau = 0.40$ for cloud, $\tau = 0.38$ for on-premise) was chosen on a separate 20-query development split, to be recalibrated on the full benchmark.
 - **Naive RAG Baseline:** Single-pass FAISS Flat index over 768-dim embeddings + Llama-3-8b.
 - **Advanced GraphRAG:** Vector + in-process NetworkX graph retrieval + HyDE query expansion + Llama-3-8b.
 - **JanSetu AI Grounded (Cloud Mode):** Cloudflare Workers AI (`@cf/meta/llama-3-8b-instruct`) + Nomic Atlas API (`nomic-embed-text-v1.5`, 768-dim) + `cross-encoder/nli-deberta-v3-small` verification.

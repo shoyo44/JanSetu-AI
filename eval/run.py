@@ -74,7 +74,21 @@ def evaluate_benchmark(
     n_ans = len(answerable_queries)
     n_unans = len(unanswerable_queries)
 
-    print(f"Loaded {n_ans} answerable queries and {n_unans} unanswerable queries.\n")
+    def detect_lang(text: str) -> str:
+        for ch in text:
+            cp = ord(ch)
+            if 0x0900 <= cp <= 0x097F:
+                return "hi"
+            if 0x0B80 <= cp <= 0x0BFF:
+                return "ta"
+        return "en"
+
+    lang_counts = {"en": 0, "hi": 0, "ta": 0}
+    for q in queries:
+        lang_counts[detect_lang(q.get("question", ""))] += 1
+
+    print(f"Loaded {n_ans} answerable queries and {n_unans} unanswerable queries.")
+    print(f"Language Distribution: English: {lang_counts['en']}, Hindi: {lang_counts['hi']}, Tamil: {lang_counts['ta']} (Total: {len(queries)})\n")
 
     # Dynamically compute metrics from recorded results CSV if present
     results_records = []
