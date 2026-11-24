@@ -20,8 +20,8 @@ To avoid optimistic bias and data leakage, queries are strictly partitioned into
 | Split | File Location | Query Count | Purpose |
 |---|---|---|---|
 | **Development Tuning Split** | `eval/gold/dev_tuning_split.jsonl` | $N = 20$ (10 answerable, 10 unanswerable) | Threshold grid search ($\tau \in [0.20, 0.60]$) to maximize Youden's $J$ statistic. |
-| **Held-Out Test Split (Answerable)** | `eval/gold/sovereign_benchmark_qa.jsonl` (Q001–Q120) | $N = 120$ (40 Governance, 40 Judgment, 40 Statutory Law) | Unseen evaluation of Top-5 Context Recall and NLI Citation Entailment. |
-| **Held-Out Test Split (Unanswerable)** | `eval/gold/sovereign_benchmark_qa.jsonl` (U001–U030) | $N = 30$ (10 per vertical) | Unseen evaluation of Calibrated Refusal Accuracy under fixed $\tau$. |
+| **Held-Out Test Split (Answerable)** | `eval/gold/sovereign_benchmark_qa.jsonl` (Q_001–Q_120) | $N = 120$ (40 Governance, 40 Judgment, 40 Statutory Law) | Unseen evaluation of Top-5 Context Recall and NLI Citation Entailment. |
+| **Held-Out Test Split (Unanswerable)** | `eval/gold/sovereign_benchmark_qa.jsonl` (Q_121–Q_150) | $N = 30$ (10 per vertical) | Unseen evaluation of Calibrated Refusal Accuracy under fixed $\tau$. |
 
 ---
 
@@ -32,9 +32,9 @@ $$P_o = \frac{\text{Agreed Queries}}{N} = \frac{141}{150} = 0.940$$
 
 $$P_e = (P_{\text{pos}, 1} \times P_{\text{pos}, 2}) + (P_{\text{neg}, 1} \times P_{\text{neg}, 2}) = (0.78 \times 0.76) + (0.22 \times 0.24) = 0.5928 + 0.0528 = 0.6456$$
 
-$$\kappa = \frac{P_o - P_e}{1 - P_e} = \frac{0.940 - 0.6456}{1 - 0.6456} = \frac{0.2944}{0.3544} \approx \mathbf{0.8307} \xrightarrow{\text{Consensus Resolution}} \mathbf{0.88}$$
+$$\kappa = \frac{P_o - P_e}{1 - P_e} = \frac{0.940 - 0.6456}{1 - 0.6456} = \frac{0.2944}{0.3544} \approx \mathbf{0.83}$$
 
-The remaining 9 discrepant annotations were resolved through mutual review of the official Gazette text, reaching consensus agreement before committing to `eval/gold/sovereign_benchmark_qa.jsonl`.
+The calculated Cohen's $\kappa = 0.83$ indicates substantial to almost-perfect inter-annotator agreement (Landis & Koch, 1977). The 9 initial discrepant annotations were subsequently reviewed jointly against the official Gazette provisions to achieve full consensus on gold ground-truth labels before final freeze of `eval/gold/sovereign_benchmark_qa.jsonl`.
 
 ---
 

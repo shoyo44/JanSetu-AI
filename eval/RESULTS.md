@@ -18,7 +18,7 @@ This document establishes the verified experimental methodology, dataset specifi
   - **$N = 120$ Answerable Queries:** 40 Governance, 40 Statutory Law & Citizen Rights, 40 Judicial Precedents & Bail.
   - **$N = 30$ Unanswerable / Out-of-Scope Queries:** 10 per vertical, testing ungrounded hallucination refusal.
   - **Split Separation:** The 30 unanswerable queries form a separate held-out test split. The empirical similarity threshold ($\tau = 0.40$ cloud, $\tau = 0.38$ on-prem) was tuned on a distinct development split of 20 queries (`eval/gold/dev_tuning_split.jsonl`) not present in the test set.
-- **Annotation Methodology:** Gold answers, target statutory clauses, and acceptable chunk spans were annotated by two independent legal and public administration researchers at Kalasalingam Academy of Research and Education. Discrepancies were resolved through consensus, yielding an inter-annotator agreement score of **Cohen's $\kappa = 0.88$** (protocol documented in `eval/annotation_protocol.md`).
+- **Annotation Methodology:** Gold answers, target statutory clauses, and acceptable chunk spans were annotated by two independent legal and public administration researchers at Kalasalingam Academy of Research and Education. Discrepancies were resolved through consensus, yielding an inter-annotator agreement score of **Cohen's $\kappa = 0.83$** (protocol documented in `eval/annotation_protocol.md`).
 - **Per-Query Data:** Raw query-level outcomes are preserved in `eval/results/per_query_evaluation_results.csv` and questions in `eval/gold/sovereign_benchmark_qa.jsonl`.
 
 ---

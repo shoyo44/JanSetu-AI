@@ -304,7 +304,7 @@ Tested via automated test suites (`eval/test_live_e2e_full_system.py`, `eval/tes
 
 ### B. Statistical Retrieval & QA Defensibility Evaluation ($N = 120$)
 > ℹ️ **Evaluation Model Note:** Cloud-mode benchmark figures were measured with Cloudflare Workers AI (`@cf/meta/llama-3-8b-instruct`); the Groq LPU tier was not evaluated in this quantitative benchmark.
-Evaluated over $N = 120$ annotated answerable query-document pairs spanning Central/State Gazettes (40), Statutory Enactments (40), and Appellate Rulings (40), alongside a separate held-out set of $N = 30$ unanswerable queries (10 per vertical) formulated across English, Hindi (हिन्दी), and Tamil (தமிழ்). Gold answers were annotated by two independent legal and public administration researchers (Cohen's $\kappa = 0.88$). Refusal threshold $\tau = 0.40$ was tuned on a separate 20-query dev split. Raw per-query evaluation results are committed and tracked in [`eval/results/per_query_evaluation_results.csv`](./eval/results/per_query_evaluation_results.csv).
+Evaluated over $N = 120$ annotated answerable query-document pairs spanning Central/State Gazettes (40), Statutory Enactments (40), and Appellate Rulings (40), alongside a separate held-out set of $N = 30$ unanswerable queries (10 per vertical) formulated across English, Hindi (हिन्दी), and Tamil (தமிழ்). Gold answers were annotated by two independent legal and public administration researchers (Cohen's $\kappa = 0.83$, protocol in `eval/annotation_protocol.md`). Refusal threshold $\tau = 0.40$ was tuned on a separate 20-query dev split. Raw per-query evaluation results are committed and tracked in [`eval/results/per_query_evaluation_results.csv`](./eval/results/per_query_evaluation_results.csv).
 
 All proportions report exact counts $k/N$ with 95% Wilson score confidence intervals. Entailment reports mean $\pm$ standard error.
 
@@ -321,7 +321,7 @@ All proportions report exact counts $k/N$ with 95% Wilson score confidence inter
 #### Evaluation Protocol & Gold Dataset
 - **Gold Question Set:** [`eval/gold/sovereign_benchmark_qa.jsonl`](./eval/gold/sovereign_benchmark_qa.jsonl) (120 answerable + 30 held-out unanswerable queries in English, Hindi, and Tamil).
 - **Per-Query Binary Hits:** [`eval/results/per_query_evaluation_results.csv`](./eval/results/per_query_evaluation_results.csv).
-- **Annotation Methodology:** Two independent legal and public administration researchers annotated gold citations. Inter-annotator agreement achieved Cohen's $\kappa = 0.88$.
+- **Annotation Methodology:** Two independent legal and public administration researchers annotated gold citations. Inter-annotator agreement achieved Cohen's $\kappa = 0.83$ (protocol documented in `eval/annotation_protocol.md`).
 - **Edge Benchmark Hardware:** AMD Ryzen 7 5700X (8 cores / 16 threads), 32 GB RAM, NVIDIA GeForce RTX 3060 (12 GB VRAM). Local models: `qwen2.5:7b-instruct` (4-bit quantized) and `nomic-embed-text` via Ollama.
 
 ---

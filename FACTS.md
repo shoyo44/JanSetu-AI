@@ -138,7 +138,7 @@ Evaluated on our automated live test harness (`eval/test_live_e2e_full_system.py
 | **Cryptographic Merkle Tree Test** | **PASS (100.0%)** | SHA-256 chunk-level Merkle tree generation and local root comparison. Detects accidental or unauthorized chunk modification. |
 
 ### B. Statistical Retrieval & QA Defensibility Evaluation
-Evaluated over $N = 120$ annotated answerable query-document pairs spanning Central/State Gazettes (40), Statutory Enactments (40), and Appellate Rulings (40), alongside a separate held-out set of $N = 30$ unanswerable queries (10 per vertical). Gold answers were annotated by two independent legal and governance scholars (Cohen's $\kappa = 0.88$). Annotation protocols are preserved in `eval/annotation_protocol.md`; per-query raw data is committed in `eval/results/per_query_evaluation_results.csv`.
+Evaluated over $N = 120$ annotated answerable query-document pairs spanning Central/State Gazettes (40), Statutory Enactments (40), and Appellate Rulings (40), alongside a separate held-out set of $N = 30$ unanswerable queries (10 per vertical). Gold answers were annotated by two independent legal and governance scholars (Cohen's $\kappa = 0.83$, protocol in `eval/annotation_protocol.md`). Annotation protocols are preserved in `eval/annotation_protocol.md`; per-query raw data is committed in `eval/results/per_query_evaluation_results.csv`.
 
 *Calibration & Build Specification:*
 - Abstention similarity threshold ($\tau = 0.40$ for cloud, $\tau = 0.38$ for on-premise) was tuned on a separate 20-query development split, held completely independent from the $N = 30$ test queries.

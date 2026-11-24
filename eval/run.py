@@ -117,33 +117,24 @@ def evaluate_benchmark(
         cloud_nli_vals = parse_floats(ans_rows, "docsai_cloud_nli_entailment")
         onprem_nli_vals = parse_floats(ans_rows, "docsai_onprem_nli_entailment")
 
-        def calc_mean_stderr(vals: List[float]) -> str:
+        def calc_mean_std(vals: List[float]) -> str:
             if not vals:
                 return "N/A"
             mean_v = sum(vals) / len(vals)
             if len(vals) > 1:
                 var_v = sum((x - mean_v) ** 2 for x in vals) / (len(vals) - 1)
-                stderr_v = math.sqrt(var_v / len(vals))
+                std_v = math.sqrt(var_v)
             else:
-                stderr_v = 0.0
-            return f"{mean_v:.2f} ± {stderr_v:.2f}"
+                std_v = 0.0
+            return f"{mean_v:.2f} ± {std_v:.2f}"
 
-        cloud_nli_str = calc_mean_stderr(cloud_nli_vals)
-        onprem_nli_str = calc_mean_stderr(onprem_nli_vals)
+        cloud_nli_str = calc_mean_std(cloud_nli_vals)
+        onprem_nli_str = calc_mean_std(onprem_nli_vals)
     else:
-        # Fallback when running on raw jsonl without CSV
-        naive_recall_k = int(round(0.708 * n_ans))
-        graph_recall_k = int(round(0.850 * n_ans))
-        cloud_recall_k = int(round(0.925 * n_ans))
-        onprem_recall_k = int(round(0.883 * n_ans))
-
-        naive_refusal_k = int(round(0.400 * n_unans))
-        graph_refusal_k = int(round(0.633 * n_unans))
-        cloud_refusal_k = int(round(0.933 * n_unans))
-        onprem_refusal_k = int(round(0.900 * n_unans))
-
-        cloud_nli_str = "0.88 ± 0.03"
-        onprem_nli_str = "0.84 ± 0.04"
+        raise FileNotFoundError(
+            f"Evaluation results CSV not found at: {output_csv_path}\n"
+            "Run eval/generate_authentic_results.py first to execute the pipeline and generate authentic measurements."
+        )
 
     # Compute Wilson score confidence intervals
     naive_recall_ci = wilson_score_interval(naive_recall_k, n_ans)
