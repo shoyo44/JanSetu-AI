@@ -877,12 +877,13 @@ Performance testing was conducted on an AMD Ryzen 7 5700X (8 cores / 16 threads,
 \end{tabularx}
 \end{table}
 
-\section{Retrieval Precision and Recall Analysis}
-Comparative evaluation over $N = 120$ annotated query-document pairs demonstrates substantial accuracy gains across public governance and justice domains:
+\section{Retrieval and Abstention Evaluation Framework}
+JanSetu AI establishes an open evaluation benchmark over $N = 150$ gold queries spanning public governance, statutory law, and judicial precedents:
 \begin{itemize}[itemsep=3pt]
-    \item \textbf{Top-5 Context Recall:} Improved from $70.8\%$ ($85/120$) in Naive RAG and $85.0\%$ ($102/120$) in GraphRAG to $\mathbf{92.5\%}$ ($111/120$) in JanSetu AI Cloud mode and $\mathbf{88.3\%}$ ($106/120$) in JanSetu AI Sovereign On-Premise mode.
-    \item \textbf{Calibrated Refusal Accuracy:} On $N = 30$ held-out unanswerable queries, JanSetu AI safely abstained with $\mathbf{93.3\%}$ ($28/30$) accuracy in Cloud mode and $\mathbf{90.0\%}$ ($27/30$) in On-Premise mode, compared to $40.0\%$ ($12/30$) for Naive RAG and $63.3\%$ ($19/30$) for GraphRAG.
-    \item \textbf{Citation Entailment (NLI):} Mean claim-level entailment scored via DeBERTa-v3 Small cross-encoder reached $\mathbf{0.88 \pm 0.03}$ ($0.84 \pm 0.04$ on-premise), compared to $0.52 \pm 0.06$ for Naive RAG.
+    \item \textbf{Gold Corpus Verification:} 120 answerable queries mapped to specific evidence chunks across Central/State Gazettes, Criminal Law Codes (BNS, BNSS, BSA), and Tenancy Acts, accompanied by 30 held-out unanswerable queries to test safe refusal.
+    \item \textbf{Calibrated Abstention Engine:} Evaluates query similarity against an empirical threshold ($\tau = 0.40$ cloud, $\tau = 0.38$ on-premise) calibrated on an isolated 20-query development split to transparently refuse queries without sufficient textual grounding.
+    \item \textbf{Citation Entailment Verification:} Implements claim-level cross-encoder Natural Language Inference (NLI via DeBERTa-v3) to score whether generated claims are strictly entailed by retrieved statutory clauses.
+    \item \textbf{Benchmarking Deliverable:} The evaluation harness (\texttt{eval/run.py}) executes across Naive RAG, Advanced GraphRAG, Sovereign On-Premise, and Grounded Cloud Mode, generating standardized outputs for national release on AIKosh.
 \end{itemize}
 
 \section{Quantitative Defensibility and Verification Benchmarks}
@@ -919,35 +920,16 @@ The live system integration test harness (\texttt{eval/test\_live\_e2e\_full\_sy
 
 \newpage
 
-\subsection{Statistical Retrieval and QA Defensibility Evaluation}
-Evaluated over $N = 120$ annotated query-document pairs spanning Central/State Gazettes ($40$), Statutory Enactments ($40$), and Appellate Rulings ($40$), alongside a separate held-out set of $N = 30$ unanswerable queries ($10$ per vertical). Inter-annotator agreement achieved Cohen's $\kappa = 0.83$ (protocol documented in \texttt{eval/annotation\_protocol.md}). The empirical similarity threshold ($\tau = 0.40$ cloud, $\tau = 0.38$ on-premise) was calibrated on a separate 20-query development split held strictly independent from the 30 test queries. Baselines were executed under identical conditions: Naive RAG (500-token chunks, FAISS flat inner-product search, Llama-3-8b), Advanced GraphRAG (Vector + NetworkX traversal with RRF + Llama-3-8b), JanSetu AI Grounded Cloud (Cloudflare Workers AI Llama-3-8b + Nomic Atlas API + DeBERTa-v3 Small NLI; Groq LPU operates as an external cloud acceleration tier), and JanSetu AI Sovereign On-Premise (Ollama \texttt{qwen2.5:7b-instruct} 4-bit + local \texttt{nomic-embed-text} on an RTX 3060 edge workstation). Proportions report exact counts $k/N$ with 95\% Wilson score confidence intervals; NLI reports bootstrap standard error:
+\subsection{Sovereign Gold Benchmark and Comparative Evaluation Framework}
+The platform establishes a standardized 150-query multilingual gold evaluation benchmark (\texttt{eval/gold/sovereign\_benchmark\_qa.jsonl}) curated over seven sovereign public administration documents:
+\begin{itemize}
+    \item \textbf{120 Answerable Queries:} Spanning Central/State Gazettes ($40$), Statutory Enactments ($40$), and Appellate Rulings ($40$), grounded in specific statutory clauses.
+    \item \textbf{30 Held-Out Unanswerable Queries:} ($10$ per vertical) to systematically evaluate calibrated abstention against out-of-scope, adversarial, or foreign queries without hallucination.
+    \item \textbf{Multilingual Scope:} 103 queries in English, 39 queries in Hindi, and 8 queries in Tamil.
+    \item \textbf{Calibrated Abstention Engine:} Similarity threshold ($\tau = 0.40$ cloud, $\tau = 0.38$ on-premise) calibrated on an isolated 20-query development split held strictly independent from test queries.
+\end{itemize}
 
-\begin{table}[H]
-\centering
-\small
-\caption{Comparative Defensibility and Latency Benchmarks ($N = 120$)}
-\label{tab:defensibility_benchmarks}
-\begin{tabularx}{\textwidth}{Xcccc}
-\toprule
-\textbf{Evaluation Metric} & \textbf{Naive RAG} & \textbf{GraphRAG} & \textbf{JanSetu AI Cloud} & \textbf{JanSetu AI On-Prem} \\
-\midrule
-\textbf{Top-5 Context Recall} & $85/120$ ($70.8\%$) & $102/120$ ($85.0\%$) & $\mathbf{111/120\ (92.5\%)}$ & $\mathbf{106/120\ (88.3\%)}$ \\
-\textit{95\% Wilson CI} & $[62.2\%, 78.2\%]$ & $[77.5\%, 90.3\%]$ & $[86.4\%, 96.0\%]$ & $[81.4\%, 92.9\%]$ \\
-\addlinespace
-\textbf{Calibrated Refusal ($N=30$)} & $12/30$ ($40.0\%$) & $19/30$ ($63.3\%$) & $\mathbf{28/30\ (93.3\%)}$ & $\mathbf{27/30\ (90.0\%)}$ \\
-\textit{95\% Wilson CI} & $[24.6\%, 57.7\%]$ & $[45.5\%, 78.1\%]$ & $[78.7\%, 98.2\%]$ & $[74.4\%, 96.5\%]$ \\
-\addlinespace
-\textbf{Citation Entailment (NLI)} & $0.52 \pm 0.06$ & $0.69 \pm 0.05$ & $\mathbf{0.88 \pm 0.03}$ & $\mathbf{0.84 \pm 0.04}$ \\
-\addlinespace
-\textbf{Semantic Cache Hit (p95)} & N/A & N/A & $\mathbf{3.8\text{ ms}}$ & $\mathbf{3.8\text{ ms}}$ \\
-\textbf{Vector Search Latency (p95)} & $450\text{ ms}$ & $720\text{ ms}$ & $\mathbf{680\text{ ms}}$ & $\mathbf{740\text{ ms}}$ \\
-\textbf{Hybrid + HyDE Latency (p95)} & N/A & $1,850\text{ ms}$ & $\mathbf{1,620\text{ ms}}$ & $\mathbf{2,100\text{ ms}}$ \\
-\textbf{End-to-End Latency (p95)} & $850\text{ ms}$ & $1,750\text{ ms}$ & $\mathbf{2,150\text{ ms}}$ & $\mathbf{2,850\text{ ms}}$ \\
-\bottomrule
-\end{tabularx}
-\vspace{2pt}
-\noindent\footnotesize{\textit{Note: Measured on AMD Ryzen 7 5700X with NVIDIA RTX 3060 for on-premise sovereign execution. Gold question pairs and raw logs are archived in \texttt{eval/results/per\_query\_evaluation\_results.csv}.}}
-\end{table}
+The comparative evaluation harness (\texttt{eval/run.py}) executes across four architectural paradigms: Naive RAG (flat vector search without graph traversal or abstention), Advanced GraphRAG (vector + NetworkX traversal with RRF), JanSetu AI Grounded Cloud (Cloudflare Workers AI + Nomic Atlas API + DeBERTa-v3 cross-encoder NLI claim verification), and JanSetu AI Sovereign On-Premise (local Ollama on an RTX 3060 edge workstation). Empirical comparative benchmarks across all four paradigms are being recorded via live execution for open contribution to the national AIKosh portal as part of the IndiaAI Fellowship deliverables.
 
 \section{Calibrated Abstention and Grounding Verification}
 First-generation RAG systems frequently succumb to ungrounded hallucinations when querying missing policies or absent case precedents. JanSetu AI's calibrated refusal engine evaluates retrieved candidate chunks against calibrated similarity thresholds ($\tau \in [0.40, 0.45]$). When semantic overlap is insufficient, the system safely refuses rather than fabricating false legal precedents or eligibility promises. Furthermore, every synthesized response undergoes claim-level Natural Language Inference (NLI) verification, assigning a verifiable confidence score and flagging unsupported assertions for human review.

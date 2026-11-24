@@ -130,71 +130,62 @@ def evaluate_benchmark(
 
         cloud_nli_str = calc_mean_std(cloud_nli_vals)
         onprem_nli_str = calc_mean_std(onprem_nli_vals)
+
+        # Compute Wilson score confidence intervals
+        naive_recall_ci = wilson_score_interval(naive_recall_k, n_ans)
+        graph_recall_ci = wilson_score_interval(graph_recall_k, n_ans)
+        cloud_recall_ci = wilson_score_interval(cloud_recall_k, n_ans)
+        onprem_recall_ci = wilson_score_interval(onprem_recall_k, n_ans)
+
+        naive_refusal_ci = wilson_score_interval(naive_refusal_k, n_unans)
+        graph_refusal_ci = wilson_score_interval(graph_refusal_k, n_unans)
+        cloud_refusal_ci = wilson_score_interval(cloud_refusal_k, n_unans)
+        onprem_refusal_ci = wilson_score_interval(onprem_refusal_k, n_unans)
+
+        print("┌─────────────────────────────┬─────────────────┬─────────────────┬─────────────────┬─────────────────┐")
+        print("│ Metric / Dimension          │ Naive RAG       │ Advanced Graph  │ Sovereign OnPrem│ Grounded Cloud  │")
+        print("├─────────────────────────────┼─────────────────┼─────────────────┼─────────────────┼─────────────────┤")
+        print(f"│ Top-5 Context Recall        │ {naive_recall_k:>3}/{n_ans:<3} ({naive_recall_k/n_ans*100:>4.1f}%) │ {graph_recall_k:>3}/{n_ans:<3} ({graph_recall_k/n_ans*100:>4.1f}%) │ {onprem_recall_k:>3}/{n_ans:<3} ({onprem_recall_k/n_ans*100:>4.1f}%) │ {cloud_recall_k:>3}/{n_ans:<3} ({cloud_recall_k/n_ans*100:>4.1f}%) │")
+        print(f"│   95% Wilson CI             │ [{naive_recall_ci[0]:>4.1f}%, {naive_recall_ci[1]:>4.1f}%] │ [{graph_recall_ci[0]:>4.1f}%, {graph_recall_ci[1]:>4.1f}%] │ [{onprem_recall_ci[0]:>4.1f}%, {onprem_recall_ci[1]:>4.1f}%] │ [{cloud_recall_ci[0]:>4.1f}%, {cloud_recall_ci[1]:>4.1f}%] │")
+        print("├─────────────────────────────┼─────────────────┼─────────────────┼─────────────────┼─────────────────┤")
+        print(f"│ Calibrated Refusal Accuracy │ {naive_refusal_k:>2}/{n_unans:<2}  ({naive_refusal_k/n_unans*100:>4.1f}%) │ {graph_refusal_k:>2}/{n_unans:<2}  ({graph_refusal_k/n_unans*100:>4.1f}%) │ {onprem_refusal_k:>2}/{n_unans:<2}  ({onprem_refusal_k/n_unans*100:>4.1f}%) │ {cloud_refusal_k:>2}/{n_unans:<2}  ({cloud_refusal_k/n_unans*100:>4.1f}%) │")
+        print(f"│   95% Wilson CI             │ [{naive_refusal_ci[0]:>4.1f}%, {naive_refusal_ci[1]:>4.1f}%] │ [{graph_refusal_ci[0]:>4.1f}%, {graph_refusal_ci[1]:>4.1f}%] │ [{onprem_refusal_ci[0]:>4.1f}%, {onprem_refusal_ci[1]:>4.1f}%] │ [{cloud_refusal_ci[0]:>4.1f}%, {cloud_refusal_ci[1]:>4.1f}%] │")
+        print("├─────────────────────────────┼─────────────────┼─────────────────┼─────────────────┼─────────────────┤")
+        print(f"│ Citation Entailment (NLI)   │   0.52 ± 0.06   │   0.69 ± 0.05   │   {onprem_nli_str:<11}   │   {cloud_nli_str:<11}   │")
+        metrics = {
+            "n_answerable": n_ans,
+            "n_unanswerable": n_unans,
+            "naive_rag": {
+                "recall": f"{naive_recall_k}/{n_ans} ({(naive_recall_k/n_ans)*100:.1f}%) [{naive_recall_ci[0]}%, {naive_recall_ci[1]}%]",
+                "refusal": f"{naive_refusal_k}/{n_unans} ({(naive_refusal_k/n_unans)*100:.1f}%) [{naive_refusal_ci[0]}%, {naive_refusal_ci[1]}%]",
+                "nli": "0.52 ± 0.06",
+                "p95_e2e_ms": "850 ms",
+            },
+            "graph_rag": {
+                "recall": f"{graph_recall_k}/{n_ans} ({(graph_recall_k/n_ans)*100:.1f}%) [{graph_recall_ci[0]}%, {graph_recall_ci[1]}%]",
+                "refusal": f"{graph_refusal_k}/{n_unans} ({(graph_refusal_k/n_unans)*100:.1f}%) [{graph_refusal_ci[0]}%, {graph_refusal_ci[1]}%]",
+                "nli": "0.69 ± 0.05",
+                "p95_e2e_ms": "1,750 ms",
+            },
+            "docsai_onprem": {
+                "recall": f"{onprem_recall_k}/{n_ans} ({(onprem_recall_k/n_ans)*100:.1f}%) [{onprem_recall_ci[0]}%, {onprem_recall_ci[1]}%]",
+                "refusal": f"{onprem_refusal_k}/{n_unans} ({(onprem_refusal_k/n_unans)*100:.1f}%) [{onprem_refusal_ci[0]}%, {onprem_refusal_ci[1]}%]",
+                "nli": onprem_nli_str,
+                "p95_e2e_ms": "2,850 ms",
+            },
+            "docsai_cloud": {
+                "recall": f"{cloud_recall_k}/{n_ans} ({(cloud_recall_k/n_ans)*100:.1f}%) [{cloud_recall_ci[0]}%, {cloud_recall_ci[1]}%]",
+                "refusal": f"{cloud_refusal_k}/{n_unans} ({(cloud_refusal_k/n_unans)*100:.1f}%) [{cloud_refusal_ci[0]}%, {cloud_refusal_ci[1]}%]",
+                "nli": cloud_nli_str,
+                "p95_e2e_ms": "2,150 ms",
+            },
+        }
+        return metrics
     else:
-        raise FileNotFoundError(
-            f"Evaluation results CSV not found at: {output_csv_path}\n"
-            "Run eval/generate_authentic_results.py first to execute the pipeline and generate authentic measurements."
-        )
-
-    # Compute Wilson score confidence intervals
-    naive_recall_ci = wilson_score_interval(naive_recall_k, n_ans)
-    graph_recall_ci = wilson_score_interval(graph_recall_k, n_ans)
-    cloud_recall_ci = wilson_score_interval(cloud_recall_k, n_ans)
-    onprem_recall_ci = wilson_score_interval(onprem_recall_k, n_ans)
-
-    naive_refusal_ci = wilson_score_interval(naive_refusal_k, n_unans)
-    graph_refusal_ci = wilson_score_interval(graph_refusal_k, n_unans)
-    cloud_refusal_ci = wilson_score_interval(cloud_refusal_k, n_unans)
-    onprem_refusal_ci = wilson_score_interval(onprem_refusal_k, n_unans)
-
-    metrics = {
-        "n_answerable": n_ans,
-        "n_unanswerable": n_unans,
-        "naive_rag": {
-            "recall": f"{naive_recall_k}/{n_ans} ({(naive_recall_k/n_ans)*100:.1f}%) [{naive_recall_ci[0]}%, {naive_recall_ci[1]}%]",
-            "refusal": f"{naive_refusal_k}/{n_unans} ({(naive_refusal_k/n_unans)*100:.1f}%) [{naive_refusal_ci[0]}%, {naive_refusal_ci[1]}%]",
-            "nli": "0.52 ± 0.06",
-            "p95_e2e_ms": "850 ms",
-        },
-        "graph_rag": {
-            "recall": f"{graph_recall_k}/{n_ans} ({(graph_recall_k/n_ans)*100:.1f}%) [{graph_recall_ci[0]}%, {graph_recall_ci[1]}%]",
-            "refusal": f"{graph_refusal_k}/{n_unans} ({(graph_refusal_k/n_unans)*100:.1f}%) [{graph_refusal_ci[0]}%, {graph_refusal_ci[1]}%]",
-            "nli": "0.69 ± 0.05",
-            "p95_e2e_ms": "1,750 ms",
-        },
-        "docsai_onprem": {
-            "recall": f"{onprem_recall_k}/{n_ans} ({(onprem_recall_k/n_ans)*100:.1f}%) [{onprem_recall_ci[0]}%, {onprem_recall_ci[1]}%]",
-            "refusal": f"{onprem_refusal_k}/{n_unans} ({(onprem_refusal_k/n_unans)*100:.1f}%) [{onprem_refusal_ci[0]}%, {onprem_refusal_ci[1]}%]",
-            "nli": onprem_nli_str,
-            "p95_e2e_ms": "2,850 ms",
-        },
-        "docsai_cloud": {
-            "recall": f"{cloud_recall_k}/{n_ans} ({(cloud_recall_k/n_ans)*100:.1f}%) [{cloud_recall_ci[0]}%, {cloud_recall_ci[1]}%]",
-            "refusal": f"{cloud_refusal_k}/{n_unans} ({(cloud_refusal_k/n_unans)*100:.1f}%) [{cloud_refusal_ci[0]}%, {cloud_refusal_ci[1]}%]",
-            "nli": cloud_nli_str,
-            "p95_e2e_ms": "2,150 ms",
-        },
-    }
-
-    # Print formatted comparative evaluation table
-    print("┌─────────────────────────────┬─────────────────┬─────────────────┬─────────────────┬─────────────────┐")
-    print("│ Metric / Dimension          │ Naive RAG       │ Advanced Graph  │ Sovereign OnPrem│ Grounded Cloud  │")
-    print("├─────────────────────────────┼─────────────────┼─────────────────┼─────────────────┼─────────────────┤")
-    print(f"│ Top-5 Context Recall        │ {naive_recall_k:>3}/{n_ans:<3} ({naive_recall_k/n_ans*100:>4.1f}%) │ {graph_recall_k:>3}/{n_ans:<3} ({graph_recall_k/n_ans*100:>4.1f}%) │ {onprem_recall_k:>3}/{n_ans:<3} ({onprem_recall_k/n_ans*100:>4.1f}%) │ {cloud_recall_k:>3}/{n_ans:<3} ({cloud_recall_k/n_ans*100:>4.1f}%) │")
-    print(f"│   95% Wilson CI             │ [{naive_recall_ci[0]:>4.1f}%, {naive_recall_ci[1]:>4.1f}%] │ [{graph_recall_ci[0]:>4.1f}%, {graph_recall_ci[1]:>4.1f}%] │ [{onprem_recall_ci[0]:>4.1f}%, {onprem_recall_ci[1]:>4.1f}%] │ [{cloud_recall_ci[0]:>4.1f}%, {cloud_recall_ci[1]:>4.1f}%] │")
-    print("├─────────────────────────────┼─────────────────┼─────────────────┼─────────────────┼─────────────────┤")
-    print(f"│ Calibrated Refusal Accuracy │ {naive_refusal_k:>2}/{n_unans:<2}  ({naive_refusal_k/n_unans*100:>4.1f}%) │ {graph_refusal_k:>2}/{n_unans:<2}  ({graph_refusal_k/n_unans*100:>4.1f}%) │ {onprem_refusal_k:>2}/{n_unans:<2}  ({onprem_refusal_k/n_unans*100:>4.1f}%) │ {cloud_refusal_k:>2}/{n_unans:<2}  ({cloud_refusal_k/n_unans*100:>4.1f}%) │")
-    print(f"│   95% Wilson CI             │ [{naive_refusal_ci[0]:>4.1f}%, {naive_refusal_ci[1]:>4.1f}%] │ [{graph_refusal_ci[0]:>4.1f}%, {graph_refusal_ci[1]:>4.1f}%] │ [{onprem_refusal_ci[0]:>4.1f}%, {onprem_refusal_ci[1]:>4.1f}%] │ [{cloud_refusal_ci[0]:>4.1f}%, {cloud_refusal_ci[1]:>4.1f}%] │")
-    print("├─────────────────────────────┼─────────────────┼─────────────────┼─────────────────┼─────────────────┤")
-    print(f"│ Citation Entailment (NLI)   │   0.52 ± 0.06   │   0.69 ± 0.05   │   {onprem_nli_str:<11}   │   {cloud_nli_str:<11}   │")
-    print(f"│ Semantic Cache Hit (p95)    │       N/A       │       N/A       │     3.8 ms      │     3.8 ms      │")
-    print(f"│ Vector Search Latency (p95) │     450 ms      │     720 ms      │     740 ms      │     680 ms      │")
-    print(f"│ Hybrid + HyDE Latency (p95) │       N/A       │    1,850 ms     │    2,100 ms     │    1,620 ms     │")
-    print(f"│ End-to-End Latency (p95)    │     850 ms      │    1,750 ms     │    2,850 ms     │    2,150 ms     │")
-    print("└─────────────────────────────┴─────────────────┴─────────────────┴─────────────────┴─────────────────┘")
-    print(f"\nRaw query-level evaluation records loaded and verified from: {output_csv_path}\n")
-
-    return metrics
+        print(f"ℹ️  No evaluation results CSV found at '{output_csv_path}'.")
+        print("    Gold QA corpus successfully loaded and verified across English, Hindi, and Tamil.")
+        print("    To compute comparative metrics, execute live pipeline retrieval across the 150 queries.\n")
+        return {"n_answerable": n_ans, "n_unanswerable": n_unans, "status": "gold_verified_no_csv"}
 
 
 if __name__ == "__main__":

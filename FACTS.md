@@ -137,8 +137,13 @@ Evaluated on our automated live test harness (`eval/test_live_e2e_full_system.py
 | **PII Masking Verification Fixture** | **25/25 PASS (100.0%)** | Regex-based heuristic masking of Aadhaar-like 12-digit numbers and PAN format strings (100.0% precision, 100.0% recall on 25-sample synthetic test split; unit fixture, not a general population accuracy estimate). |
 | **Cryptographic Merkle Tree Test** | **PASS (100.0%)** | SHA-256 chunk-level Merkle tree generation and local root comparison. Detects accidental or unauthorized chunk modification. |
 
-### B. Statistical Retrieval & QA Defensibility Evaluation
-Evaluated over $N = 120$ annotated answerable query-document pairs spanning Central/State Gazettes (40), Statutory Enactments (40), and Appellate Rulings (40), alongside a separate held-out set of $N = 30$ unanswerable queries (10 per vertical). Gold answers were annotated by two independent legal and governance scholars (Cohen's $\kappa = 0.83$, protocol in `eval/annotation_protocol.md`). Annotation protocols are preserved in `eval/annotation_protocol.md`; per-query raw data is committed in `eval/results/per_query_evaluation_results.csv`.
+### B. Sovereign Gold Benchmark & Comparative Evaluation Framework ($N = 150$)
+The repository establishes a standardized 150-query multilingual gold evaluation benchmark committed at [`eval/gold/sovereign_benchmark_qa.jsonl`](./eval/gold/sovereign_benchmark_qa.jsonl):
+- **120 Answerable Queries:** 40 Public Governance (PM-KISAN, Ayushman Bharat, Senior Citizens Act), 40 Statutory Law & Citizen Rights (Cyber FIR, Model Tenancy Act, Tamil Land Deeds), 40 Judicial Precedents & Bail Reforms (Supreme Court bail ruling, Statutory Concordance).
+- **30 Held-Out Unanswerable Queries:** 10 per vertical, to evaluate calibrated abstention without hallucinating.
+- **Multilingual Scope:** 103 queries in English, 39 queries in Hindi (हिन्दी), and 8 queries in Tamil (தமிழ்).
+- **Calibrated Abstention Engine:** Similarity threshold $\tau = 0.40$ (cloud) and $\tau = 0.38$ (on-prem) tuned on an isolated 20-query development split (`eval/gold/dev_tuning_split.jsonl`).
+- **Comparative Evaluation Harness:** [`eval/run.py`](./eval/run.py) provides the evaluation harness across 4 architectural paradigms: Naive RAG, Advanced GraphRAG, Sovereign On-Premise, and Grounded Cloud Mode. Full empirical comparative metrics across all configurations are being recorded via live execution for open publication on AIKosh as part of the IndiaAI Fellowship deliverables.
 
 *Calibration & Build Specification:*
 - Abstention similarity threshold ($\tau = 0.40$ for cloud, $\tau = 0.38$ for on-premise) was tuned on a separate 20-query development split, held completely independent from the $N = 30$ test queries.
@@ -146,21 +151,8 @@ Evaluated over $N = 120$ annotated answerable query-document pairs spanning Cent
 - **Advanced GraphRAG:** Vector + in-process NetworkX graph retrieval + HyDE query expansion + Llama-3-8b.
 - **JanSetu AI Grounded (Cloud Mode):** Cloudflare Workers AI (`@cf/meta/llama-3-8b-instruct`) + Nomic Atlas API (`nomic-embed-text-v1.5`, 768-dim) + `cross-encoder/nli-deberta-v3-small` verification.
 - **JanSetu AI Sovereign (On-Premise):** Ollama `qwen2.5:7b-instruct` (4-bit quantized) + local `nomic-embed-text` (768-dim normalized) running on AMD Ryzen 7 5700X + NVIDIA RTX 3060 12GB edge workstation.
-- *Evaluation Model Specification:* Cloud-mode figures measured with Cloudflare Workers AI (`@cf/meta/llama-3-8b-instruct`); Groq tier not evaluated in this benchmark table.
 - *Inference Tier Clarification:* Groq LPU inference (`qwen/qwen3-32b`, `openai/gpt-oss-120b`) operates as an external cloud acceleration tier; sovereign air-gapped on-premise execution is exclusively powered on-device via Ollama.
 - *Provenance Ledger Qualification:* The Merkle provenance ledger is a local SHA-256 hash tree and chained audit log for document chunks. It is **not an implementation of, or compliant with, MeitY's National Blockchain Framework (NBF)**. It detects accidental or partial local modifications; genuine cryptographic tamper-evidence requires external root anchoring (future work: anchoring roots to a permissioned ledger such as NBFLite).
-
-All proportions report exact counts $k/N$ with 95% Wilson score confidence intervals. Entailment reports mean $\pm$ standard error.
-
-| Evaluation Metric | Naive RAG Baseline | Advanced GraphRAG | JanSetu AI Grounded (Cloud Mode) | JanSetu AI Sovereign (On-Premise) | Metric Definition / Protocol |
-|---|---|---|---|---|---|
-| **Top-5 Context Recall** | 85/120 (**70.8%**)<br>[62.2%, 78.2%] | 102/120 (**85.0%**)<br>[77.5%, 90.3%] | 111/120 (**92.5%**)<br>[86.4%, 96.0%] | 106/120 (**88.3%**)<br>[81.4%, 92.9%] | Ground-truth statutory clause or welfare criterion present in top-5 retrieved chunks ($N=120$). |
-| **Calibrated Refusal Accuracy** | 12/30 (**40.0%**)<br>[24.6%, 57.7%] | 19/30 (**63.3%**)<br>[45.5%, 78.1%] | 28/30 (**93.3%**)<br>[78.7%, 98.2%] | 27/30 (**90.0%**)<br>[74.4%, 96.5%] | Correctly abstains on $N=30$ held-out unanswerable queries ($\tau = 0.40$ cloud, $\tau = 0.38$ on-prem). |
-| **Citation Entailment (NLI)** | 0.52 ± 0.06 | 0.69 ± 0.05 | **0.88 ± 0.03** | **0.84 ± 0.04** | Mean claim-level entailment score using `cross-encoder/nli-deberta-v3-small` across 111 grounded answers. |
-| **Semantic Cache Hit Latency (p95)**| N/A | N/A | **3.8 ms** | **3.8 ms** | In-memory SQLite cosine similarity hit ($\ge 0.95$). |
-| **Vector Search Latency (p95)** | 450 ms | 720 ms | **680 ms** | **740 ms** | Single-pass FAISS query over 768-dim space. |
-| **Hybrid + HyDE Latency (p95)** | N/A | 1,850 ms | **1,620 ms** | **2,100 ms** | Vector + Graph retrieval + HyDE query expansion. |
-| **End-to-End Synthesis Latency (p95)**| 850 ms | 1,750 ms | **2,150 ms** | **2,850 ms** | Complete pipeline: Retrieval + Cross-Encoder + NLI verification + LLM generation (measured on RTX 3060 edge rig for on-prem). |
 
 ---
 
